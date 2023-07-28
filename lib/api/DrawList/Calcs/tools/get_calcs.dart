@@ -14,7 +14,7 @@ Future<List<CalcsOfList>> getCalcsOfOneList(
     final queryData = {'lot': lot, 'signature': signature};
 
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/calcs', queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/calcs', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

@@ -11,7 +11,7 @@ Future<List<User>> getAllUsers({String id = ''}) async {
     final queryData = {'id': id};
 
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users', queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/users', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -51,7 +51,7 @@ Future<List<User>> getAllUsers({String id = ''}) async {
 Future<List<User>> getAllBanks() async {
   try {
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/banksUsers'),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/users/banksUsers'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -92,7 +92,7 @@ Future<Map<String, dynamic>> getUserById(String jornal, String date,
         (makeResumen) ? '/api/list/resumen/$id' : '/api/users/$id';
 
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, endpoint, queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, endpoint, queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -146,7 +146,7 @@ void saveOne(String name, String pass, String owner) async {
   try {
     EasyLoading.show(status: 'Creando usuario...');
     final response = await http.post(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users'),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/users'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -170,7 +170,7 @@ Future<bool> editOneEnable(String id, bool enable) async {
     EasyLoading.show(status: 'Cambiando acceso al sistema...');
 
     final res = await http.put(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/changeEnable/$id'),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/users/changeEnable/$id'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'enable': enable,
@@ -194,7 +194,7 @@ void deleteOne(String id) async {
   try {
     EasyLoading.show(status: 'Eliminando usuario...');
     final res = await http.delete(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/$id'),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/users/$id'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -219,7 +219,7 @@ void changePass(String actualPass, String newPass, BuildContext context) async {
     final cont = Navigator.of(context);
 
     final response = await http.post(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/chpass'),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/users/chpass'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -250,7 +250,7 @@ void resetPass(String userId) async {
     final queryData = {'userId': userId};
 
     final response = await http.post(
-        Uri.http(
+        Uri.https(
           dotenv.env['SERVER_URL']!,
           '/api/users/resetpass',
           queryData,
@@ -276,7 +276,7 @@ void resetPass(String userId) async {
 Future<bool> checkJWT() async {
   try {
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/checkJWT'),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/users/checkJWT'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken()) ?? ''

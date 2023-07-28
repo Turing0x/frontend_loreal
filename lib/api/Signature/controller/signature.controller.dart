@@ -10,7 +10,7 @@ Future<String> generateSignture(String date, String jornal) async {
     EasyLoading.show(status: 'Generando firma general');
 
     final res = await http.get(
-        Uri.http(
+        Uri.https(
             dotenv.env['SERVER_URL']!, '/api/signature/generate', queryData),
         headers: {
           'Content-Type': 'application/json',

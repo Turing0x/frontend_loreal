@@ -19,7 +19,7 @@ Future<Map<String, dynamic>> getAllList(
     };
 
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list', queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/list', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -53,7 +53,7 @@ Future<Map<String, dynamic>> getAllList(
 Future<List<BoliList>> getListById(String id) async {
   try {
     final res = await http
-        .get(Uri.http(dotenv.env['SERVER_URL']!, '/api/list/$id'), headers: {
+        .get(Uri.https(dotenv.env['SERVER_URL']!, '/api/list/$id'), headers: {
       'Content-Type': 'application/json',
       'access-token': (await AuthServices.getToken())!
     });
@@ -81,7 +81,7 @@ Future<Map<String, dynamic>> getAllListByJD(
     final queryData = {'jornal': jornal, 'date': date, 'cant': cant};
 
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list', queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/list', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -114,7 +114,7 @@ Future<bool> saveOneList(String date, String jornal, String signature,
     EasyLoading.show(status: 'Guardando lista...');
 
     final response =
-        await http.post(Uri.http(dotenv.env['SERVER_URL']!, '/api/list'),
+        await http.post(Uri.https(dotenv.env['SERVER_URL']!, '/api/list'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -145,7 +145,7 @@ Future<bool> saveManyList(String owner, List<OfflineList> lists) async {
     EasyLoading.show(status: 'Guardando lista...');
 
     final response =
-        await http.post(Uri.http(dotenv.env['SERVER_URL']!, '/api/list/many'),
+        await http.post(Uri.https(dotenv.env['SERVER_URL']!, '/api/list/many'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -170,7 +170,7 @@ Future<bool> deleteOneList(String id) async {
   try {
     EasyLoading.show(status: 'Eliminando lista...');
     final res = await http.delete(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/$id'),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/list/$id'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -195,7 +195,7 @@ Future<bool> editOneList(String id, List<String> listOfIds) async {
   try {
     EasyLoading.show(status: 'Editando lista...');
     final res =
-        await http.put(Uri.http(dotenv.env['SERVER_URL']!, '/api/list/$id'),
+        await http.put(Uri.https(dotenv.env['SERVER_URL']!, '/api/list/$id'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
