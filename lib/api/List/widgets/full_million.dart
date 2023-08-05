@@ -43,7 +43,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 Colors.blue[300],
                 const Icon(Icons.info_outline),
                 'Ver la información',
-                () => showInfo()),
+                () => showInfo(), MediaQuery.of(context).size.width * 0.7),
             TxtInfo(
                 texto: 'Sorteo a jugar: ',
                 color: Colors.grey[200],
@@ -173,7 +173,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 numplay.text = '';
                 fijo.text = '';
                 corrido.text = '';
-              });
+              }, MediaQuery.of(context).size.width * 0.7);
             })
           ],
         ));

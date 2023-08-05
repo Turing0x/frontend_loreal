@@ -9,7 +9,7 @@ import '../../../utils_exports.dart';
 Future<List<Time>> getDataTime() async {
   try {
     final res = await http
-        .get(Uri.https(dotenv.env['SERVER_URL']!, '/api/time'), headers: {
+        .get(Uri.http(dotenv.env['SERVER_URL']!, '/api/time'), headers: {
       'Content-Type': 'application/json',
       'access-token': (await AuthServices.getToken())!
     });
@@ -37,7 +37,7 @@ void saveDataTime(String day_start, String day_end, String night_start,
     EasyLoading.show(status: 'Configurando horarios...');
 
     final response =
-        await http.post(Uri.https(dotenv.env['SERVER_URL']!, '/api/time'),
+        await http.post(Uri.http(dotenv.env['SERVER_URL']!, '/api/time'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!

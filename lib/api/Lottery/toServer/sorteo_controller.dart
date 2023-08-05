@@ -9,7 +9,7 @@ import '../../../utils_exports.dart';
 Future<List<Sorteo>> getDataSorteo() async {
   try {
     final res = await http
-        .get(Uri.https(dotenv.env['SERVER_URL']!, '/api/sorteos'), headers: {
+        .get(Uri.http(dotenv.env['SERVER_URL']!, '/api/sorteos'), headers: {
       'Content-Type': 'application/json',
       'access-token': (await AuthServices.getToken())!
     });
@@ -37,7 +37,7 @@ Future<String> getSorteoByJD(String jornal, String date) async {
     final queryData = {'jornal': jornal, 'date': date};
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/sorteos', queryData),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/sorteos', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -60,7 +60,7 @@ Future<String> getSorteoByJD(String jornal, String date) async {
 Future<String> getTheLast() async {
   try {
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/sorteos/last'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/sorteos/last'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -85,7 +85,7 @@ Future<bool> saveDataSorteo(String lot, String jornal, String date) async {
     EasyLoading.show(status: 'Guardando sorteo...');
 
     final response =
-        await http.post(Uri.https(dotenv.env['SERVER_URL']!, '/api/sorteos'),
+        await http.post(Uri.http(dotenv.env['SERVER_URL']!, '/api/sorteos'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -109,7 +109,7 @@ Future<bool> saveDataSorteo(String lot, String jornal, String date) async {
 Future<bool> editDataSorteo(String id, String lot) async {
   try {
     final response =
-        await http.put(Uri.https(dotenv.env['SERVER_URL']!, '/api/sorteos/$id'),
+        await http.put(Uri.http(dotenv.env['SERVER_URL']!, '/api/sorteos/$id'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -136,7 +136,7 @@ Future<bool> deleteDataSorteo(String id) async {
   try {
     EasyLoading.show(status: 'Eliminando sorteo...');
     final response = await http.delete(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/sorteos/$id'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/sorteos/$id'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

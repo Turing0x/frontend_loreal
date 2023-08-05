@@ -32,10 +32,94 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
   String datePicked = DateFormat.MMMd().format(DateTime.now());
   String id = '';
 
+  bool change = false;
+
   List<BoliList> infoList = [];
+
+  void makePDF() async{
+    DateTime now = DateTime.now();
+    String formatFechaActual =
+        DateFormat('dd/MM/yyyy hh:mm a').format(now);
+    final SharedPreferences prefs =
+        await SharedPreferences.getInstance();
+
+    if (infoList.isEmpty) {
+      return;
+    }
+
+    final calcs = infoList[0].calcs as Map<String, dynamic>;
+    final list = boliList(infoList[0].signature!);
+
+    final invoice = InvoiceListero(
+        infoListero: InvoiceInfoListero(
+            fechaActual: formatFechaActual,
+            fechaTirada: infoList[0].date!,
+            jornada: infoList[0].jornal!,
+            listero: widget.username,
+            lote: widget.lotIncoming),
+        infoList: [
+          InvoiceItemList(
+              lista: list,
+              bruto: double.parse(
+                  calcs['bruto'].toStringAsFixed(2).toString()),
+              limpio: double.parse(
+                  calcs['limpio'].toStringAsFixed(2).toString()),
+              premio: double.parse(
+                  calcs['premio'].toStringAsFixed(2).toString()),
+              pierde: double.parse(
+                  calcs['perdido'].toStringAsFixed(2).toString()),
+              gana: double.parse(
+                  calcs['ganado'].toStringAsFixed(2).toString()))
+        ]);
+
+    Map<String, dynamic> itsDone =
+        await PdfInvoiceApiListero.generate(invoice);
+
+    final openPdf = prefs.getBool('openPdf');
+    if (openPdf ?? false) {
+      OpenFile.open(itsDone['path']);
+    }
+
+    showToast('Lista exportada exitosamente', type: true);
+  }
+
+  void deleteList() async{
+    // ignore: use_build_context_synchronously
+    showInfoDialog(
+        context,
+        'Eliminación de listas',
+        FittedBox(
+            child: textoDosis(
+                'Está seguro que desea eliminar esta lista?', 20)),
+        () {
+      final wasDelete = deleteOneList(id);
+      wasDelete.then((value) {
+        if (value) {
+          Navigator.pushReplacementNamed(
+              context, 'main_banquero_page');
+        }
+      });
+    });
+    showToast('No puede realizar esta acción');
+  }
+
+  @override
+  void initState() {
+
+    AuthServices.getRole().then((value){
+      if (value == 'banco' && widget.lotIncoming == '') {
+        setState(() {
+          change = true;
+        });
+      }
+    });
+    
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: showAppBar('Detalles de la lista', actions: [
         IconButton(
@@ -43,82 +127,29 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
             Icons.picture_as_pdf,
             color: Colors.white,
           ),
-          onPressed: () async {
-            DateTime now = DateTime.now();
-            String formatFechaActual =
-                DateFormat('dd/MM/yyyy hh:mm a').format(now);
-            final SharedPreferences prefs =
-                await SharedPreferences.getInstance();
-
-            if (infoList.isEmpty) {
-              return;
-            }
-
-            final calcs = infoList[0].calcs as Map<String, dynamic>;
-            final list = boliList(infoList[0].signature!);
-
-            final invoice = InvoiceListero(
-                infoListero: InvoiceInfoListero(
-                    fechaActual: formatFechaActual,
-                    fechaTirada: infoList[0].date!,
-                    jornada: infoList[0].jornal!,
-                    listero: widget.username,
-                    lote: widget.lotIncoming),
-                infoList: [
-                  InvoiceItemList(
-                      lista: list,
-                      bruto: double.parse(
-                          calcs['bruto'].toStringAsFixed(2).toString()),
-                      limpio: double.parse(
-                          calcs['limpio'].toStringAsFixed(2).toString()),
-                      premio: double.parse(
-                          calcs['premio'].toStringAsFixed(2).toString()),
-                      pierde: double.parse(
-                          calcs['perdido'].toStringAsFixed(2).toString()),
-                      gana: double.parse(
-                          calcs['ganado'].toStringAsFixed(2).toString()))
-                ]);
-
-            Map<String, dynamic> itsDone =
-                await PdfInvoiceApiListero.generate(invoice);
-
-            final openPdf = prefs.getBool('openPdf');
-            if (openPdf ?? false) {
-              OpenFile.open(itsDone['path']);
-            }
-
-            showToast('Lista exportada exitosamente', type: true);
-          },
+          onPressed: () => makePDF(),
         ),
-        IconButton(
-          icon: const Icon(
-            Icons.delete_forever_outlined,
-            color: Colors.white,
-          ),
-          onPressed: () async {
-            String? codeRole = await AuthServices.getRole();
-            if (codeRole == 'banco' && widget.lotIncoming == '') {
-              // ignore: use_build_context_synchronously
-              showInfoDialog(
-                  context,
-                  'Eliminación de listas',
-                  FittedBox(
-                      child: textoDosis(
-                          'Está seguro que desea eliminar esta lista?', 20)),
-                  () {
-                final wasDelete = deleteOneList(id);
-                wasDelete.then((value) {
-                  if (value) {
-                    Navigator.pushReplacementNamed(
-                        context, 'main_banquero_page');
-                  }
-                });
-              });
-              return;
-            }
-            showToast('No puede realizar esta acción');
-          },
-        )
+
+        ( change )
+        ? IconButton(
+            icon: const Icon(
+              Icons.delete_forever_outlined,
+              color: Colors.white,
+            ),
+            onPressed: () => deleteList()
+          )
+        : IconButton(
+            icon: const Icon(
+              Icons.details_outlined,
+              color: Colors.white,
+            ),
+            onPressed: () => 
+              Navigator.pushNamed(context, 
+                'list_review_page', arguments: [
+                  infoList.first, widget.lotIncoming
+                ])
+          )
+        
       ]),
       body: SingleChildScrollView(
         child: Column(

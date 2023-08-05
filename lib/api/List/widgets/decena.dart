@@ -73,7 +73,7 @@ class _DecenasWidgetState extends ConsumerState<DecenasWidget> {
                 const Icon(Icons.save_outlined),
                 'Guardar jugada',
                 () => whenIsNotPosicion(
-                    fijo, corrido, selectedNumber, toJoinListM, getLimit))
+                    fijo, corrido, selectedNumber, toJoinListM, getLimit), MediaQuery.of(context).size.width * 0.7)
           ],
         ));
   }

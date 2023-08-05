@@ -20,7 +20,7 @@ Future<List<PdfData>> getDataToPDF(String username, String date, String jornal,
     };
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/vales/$username', queryData),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/vales/$username', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -57,7 +57,7 @@ Future<List<User>> getAllPeople(
     };
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/vales/all', queryData),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/vales/all', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

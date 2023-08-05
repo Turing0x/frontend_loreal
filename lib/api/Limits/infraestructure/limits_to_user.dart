@@ -71,7 +71,7 @@ class _LimitsToUserState extends State<LimitsToUser> {
                       const Icon(Icons.numbers_outlined),
                       'Bolas',
                       () => Navigator.pushNamed(context, 'limited_ball_to_user',
-                          arguments: [widget.userID])),
+                          arguments: [widget.userID]), MediaQuery.of(context).size.width * 0.7),
                 ),
                 SizedBox(
                   width: 150,
@@ -82,7 +82,7 @@ class _LimitsToUserState extends State<LimitsToUser> {
                       'Parles',
                       () => Navigator.pushNamed(
                           context, 'limited_parle_to_user',
-                          arguments: [widget.userID])),
+                          arguments: [widget.userID]), MediaQuery.of(context).size.width * 0.7),
                 ),
               ],
             )

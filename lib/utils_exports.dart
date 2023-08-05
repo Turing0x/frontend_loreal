@@ -53,17 +53,17 @@ void showToast(String msg, {bool type = false}) => Fluttertoast.showToast(
     );
 
 Container btnWithIcon(BuildContext context, Color? backgroundColor, Widget icon,
-    String texto, void Function()? onPressed) {
+    String texto, void Function()? onPressed, double width, {double fontSize = 20}) {
   return Container(
     margin: const EdgeInsets.only(top: 10),
-    width: MediaQuery.of(context).size.width * 0.7,
+    width: width,
     child: ElevatedButton.icon(
         icon: icon,
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           elevation: 2,
         ),
-        label: textoDosis(texto, 20, color: Colors.white),
+        label: textoDosis(texto, fontSize, color: Colors.white),
         onPressed: onPressed),
   );
 }

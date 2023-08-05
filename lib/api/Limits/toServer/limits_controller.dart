@@ -12,7 +12,7 @@ Future<List<Limits>> getDataLimits() async {
   try {
     EasyLoading.show(status: 'Buscando limites');
     final res = await http
-        .get(Uri.https(dotenv.env['SERVER_URL']!, '/api/limits'), headers: {
+        .get(Uri.http(dotenv.env['SERVER_URL']!, '/api/limits'), headers: {
       'Content-Type': 'application/json',
       'access-token': (await AuthServices.getToken())!
     });
@@ -39,7 +39,7 @@ Future<List<Limits>> getDataLimits() async {
 Future<List<Limits>> getLimitsOfUser(String id) async {
   try {
     final res = await http
-        .get(Uri.https(dotenv.env['SERVER_URL']!, '/api/limits/$id'), headers: {
+        .get(Uri.http(dotenv.env['SERVER_URL']!, '/api/limits/$id'), headers: {
       'Content-Type': 'application/json',
       'access-token': (await AuthServices.getToken())!
     });
@@ -73,7 +73,7 @@ void saveDataLimits(String fijo, String corrido, String parle, String centena,
   try {
     EasyLoading.show(status: 'Configurando límites...');
     final response =
-        await http.post(Uri.https(dotenv.env['SERVER_URL']!, '/api/limits'),
+        await http.post(Uri.http(dotenv.env['SERVER_URL']!, '/api/limits'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -121,7 +121,7 @@ void editLimitsOfUser(
     };
 
     final response =
-        await http.put(Uri.https(dotenv.env['SERVER_URL']!, '/api/users/$id'),
+        await http.put(Uri.http(dotenv.env['SERVER_URL']!, '/api/users/$id'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -145,7 +145,7 @@ void saveDataLimitsBalls(Map<String, List<int>> bola) async {
   try {
     EasyLoading.show(status: 'Guardando bolas limitadas');
     final response = await http.post(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/limitnumbers'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/limitnumbers'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -173,7 +173,7 @@ Future<List<LimitedBallModel>> getLimitedBallToday() async {
     EasyLoading.show(status: 'Buscando bolas limitados');
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/limitnumbers'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/limitnumbers'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -200,7 +200,7 @@ void saveDataLimitsParle(Map<String, List<List<int>>> parle) async {
   try {
     EasyLoading.show(status: 'Guardando parlés limitados');
     final response = await http.post(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/limitnumbers/parle'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/limitnumbers/parle'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -227,7 +227,7 @@ Future<List<LimitedParleModel>> getLimitedParleToday() async {
     EasyLoading.show(status: 'Buscando parlés limitados');
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/limitnumbers/parle'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/limitnumbers/parle'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -264,7 +264,7 @@ void saveDataLimitsBallsToUser(String id, Map<String, List<int>> bola) async {
   try {
     EasyLoading.show(status: 'Guardando bolas limitadas');
     final response =
-        await http.put(Uri.https(dotenv.env['SERVER_URL']!, '/api/users/$id'),
+        await http.put(Uri.http(dotenv.env['SERVER_URL']!, '/api/users/$id'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -293,7 +293,7 @@ Future<List<LimitedBallModel>> getLimitsBallsOfUser(String id) async {
     EasyLoading.show(status: 'Buscando bolas limitadas para hoy');
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/limits/bola/$id'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/limits/bola/$id'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -323,7 +323,7 @@ void saveDataLimitsParleToUser(
   try {
     EasyLoading.show(status: 'Guardando parlés limitados');
     final response =
-        await http.put(Uri.https(dotenv.env['SERVER_URL']!, '/api/users/$id'),
+        await http.put(Uri.http(dotenv.env['SERVER_URL']!, '/api/users/$id'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -352,7 +352,7 @@ Future<List<LimitedParleModel>> getLimitsParleOfUser(String id) async {
     EasyLoading.show(status: 'Buscando parles limitadas para hoy');
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/limits/parle/$id'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/limits/parle/$id'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

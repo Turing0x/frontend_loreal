@@ -11,7 +11,7 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/list/cargados', queryData),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/cargados', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -46,7 +46,7 @@ Future<List<BolaCargadaModel>> getParleCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/list/parle', queryData),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/parle', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

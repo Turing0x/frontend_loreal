@@ -186,7 +186,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
 
             candado.text = '';
             apuesta.text = '';
-          })
+          }, MediaQuery.of(context).size.width * 0.7)
         ],
       ),
     );

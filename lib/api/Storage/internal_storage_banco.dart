@@ -214,9 +214,15 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      final fileList = Directory('${appDocDirectory?.path}/PDFList').listSync();
-      for (var file in fileList) {
-        paths.add(file.path);
+      final dir = Directory('${appDocDirectory?.path}/PDFList');
+      if( dir.existsSync() ){
+
+        final fileList = Directory('${appDocDirectory?.path}/PDFList').listSync();
+        
+        for (var file in fileList) {
+          paths.add(file.path);
+        }
+
       }
 
       return paths;
@@ -230,9 +236,15 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
-      for (var file in fileList) {
-        paths.add(file.path);
+      final dir = Directory('${appDocDirectory?.path}/PDFDocs');
+      if( dir.existsSync() ){
+
+        final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
+        
+        for (var file in fileList) {
+          paths.add(file.path);
+        }
+
       }
 
       return paths;

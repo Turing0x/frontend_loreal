@@ -68,7 +68,7 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
             btnWithIcon(context, Colors.blue[300],
                 const Icon(Icons.save_outlined), 'Guardar jugada', () {
               whenIsNotPosicion(fijo, corrido, selectedNumber, getLimit);
-            })
+            }, MediaQuery.of(context).size.width * 0.7)
           ],
         ));
   }

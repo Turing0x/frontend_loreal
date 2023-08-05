@@ -94,7 +94,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           const Icon(Icons.cancel_outlined), 'Cancelar', () {
                         theList.state.clear();
                         theBottom.state = false;
-                      }),
+                      }, MediaQuery.of(context).size.width * 0.7),
                     ),
                     SizedBox(
                       width: 150,
@@ -109,7 +109,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           theBottom.state = false;
                           cambioListas.value = !cambioListas.value;
                         }
-                      }),
+                      }, MediaQuery.of(context).size.width * 0.7),
                     ),
                   ],
                 )),

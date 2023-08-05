@@ -178,7 +178,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
               fijo.text = '';
               corrido.text = '';
               corrido2.text = '';
-            })
+            }, MediaQuery.of(context).size.width * 0.7)
           ],
         ));
   }

@@ -10,7 +10,7 @@ Future<List<Payments>> getDataPayments() async {
   try {
     EasyLoading.show(status: 'Cargando parámetros actuales');
     final res = await http
-        .get(Uri.https(dotenv.env['SERVER_URL']!, '/api/payments'), headers: {
+        .get(Uri.http(dotenv.env['SERVER_URL']!, '/api/payments'), headers: {
       'Content-Type': 'application/json',
       'access-token': (await AuthServices.getToken())!
     });
@@ -37,7 +37,7 @@ Future<List<Payments>> getDataPayments() async {
 Future<List<Payments>> getPaymentsOfUser(String id) async {
   try {
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/payments/$id'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/payments/$id'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
@@ -77,7 +77,7 @@ void saveDataPayments(
   try {
     EasyLoading.show(status: 'Estableciendo configuración de parámetros');
     final response =
-        await http.post(Uri.https(dotenv.env['SERVER_URL']!, '/api/payments'),
+        await http.post(Uri.http(dotenv.env['SERVER_URL']!, '/api/payments'),
             headers: {
               'Content-Type': 'application/json',
               'access-token': (await AuthServices.getToken())!
@@ -143,7 +143,7 @@ void editPaymentsOfUser(
     };
 
     final response = await http.put(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/users/$userID'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/$userID'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!
