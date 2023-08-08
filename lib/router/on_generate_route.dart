@@ -31,8 +31,7 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
     
     'making_all_docs': MaterialPageRoute(
       builder: (_) => MakingAllDocs(
-        allUsers: argumentos[0],
-        lotThisDay: argumentos[1],
+        lotThisDay: argumentos[0],
       )),
     
     'list_review_page': MaterialPageRoute(

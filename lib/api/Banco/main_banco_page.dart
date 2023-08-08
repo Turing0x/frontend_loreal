@@ -1,4 +1,3 @@
-import 'package:frontend_loreal/methods/update_methods.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
 import 'package:frontend_loreal/server/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
@@ -37,12 +36,6 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
     userID.then((value) {
       mainID = value!;
       setIdToSearch.state = value;
-    });
-
-    permissionStorage().then((value) async {
-      if (!value) {
-        await permissionStorage();
-      }
     });
 
     super.initState();
@@ -116,17 +109,17 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
                 () => Navigator.pushNamed(context, 'make_resumen',
                     arguments: [seechUsername]),
                 true),
-            // optListTile(
-            //     Icons.filter_alt_outlined,
-            //     'Todas las listas',
-            //     'Detalles y filtros sobre listas',
-            //     () => Navigator.pushNamed(context, 'filters_on_lists'),
-            //     true),
             optListTile(
                 Icons.sd_storage_outlined,
                 'Almacenamiento interno',
                 'Listas y vales guardados en el teléfono',
                 () => Navigator.pushNamed(context, 'internal_storage_page'),
+                true),
+            optListTile(
+                Icons.money_off_csred_outlined,
+                'Recogida a colecciones',
+                'Lleva la cuenta de la deuda pendiente de cada colección',
+                () => Navigator.pushNamed(context, 'colectors_debt_page'),
                 true),
           ],
         )));

@@ -39,6 +39,7 @@ class _PosicionlListaWidgetState extends ConsumerState<PosicionlListaWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     int sum = widget.posicion.fijo +
         widget.posicion.corrido +
         widget.posicion.corrido2;
@@ -65,27 +66,35 @@ class _PosicionlListaWidgetState extends ConsumerState<PosicionlListaWidget> {
               child: ListTile(
                   title: boldLabel('Posición: ',
                       widget.posicion.numplay.toString().padLeft(2, '0'), size),
-                  subtitle: Row(mainAxisSize: MainAxisSize.min, children: [
-                    textoDosis('Fijo: ', 20),
-                    NumeroRedondoWidget(
-                        numero: widget.posicion.fijo.toString(),
-                        margin: margin,
-                        color: widget.color,
-                        fontWeight: FontWeight.bold),
-                    const SizedBox(width: 10),
-                    textoDosis('Corridos: ', 20),
-                    NumeroRedondoWidget(
-                        numero: widget.posicion.corrido.toString(),
-                        margin: margin,
-                        color: widget.color,
-                        fontWeight: FontWeight.bold),
-                    const SizedBox(width: 5),
-                    NumeroRedondoWidget(
-                        numero: widget.posicion.corrido2.toString(),
-                        margin: margin,
-                        color: widget.color,
-                        fontWeight: FontWeight.bold)
-                  ]),
+                  subtitle: Column(
+                    children: [
+
+                      Row(mainAxisSize: MainAxisSize.min, children: [
+                        textoDosis('Fijo: ', 20),
+                        NumeroRedondoWidget(
+                            numero: widget.posicion.fijo.toString(),
+                            margin: margin,
+                            color: widget.color,
+                            fontWeight: FontWeight.bold),
+                        const SizedBox(width: 10),
+                        textoDosis('Corridos: ', 20),
+                        NumeroRedondoWidget(
+                            numero: widget.posicion.corrido.toString(),
+                            margin: margin,
+                            color: widget.color,
+                            fontWeight: FontWeight.bold),
+                        const SizedBox(width: 5),
+                        NumeroRedondoWidget(
+                            numero: widget.posicion.corrido2.toString(),
+                            margin: margin,
+                            color: widget.color,
+                            fontWeight: FontWeight.bold)
+                      ]),
+
+                      
+
+                    ],
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

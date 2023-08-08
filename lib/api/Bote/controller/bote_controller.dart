@@ -9,7 +9,7 @@ Future<List<BoteModel>> makeABote(
   try {
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.post(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/bote', queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/list/bote', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

@@ -1,6 +1,7 @@
 import 'package:frontend_loreal/api/List/domain/list_offline_model.dart';
-import 'package:frontend_loreal/database/bd_provider.dart';
 import 'dart:async';
+
+import 'bd_provider.dart';
 
 class ListasBloc {
   static final ListasBloc _singleton = ListasBloc._internal();

@@ -37,7 +37,10 @@ import 'package:frontend_loreal/api/Payments/infraestructre/see_pay_listero.dart
 import 'package:frontend_loreal/api/List/pending_offline/main_list_offline_page.dart';
 import 'package:frontend_loreal/api/Storage/internal_storage_banco.dart';
 
+import '../api/Banco/collectors_debt.dart';
+
 final Map<String, Widget Function(BuildContext)> appRoutes = {
+
   'config_off_page': (_) => const ConfigOfflinePass(),
   'change_pass_page': (_) => const ChangeAccessPass(),
   'main_listero_page': (_) => const MainListeroPage(),
@@ -49,22 +52,23 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'signature_storage_page': (_) => const SignaturesStoragePage(),
   'internal_storage_page': (_) => const InternalStoragePage(),
   'offline_list_control': (_) => const OfflineListControl(),
-  'payments_page': (_) => const ConfigPaymentsPage(),
-  'main_banquero_page': (_) => const MainBanqueroPage(),
-  'million_game_page': (_) => const MillionGamePage(),
-  'bola_cargada_page': (_) => const BolaCargadaPage(),
-  'parle_cargada_page': (_) => const ParleCargadoPage(),
+  'colectors_debt_page': (_) => const ColectorsDebtPage(),
   'bancos_control_page': (_) => const BanksControlPage(),
-  'signature_page': (_) => const SignaturePage(),
-  'limited_parles_page': (_) => const LimitedParles(),
-  'global_limits_page': (_) => const GlobalLimits(),
-  'new_banco_page': (_) => const NewBancoPage(),
-  'main_settigns_banco': (_) => const SettingsPage(),
-  'limited_ball_page': (_) => const LimitedBall(),
-  'sorteos_page': (_) => const SorteosPage(),
-  'config_time_page': (_) => const TimePage(),
-  'bote_page': (_) => const BotePage(),
+  'main_banquero_page': (_) => const MainBanqueroPage(),
+  'parle_cargada_page': (_) => const ParleCargadoPage(),
   'filters_on_lists': (_) => const FiltersOnAllLists(),
+  'limited_parles_page': (_) => const LimitedParles(),
+  'bola_cargada_page': (_) => const BolaCargadaPage(),
+  'million_game_page': (_) => const MillionGamePage(),
+  'main_settigns_banco': (_) => const SettingsPage(),
+  'payments_page': (_) => const ConfigPaymentsPage(),
+  'global_limits_page': (_) => const GlobalLimits(),
+  'limited_ball_page': (_) => const LimitedBall(),
+  'signature_page': (_) => const SignaturePage(),
+  'new_banco_page': (_) => const NewBancoPage(),
+  'config_time_page': (_) => const TimePage(),
+  'sorteos_page': (_) => const SorteosPage(),
+  'bote_page': (_) => const BotePage(),
 
 //--------------------------------------------------------------
 
@@ -77,8 +81,8 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
 
   // Rutas para el Listero
   'internal_storage_listero': (_) => const InternalStorageListeroPage(),
-  'setting_listero_page': (_) => const SettingsListeroPage(),
   'main_make_list_offline': (_) => const MainMakeListOffline(),
+  'setting_listero_page': (_) => const SettingsListeroPage(),
   'see_payments_page': (_) => const SeePaymentsPage(),
   'pending_lists': (_) => const PendingLists(),
   'offline_pass': (_) => const OfflinePass(),

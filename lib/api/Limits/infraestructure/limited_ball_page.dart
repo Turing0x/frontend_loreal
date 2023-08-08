@@ -220,8 +220,7 @@ class _LimitedBallState extends State<LimitedBall> {
                               .map(
                                 (numero) => GestureDetector(
                                   onTap: () {
-                                    List<int>? listByJornal =
-                                        bolaLimitada[jornada];
+                                    List<int>? listByJornal = bolaLimitada[jornada];
                                     int index = listByJornal!.indexOf(numero);
                                     listByJornal.removeAt(index);
 

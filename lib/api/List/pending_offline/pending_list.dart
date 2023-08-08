@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:frontend_loreal/api/List/domain/list_offline_model.dart';
 import 'package:frontend_loreal/api/List/widgets/toServer/list_controller.dart';
-import 'package:frontend_loreal/database/bd_provider.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
 import 'package:frontend_loreal/server/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:frontend_loreal/widgets/no_data.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:share_extend/share_extend.dart';
+
+import '../../../database/list_table/bd_provider.dart';
 
 class PendingLists extends StatefulWidget {
   const PendingLists({super.key});
@@ -96,54 +97,54 @@ class _PendingListsState extends State<PendingLists> {
 
   SizedBox showList() {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.82,
-        width: double.infinity,
-        child: ValueListenableBuilder(
-            valueListenable: cambioListas,
-            builder: (_, __, ___) {
-              return ListView.builder(
-                  itemCount: toSend.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.only(left: 20),
-                      height: 80,
-                      color:
-                          (index % 2 != 0) ? Colors.grey[200] : Colors.grey[50],
-                      alignment: Alignment.center,
-                      child: ListTile(
-                        title: textoDosis(toSend[index].jornal!, 25,
-                            fontWeight: FontWeight.bold),
-                        subtitle: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            boldLabel('B: ', toSend[index].bruto!, 25),
-                            const SizedBox(width: 20),
-                            boldLabel('L: ', toSend[index].limpio!, 25)
-                          ],
-                        ),
-                        tileColor: (index % 2 != 0)
-                            ? Colors.grey[200]
-                            : Colors.grey[50],
-                        onTap: () => Navigator.pushNamed(
-                            context, 'list_detail_offline',
-                            arguments: [toSend[index].id!]),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            btnSend(context, toSend[index]),
-                            shareFile(
-                                toSend[index].date!,
-                                toSend[index].jornal!,
-                                toSend[index].bruto!,
-                                toSend[index].limpio!,
-                                toSend[index].signature!),
-                            btnDeleteList(toSend[index].id!),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-            }));
+      height: MediaQuery.of(context).size.height * 0.82,
+      width: double.infinity,
+      child: ValueListenableBuilder(
+        valueListenable: cambioListas,
+        builder: (_, __, ___) {
+          return ListView.builder(
+            itemCount: toSend.length,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.only(left: 20),
+                height: 80,
+                color:
+                    (index % 2 != 0) ? Colors.grey[200] : Colors.grey[50],
+                alignment: Alignment.center,
+                child: ListTile(
+                  title: textoDosis(toSend[index].jornal!, 25,
+                      fontWeight: FontWeight.bold),
+                  subtitle: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      boldLabel('B: ', toSend[index].bruto!, 25),
+                      const SizedBox(width: 20),
+                      boldLabel('L: ', toSend[index].limpio!, 25)
+                    ],
+                  ),
+                  tileColor: (index % 2 != 0)
+                      ? Colors.grey[200]
+                      : Colors.grey[50],
+                  onTap: () => Navigator.pushNamed(
+                      context, 'list_detail_offline',
+                      arguments: [toSend[index].id!]),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      btnSend(context, toSend[index]),
+                      shareFile(
+                          toSend[index].date!,
+                          toSend[index].jornal!,
+                          toSend[index].bruto!,
+                          toSend[index].limpio!,
+                          toSend[index].signature!),
+                      btnDeleteList(toSend[index].id!),
+                    ],
+                  ),
+                ),
+              );
+            });
+      }));
   }
 
   IconButton btnDeleteList(String id) {

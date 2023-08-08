@@ -25,9 +25,8 @@ var toChange;
 
 class MakingAllDocs extends ConsumerStatefulWidget {
   const MakingAllDocs(
-      {super.key, required this.allUsers, required this.lotThisDay});
+      {super.key, required this.lotThisDay});
 
-  final List<User> allUsers;
   final String lotThisDay;
 
   @override
@@ -35,16 +34,20 @@ class MakingAllDocs extends ConsumerStatefulWidget {
 }
 
 class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
+  
+  List<User> allUsers = [];
+  
   int cant = 0;
   int total = 0;
 
   bool blockBtn = false;
   String textBtn = 'Comenzar proceso';
+
   @override
   void initState() {
     hasBeenDone.clear();
     setState(() {
-      total = widget.allUsers.length;
+      total = allUsers.length;
     });
     super.initState();
   }
@@ -66,7 +69,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
               AbsorbPointer(
                 absorbing: blockBtn,
                 child: OutlinedButton.icon(
-                    onPressed: () => todo(widget.allUsers),
+                    onPressed: () => todo(allUsers),
                     icon: const Icon(Icons.flight_takeoff_sharp),
                     label: textoDosis(textBtn, 18)),
               ),
@@ -75,7 +78,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
               divisor,
               Expanded(
                   child: ShowList(
-                allUsers: widget.allUsers,
+                allUsers: allUsers,
               )),
             ],
           )),

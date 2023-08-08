@@ -100,7 +100,6 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
         }
       });
     });
-    showToast('No puede realizar esta acción');
   }
 
   @override

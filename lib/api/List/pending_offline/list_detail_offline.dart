@@ -3,12 +3,13 @@ import 'package:frontend_loreal/api/List/domain/list_offline_model.dart';
 import 'package:frontend_loreal/api/MakePDF/domain/invoce_listero.dart';
 import 'package:frontend_loreal/api/DrawList/export_all.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/database/bd_provider.dart';
 import 'package:frontend_loreal/widgets/waiting_page.dart';
 import 'package:frontend_loreal/widgets/no_data.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:frontend_loreal/server/auth.dart';
 import 'package:intl/intl.dart';
+
+import '../../../database/list_table/bd_provider.dart';
 
 class ListDetailsOffline extends ConsumerStatefulWidget {
   const ListDetailsOffline({

@@ -110,7 +110,7 @@ class AuthServices {
   Future<String> login(String username, String pass) async {
     authStatus.value = true;
     try {
-      var url = Uri.http(dotenv.env['SERVER_URL']!, '/api/users/signin');
+      var url = Uri.https(dotenv.env['SERVER_URL']!, '/api/users/signin');
       final response = await http.post(url,
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'username': username, 'password': pass}));

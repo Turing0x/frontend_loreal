@@ -1,9 +1,8 @@
 import 'package:frontend_loreal/riverpod/declarations.dart';
 import 'package:frontend_loreal/widgets/simple_txt.dart';
-import 'package:frontend_loreal/server/auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_loreal/server/auth.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../utils_exports.dart';
 
 class SignInPage extends ConsumerStatefulWidget {

@@ -248,49 +248,45 @@ class ShowList extends StatelessWidget {
                         child: ListTile(
                             title: textoDosis(user[index].username, 28,
                                 fontWeight: FontWeight.bold),
-                            subtitle: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    boldLabel(
-                                        'B: ',
-                                        calcs['bruto']
-                                            .toStringAsFixed(0)
-                                            .toString(),
-                                        18),
-                                    boldLabel(
-                                        'L: ',
-                                        calcs['limpio']
-                                            .toStringAsFixed(0)
-                                            .toString(),
-                                        18),
-                                    boldLabel(
-                                        'P: ',
-                                        calcs['premio']
-                                            .toStringAsFixed(0)
-                                            .toString(),
-                                        18),
-                                    boldLabel(
-                                        'P: ',
-                                        (calcs['perdido'] < calcs['ganado'])
-                                            ? 0.toString()
-                                            : calcs['perdido']
-                                                .toStringAsFixed(0)
-                                                .toString(),
-                                        18),
-                                    boldLabel(
-                                        'G: ',
-                                        (calcs['perdido'] > calcs['ganado'])
-                                            ? 0.toString()
-                                            : calcs['ganado']
-                                                .toStringAsFixed(0)
-                                                .toString(),
-                                        18),
-                                  ],
-                                ),
-                              ],
+                            subtitle: FittedBox(
+                              child: Row(
+                                children: [
+                                  boldLabel(
+                                      'B: ',
+                                      calcs['bruto']
+                                          .toStringAsFixed(0)
+                                          .toString(),
+                                      18),
+                                  boldLabel(
+                                      'L: ',
+                                      calcs['limpio']
+                                          .toStringAsFixed(0)
+                                          .toString(),
+                                      18),
+                                  boldLabel(
+                                      'P: ',
+                                      calcs['premio']
+                                          .toStringAsFixed(0)
+                                          .toString(),
+                                      18),
+                                  boldLabel(
+                                      'P: ',
+                                      (calcs['perdido'] < calcs['ganado'])
+                                          ? 0.toString()
+                                          : calcs['perdido']
+                                              .toStringAsFixed(0)
+                                              .toString(),
+                                      18),
+                                  boldLabel(
+                                      'G: ',
+                                      (calcs['perdido'] > calcs['ganado'])
+                                          ? 0.toString()
+                                          : calcs['ganado']
+                                              .toStringAsFixed(0)
+                                              .toString(),
+                                      18),
+                                ],
+                              ),
                             ),
                             trailing: const Icon(Icons.arrow_right,
                                 color: Colors.black),

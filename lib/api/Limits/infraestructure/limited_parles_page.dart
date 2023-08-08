@@ -230,11 +230,14 @@ class _LimitedParlesState extends State<LimitedParles> {
             ..._insertarColumnas(jornada)
                 .map((subList) => GestureDetector(
                       onTap: () {
-                        List<List<int>>? listByJornal = parlesLimitado[jornada];
-                        int index = listByJornal!.indexOf(subList[0]);
-                        listByJornal.removeAt(index);
+
+                        print(parlesLimitado);
+
+                        int index = parlesLimitado[jornada]!.indexOf(subList[0]);
+                        parlesLimitado[jornada]!.removeAt(index);
 
                         toChange.value = !toChange.value;
+                        print(parlesLimitado);
                       },
                       child: containerRayaDebajo(
                         child: Padding(

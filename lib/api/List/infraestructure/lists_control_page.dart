@@ -1,6 +1,10 @@
 // ignore_for_file: avoid_print
+
+import 'package:frontend_loreal/api/DrawList/methods.dart';
 import 'package:frontend_loreal/api/JornalAndDate/jornal_and_date.dart';
 import 'package:frontend_loreal/api/JornalAndDate/jornal_and_date_bloc.dart';
+import 'package:frontend_loreal/api/List/widgets/toServer/list_controller.dart';
+import 'package:frontend_loreal/api/MakePDF/domain/invoce_listero.dart';
 import 'package:frontend_loreal/api/MakePDF/domain/invoice_colector.dart';
 import 'package:frontend_loreal/api/MakePDF/infraestructure/Banco/pdf_banco.dart';
 import 'package:frontend_loreal/api/MakePDF/infraestructure/Colecotores/pdf_colector_general.dart';
@@ -18,6 +22,8 @@ import 'package:frontend_loreal/utils_exports.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../MakePDF/infraestructure/Listero/pdf_listero_banco.dart';
 
 bool hasDataInList = false;
 String lotThisDay = '';
@@ -183,29 +189,121 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
 
   IconButton pdfAllLists(JAndDateModel janddate) {
     final janddate = ref.watch(janddateR);
-    final navigator = Navigator.of(context);
 
     return IconButton(
       icon: const Icon(Icons.all_inbox_outlined),
       onPressed: () async {
-        if (!hasDataInList) {
-          showToast('No hay información de listas para hacer el PDF');
-          return;
+        try {
+          EasyLoading.show(
+              status:
+                  'Buscando información para crear todos los vales de los usuarios implicados...');
+
+          if (!hasDataInList) {
+            showToast('No hay información de listas para hacer el PDF');
+            return;
+          }
+
+          List<User> peoples = await getAllPeople(
+              widget.idToSearch, janddate.currentDate, janddate.currentJornada);
+
+          for (User each in peoples) {
+            if (each.role['code'] != 'listero') {
+              makePdf(
+                  each.username, janddate.currentDate, janddate.currentJornada);
+            } else {
+              makeListsPdf(
+                  each.username, janddate.currentDate, janddate.currentJornada);
+            }
+          }
+
+          EasyLoading.showSuccess('Los vales han sido creados exitosamente');
+        } catch (e) {
+          EasyLoading.showError('Ha ocurrido un error');
         }
-
-        EasyLoading.show(
-            status: 'Buscando información de los usarios implicados...');
-
-        List<User> list = await getAllPeople(
-            widget.idToSearch, janddate.currentDate, janddate.currentJornada);
-
-        if (list.isNotEmpty) {
-          navigator.pushNamed('making_all_docs', arguments: [list, lotThisDay]);
-        }
-
-        EasyLoading.showSuccess('Información obtenida exitosamente');
       },
     );
+  }
+
+  void makePdf(String username, String currentDate, String currentJornada) {
+    DateTime now = DateTime.now();
+    String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
+    List<InvoiceItemColector> toPDF = [];
+
+    final pdfData = getDataToPDF(username, currentDate, currentJornada);
+
+    pdfData.then((value) {
+      for (PdfData data in value) {
+        if (data.calcs.limpio != 0 ||
+            data.calcs.premio != 0 ||
+            data.calcs.perdido != 0 ||
+            data.calcs.ganado != 0) {
+          toPDF.add(InvoiceItemColector(
+              codigo: data.username,
+              exprense: data.payments.exprense,
+              limpio:
+                  double.parse(data.calcs.limpio.toStringAsFixed(1).toString()),
+              premio:
+                  double.parse(data.calcs.premio.toStringAsFixed(1).toString()),
+              pierde: double.parse(
+                  data.calcs.perdido.toStringAsFixed(1).toString()),
+              gana: double.parse(
+                  data.calcs.ganado.toStringAsFixed(1).toString())));
+
+          final invoice = InvoiceColector(
+              infoColector: InvoiceInfoColector(
+                  fechaActual: formatFechaActual,
+                  fechaTirada: currentDate,
+                  jornada: currentJornada,
+                  coleccion: username,
+                  lote: lotThisDay),
+              usersColector: toPDF);
+
+          (globalRoleToPDF == 'Banco')
+              ? PdfInvoiceApiBanco.generate(invoice)
+              : (globalRoleToPDF == 'Colector General')
+                  ? PdfInvoiceApiColectorGeneral.generate(invoice)
+                  : PdfInvoiceApiColectorSimple.generate(invoice);
+        }
+      }
+    });
+  }
+
+  void makeListsPdf(
+      String username, String currentDate, String currentJornada) async {
+    DateTime now = DateTime.now();
+    String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
+
+    final eachList = await getAllList(
+        username: username, jornal: currentJornada, date: currentDate);
+
+    if (eachList['data'].length != 0) {
+      final calcs = eachList['data']![0].calcs as Map<String, dynamic>;
+      final list = boliList(eachList['data']![0].signature!);
+
+      final invoice = InvoiceListero(
+          infoListero: InvoiceInfoListero(
+              fechaActual: formatFechaActual,
+              fechaTirada: eachList['data']![0].date!,
+              jornada: eachList['data']![0].jornal!,
+              listero: username,
+              lote: lotThisDay),
+          infoList: [
+            InvoiceItemList(
+                lista: list,
+                bruto:
+                    double.parse(calcs['bruto'].toStringAsFixed(2).toString()),
+                limpio:
+                    double.parse(calcs['limpio'].toStringAsFixed(2).toString()),
+                premio:
+                    double.parse(calcs['premio'].toStringAsFixed(2).toString()),
+                pierde: double.parse(
+                    calcs['perdido'].toStringAsFixed(2).toString()),
+                gana:
+                    double.parse(calcs['ganado'].toStringAsFixed(2).toString()))
+          ]);
+
+      await PdfInvoiceApiListero.generate(invoice);
+    }
   }
 }
 
@@ -238,9 +336,12 @@ class ShowList extends StatelessWidget {
                   janddate.currentJornada,
                   janddate.currentDate),
               builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+                
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  hasDataInList = false;
                   return waitingWidget(context);
+                }
+                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return noData(context);
                 }
 
                 String lot = snapshot.data!['lotOfToday'];

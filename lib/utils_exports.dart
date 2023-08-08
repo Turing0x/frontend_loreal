@@ -130,7 +130,7 @@ Future<dynamic> showInfoDialog(BuildContext context, String titulo,
     Widget content, void Function()? onPressed) {
   return showDialog(
     context: context,
-    builder: (context) => AlertDialog(
+    builder: (dialogContex) => AlertDialog(
       title: Text(titulo, style: tituloListTile),
       contentPadding: const EdgeInsets.symmetric(horizontal: 10),
       content: content,
@@ -140,7 +140,7 @@ Future<dynamic> showInfoDialog(BuildContext context, String titulo,
               backgroundColor: Colors.red[400], elevation: 2),
           icon: const Icon(Icons.cancel_outlined),
           label: const Text('Cancelar'),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(dialogContex),
         ),
         ElevatedButton.icon(
             style: ElevatedButton.styleFrom(

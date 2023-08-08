@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:frontend_loreal/api/List/widgets/toServer/list_controller.dart';
-import 'package:frontend_loreal/database/bd_bloc.dart';
 import 'package:frontend_loreal/enums/lista_general_enum.dart';
 import 'package:frontend_loreal/enums/poput_tipo.dart';
 import 'package:frontend_loreal/utils/file_manager.dart';
@@ -12,6 +11,8 @@ import 'package:frontend_loreal/utils_exports.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_extend/share_extend.dart';
+
+import '../database/list_table/bd_bloc.dart';
 
 class PopupWidget extends ConsumerWidget {
   const PopupWidget({
