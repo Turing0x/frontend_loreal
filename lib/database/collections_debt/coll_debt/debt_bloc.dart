@@ -3,14 +3,14 @@ import 'dart:async';
 import 'coll_debt_model.dart';
 import 'debt_provider.dart';
 
-class CollectiosDebtBloc {
-  static final CollectiosDebtBloc _singleton = CollectiosDebtBloc._internal();
+class CollectionsDebtBloc {
+  static final CollectionsDebtBloc _singleton = CollectionsDebtBloc._internal();
 
-  factory CollectiosDebtBloc() {
+  factory CollectionsDebtBloc() {
     return _singleton;
   }
 
-  CollectiosDebtBloc._internal() {
+  CollectionsDebtBloc._internal() {
     getAllColls();
   }
 
@@ -22,8 +22,12 @@ class CollectiosDebtBloc {
     _collectionsDebts.sink.add(await DBProviderCollectiosDebt.db.getAllCollectionsDebt());
   }
 
-  Future<int> addCollDebt(String name, String debt, String typeDebt) async{
-    int res = await DBProviderCollectiosDebt.db.newCollDebt(name, debt, typeDebt);
+  Future<bool> getCollByName( String name ) async {
+    return await DBProviderCollectiosDebt.db.verifyByName( name );
+  }
+
+  Future<int> addCollDebt(String uuid, String name, String debt, String percent) async{
+    int res = await DBProviderCollectiosDebt.db.newCollDebt(uuid, name, debt, percent);
     getAllColls();
     return res;
   }

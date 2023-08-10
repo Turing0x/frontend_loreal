@@ -33,6 +33,7 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
     'details_colls_debt': MaterialPageRoute(
       builder: (_) => DetailsCollsDebt(
         id: argumentos[0],
+        percent: argumentos[1],
       )),
     
     'making_all_docs': MaterialPageRoute(

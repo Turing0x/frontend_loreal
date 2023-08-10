@@ -1,9 +1,7 @@
-import 'package:frontend_loreal/utils_exports.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' show join;
-import 'package:uuid/uuid.dart';
 import 'dart:io';
 
 import 'coll_debt_model.dart';
@@ -30,33 +28,42 @@ class DBProviderCollectiosDebt {
           'id TEXT,'
           'name TEXT,'
           'listDebt TEXT,'
+          'percent TEXT,'
           'debt TEXT )');
     });
   }
 
-  Future<int> newCollDebt(String name, String debt, String typeDebt) async {
+  Future<int> newCollDebt(String uuid, String name, String debt, String percent) async {
     final db = await database;
-    const uuid = Uuid();
 
     final debtColl = {
-      'id': uuid.v4(),
+      'id': uuid,
       'name': name,
       'debt': debt,
-      'typeDebt': typeDebt,
-      'jornal': jornalGlobal,
-      'date': todayGlobal,
+      'percent': percent,
     };
 
     return await db.insert('CollectionsDebt', debtColl);
   }
 
-  Future<int> updateCollDebt(String id, Map<String, Object?> obj) async {
+  Future<int> updateCollDebt(String id, String calc) async {
     final db = await database;
 
-    final res = await db.update('CollectionsDebt', obj,
+    final res = await db.update('CollectionsDebt', {'debt': calc},
       where: 'id = ?', whereArgs: [id]);
 
     return res;
+  }
+
+  Future<bool> verifyByName( String name ) async {
+    final db = await database;
+
+    final res = await db.query('CollectionsDebt', where: 'name = ?', whereArgs: [name]);
+
+    List<CollectionDebtModel> debt =
+        res.isNotEmpty ? res.map((c) => CollectionDebtModel.fromJson(c)).toList() : [];
+
+    return debt.isNotEmpty;
   }
 
   Future<List<CollectionDebtModel>> getDebt(String id) async {
