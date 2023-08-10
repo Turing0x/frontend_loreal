@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../api/Banco/details_coll_debt.dart';
 import '../api/Banco/make_resumen.dart';
 import '../api/Banco/see_list_detail_to_send.dart';
 import '../api/Limits/infraestructure/ToUsers/limited_parles_to_user_page.dart';
@@ -28,6 +29,11 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
 
   final argumentos = settings.arguments as List;
   Map<String, MaterialPageRoute> argRoutes = {
+    
+    'details_colls_debt': MaterialPageRoute(
+      builder: (_) => DetailsCollsDebt(
+        id: argumentos[0],
+      )),
     
     'making_all_docs': MaterialPageRoute(
       builder: (_) => MakingAllDocs(

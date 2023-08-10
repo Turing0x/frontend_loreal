@@ -34,10 +34,8 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
         IconButton(
           onPressed: () async{
             final collsDebt = CollectiosDebtBloc();
-            int res = await collsDebt.deleteFull();
-            ( res == 0 )
-              ? showToast('Ha ocurrido un error al eliminar todos los datos')
-              : showToast('Todos los datos fueron eliminados correctamente', type: true);
+            collsDebt.deleteFull();
+            showToast('Todos los datos fueron eliminados correctamente', type: true);
 
             cambioListas.value = !cambioListas.value;
           }, 
@@ -107,7 +105,8 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
               }
 
               final collsDebt = CollectiosDebtBloc();
-              int res = await collsDebt.addCollDebt(nameCtrl.text, initialCahsCtrl.text);
+              int res = await collsDebt.addCollDebt(
+                nameCtrl.text, initialCahsCtrl.text, 'Perdida');
               
               if( res == 0 ){
                 showToast('Ha ocurrido un error al agregar la colección');
@@ -198,7 +197,8 @@ class _ShowListState extends State<ShowList> {
                                     DBProviderCollectiosDebt.db
                                       .updateCollDebt(data[index].id, {
                                         'name': data[index].name,
-                                        'debt': data[index].debt.intParsed 
+                                        'typeDebt': 'Perdida',
+                                        'debt': data[index].debt.intParsed
                                           + plusDebtCtrl.text.intParsed
                                       });
                                         
@@ -225,6 +225,7 @@ class _ShowListState extends State<ShowList> {
                                     DBProviderCollectiosDebt.db
                                       .updateCollDebt(data[index].id, {
                                         'name': data[index].name,
+                                        'typeDebt': 'Ganada',
                                         'debt': data[index].debt.intParsed 
                                           - lessDebtCtrl.text.intParsed
                                       });
@@ -250,7 +251,7 @@ class _ShowListState extends State<ShowList> {
                                       DBProviderCollectiosDebt.db
                                         .updateCollDebt(data[index].id, {
                                           'name': data[index].name,
-                                          'debt': 0
+                                          'debt': 0, 'typeDebt': 'Reinicio',
                                         });
                                       
                                       cambioListas.value = !cambioListas.value;
@@ -264,6 +265,9 @@ class _ShowListState extends State<ShowList> {
     
                           ],
                         ),
+                        onTap: () => Navigator.of(context).pushNamed('details_colls_debt', arguments: [
+                          data[index].id
+                        ]),
                         onLongPress: () => showInfoDialog(
                           context, 'Eliminación de deuda',
                           FittedBox(
@@ -274,6 +278,7 @@ class _ShowListState extends State<ShowList> {
                               .collectionDelete(data[index].id);
                             
                             cambioListas.value = !cambioListas.value;
+                            Navigator.of(context, rootNavigator: true).pop();
                           }),
                                       
                       ),

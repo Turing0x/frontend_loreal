@@ -54,7 +54,6 @@ class _ParlesListaWidgetState extends ConsumerState<ParlesListaWidget> {
               });
               return;
             }
-            showToast('No puede editar la lista');
           },
           child: Padding(
               padding: const EdgeInsets.only(right: 15),

@@ -1,3 +1,4 @@
+import 'package:frontend_loreal/utils_exports.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 // ignore: depend_on_referenced_packages
@@ -20,25 +21,30 @@ class DBProviderCollectiosDebt {
   }
 
   initDB() async {
-    Directory debtDirectorio = await getApplicationDocumentsDirectory();
-    final listPath = join(debtDirectorio.path, 'CollectionsDebtDB.db');
-    return await openDatabase(listPath, version: 1, onOpen: (db) {},
+
+    String dbPath = await databasePath();
+    
+    return await openDatabase(dbPath, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE CollectionsDebt('
           'id TEXT,'
           'name TEXT,'
+          'listDebt TEXT,'
           'debt TEXT )');
     });
   }
 
-  Future<int> newCollDebt(String name, String debt) async {
+  Future<int> newCollDebt(String name, String debt, String typeDebt) async {
     final db = await database;
     const uuid = Uuid();
 
     final debtColl = {
       'id': uuid.v4(),
       'name': name,
-      'debt': debt
+      'debt': debt,
+      'typeDebt': typeDebt,
+      'jornal': jornalGlobal,
+      'date': todayGlobal,
     };
 
     return await db.insert('CollectionsDebt', debtColl);
@@ -82,8 +88,14 @@ class DBProviderCollectiosDebt {
     return res;
   }
 
-  Future<int> deleteFullTable() async {
-    final db = await database;
-    return await db.delete('CollectionsDebt');
+  void deleteFullTable() async {
+    String dbPath = await databasePath();
+    await deleteDatabase(dbPath);
   }
+
+  Future<String> databasePath() async{
+    Directory debtDirectorio = await getApplicationDocumentsDirectory();
+    return join(debtDirectorio.path, 'CollectionsDebtDB.db');
+  }
+
 }

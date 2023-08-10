@@ -57,7 +57,6 @@ class _CandadoListaWidgetState extends ConsumerState<CandadoListaWidget> {
               });
               return;
             }
-            showToast('No puede editar la lista');
           },
           child: Padding(
               padding: const EdgeInsets.only(right: 15),

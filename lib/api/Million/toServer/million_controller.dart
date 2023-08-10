@@ -10,7 +10,7 @@ Future<List<MillionGame>> getAllMillion(String jornal, String date) async {
     final queryData = {'jornal': jornal, 'date': date};
 
     final res = await http.get(
-        Uri.https(dotenv.env['SERVER_URL']!, '/api/million', queryData),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/million', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

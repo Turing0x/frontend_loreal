@@ -59,7 +59,6 @@ class _FijosCorridosListaWidgetState
             return;
           }
 
-          showToast('No puede editar la lista');
         },
         child: Padding(
             padding: const EdgeInsets.only(right: 15),

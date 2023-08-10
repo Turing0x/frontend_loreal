@@ -76,26 +76,26 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
               color: Colors.grey[200],
               controlador: usernameCTRL,
               onChange: (valor) => {}),
-          Container(
-            margin: const EdgeInsets.only(top: 20),
-            width: 300,
-            height: 40,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[300],
-                  elevation: 2,
-                ),
-                child: textoDosis('Realizar filtrado', 20, color: Colors.white),
-                onPressed: () {
-                  if (usernameCTRL.text != '') {
-                    usernameCTRL.text = usernameCTRL.text.trim();
-                    recargar.value = !recargar.value;
-                    FocusScope.of(context).unfocus();
-                    return;
-                  }
-                  showToast('Escriba el nombre del usuario a buscar');
-                }),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(top: 20),
+          //   width: 300,
+          //   height: 40,
+          //   child: ElevatedButton(
+          //       style: ElevatedButton.styleFrom(
+          //         backgroundColor: Colors.blue[300],
+          //         elevation: 2,
+          //       ),
+          //       child: textoDosis('Realizar filtrado', 20, color: Colors.white),
+          //       onPressed: () {
+          //         if (usernameCTRL.text != '') {
+          //           usernameCTRL.text = usernameCTRL.text.trim();
+          //           recargar.value = !recargar.value;
+          //           FocusScope.of(context).unfocus();
+          //           return;
+          //         }
+          //         showToast('Escriba el nombre del usuario a buscar');
+          //       }),
+          // ),
           encabezado(context, 'Resultados de la búsqueda', false, () {}, false),
           Expanded(
             child: ShowList(

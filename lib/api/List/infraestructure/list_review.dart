@@ -26,9 +26,10 @@ class _ListReviewPageState extends State<ListReviewPage> {
   String pagos_jugada_Parle = '';
   String pagos_jugada_Fijo = '';
   
-  // columnPorcentajes
-  String porciento_bola_listero = '';
-  String porciento_parle_listero = '';
+  // columnLimitados
+  String limitados_fijo = '';
+  String limitados_corrido = '';
+  String limitados_parle = '';
 
   String username = '';
 
@@ -37,10 +38,8 @@ class _ListReviewPageState extends State<ListReviewPage> {
   int bruto_Corrido = 0;
 
   List<dynamic> conPremio = [];
-  List<dynamic> sinPremio = [];
 
   bool customTileExpanded = false;
-  bool listSelect = true;
 
   @override
   void initState() {
@@ -55,11 +54,13 @@ class _ListReviewPageState extends State<ListReviewPage> {
       if( element.runtimeType != CalcsModel ){
 
         bruto_Fijo += element.fijo as int;
-        ( element.dinero != 0 )
-          ? conPremio.add(element)
-          : sinPremio.add(element);
+        if( element.dinero != 0 ){
+          conPremio.add(element);
+        }
         
-        if( element.runtimeType != CandadoModel && element.runtimeType != ParlesModel ){
+        if( element.runtimeType != CandadoModel && 
+            element.runtimeType != ParlesModel &&
+            element.runtimeType != CentenasModel){
           ( element.runtimeType == PosicionModel )
             ? bruto_Corrido += ( element.corrido + element.corrido2 ) as int
             : bruto_Corrido += element.corrido as int;
@@ -116,33 +117,9 @@ class _ListReviewPageState extends State<ListReviewPage> {
       
           divisor,
 
-          Row( 
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-
-              btnWithIcon(context, 
-                Colors.red[300],
-                const Icon(Icons.money_off_csred_outlined), 
-                'Sin premio', () { setState(() {
-                  listSelect = false;
-                }); }, 180, fontSize: 17),
-
-              btnWithIcon(context, 
-                Colors.green,
-                const Icon(Icons.monetization_on),
-                'Con premio', () { setState(() {
-                  listSelect = true;
-                }); }, 180, fontSize: 17),
-
-            ],
-          ),
-
           Expanded(
             child: ShowList(
-              list: ( listSelect )
-                ? conPremio
-                : sinPremio))
+              list: conPremio))
 
         ],
       
@@ -180,9 +157,11 @@ class _ListReviewPageState extends State<ListReviewPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          boldLabel( '% para bola: ', porciento_bola_listero, 18),
+          boldLabel( 'Limitado fijo: ', limitados_fijo, 18),
           
-          boldLabel( '% para parlés: ', porciento_parle_listero, 18)
+          boldLabel( 'Limitado corrido: ', limitados_corrido, 18),
+          
+          boldLabel( 'Limitado parlé: ', limitados_parle, 18)
         
         ]        
       )
@@ -248,8 +227,11 @@ class _ListReviewPageState extends State<ListReviewPage> {
           pagos_jugada_Centena = value[0].pagosJugadaCentena.toString();
           pagos_jugada_Parle = value[0].pagosJugadaParle.toString();
           pagos_jugada_Fijo = value[0].pagosJugadaFijo.toString();
-          porciento_parle_listero = value[0].parleListero.toString();
-          porciento_bola_listero = value[0].bolaListero.toString();
+
+          limitados_fijo = value[0].limitadosFijo.toString();
+          limitados_corrido = value[0].limitadosCorrido.toString();
+          limitados_parle = value[0].limitadosParle.toString();
+          
         });
       
       }

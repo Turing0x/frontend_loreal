@@ -22,8 +22,8 @@ class CollectiosDebtBloc {
     _collectionsDebts.sink.add(await DBProviderCollectiosDebt.db.getAllCollectionsDebt());
   }
 
-  Future<int> addCollDebt(String name, String debt) async{
-    int res = await DBProviderCollectiosDebt.db.newCollDebt(name, debt);
+  Future<int> addCollDebt(String name, String debt, String typeDebt) async{
+    int res = await DBProviderCollectiosDebt.db.newCollDebt(name, debt, typeDebt);
     getAllColls();
     return res;
   }
@@ -33,10 +33,9 @@ class CollectiosDebtBloc {
     getAllColls();
   }
 
-  Future<int> deleteFull() async{
-    int res = await DBProviderCollectiosDebt.db.deleteFullTable();
+  void deleteFull() async{
+    DBProviderCollectiosDebt.db.deleteFullTable();
     getAllColls();
-    return res;
   }
 
   dispose() {
