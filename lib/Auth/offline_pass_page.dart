@@ -1,7 +1,8 @@
 import 'package:frontend_loreal/widgets/simple_txt.dart';
 import 'package:frontend_loreal/utils_exports.dart';
-import 'package:frontend_loreal/server/auth.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../server/http/auth.dart';
 
 class OfflinePass extends StatefulWidget {
   const OfflinePass({super.key});

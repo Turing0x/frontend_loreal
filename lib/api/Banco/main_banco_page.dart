@@ -1,7 +1,8 @@
 import 'package:frontend_loreal/riverpod/declarations.dart';
-import 'package:frontend_loreal/server/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../server/http/auth.dart';
 
 class MainBanqueroPage extends ConsumerStatefulWidget {
   const MainBanqueroPage({super.key});
@@ -103,11 +104,10 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
                     arguments: [seechUsername, mainID]),
                 true),
             optListTile(
-                Icons.summarize_outlined,
-                'Resúmen de listas',
-                'Resúmen de listas por rango de fechas',
-                () => Navigator.pushNamed(context, 'make_resumen',
-                    arguments: [seechUsername]),
+                Icons.chat_bubble_outline_outlined,
+                'Sala de chat',
+                'Chat interno con los colectores registrados',
+                () => Navigator.pushNamed(context, 'chat_page'),
                 true),
             optListTile(
                 Icons.sd_storage_outlined,

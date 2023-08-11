@@ -1,7 +1,7 @@
 import 'package:frontend_loreal/api/User/domian/user_show_model.dart';
 import 'package:frontend_loreal/api/User/toServer/users_controller.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:frontend_loreal/widgets/no_data.dart';
 import 'package:frontend_loreal/widgets/waiting_page.dart';

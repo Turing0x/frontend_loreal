@@ -1,8 +1,9 @@
 import 'package:frontend_loreal/api/Cargados/models/cargados_model.dart';
 import 'package:frontend_loreal/utils_exports.dart';
-import 'package:frontend_loreal/server/auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import '../../../server/http/auth.dart';
 
 Future<List<BolaCargadaModel>> getBolasCargadas(
     {String jornal = '', String date = ''}) async {

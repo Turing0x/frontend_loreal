@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:frontend_loreal/api/Time/domain/time_model.dart';
 import 'package:frontend_loreal/api/Time/toServer/time_controller.dart';
 import 'package:frontend_loreal/methods/update_methods.dart';
-import 'package:frontend_loreal/server/auth.dart';
-import 'package:frontend_loreal/server/methods.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:intl/intl.dart';
+
+import '../../server/http/methods.dart';
 
 class MainColectorPage extends StatefulWidget {
   const MainColectorPage({super.key});

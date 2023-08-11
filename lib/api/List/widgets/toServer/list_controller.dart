@@ -1,9 +1,9 @@
 import 'package:frontend_loreal/api/List/domain/list_offline_model.dart';
-import 'package:frontend_loreal/server/auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../../../server/http/auth.dart';
 import '../../domain/list_model.dart';
 import '../../../../utils_exports.dart';
 

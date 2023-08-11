@@ -5,7 +5,7 @@ import 'package:frontend_loreal/api/List/widgets/candado.dart';
 import 'package:frontend_loreal/api/List/widgets/decena.dart';
 import 'package:frontend_loreal/api/Listero/main_listero_page.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/utils/file_manager.dart';
 import 'package:frontend_loreal/utils/glogal_map.dart';
 import 'package:frontend_loreal/widgets/popup_widget.dart';

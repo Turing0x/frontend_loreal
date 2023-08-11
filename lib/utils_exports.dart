@@ -5,7 +5,7 @@ import 'package:frontend_loreal/api/Release/infraestructure/release_version_widg
 import 'package:frontend_loreal/api/User/toServer/users_controller.dart';
 import 'package:frontend_loreal/methods/update_methods.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
-import 'package:frontend_loreal/server/methods.dart';
+import 'package:frontend_loreal/server/http/methods.dart';
 import 'package:frontend_loreal/widgets/txt_para_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

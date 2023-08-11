@@ -5,7 +5,7 @@ import 'package:frontend_loreal/api/Payments/domain/payments_model.dart';
 import 'package:frontend_loreal/api/Payments/toServer/payments_controller.dart';
 import 'package:frontend_loreal/api/Time/domain/time_model.dart';
 import 'package:frontend_loreal/api/Time/toServer/time_controller.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 
 import '../../../utils_exports.dart';
 

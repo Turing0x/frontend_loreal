@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/widgets/waiting_page.dart';
 import 'package:frontend_loreal/widgets/no_data.dart';
 import 'package:frontend_loreal/utils_exports.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:intl/intl.dart';
 
 import '../../../database/list_table/bd_provider.dart';

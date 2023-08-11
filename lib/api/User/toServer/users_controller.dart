@@ -1,8 +1,8 @@
-import 'package:frontend_loreal/server/methods.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../../server/http/methods.dart';
 import '../domian/user_show_model.dart';
 import '../../../utils_exports.dart';
 

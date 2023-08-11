@@ -37,6 +37,7 @@ import 'package:frontend_loreal/api/Payments/infraestructre/see_pay_listero.dart
 import 'package:frontend_loreal/api/List/pending_offline/main_list_offline_page.dart';
 import 'package:frontend_loreal/api/Storage/internal_storage_banco.dart';
 
+import '../api/Chat/infraestructure/chat_page.dart';
 import '../api/Banco/collectors_debt.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
@@ -69,6 +70,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'config_time_page': (_) => const TimePage(),
   'sorteos_page': (_) => const SorteosPage(),
   'bote_page': (_) => const BotePage(),
+  'chat_page': (_) => const ChatPage(),
 
 //--------------------------------------------------------------
 

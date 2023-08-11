@@ -10,13 +10,14 @@ import 'package:frontend_loreal/api/Time/toServer/time_controller.dart';
 import 'package:frontend_loreal/methods/update_methods.dart';
 import 'package:frontend_loreal/utils/file_manager.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
-import 'package:frontend_loreal/server/auth.dart';
-import 'package:frontend_loreal/server/methods.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:r_upgrade/r_upgrade.dart';
+
+import '../../server/http/methods.dart';
 
 class MainListeroPage extends ConsumerStatefulWidget {
   const MainListeroPage({super.key});

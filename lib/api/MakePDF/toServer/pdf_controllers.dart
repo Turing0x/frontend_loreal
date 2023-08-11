@@ -1,7 +1,7 @@
 import 'package:frontend_loreal/api/MakePDF/toServer/pdf_data_model.dart';
 import 'package:frontend_loreal/api/User/domian/user_show_model.dart';
 import 'package:frontend_loreal/extensions/lista_general_extensions.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

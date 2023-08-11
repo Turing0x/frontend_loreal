@@ -1,6 +1,7 @@
-import 'package:frontend_loreal/server/auth.dart';
 import 'package:frontend_loreal/utils/glogal_map.dart';
 import 'package:frontend_loreal/utils_exports.dart';
+
+import 'auth.dart';
 
 Future<String> rutaInicial() async {
   final role = await AuthServices.getRole();

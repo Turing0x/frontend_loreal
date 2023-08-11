@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:frontend_loreal/api/List/domain/list_offline_model.dart';
 import 'package:frontend_loreal/api/List/widgets/toServer/list_controller.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:frontend_loreal/widgets/no_data.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';

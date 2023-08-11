@@ -4,7 +4,7 @@ import 'package:frontend_loreal/api/List/domain/list_model.dart';
 import 'package:frontend_loreal/api/DrawList/export_all.dart';
 import 'package:frontend_loreal/api/MakePDF/domain/invoce_listero.dart';
 import 'package:frontend_loreal/api/MakePDF/infraestructure/Listero/pdf_listero.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/widgets/no_data.dart';
 import 'package:frontend_loreal/widgets/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

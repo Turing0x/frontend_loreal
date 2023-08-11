@@ -3,9 +3,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend_loreal/riverpod/declarations.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
-import '../utils_exports.dart';
 import 'dart:convert';
 import 'dart:io';
+
+import '../../utils_exports.dart';
 
 int vecesMal = 0;
 String incomingUsername = '';

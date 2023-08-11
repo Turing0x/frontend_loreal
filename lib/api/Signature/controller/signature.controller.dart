@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

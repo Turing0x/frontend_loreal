@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:frontend_loreal/api/Limits/domain/limits_model.dart';
-import 'package:frontend_loreal/server/auth.dart';
+import '../../../server/http/auth.dart';
 import '../../../utils_exports.dart';
 
 Future<List<Limits>> getDataLimits() async {

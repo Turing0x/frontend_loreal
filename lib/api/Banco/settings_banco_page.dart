@@ -35,6 +35,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final seechUsername = ref.watch(chUser);
+
     return Scaffold(
       appBar: showAppBar('Ajustes del sistema', actions: [
         buscarActualziacionWidget(context),
@@ -50,6 +53,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 'Firma general',
                 'Genera la firma general para la jornada actual',
                 () => Navigator.pushNamed(context, 'signature_page'),
+                true),
+            optListTile(
+                Icons.summarize_outlined,
+                'Resúmen de listas',
+                'Resúmen de listas por rango de fechas',
+                () => Navigator.pushNamed(context, 'make_resumen',
+                    arguments: [seechUsername]),
                 true),
             optListTile(
                 Icons.list,
