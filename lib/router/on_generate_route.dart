@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/api/Chat/infraestructure/chat_page.dart';
 
 import '../api/Banco/details_coll_debt.dart';
 import '../api/Banco/make_resumen.dart';
@@ -39,6 +40,12 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
     'making_all_docs': MaterialPageRoute(
       builder: (_) => MakingAllDocs(
         lotThisDay: argumentos[0],
+      )),
+
+    'chat_page': MaterialPageRoute(
+      builder: (_) => ChatPage(
+        id: argumentos[0],
+        username: argumentos[1],
       )),
     
     'list_review_page': MaterialPageRoute(

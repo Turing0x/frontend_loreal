@@ -1,23 +1,16 @@
+import 'package:frontend_loreal/server/http/auth.dart';
 import 'package:frontend_loreal/server/socket/socket.dart';
 import 'package:frontend_loreal/utils_exports.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
-import '../../../server/http/auth.dart';
-
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key, 
-    required this.username,
-    required this.id
-  });
-
-  final String id;
-  final String username;
+class ChatPageColector extends StatefulWidget {
+  const ChatPageColector({super.key});
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  State<ChatPageColector> createState() => _ChatPageColectorState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageColectorState extends State<ChatPageColector> {
 
   TextEditingController msgCtrl = TextEditingController();
 
@@ -33,10 +26,11 @@ class _ChatPageState extends State<ChatPage> {
     AuthServices.getUserId().then((value){
       sService.emit('sign', value);
     });
-    
+
     sService.onConnect((data) {
       sService.on('message', (data) {
         setState(() {
+
           messages.add(
             ChatMessage(
               messageContent: data,
@@ -44,14 +38,16 @@ class _ChatPageState extends State<ChatPage> {
         });
       });
     });
-
+    
     super.initState();
+    
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: showAppBar('Chat privado con ${widget.username}'),
+      appBar: showAppBar('Chat interno'),
       body: Column( mainAxisSize: MainAxisSize.min,
         children: [
 
@@ -124,14 +120,15 @@ class _ChatPageState extends State<ChatPage> {
               onPressed: ( msgCtrl.text.isEmpty ) ? null : () {
 
                 _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-                  duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+                  duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
 
                 SocketServices().socket.emit('message', {
-                  'targetId': widget.id,
+                  'targetId': '6442c99299ec608e0267b63a',
                   'data': msgCtrl.text.trim()
                 });
 
                 setState(() {
+
                   messages.add(ChatMessage(
                     messageContent: msgCtrl.text.trim(), 
                     messageType: "sender"));

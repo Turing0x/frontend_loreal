@@ -216,7 +216,15 @@ class _ShowListState extends ConsumerState<ShowList> {
           Icons.lock_reset_outlined,
           color: Colors.red,
         ),
-        onPressed: () => resetPass(id));
+        onPressed: () => showInfoDialog(
+            context,
+            'Reestablecer contraseña',
+            Text(
+                'Estás seguro que deseas reestablecer la contraseña de acceso al sistema este usuario?',
+                style: subtituloListTile), (() {
+          resetPass(id);
+          Navigator.pop(context);
+        })));
   }
 
   IconButton btnHisPayments(

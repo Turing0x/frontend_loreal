@@ -104,12 +104,6 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
                     arguments: [seechUsername, mainID]),
                 true),
             optListTile(
-                Icons.chat_bubble_outline_outlined,
-                'Sala de chat',
-                'Chat interno con los colectores registrados',
-                () => Navigator.pushNamed(context, 'chat_page'),
-                true),
-            optListTile(
                 Icons.sd_storage_outlined,
                 'Almacenamiento interno',
                 'Listas y vales guardados en el teléfono',
@@ -120,6 +114,12 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
                 'Recogida a colecciones',
                 'Lleva la cuenta de la deuda pendiente de cada colección',
                 () => Navigator.pushNamed(context, 'colectors_debt_page'),
+                true),
+            optListTile(
+                Icons.chat_bubble_outline_outlined,
+                'Sala de chat',
+                'Chat interno con los colectores registrados',
+                () => Navigator.pushNamed(context, 'chat_room'),
                 true),
           ],
         )));

@@ -17,8 +17,10 @@ Future main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(MyApp(
-    rutaInicial: rutIni,
+  runApp(ProviderScope(
+    child: MyApp(
+      rutaInicial: rutIni,
+    ),
   ));
   configLoading();
 }
@@ -48,23 +50,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: MaterialApp(
-        builder: EasyLoading.init(),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('es'),
-        ],
-        debugShowCheckedModeBanner: false,
-        title: 'Loreal',
-        initialRoute: rutaInicial,
-        routes: appRoutes,
-        onGenerateRoute: onGenerateRoute
-      ),
+    return MaterialApp(
+      builder: EasyLoading.init(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('es'),
+      ],
+      debugShowCheckedModeBanner: false,
+      title: 'Loreal',
+      initialRoute: rutaInicial,
+      routes: appRoutes,
+      onGenerateRoute: onGenerateRoute
     );
   }
 }

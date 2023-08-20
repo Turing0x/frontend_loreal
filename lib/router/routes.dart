@@ -4,6 +4,7 @@ import 'package:frontend_loreal/api/Banco/offline_list_control.dart';
 import 'package:frontend_loreal/api/Bote/bote_page.dart';
 import 'package:frontend_loreal/api/Cargados/bola_cargada_page.dart';
 import 'package:frontend_loreal/api/Cargados/parle_cargada_page.dart';
+import 'package:frontend_loreal/api/Chat/infraestructure/contact_page.dart';
 import 'package:frontend_loreal/api/Colector/main_colector_page.dart';
 import 'package:frontend_loreal/api/Colector/settings_colector_page.dart';
 import 'package:frontend_loreal/api/List/infraestructure/filters_on_lists.dart';
@@ -37,7 +38,8 @@ import 'package:frontend_loreal/api/Payments/infraestructre/see_pay_listero.dart
 import 'package:frontend_loreal/api/List/pending_offline/main_list_offline_page.dart';
 import 'package:frontend_loreal/api/Storage/internal_storage_banco.dart';
 
-import '../api/Chat/infraestructure/chat_page.dart';
+import '../api/Chat/infraestructure/chat_page_colector.dart';
+import '../api/Chat/infraestructure/chat_room.dart';
 import '../api/Banco/collectors_debt.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
@@ -69,8 +71,9 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'new_banco_page': (_) => const NewBancoPage(),
   'config_time_page': (_) => const TimePage(),
   'sorteos_page': (_) => const SorteosPage(),
+  'contact_page': (_) => const ContactPage(),
   'bote_page': (_) => const BotePage(),
-  'chat_page': (_) => const ChatPage(),
+  'chat_room': (_) => const ChatRoom(),
 
 //--------------------------------------------------------------
 
@@ -78,6 +81,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'internal_storage_colector': (_) => const InternalStorageColectorPage(),
   'settings_colector_page': (_) => const SettingsColectorPage(),
   'main_colector_page': (_) => const MainColectorPage(),
+  'chat_colector_page': (_) => const ChatPageColector(),
 
 //--------------------------------------------------------------
 

@@ -77,6 +77,35 @@ Future<List<User>> getAllBanks() async {
   }
 }
 
+Future<List<User>> getAllByRole(String role) async {
+  try {
+    final res = await http.get(
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/byrole/$role'),
+        headers: {
+          'Content-Type': 'application/json',
+          'access-token': (await AuthServices.getToken())!
+        });
+
+    final decodeData = json.decode(res.body) as Map<String, dynamic>;
+    if (decodeData['success'] == false) {
+      showToast(
+          'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
+      return [];
+    }
+
+    final List<User> users = [];
+
+    decodeData['data'].forEach((value) {
+      final userTemp = User.fromJson(value);
+      users.add(userTemp);
+    });
+
+    return users;
+  } catch (e) {
+    return [];
+  }
+}
+
 Future<Map<String, dynamic>> getUserById(String jornal, String date,
     {String id = 'admin',
     bool userInfo = true,
