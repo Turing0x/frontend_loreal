@@ -1,13 +1,14 @@
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:frontend_loreal/router/on_generate_route.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/server/http/methods.dart';
-import './router/routes.dart';
+
+import 'config/router/on_generate_route.dart';
+import 'config/router/routes.dart';
+import 'config/server/http/methods.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
