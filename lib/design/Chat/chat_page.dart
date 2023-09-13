@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/server/http/auth.dart';
 import 'package:frontend_loreal/config/server/socket/socket.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/models/Chat/chat_message_model.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class ChatPage extends StatefulWidget {
@@ -24,28 +25,33 @@ class _ChatPageState extends State<ChatPage> {
   final ScrollController _scrollController = ScrollController();
 
   List<ChatMessage> messages = [];
+  String myId = '';
 
   @override
   void initState() {
 
     final sService = SocketServices().socket;
 
-    AuthServices.getUserId().then((value){
-      sService.emit('sign', value);
-    });
-    
-    sService.onConnect((data) {
+    sService.onConnect((text) {
       sService.on('message', (data) {
         setState(() {
-          messages.add(
-            ChatMessage(
-              messageContent: data,
-              messageType: 'receiver'));
+          messages.add(ChatMessage.fromJson(data));
         });
       });
     });
 
+    AuthServices.getUserId().then((value){
+      myId = value!;
+    });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    final sService = SocketServices().socket;
+    sService.dispose();
+    super.dispose();
   }
 
   @override
@@ -86,7 +92,7 @@ class _ChatPageState extends State<ChatPage> {
                     ? Colors.grey.shade200: Colors.blue[200],
                 ),
                 padding: const EdgeInsets.all(16),
-                child: Text(messages[index].messageContent, style: const TextStyle(fontSize: 15),),
+                child: Text(messages[index].text, style: const TextStyle(fontSize: 15),),
               ),
             ),
           );
@@ -126,15 +132,32 @@ class _ChatPageState extends State<ChatPage> {
                 _scrollController.animateTo(_scrollController.position.maxScrollExtent,
                   duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
 
-                SocketServices().socket.emit('message', {
-                  'targetId': widget.id,
-                  'data': msgCtrl.text.trim()
-                });
+                SocketServices().socket.emit('message', ChatMessage(
+                  messageType: 'receiver',
+                  sender: widget.id, 
+                  senderUsername: 'Banco',
+                  receiver: widget.id, 
+                  receiverUsername: widget.username,
+                  date: Date(
+                    date: todayGlobal, 
+                    time: TimeOfDay.now().toString()), 
+                  text: msgCtrl.text.trim()
+                ));
 
                 setState(() {
-                  messages.add(ChatMessage(
-                    messageContent: msgCtrl.text.trim(), 
-                    messageType: "sender"));
+                  messages.add(
+                    ChatMessage(
+                      senderUsername: 'Banco',
+                      receiverUsername: widget.username,
+                      messageType: 'sender',
+                      receiver: widget.id, 
+                      sender: myId,
+                      date: Date(
+                        date: todayGlobal, 
+                        time: TimeOfDay.now().toString()), 
+                      text: msgCtrl.text.trim()
+                    )
+                  );
 
                   msgCtrl.text = '';
                 });
@@ -154,10 +177,4 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-}
-
-class ChatMessage{
-  final String messageContent;
-  final String messageType;
-  ChatMessage({ required this.messageContent, required this.messageType});
 }

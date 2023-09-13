@@ -30,6 +30,10 @@ class AuthServices {
     _storage.write(key: 'userID', value: id);
   }
 
+  userOwnerSave(String id) async {
+    _storage.write(key: 'userOwner', value: id);
+  }
+
   usernameSave(String username) async {
     _storage.write(key: 'username', value: username);
   }
@@ -57,6 +61,11 @@ class AuthServices {
 
   static Future<String?> getUserId() async {
     final userId = await storage.read(key: 'userID');
+    return userId;
+  }
+
+  static Future<String?> getUserOwner() async {
+    final userId = await storage.read(key: 'userOwner');
     return userId;
   }
 
@@ -95,6 +104,10 @@ class AuthServices {
     await storage.delete(key: 'userID');
   }
 
+  static Future<void> userOwnerDelete() async {
+    await storage.delete(key: 'userOwner');
+  }
+
   static Future<void> roleDelete() async {
     await storage.delete(key: 'role');
   }
@@ -128,6 +141,10 @@ class AuthServices {
         timeSignSave(DateTime.now().toString());
         tokenSave(decodeData['data'][0]);
         roleSave(role);
+
+        if( role != 'banco' ){
+          userOwnerSave(decodeData['data'][3]['owner']);
+        }
 
         showToast(decodeData['api_message'], type: true);
         return role;

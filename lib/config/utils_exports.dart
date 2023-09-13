@@ -28,11 +28,11 @@ Divider divisor = const Divider(
 );
 
 PreferredSizeWidget? showAppBar(String titulo,
-    {Widget? leading, List<Widget>? actions}) {
+    {Widget? leading, List<Widget>? actions, bool centerTitle = true}) {
   return AppBar(
     title: textoDosis(titulo, 24, color: Colors.white),
     elevation: 2,
-    centerTitle: true,
+    centerTitle: centerTitle,
     leading: leading,
     actions: actions,
   );

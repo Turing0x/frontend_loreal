@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
+import 'package:frontend_loreal/config/server/http/auth.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
@@ -19,13 +20,16 @@ class _ContactPageState extends ConsumerState<ContactPage> {
 
   @override
   void initState() {
-    
-    getAllByRole('colector general').then(
-      (value) {
-        setState(() {
-          contacts = value;
+
+    AuthServices.getUserId().then((value) {
+      getMyPeople( value! ).then(
+        (value) {
+          setState(() {
+            contacts = value;
+          });
         });
-      });
+    });
+    
 
     super.initState();
   }
@@ -99,7 +103,7 @@ class ShowList extends StatelessWidget {
                 minLeadingWidth: 20,
                 title: textoDosis(list[index].username, 18,
                     fontWeight: FontWeight.bold),
-                subtitle: textoDosis(list[index].role['name'], 20),
+                subtitle: textoDosis('Toque para abrir la conversación', 16),
                 trailing: const Icon(Icons.arrow_right_rounded, color: Colors.black),
                 onTap: () => Navigator.pushNamed(context, 'chat_page', arguments: [
                   list[index].id,

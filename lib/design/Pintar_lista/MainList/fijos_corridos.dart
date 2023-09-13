@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/extensions/string_extensions.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils/to_edit_list.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+
+import '../../../config/enums/lista_general_enum.dart';
+import '../../../config/enums/main_list_enum.dart';
 
 class FijosCorridosListaWidget extends ConsumerStatefulWidget {
   const FijosCorridosListaWidget({
@@ -50,6 +54,25 @@ class _FijosCorridosListaWidgetState
     return Row(children: [
       Expanded(
           child: GestureDetector(
+            onLongPress: () {
+              final toJoinListM = ref.read(toJoinListR.notifier);
+              final payCrtl = ref.watch(paymentCrtl.notifier);
+              final getLimit = ref.watch(globalLimits);
+
+              listado[MainListEnum.fijoCorrido.toString()]!
+                .removeWhere((element) => element.uuid == widget.fijoCorrido.uuid);
+
+              toJoinListM.addCurrentList(
+                key: ListaGeneralEnum.principales, data: listado);
+              
+              int limpioListero =
+                  (sum * (getLimit.porcientoBolaListero / 100)).toInt();
+
+              payCrtl.restaTotalBruto80 = sum;
+              payCrtl.restaLimpioListero = limpioListero;
+
+              showToast('La jugada fue eliminada exitosamente');
+            },
         onDoubleTap: () {
           if (widget.canEdit) {
             managerOfElementsOnList(ref, widget.fijoCorrido.uuid);

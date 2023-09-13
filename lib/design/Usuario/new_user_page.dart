@@ -20,7 +20,7 @@ class _NewUserPageState extends State<NewUserPage> {
   Timer? _timer;
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  TextEditingController passController = TextEditingController(text: '0000');
 
   @override
   void initState() {

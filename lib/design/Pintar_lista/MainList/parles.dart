@@ -6,6 +6,10 @@ import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
 
+import '../../../config/enums/lista_general_enum.dart';
+import '../../../config/enums/main_list_enum.dart';
+import '../../../config/utils/glogal_map.dart';
+
 class ParlesListaWidget extends ConsumerStatefulWidget {
   const ParlesListaWidget({
     super.key,
@@ -46,6 +50,26 @@ class _ParlesListaWidgetState extends ConsumerState<ParlesListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
+            onLongPress: () {
+              if (widget.canEdit) {
+                final toJoinListM = ref.read(toJoinListR.notifier);
+                final payCrtl = ref.watch(paymentCrtl.notifier);
+                final getLimit = ref.watch(globalLimits);
+
+                listado[MainListEnum.parles.toString()]!
+                  .removeWhere((element) => element.uuid == widget.parles.uuid);
+
+                toJoinListM.addCurrentList(
+                  key: ListaGeneralEnum.principales, data: listado);
+
+                payCrtl.restaTotalBruto70 = widget.parles.fijo;
+                payCrtl.restaLimpioListero =
+                    (widget.parles.fijo * (getLimit.porcientoParleListero / 100))
+                        .toInt();
+
+                showToast('La jugada fue eliminada exitosamente');
+              }
+            },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.parles.uuid);
@@ -64,10 +88,10 @@ class _ParlesListaWidgetState extends ConsumerState<ParlesListaWidget> {
                       Flexible(
                           child: textoDosis('Parlé: ', size,
                               fontWeight: FontWeight.bold)),
-                      ...widget.parles.numplay.map(
+                      ...widget.parles.numplay.join(' -').split(' ').map(
                         (e) => Flexible(
                             child: textoDosis(
-                                '${twoDigits(e.toString())} - ', size)),
+                                twoDigits(e.toString()), size)),
                       ),
                     ],
                   ),

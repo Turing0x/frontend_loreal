@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils/to_edit_list.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/num_redondo.dart';
@@ -53,6 +55,25 @@ class _PosicionlListaWidgetState extends ConsumerState<PosicionlListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
+            onLongPress: () {
+              final toJoinListM = ref.read(toJoinListR.notifier);
+              final payCrtl = ref.watch(paymentCrtl.notifier);
+              final getLimit = ref.watch(globalLimits);
+
+              listadoPosicion.values.first.removeWhere((element)
+                  => element['uuid'] == widget.posicion.uuid);
+
+              toJoinListM.addCurrentList(
+                key: ListaGeneralEnum.posicion, data: listadoPosicion);
+              
+              int limpioListero =
+                  (sum * (getLimit.porcientoBolaListero / 100)).toInt();
+
+              payCrtl.restaTotalBruto80 = sum;
+              payCrtl.restaLimpioListero = limpioListero;
+
+              showToast('La jugada fue eliminada exitosamente');
+            },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.posicion.uuid);

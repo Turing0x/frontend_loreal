@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils/to_edit_list.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
+
+import '../../../config/enums/lista_general_enum.dart';
 
 class TerminalListaWidget extends ConsumerStatefulWidget {
   const TerminalListaWidget({
@@ -48,6 +51,26 @@ class _TerminalListaWidgetState extends ConsumerState<TerminalListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
+            onLongPress: () {
+              if (widget.canEdit) {
+                final toJoinListM = ref.read(toJoinListR.notifier);
+                final payCrtl = ref.watch(paymentCrtl.notifier);
+                final getLimit = ref.watch(globalLimits);
+
+                listadoTerminal.values.first.removeWhere((element)
+                  => element['uuid'] == widget.terminal.uuid);
+
+                toJoinListM.addCurrentList(
+                  key: ListaGeneralEnum.terminal, data: listadoTerminal);
+
+                payCrtl.restaTotalBruto80 = sum;
+                payCrtl.restaLimpioListero =
+                    (sum * (getLimit.porcientoBolaListero / 100))
+                        .toInt();
+
+                showToast('La jugada fue eliminada exitosamente');
+              }
+            },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.terminal.uuid);
@@ -61,7 +84,7 @@ class _TerminalListaWidgetState extends ConsumerState<TerminalListaWidget> {
               padding: const EdgeInsets.only(right: 15),
               child: ListTile(
                   title: boldLabel(
-                      'Terminal: ', widget.terminal.terminal.toString(), size),
+                      'terminal: ', widget.terminal.terminal.toString(), size),
                   subtitle: Row(mainAxisSize: MainAxisSize.min, children: [
                     textoDosis('Fijo: ', 20),
                     NumeroRedondoWidget(

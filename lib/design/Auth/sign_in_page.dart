@@ -18,6 +18,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
   TextEditingController passController = TextEditingController();
   int vecesMal = 0;
   bool btnOffline = true;
+  bool showPass = true;
 
   @override
   void initState() {
@@ -90,10 +91,19 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   color: Colors.grey[300],
                   icon: Icons.password_outlined,
                   texto: 'Clave de acceso',
-                  obscureText: true,
+                  obscureText: showPass,
                   keyboardType: TextInputType.text,
                   controlador: passController,
                   onChange: (valor) => setState(() {})),
+              Padding(
+                padding: const EdgeInsets.only(right: 30),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: OutlinedButton(onPressed: () => setState(() {
+                    showPass = !showPass;
+                  }), child: textoDosis(( showPass ) ? 'Mostrar contraseña' : 'Ocultar contraseña', 18)),
+                ),
+              ),
               const SizedBox(height: 20),
               _contBotones(routesByRole),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),

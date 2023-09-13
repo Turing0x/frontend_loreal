@@ -79,10 +79,10 @@ Future<List<User>> getAllBanks() async {
   }
 }
 
-Future<List<User>> getAllByRole(String role) async {
+Future<List<User>> getMyPeople(String id) async {
   try {
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/byrole/$role'),
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/myPeople/$id'),
         headers: {
           'Content-Type': 'application/json',
           'access-token': (await AuthServices.getToken())!

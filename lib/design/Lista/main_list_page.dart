@@ -50,10 +50,14 @@ class _MainMakeListState extends ConsumerState<MainMakeList> {
               ? () => clearData(toJoinListM)
               : null,
         ),
+        IconButton(
+          icon: const Icon(Icons.energy_savings_leaf_outlined),
+          onPressed: () => Navigator.pushNamed(context, 'for_now_page')
+        ),
         PopupWidget(
           username: widget.username,
-        ),
-      ]),
+        )
+      ], centerTitle: false),
       body: SingleChildScrollView(
         child: Column(
           children: [

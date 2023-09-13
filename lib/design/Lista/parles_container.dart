@@ -238,8 +238,8 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
                 String a = pNum.text;
                 String b = pNum1.text;
 
-                String joined = '$a$b';
-                String joined1 = '$b$a';
+                String joined = '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
+                String joined1 = '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
 
                 int dineroApuesta = (pMoney.text.intTryParsed ?? 0);
                 bool excedeApuesta =

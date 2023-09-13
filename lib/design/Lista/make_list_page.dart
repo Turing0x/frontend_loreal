@@ -7,6 +7,7 @@ import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Lista/fijos_corridos_container.dart';
 import 'package:frontend_loreal/design/Lista/parles_container.dart';
 
+import '../../config/utils/glogal_map.dart';
 import 'centenas_container.dart';
 
 class MakeList extends ConsumerStatefulWidget {
@@ -28,12 +29,7 @@ class MakeList extends ConsumerStatefulWidget {
 }
 
 class _MakeListState extends ConsumerState<MakeList> {
-  Map<String, List<dynamic>> listado = <String, List<dynamic>>{
-    MainListEnum.fijoCorrido.toString(): [],
-    MainListEnum.parles.toString(): [],
-    MainListEnum.centenas.toString(): [],
-  };
-
+  
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -41,8 +37,13 @@ class _MakeListState extends ConsumerState<MakeList> {
         final shouldPop = await showDialog<bool>(
           context: context,
           builder: (context) {
+
+            bool emtyList = listado.values.every((element) => element.isEmpty);
+            
             return AlertDialog(
-              title: textoDosis('La lista será guardada.', 18),
+              title: ( emtyList ) 
+                ? textoDosis('No ingresó jugadas a la lista. Desea salir igualmente?', 18, maxLines: 2) 
+                : textoDosis('La lista será guardada.', 18),
               actionsAlignment: MainAxisAlignment.spaceBetween,
               actions: [
                 TextButton(
@@ -53,14 +54,22 @@ class _MakeListState extends ConsumerState<MakeList> {
                 ),
                 TextButton(
                   onPressed: () {
-                    final toJoinListM = ref.read(toJoinListR.notifier);
 
-                    toJoinListM.addCurrentList(
-                        key: ListaGeneralEnum.principales, data: listado);
+                    if ( !emtyList ){
+                      final toJoinListM = ref.read(toJoinListR.notifier);
 
+                      toJoinListM.addCurrentList(
+                          key: ListaGeneralEnum.principales, data: listado);
+
+                      Navigator.pop(context, true);
+                    }
+                    
                     Navigator.pop(context, true);
+
                   },
-                  child: const Text('Entiendo'),
+                  child: ( emtyList ) 
+                    ? const Text('Sí, deseo salir!')
+                    : const Text('Entiendo'),
                 ),
               ],
             );

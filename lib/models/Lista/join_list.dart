@@ -14,15 +14,19 @@ class JoinListProvider extends StateNotifier<JoinListModel> {
     state.currentList[key.asString]!.addAll(data);
   }
 
+  void removeCurrentList({required ListaGeneralEnum key, required Map data}) {
+    state.currentList[key.asString]!.remove(data);
+  }
+
   void clearList() {
     for (var element in state.currentList.values) {
       element.clear();
     }
   }
 
-  bool isEmpty() {
-    return state.currentList.values.every((element) => element.isEmpty);
-  }
+  bool isEmpty() 
+    => state.currentList.values
+      .every((element) => element.isEmpty);
 }
 
 class JoinListModel {

@@ -106,7 +106,7 @@ class PopupWidget extends ConsumerWidget {
         };
 
         final toJoinListM = ref.read(toJoinListR.notifier);
-        if (toJoinListM.isEmpty()) {
+        if (toJoinListM.isEmpty() || totalBruto == 0) {
           showToast('Lista vacía, no hay información para procesar');
           return;
         }
