@@ -1,13 +1,14 @@
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:frontend_loreal/router/on_generate_route.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/server/methods.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import './router/routes.dart';
+
+import 'config/router/on_generate_route.dart';
+import 'config/router/routes.dart';
+import 'config/server/http/methods.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
@@ -17,8 +18,10 @@ Future main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(MyApp(
-    rutaInicial: rutIni,
+  runApp(ProviderScope(
+    child: MyApp(
+      rutaInicial: rutIni,
+    ),
   ));
   configLoading();
 }
@@ -48,23 +51,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: MaterialApp(
-        builder: EasyLoading.init(),
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('es'),
-        ],
-        debugShowCheckedModeBanner: false,
-        title: 'Loreal',
-        initialRoute: rutaInicial,
-        routes: appRoutes,
-        onGenerateRoute: onGenerateRoute
-      ),
+    return MaterialApp(
+      builder: EasyLoading.init(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('es'),
+      ],
+      debugShowCheckedModeBanner: false,
+      title: 'Loreal',
+      initialRoute: rutaInicial,
+      routes: appRoutes,
+      onGenerateRoute: onGenerateRoute
     );
   }
 }
