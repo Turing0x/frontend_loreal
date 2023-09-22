@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Listero/pdf_listero.dart';
@@ -36,6 +37,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 String lotThisDay = '';
 String listID = '';
 List<BoliList> listFind = [];
+final listControllers = ListControllers();
 
 class ListsHistory extends ConsumerStatefulWidget {
   const ListsHistory({super.key, required this.canEditList});
@@ -54,7 +56,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
 
   @override
   void initState() {
-    AuthServices.getUsername().then((value) {
+    LocalStorage.getUsername().then((value) {
       setState(() {
         userNAME = value!;
       });
@@ -104,7 +106,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           Colors.blue[300],
                           const Icon(Icons.delete_sweep_outlined),
                           'Eliminar', () async {
-                        bool okay = await editOneList(listID, theList.state);
+                        bool okay = await listControllers.editOneList(listID, theList.state);
                         if (okay) {
                           theList.state.clear();
                           theBottom.state = false;
@@ -203,7 +205,7 @@ class _ShowListState extends State<ShowList> {
         valueListenable: cambioListas,
         builder: (_, __, ___) {
           return FutureBuilder(
-            future: getAllList(
+            future: listControllers.getAllList(
                 username: globalUserName,
                 jornal: janddate.currentJornada,
                 date: janddate.currentDate),

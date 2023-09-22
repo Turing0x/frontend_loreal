@@ -6,6 +6,7 @@ import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:frontend_loreal/models/Limites/limits_model.dart';
 
+final limitsControllers = LimitsControllers();
 class GlobalLimits extends StatefulWidget {
   const GlobalLimits({super.key});
 
@@ -24,7 +25,7 @@ class _GlobalLimitsState extends State<GlobalLimits> {
 
   @override
   void initState() {
-    Future<List<Limits>> forLimits = getDataLimits();
+    Future<List<Limits>> forLimits = limitsControllers.getDataLimits();
     forLimits.then((value) => {
           if (value.isNotEmpty)
             {
@@ -50,7 +51,7 @@ class _GlobalLimitsState extends State<GlobalLimits> {
             icon: const Icon(Icons.save),
             onPressed: (() {
               FocusScope.of(context).unfocus();
-              saveDataLimits(
+              limitsControllers.saveDataLimits(
                 limits_Fijo.text,
                 limits_Corrido.text,
                 limits_Parle.text,

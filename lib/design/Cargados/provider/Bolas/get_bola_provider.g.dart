@@ -32,6 +32,7 @@ class _SystemHash {
 typedef GetBolasCargadasRef = AutoDisposeFutureProviderRef<List<BolaCargadaModel>>;
 
 /// See also [getBolasCargadas].
+
 @ProviderFor(getBolasCargadas)
 const getBolasCargadasProvider = GetBolasCargadasFamily();
 

@@ -1,36 +1,55 @@
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:dio/dio.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_loreal/models/Millon/million_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-Future<List<MillionGame>> getAllMillion(String jornal, String date) async {
-  try {
-    final queryData = {'jornal': jornal, 'date': date};
+class MillionControllers {
 
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/million', queryData),
+  late Dio _dio;
+
+  MillionControllers() {
+    _initializeDio();
+  }
+
+  Future<void> _initializeDio() async {
+    final token = await LocalStorage.getToken();
+
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
         headers: {
           'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
+          'access-token': token,
+        },
+      ),
+    );
+  }
 
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
-      showToast('Ha ocurrido algo grave');
+  Future<List<MillionGame>> getAllMillion(String jornal, String date) async {
+    try {
+      final queryData = {'jornal': jornal, 'date': date};
+      await _initializeDio();
+      Response response = await _dio.get('/api/million',
+        queryParameters: queryData);
+
+      if (response.data['success'] == false) {
+        showToast('Ha ocurrido algo grave');
+        return [];
+      }
+
+      final List<MillionGame> lists = [];
+
+      response.data['data'].forEach((value) {
+        final dataTemp = MillionGame.fromJson(value);
+        lists.add(dataTemp);
+      });
+
+      return lists;
+    } catch (e) {
       return [];
     }
 
-    final List<MillionGame> lists = [];
-
-    decodeData['data'].forEach((value) {
-      final dataTemp = MillionGame.fromJson(value);
-      lists.add(dataTemp);
-    });
-
-    return lists;
-  } catch (e) {
-    return [];
   }
+
 }

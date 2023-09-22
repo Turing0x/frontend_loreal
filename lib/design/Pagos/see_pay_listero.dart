@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/limits_controller.dart';
 import 'package:frontend_loreal/config/controllers/payments_controller.dart';
 import 'package:frontend_loreal/config/controllers/time_controller.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
@@ -71,13 +71,13 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
 
   @override
   void initState() {
-    AuthServices.getRole().then((value) {
+    LocalStorage.getRole().then((value) {
       setState(() {
         role = value!;
       });
     });
 
-    AuthServices.getUserId()
+    LocalStorage.getUserId()
         .then((value) => {getHisLimits(value!), getHisPayments(value)});
 
     super.initState();
@@ -295,8 +295,9 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
   }
 
   Widget toGetTimeSettings() {
+    final timeControllers = TimeControllers();
     return FutureBuilder(
-        future: getDataTime(),
+        future: timeControllers.getDataTime(),
         builder: (_, AsyncSnapshot<List<Time>> snapshot) {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Container(
@@ -329,7 +330,8 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
   }
 
   getHisLimits(String userID) {
-    Future<List<Limits>> thisUser = getLimitsOfUser(userID);
+    final limitsControllers = LimitsControllers();
+    Future<List<Limits>> thisUser = limitsControllers.getLimitsOfUser(userID);
     thisUser.then((value) => {
           if (value.isNotEmpty)
             {
@@ -345,7 +347,8 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
   }
 
   getHisPayments(String userID) {
-    Future<List<Payments>> forPayments = getPaymentsOfUser(userID);
+    final PaymentsControllers paymentsControllers = PaymentsControllers();
+    Future<List<Payments>> forPayments = paymentsControllers.getPaymentsOfUser(userID);
     forPayments.then((value) => {
           if (value.isNotEmpty)
             {

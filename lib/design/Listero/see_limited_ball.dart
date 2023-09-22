@@ -28,11 +28,12 @@ class _SeeLimitedBallState extends State<SeeLimitedBall> {
 
   Widget showList() {
     Size size = MediaQuery.of(context).size;
+    final limitsControllers = LimitsControllers();
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.9,
         width: double.infinity,
         child: FutureBuilder(
-          future: getLimitsBallsOfUser(widget.userID),
+          future: limitsControllers.getLimitsBallsOfUser(widget.userID),
           builder: (context, AsyncSnapshot<List<LimitedBallModel>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return waitingWidget(context);

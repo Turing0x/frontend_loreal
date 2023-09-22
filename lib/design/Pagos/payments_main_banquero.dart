@@ -7,6 +7,8 @@ import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 
+final paymentsControllers = PaymentsControllers();
+
 class ConfigPaymentsPage extends StatefulWidget {
   const ConfigPaymentsPage({super.key});
 
@@ -39,7 +41,7 @@ class _ConfigPaymentsPageState extends State<ConfigPaymentsPage> {
 
   @override
   void initState() {
-    Future<List<Payments>> forPayments = getDataPayments();
+    Future<List<Payments>> forPayments = paymentsControllers.getDataPayments();
     forPayments.then((value) => {
           if (value.isNotEmpty)
             {
@@ -73,7 +75,7 @@ class _ConfigPaymentsPageState extends State<ConfigPaymentsPage> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: (() {
-              saveDataPayments(
+              paymentsControllers.saveDataPayments(
                   pagos_jugada_Corrido.text,
                   pagos_jugada_Centena.text,
                   pagos_jugada_Parle.text,

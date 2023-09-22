@@ -1,325 +1,296 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/server/http/methods.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-Future<List<User>> getAllUsers({String id = ''}) async {
-  try {
-    final queryData = {'id': id};
+import 'package:dio/dio.dart';
 
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users', queryData),
+class UserControllers { 
+
+  late Dio _dio;
+
+  UserControllers() {
+    _initializeDio();
+  }
+
+  Future<void> _initializeDio() async {
+    final token = await LocalStorage.getToken();
+
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
         headers: {
           'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
+          'access-token': token,
+        },
+      ),
+    );
+  }
 
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
-      showToast(
-          'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
-      return [];
-    }
+  Future<List<User>> getAllUsers({String id = ''}) async {
+    try {
+      final queryData = {'id': id};
 
-    final List<User> users = [];
-
-    if (id != '') {
-      if (decodeData['data'][0] != []) {
-        for (var toShow in decodeData['data']) {
-          final actual = User.fromJson(toShow);
-          users.add(actual);
-        }
+      await _initializeDio();
+      Response response = await _dio.get('/api/users', queryParameters: queryData);
+      if (response.data['success'] == false) {
+        showToast(
+            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
+        return [];
       }
+
+      final List<User> users = [];
+
+      if (id != '') {
+        if( response.data['data'].isNotEmpty ){
+          for (var toShow in response.data['data']) {
+            final actual = User.fromJson(toShow);
+            users.add(actual);
+          }
+        }
+        return users;
+      }
+
+      response.data['data'].forEach((value) {
+        final userTemp = User.fromJson(value);
+        users.add(userTemp);
+      });
 
       return users;
-    }
-
-    decodeData['data'].forEach((value) {
-      final userTemp = User.fromJson(value);
-      users.add(userTemp);
-    });
-
-    return users;
-  } catch (e) {
-    return [];
-  }
-}
-
-Future<List<User>> getAllBanks() async {
-  try {
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/banksUsers'),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
-
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
-      showToast(
-          'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
+    } catch (e) {
       return [];
     }
-
-    final List<User> users = [];
-
-    decodeData['data'].forEach((value) {
-      final userTemp = User.fromJson(value);
-      users.add(userTemp);
-    });
-
-    return users;
-  } catch (e) {
-    return [];
   }
-}
+  
+  Future<List<User>> getAllBanks() async {
+    try {
 
-Future<List<User>> getMyPeople(String id) async {
-  try {
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/myPeople/$id'),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
+      await _initializeDio();
+      Response response = await _dio.get('/api/users/banksUsers');
+      if (response.data['success'] == false) {
+        showToast(
+            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
+        return [];
+      }
 
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
-      showToast(
-          'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
+      final List<User> users = [];
+
+      response.data['data'].forEach((value) {
+        final userTemp = User.fromJson(value);
+        users.add(userTemp);
+      });
+
+      return users;
+    } catch (e) {
       return [];
     }
-
-    final List<User> users = [];
-
-    decodeData['data'].forEach((value) {
-      final userTemp = User.fromJson(value);
-      users.add(userTemp);
-    });
-
-    return users;
-  } catch (e) {
-    return [];
   }
-}
 
-Future<Map<String, dynamic>> getUserById(String jornal, String date,
-    {String id = 'admin',
-    bool userInfo = true,
-    bool makeResumen = false,
-    String startDate = '',
-    String endDate = ''}) async {
-  try {
-    final queryData = (makeResumen)
-        ? {'jornal': jornal, 'startDate': startDate, 'endDate': endDate}
-        : {'jornal': jornal, 'date': date};
+  Future<List<User>> getMyPeople(String id) async {
+    try {
 
-    String endpoint =
-        (makeResumen) ? '/api/list/resumen/$id' : '/api/users/$id';
+      await _initializeDio();
+      Response response = await _dio.get('/api/users/myPeople/$id');
+      if (response.data['success'] == false) {
+        showToast(
+            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
+        return [];
+      }
 
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, endpoint, queryData),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
+      final List<User> users = [];
 
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
-      showToast(decodeData['api_message']);
-      return {'data': [], 'missign': [], 'lotOfToday': ''};
+      response.data['data'].forEach((value) {
+        final userTemp = User.fromJson(value);
+        users.add(userTemp);
+      });
+
+      return users;
+    } catch (e) {
+      return [];
     }
+  }
 
-    final List<User> users = [];
-    List missingLists = [];
-    String lotOfToday = '';
+  Future<Map<String, dynamic>> getUserById(String jornal, String date,
+      {String id = 'admin',
+      bool userInfo = true,
+      bool makeResumen = false,
+      String startDate = '',
+      String endDate = ''}) async {
+    try {
+      final queryData = (makeResumen)
+          ? {'jornal': jornal, 'startDate': startDate, 'endDate': endDate}
+          : {'jornal': jornal, 'date': date};
 
-    if (userInfo) {
-      final actual = User.fromJson(decodeData['data'][0]);
-      users.add(actual);
-      return {'data': users, 'missign': [], 'lotOfToday': ''};
-    }
+      String endpoint =
+          (makeResumen) ? '/api/list/resumen/$id' : '/api/users/$id';
 
-    if (!makeResumen) {
-      if (decodeData['data'][0] != []) {
-        for (var toShow in decodeData['data'][1]) {
+      await _initializeDio();
+      Response response = await _dio.get(endpoint, queryParameters: queryData);
+      if (response.data['success'] == false) {
+        showToast(response.data['api_message']);
+        return {'data': [], 'missign': [], 'lotOfToday': ''};
+      }
+
+      final List<User> users = [];
+      List missingLists = [];
+      String lotOfToday = '';
+
+      if (userInfo) {
+        final actual = User.fromJson(response.data['data'][0]);
+        users.add(actual);
+        return {'data': users, 'missign': [], 'lotOfToday': ''};
+      }
+
+      if (!makeResumen) {
+        if (response.data['data'][0] != []) {
+          for (var toShow in response.data['data'][1]) {
+            final actual = User.fromJson(toShow);
+            users.add(actual);
+          }
+          missingLists = response.data['data'][2];
+          lotOfToday = response.data['data'][3]['lot'];
+        }
+
+        return {'data': users, 'missign': missingLists, 'lotOfToday': lotOfToday};
+      }
+
+      if (response.data['data'] != []) {
+        for (var toShow in response.data['data']) {
           final actual = User.fromJson(toShow);
           users.add(actual);
         }
-        missingLists = decodeData['data'][2];
-        lotOfToday = decodeData['data'][3]['lot'];
       }
 
-      return {'data': users, 'missign': missingLists, 'lotOfToday': lotOfToday};
+      return {
+        'data': users,
+      };
+    } catch (e) {
+      return {'data': [], 'missign': [], 'lotOfToday': ''};
     }
+  }
 
-    if (decodeData['data'] != []) {
-      for (var toShow in decodeData['data']) {
-        final actual = User.fromJson(toShow);
-        users.add(actual);
+  void saveOne(String name, String pass, String owner) async {
+    try {
+      EasyLoading.show(status: 'Creando usuario...');
+
+      await _initializeDio();
+      Response response = await _dio.post('/api/users',
+        data: jsonEncode({'username': name, 'password': pass, 'owner': owner}));
+
+      if (response.statusCode == 200) {
+        EasyLoading.showSuccess(response.data['api_message']);
+        return;
       }
+
+      EasyLoading.showError(response.data['api_message']);
+    } catch (e) {
+      EasyLoading.showError('Ha ocurrido un error. $e');
     }
-
-    return {
-      'data': users,
-    };
-  } catch (e) {
-    return {'data': [], 'missign': [], 'lotOfToday': ''};
   }
-}
 
-void saveOne(String name, String pass, String owner) async {
-  try {
-    EasyLoading.show(status: 'Creando usuario...');
-    final response = await http.post(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users'),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        },
-        body: jsonEncode({'username': name, 'password': pass, 'owner': owner}));
+  Future<bool> editOneEnable(String id, bool enable) async {
+    try {
+      EasyLoading.show(status: 'Cambiando acceso al sistema...');
 
-    final decodeData = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      EasyLoading.showSuccess(decodeData['api_message']);
-      return;
-    }
+      await _initializeDio();
+      Response response = await _dio.put('/api/users/changeEnable/$id',
+        data: jsonEncode({ 'enable': enable }) );
 
-    EasyLoading.showError(decodeData['api_message']);
-  } catch (e) {
-    EasyLoading.showError('Ha ocurrido un error. $e');
-  }
-}
+      if (response.statusCode == 200) {
+        EasyLoading.showSuccess(response.data['api_message']);
+        return true;
+      }
 
-Future<bool> editOneEnable(String id, bool enable) async {
-  try {
-    EasyLoading.show(status: 'Cambiando acceso al sistema...');
-
-    final res = await http.put(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/changeEnable/$id'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'enable': enable,
-        }));
-
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (res.statusCode == 200) {
-      EasyLoading.showSuccess(decodeData['api_message']);
-      return true;
-    }
-
-    EasyLoading.showError(decodeData['api_message']);
-    return false;
-  } catch (e) {
-    EasyLoading.showError('Ha ocrrido un error grave');
-    return false;
-  }
-}
-
-void deleteOne(String id) async {
-  try {
-    EasyLoading.show(status: 'Eliminando usuario...');
-    final res = await http.delete(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/$id'),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
-
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (res.statusCode == 200) {
-      EasyLoading.showSuccess(decodeData['api_message']);
-      return;
-    }
-
-    EasyLoading.showError(decodeData['api_message']);
-    return;
-  } catch (e) {
-    return;
-  }
-}
-
-void changePass(String actualPass, String newPass, BuildContext context) async {
-  try {
-    EasyLoading.show(status: 'Cambiando contraseña...');
-    final cont = Navigator.of(context);
-
-    final response = await http.post(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/chpass'),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        },
-        body: jsonEncode({'actualPass': actualPass, 'newPass': newPass}));
-
-    final decodeData = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      cont.pushNamedAndRemoveUntil(
-          'signIn_page', (Route<dynamic> route) => false);
-      if (context.mounted) await cerrarSesion(context);
-
-      EasyLoading.showSuccess(decodeData['api_message']);
-      return;
-    }
-
-    EasyLoading.showError(decodeData['api_message']);
-    return;
-  } on Exception catch (e) {
-    showToast(e.toString());
-  }
-}
-
-void resetPass(String userId) async {
-  try {
-    EasyLoading.show(status: 'Reseteando la contraseña...');
-
-    final queryData = {'userId': userId};
-
-    final response = await http.post(
-        Uri.http(
-          dotenv.env['SERVER_URL']!,
-          '/api/users/resetpass',
-          queryData,
-        ),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
-
-    final decodeData = json.decode(response.body) as Map<String, dynamic>;
-    if (response.statusCode == 200) {
-      EasyLoading.showSuccess(decodeData['api_message']);
-      return;
-    }
-
-    EasyLoading.showError(decodeData['api_message']);
-    return;
-  } on Exception catch (e) {
-    showToast(e.toString());
-  }
-}
-
-Future<bool> checkJWT() async {
-  try {
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/users/checkJWT'),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken()) ?? ''
-        });
-
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
+      EasyLoading.showError(response.data['api_message']);
+      return false;
+    } catch (e) {
+      EasyLoading.showError('Ha ocrrido un error grave');
       return false;
     }
-
-    return true;
-  } catch (e) {
-    return false;
   }
+
+  void deleteOne(String id) async {
+    try {
+      EasyLoading.show(status: 'Eliminando usuario...');
+
+      await _initializeDio();
+      Response response = await _dio.delete('/api/users/$id');
+      if (response.statusCode == 200) {
+        EasyLoading.showSuccess(response.data['api_message']);
+        return;
+      }
+
+      EasyLoading.showError(response.data['api_message']);
+      return;
+    } catch (e) {
+      return;
+    }
+  }
+
+  void changePass(String actualPass, String newPass, BuildContext context) async {
+    try {
+      EasyLoading.show(status: 'Cambiando contraseña...');
+      final cont = Navigator.of(context);
+
+      await _initializeDio();
+      Response response = await _dio.post('/api/users/chpass', 
+        data: jsonEncode({'actualPass': actualPass, 'newPass': newPass}));
+
+      if (response.statusCode == 200) {
+        cont.pushNamedAndRemoveUntil(
+            'signIn_page', (Route<dynamic> route) => false);
+        if (context.mounted) await cerrarSesion(context);
+
+        EasyLoading.showSuccess(response.data['api_message']);
+        return;
+      }
+
+      EasyLoading.showError(response.data['api_message']);
+      return;
+    } on Exception catch (e) {
+      showToast(e.toString());
+    }
+  }
+
+  void resetPass(String userId) async {
+    try {
+      EasyLoading.show(status: 'Reseteando la contraseña...');
+
+      
+            await _initializeDio();final queryData = {'userId': userId};
+      Response response = await _dio.post('/api/users/resetpass', 
+        queryParameters: queryData );
+
+      if (response.statusCode == 200) {
+        EasyLoading.showSuccess(response.data['api_message']);
+        return;
+      }
+
+      EasyLoading.showError(response.data['api_message']);
+      return;
+    } on Exception catch (e) {
+      showToast(e.toString());
+    }
+  }
+
+  Future<bool> checkJWT() async {
+    try {
+
+      await _initializeDio();
+      Response response = await _dio.post('/api/users/checkJWT');
+      if (response.data['success'] == false) {
+        return false;
+      }
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
 }

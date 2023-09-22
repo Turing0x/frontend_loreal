@@ -71,6 +71,7 @@ class _BotePageState extends ConsumerState<BotePage> {
                     child:
                         textoDosis('Descargar bote', 20, color: Colors.white),
                     onPressed: () async {
+                      final boteControllers = BoteControllers();
                       try {
                         EasyLoading.show(
                             status: 'Descargando bote, espere por favor...');
@@ -89,7 +90,7 @@ class _BotePageState extends ConsumerState<BotePage> {
                             DateFormat('dd/MM/yyyy hh:mm a')
                                 .format(DateTime.now());
 
-                        final botados = await makeABote(
+                        final botados = await boteControllers.makeABote(
                             janddate.currentDate,
                             janddate.currentJornada,
                             fijoController.text.intTryParsed ?? 0,

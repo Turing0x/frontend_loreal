@@ -266,7 +266,8 @@ class _OfflineListControlState extends ConsumerState<OfflineListControl> {
                   icon: const Icon(Icons.thumb_up_outlined),
                   label: const Text('Enviarla'),
                   onPressed: () {
-                    saveOneList(
+                    final listControllers = ListControllers();
+                    listControllers.saveOneList(
                             owner: list.owner!,
                             list.date!,
                             list.jornal!,

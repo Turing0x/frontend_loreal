@@ -8,6 +8,7 @@ import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend_loreal/models/Limites/limited_ball.dart';
 
+final limitsControllers = LimitsControllers();
 class LimitedBallToUser extends StatefulWidget {
   const LimitedBallToUser({super.key, required this.userID});
 
@@ -24,7 +25,7 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
 
   @override
   void initState() {
-    Future<List<LimitedBallModel>> limits = getLimitsBallsOfUser(widget.userID);
+    Future<List<LimitedBallModel>> limits = limitsControllers.getLimitsBallsOfUser(widget.userID);
     limits.then((value) {
       if (value.isNotEmpty) {
         setState(() {
@@ -50,7 +51,7 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
           icon: const Icon(Icons.save_outlined),
           onPressed: () {
             if (bolaLimitada.isNotEmpty) {
-              saveDataLimitsBallsToUser(widget.userID, bolaLimitada);
+              limitsControllers.saveDataLimitsBallsToUser(widget.userID, bolaLimitada);
               return;
             }
 

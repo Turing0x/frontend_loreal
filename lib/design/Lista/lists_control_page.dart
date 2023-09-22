@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
 import 'package:frontend_loreal/config/controllers/pdf_controllers.dart';
-import 'package:frontend_loreal/config/controllers/pdf_data_model.dart';
+import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
+import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
-import 'package:frontend_loreal/config/methods/methods.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
@@ -29,6 +29,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 bool hasDataInList = false;
 String lotThisDay = '';
+final pdfControllers = PdfControllers();
 
 class ListsControlPage extends ConsumerStatefulWidget {
   const ListsControlPage({
@@ -118,7 +119,7 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
           List<InvoiceItemColector> toPDF = [];
 
           final janddate = ref.watch(janddateR);
-          final pdfData = getDataToPDF(
+          final pdfData = pdfControllers.getDataToPDF(
               widget.userName, janddate.currentDate, janddate.currentJornada);
 
           pdfData.then((value) async {
@@ -185,7 +186,7 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
             return;
           }
 
-          List<User> peoples = await getAllPeople(
+          List<User> peoples = await pdfControllers.getAllPeople(
               widget.idToSearch, janddate.currentDate, janddate.currentJornada);
 
           for (User each in peoples) {
@@ -211,7 +212,7 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
     List<InvoiceItemColector> toPDF = [];
 
-    final pdfData = getDataToPDF(username, currentDate, currentJornada);
+    final pdfData = pdfControllers.getDataToPDF(username, currentDate, currentJornada);
 
     pdfData.then((value) {
       for (PdfData data in value) {
@@ -252,10 +253,12 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
 
   void makeListsPdf(
       String username, String currentDate, String currentJornada) async {
+    
+    final listControllers = ListControllers();
+
     DateTime now = DateTime.now();
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
-
-    final eachList = await getAllList(
+    final eachList = await listControllers.getAllList(
         username: username, jornal: currentJornada, date: currentDate);
 
     if (eachList['data'].length != 0) {
@@ -307,12 +310,14 @@ class ShowList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final userCtrl = UserControllers();
     return Scaffold(
       body: ValueListenableBuilder(
           valueListenable: recargar,
           builder: (_, __, ___) {
             return FutureBuilder(
-              future: getUserById(
+              future: userCtrl.getUserById(
                   id: seeChUsername,
                   userInfo: false,
                   janddate.currentJornada,

@@ -29,11 +29,12 @@ class _SeeLimitedParleState extends State<SeeLimitedParle> {
 
   Widget showList() {
     Size size = MediaQuery.of(context).size;
+    final limitsControllers = LimitsControllers();
     return SizedBox(
         height: size.height * 0.9,
         width: double.infinity,
         child: FutureBuilder(
-          future: getLimitsParleOfUser(widget.userID),
+          future: limitsControllers.getLimitsParleOfUser(widget.userID),
           builder: (context, AsyncSnapshot<List<LimitedParleModel>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return waitingWidget(context);

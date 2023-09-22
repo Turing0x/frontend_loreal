@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/server/socket/socket.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/no_messages.dart';
-import 'package:frontend_loreal/models/Chat/chat_message_model.dart';
 
 class ChatRoom extends ConsumerStatefulWidget {
   const ChatRoom({super.key});
@@ -15,14 +13,14 @@ class ChatRoom extends ConsumerStatefulWidget {
 
 class _ChatRoomState extends ConsumerState<ChatRoom> {
 
-  List<ChatMessage> messages = [];
+  List<Map<String, dynamic>> messages = [];
 
   @override
   void initState() {
 
     final sService = SocketServices().socket;
 
-    AuthServices.getUserId().then((value){
+    LocalStorage.getUserId().then((value){
       sService.emit('sign', value);
     });
 
@@ -30,7 +28,11 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
       if( (data as List).isNotEmpty ){
         setState(() {
           for( var msg in data ){
-            messages.add(ChatMessage.fromJson(msg));
+            print(msg);
+            // messages.add({
+            //   'username': msg.,
+            //   'last': msg,
+            // });
           }
         });
       }
@@ -62,9 +64,9 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
 
           const SizedBox(height: 20),
 
-          ( messages.isEmpty )
-            ? noMessages(context)
-            : Expanded(child: ShowList(messages: messages))
+          // ( messages.isEmpty )
+          //   ? noMessages(context)
+          //   : Expanded(child: ShowList(messages: messages))
 
         ],
 
@@ -95,42 +97,43 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
 
 }
 
-class ShowList extends StatelessWidget {
-  const ShowList({super.key,
-    required this.messages});
+// class ShowList extends StatelessWidget {
+//   const ShowList({super.key,
+//     required this.messages});
 
-  final List<ChatMessage> messages;
+//   final List<List<ChatMessage>> messages;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: messages.length,
-        itemBuilder: (context, index) {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: ListView.builder(
+//         itemCount: messages.length,
+//         itemBuilder: (context, index) {
           
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: ListTile(
-              minLeadingWidth: 20,
-              title: textoDosis(messages[index].senderUsername, 18,
-                  fontWeight: FontWeight.bold),
-              subtitle: textoDosis(messages.last.text, 20),
-              trailing: const Icon(Icons.arrow_right_rounded, color: Colors.black),
-              onTap: () => Navigator.pushNamed(context, 'chat_page', 
-                arguments: [
-                  messages[index].sender,
-                  messages[index].senderUsername
-                ]),
+//           return Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+//             child: ListTile(
+//               minLeadingWidth: 20,
+//               title: textoDosis(messages[index].senderUsername, 18,
+//                   fontWeight: FontWeight.bold),
+//               subtitle: textoDosis(messages.last.text, 20),
+//               trailing: const Icon(Icons.arrow_right_rounded, color: Colors.black),
+//               onTap: () => Navigator.pushNamed(context, 'chat_page', 
+//                 arguments: [
+//                   messages[index].sender,
+//                   messages[index].senderUsername,
+//                   messages
+//                 ]),
             
-            ),
-          );
+//             ),
+//           );
       
-        }
+//         }
       
-      )
+//       )
 
-    );
+//     );
 
-  }
+//   }
 
-}
+// }

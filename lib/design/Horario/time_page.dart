@@ -5,6 +5,7 @@ import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
+final timeControllers = TimeControllers();
 class TimePage extends StatefulWidget {
   const TimePage({super.key});
 
@@ -20,7 +21,7 @@ class TimePageState extends State<TimePage> {
 
   @override
   void initState() {
-    Future<List<Time>> times = getDataTime();
+    Future<List<Time>> times = timeControllers.getDataTime();
     times.then((value) {
       if (value.isNotEmpty) {
         setState(() {
@@ -56,7 +57,7 @@ class TimePageState extends State<TimePage> {
                     elevation: 2,
                   ),
                   child: textoDosis('Guardar cambios', 20, color: Colors.white),
-                  onPressed: () => saveDataTime(
+                  onPressed: () => timeControllers.saveDataTime(
                       dayStart.format(context),
                       dayEnd.format(context),
                       nigthStart.format(context),

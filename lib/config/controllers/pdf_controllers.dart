@@ -1,84 +1,99 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/controllers/pdf_data_model.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-Future<List<PdfData>> getDataToPDF(String username, String date, String jornal,
-    {String makeResumen = '',
-    String startDate = '',
-    String endDate = ''}) async {
-  try {
-    final queryData = {
-      'jornal': jornal,
-      'date': date,
-      'makeResumen': makeResumen,
-      'startDate': startDate,
-      'endDate': endDate
-    };
+class PdfControllers {
 
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/vales/$username', queryData),
+  late Dio _dio;
+
+  PdfControllers() {
+    _initializeDio();
+  }
+
+  Future<void> _initializeDio() async {
+    final token = await LocalStorage.getToken();
+
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
         headers: {
           'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
+          'access-token': token,
+        },
+      ),
+    );
+  }
 
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
+  Future<List<PdfData>> getDataToPDF(String username, String date, String jornal,
+      {String makeResumen = '',
+      String startDate = '',
+      String endDate = ''}) async {
+    try {
+      final queryData = {
+        'jornal': jornal,
+        'date': date,
+        'makeResumen': makeResumen,
+        'startDate': startDate,
+        'endDate': endDate
+      };
+
+      await _initializeDio();
+      Response response = await _dio.get('/api/vales/$username',
+        queryParameters: queryData);
+
+      if (response.data['success'] == false) {
+        return [];
+      }
+
+      final List<PdfData> data = [];
+
+      response.data['data'][0].forEach((value) {
+        final eachData = PdfData.fromJson(value);
+        data.add(eachData);
+      });
+
+      globalRoleToPDF = response.data['data'][1];
+      globalGastoToPDF = response.data['data'][2] / 100;
+
+      return data;
+    } catch (e) {
       return [];
     }
-
-    final List<PdfData> data = [];
-
-    decodeData['data'][0].forEach((value) {
-      final eachData = PdfData.fromJson(value);
-      data.add(eachData);
-    });
-
-    globalRoleToPDF = decodeData['data'][1];
-    globalGastoToPDF = decodeData['data'][2] / 100;
-
-    return data;
-  } catch (e) {
-    return [];
   }
-}
 
-Future<List<User>> getAllPeople(
-    String initialId, String date, String jornal) async {
-  try {
-    final queryData = {
-      'initialId': initialId,
-      'jornal': jornal,
-      'date': date,
-    };
+  Future<List<User>> getAllPeople(
+      String initialId, String date, String jornal) async {
+    try {
+      final queryData = {
+        'initialId': initialId,
+        'jornal': jornal,
+        'date': date,
+      };
 
-    final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/vales/all', queryData),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
+      await _initializeDio();
+      Response response = await _dio.get('/api/vales/all',
+        queryParameters: queryData);
 
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
-      EasyLoading.showError('Ha ocurrido algo grave');
+      if (response.data['success'] == false) {
+        EasyLoading.showError('Ha ocurrido algo grave');
+        return [];
+      }
+
+      final List<User> data = [];
+
+      response.data['data'].forEach((value) {
+        final eachData = User.fromJson(value);
+        data.add(eachData);
+      });
+
+      return data;
+    } catch (e) {
       return [];
     }
-
-    final List<User> data = [];
-
-    decodeData['data'].forEach((value) {
-      final eachData = User.fromJson(value);
-      data.add(eachData);
-    });
-
-    return data;
-  } catch (e) {
-    return [];
   }
+
 }

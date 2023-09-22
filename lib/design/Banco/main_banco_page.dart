@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/opt_list_tile.dart';
 
@@ -22,19 +22,19 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
     final chUsername = ref.read(chUser.notifier);
     final setIdToSearch = ref.read(idToSearch.notifier);
 
-    AuthServices.getStatusBlock().then((value) {
+    LocalStorage.getStatusBlock().then((value) {
       if (value != null) {
         toEditState.value = bool.parse(value);
       }
     });
 
-    final username = AuthServices.getUsername();
+    final username = LocalStorage.getUsername();
     username.then((value) {
       userName = value!;
       chUsername.state = value;
     });
 
-    final userID = AuthServices.getUserId();
+    final userID = LocalStorage.getUserId();
     userID.then((value) {
       mainID = value!;
       setIdToSearch.state = value;

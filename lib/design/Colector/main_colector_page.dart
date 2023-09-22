@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/time_controller.dart';
 import 'package:frontend_loreal/config/methods/update_methods.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/server/http/methods.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/opt_list_tile.dart';
@@ -48,20 +48,21 @@ class _MainColectorPageState extends State<MainColectorPage>
 
   @override
   void initState() {
-    final getID = AuthServices.getUserId();
+    final timeControllers = TimeControllers();
+    final getID = LocalStorage.getUserId();
     getID.then((value) {
       setState(() {
         mainID = value!;
       });
     });
 
-    AuthServices.getUsername().then((String? username) {
+    LocalStorage.getUsername().then((String? username) {
       setState(() {
         userName = username!;
       });
     });
 
-    AuthServices.getRole().then((String? username) {
+    LocalStorage.getRole().then((String? username) {
       setState(() {
         actualRole = username!;
       });
@@ -73,7 +74,7 @@ class _MainColectorPageState extends State<MainColectorPage>
       }
     });
 
-    Future<List<Time>> times = getDataTime();
+    Future<List<Time>> times = timeControllers.getDataTime();
     getServerTimes(times);
 
     controller = AnimationController(
@@ -169,8 +170,7 @@ class _MainColectorPageState extends State<MainColectorPage>
                 Icons.message_outlined,
                 'Sala de chat',
                 'Chat interno de la plataforma',
-                () => Navigator.pushNamed(context, 'chat_colector_page',
-                    arguments: [mainID]),
+                () => Navigator.pushNamed(context, 'chat_room'),
                 true),
           ],
         )));

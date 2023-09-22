@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 import 'package:frontend_loreal/config/controllers/sorteo_controller.dart';
-import 'package:frontend_loreal/config/controllers/sorteos_stream.dart';
+import 'package:frontend_loreal/config/riverpod/sorteos_stream.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
@@ -193,6 +193,7 @@ class ShowList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sorteosControllers = SorteosControllers();
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.57,
         width: double.infinity,
@@ -200,7 +201,7 @@ class ShowList extends StatelessWidget {
           valueListenable: cambioSorteo,
           builder: (BuildContext context, bool value, Widget? child) {
             return FutureBuilder<List<Sorteo>>(
-              future: getDataSorteo(),
+              future: sorteosControllers.getDataSorteo(),
               builder: (_, AsyncSnapshot<List<Sorteo>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return waitingWidget(context);

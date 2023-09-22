@@ -46,6 +46,7 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
       builder: (_) => ChatPage(
         id: argumentos[0],
         username: argumentos[1],
+        incomingMessages: argumentos[2],
       )),
     
     'list_review_page': MaterialPageRoute(

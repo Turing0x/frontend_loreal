@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/limits_controller.dart';
 import 'package:frontend_loreal/config/controllers/payments_controller.dart';
 import 'package:frontend_loreal/config/controllers/time_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/methods/update_methods.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/server/http/methods.dart';
 import 'package:frontend_loreal/config/utils/file_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,6 +59,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
 
   @override
   void initState() {
+    final timeControllers = TimeControllers();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final toJoinListM = ref.read(toJoinListR.notifier);
       final payCrtl = ref.read(paymentCrtl.notifier);
@@ -72,10 +74,10 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
       }
     });
 
-    AuthServices.getUserId().then((value) =>
+    LocalStorage.getUserId().then((value) =>
         {getHisLimits(value!), getHisPayments(value), userID = value});
 
-    AuthServices.getUsername().then((value) {
+    LocalStorage.getUsername().then((value) {
       setState(() {
         username = value;
         globalUserName = value!;
@@ -98,7 +100,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
             info: info,
           );
     });
-    Future<List<Time>> times = getDataTime();
+    Future<List<Time>> times = timeControllers.getDataTime();
     getServerTimes(times);
 
     controller = AnimationController(
@@ -314,7 +316,8 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
 
   getHisLimits(String userID) {
     final setLimits = ref.watch(globalLimits);
-    Future<List<Limits>> thisUser = getLimitsOfUser(userID);
+    final limitsControllers = LimitsControllers();
+    Future<List<Limits>> thisUser = limitsControllers.getLimitsOfUser(userID);
     thisUser.then((value) => {
           if (value.isNotEmpty)
             {
@@ -331,7 +334,8 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
 
   getHisPayments(String userID) {
     final setLimits = ref.watch(globalLimits);
-    Future<List<Payments>> forPayments = getPaymentsOfUser(userID);
+    final paymentsControllers = PaymentsControllers();
+    Future<List<Payments>> forPayments = paymentsControllers.getPaymentsOfUser(userID);
     forPayments.then((value) {
       if (value.isNotEmpty) {
         setLimits.porcientoBolaListero = value[0].bolaListero;

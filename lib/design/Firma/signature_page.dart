@@ -24,6 +24,7 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
 
   @override
   Widget build(BuildContext context) {
+    final signatureControllers = SignatureControllers();
     return Scaffold(
       appBar: showAppBar('Firma general', actions: [
         IconButton(
@@ -45,7 +46,7 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
                       backgroundColor: Colors.blue[300]),
                   onPressed: () {
                     final janddate = ref.watch(janddateR);
-                    generateSignture(
+                    signatureControllers.generateSignture(
                             janddate.currentDate, janddate.currentJornada)
                         .then((value) {
                       setState(() {

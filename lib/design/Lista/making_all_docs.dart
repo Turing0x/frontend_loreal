@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
 import 'package:frontend_loreal/config/controllers/pdf_controllers.dart';
-import 'package:frontend_loreal/config/controllers/pdf_data_model.dart';
+import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
 import 'package:frontend_loreal/config/methods/methods.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
@@ -23,6 +23,7 @@ import 'package:share_extend/share_extend.dart';
 
 // ignore: prefer_typing_uninitialized_variables
 var toChange;
+final pdfControllers = PdfControllers();
 
 class MakingAllDocs extends ConsumerStatefulWidget {
   const MakingAllDocs(
@@ -127,7 +128,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
 
     Map<String, dynamic> result = {};
 
-    final pdfData = getDataToPDF(username, currentDate, currentJornada);
+    final pdfData = pdfControllers.getDataToPDF(username, currentDate, currentJornada);
 
     List<PdfData> value = await pdfData;
 
@@ -170,12 +171,15 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
 
   Future<Map<String, dynamic>> makeListsPdf(
       String username, String currentDate, String currentJornada) async {
+    
+    final listControllers = ListControllers();
+    
     DateTime now = DateTime.now();
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
 
     Map<String, dynamic> result = {};
 
-    final eachList = await getAllList(
+    final eachList = await listControllers.getAllList(
         username: username, jornal: currentJornada, date: currentDate);
 
     if (eachList['data'].length != 0) {

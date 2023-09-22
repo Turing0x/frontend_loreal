@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils/file_manager.dart';
 import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
@@ -34,7 +35,7 @@ class _MainMakeListOfflineState extends ConsumerState<MainMakeListOffline> {
           );
     });
 
-    AuthServices.getUsername().then((value) {
+    LocalStorage.getUsername().then((value) {
       if (value!.isNotEmpty) {
         username = value;
       }

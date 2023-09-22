@@ -84,7 +84,7 @@ class _TerminalListaWidgetState extends ConsumerState<TerminalListaWidget> {
               padding: const EdgeInsets.only(right: 15),
               child: ListTile(
                   title: boldLabel(
-                      'terminal: ', widget.terminal.terminal.toString(), size),
+                      'Terminal: ', widget.terminal.terminal.toString(), size),
                   subtitle: Row(mainAxisSize: MainAxisSize.min, children: [
                     textoDosis('Fijo: ', 20),
                     NumeroRedondoWidget(

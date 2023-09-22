@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:frontend_loreal/models/Limites/limited_parle.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
+final limitsControllers = LimitsControllers();
 class LimitedParles extends StatefulWidget {
   const LimitedParles({super.key});
 
@@ -24,7 +25,7 @@ class _LimitedParlesState extends State<LimitedParles> {
 
   @override
   void initState() {
-    Future<List<LimitedParleModel>> limits = getLimitedParleToday();
+    Future<List<LimitedParleModel>> limits = limitsControllers.getLimitedParleToday();
     limits.then((value) {
       if (value.isNotEmpty) {
         setState(() {
@@ -46,7 +47,7 @@ class _LimitedParlesState extends State<LimitedParles> {
           icon: const Icon(Icons.save_outlined),
           onPressed: () {
             if (parlesLimitado.isNotEmpty) {
-              saveDataLimitsParle(parlesLimitado);
+              limitsControllers.saveDataLimitsParle(parlesLimitado);
               return;
             }
 

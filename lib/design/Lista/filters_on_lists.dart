@@ -188,8 +188,9 @@ class _FiltersOnAllListsState extends ConsumerState<FiltersOnAllLists> {
 
   FutureBuilder<Map<String, dynamic>> showList(
       JAndDateModel janddate, Filters toFilter) {
+        final listControllers = ListControllers();
     return FutureBuilder(
-      future: getAllListByJD(janddate.currentJornada, janddate.currentDate,
+      future: listControllers.getAllListByJD(janddate.currentJornada, janddate.currentDate,
           toFilter.pagination.toString()),
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

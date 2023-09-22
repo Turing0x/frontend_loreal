@@ -7,6 +7,7 @@ import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 
+final userCtrl = UserControllers();
 class BanksControlPage extends ConsumerStatefulWidget {
   const BanksControlPage({super.key});
 
@@ -46,8 +47,9 @@ class _BanksControlPageState extends ConsumerState<BanksControlPage> {
   }
 
   FutureBuilder<List<User>> showList() {
+
     return FutureBuilder(
-      future: getAllBanks(),
+      future: userCtrl.getAllBanks(),
       builder: (context, AsyncSnapshot<List<User>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return waitingWidget(context);
@@ -81,7 +83,7 @@ class _BanksControlPageState extends ConsumerState<BanksControlPage> {
                       Text(
                           'Se eliminará el usuario ${users[index].username}. Seguro desea hacerlo?',
                           style: subtituloListTile), (() {
-                    deleteOne(users[index].id);
+                    userCtrl.deleteOne(users[index].id);
                     syncUserControl.value = !syncUserControl.value;
                     Navigator.pop(context);
                   }));
@@ -104,7 +106,7 @@ class _BanksControlPageState extends ConsumerState<BanksControlPage> {
             Text(
                 'Se inhabilitará el acceso al sistema al usuario $username. Seguro desea hacerlo?',
                 style: subtituloListTile), (() {
-          editOneEnable(id, value);
+          userCtrl.editOneEnable(id, value);
           setState(() {
             state = value;
           });

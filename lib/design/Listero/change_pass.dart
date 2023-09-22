@@ -66,9 +66,10 @@ class _ChangeAccessPassState extends State<ChangeAccessPass> {
                     backgroundColor: Colors.blue[300],
                     elevation: 2,
                   ),
-                  onPressed: () =>
-                      changePass(actualPass.text, newPass.text, context)),
-            ),
+                  onPressed: () {
+                    final userCtrl = UserControllers();
+                    userCtrl.changePass(actualPass.text, newPass.text, context);
+                  })),
             SizedBox(height: MediaQuery.of(context).size.height * 0.12),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(

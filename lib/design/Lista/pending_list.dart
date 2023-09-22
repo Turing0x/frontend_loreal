@@ -5,13 +5,15 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
 import 'package:frontend_loreal/config/database/list_table/bd_provider.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
 import 'package:share_extend/share_extend.dart';
+
+final listControllers = ListControllers();
 
 class PendingLists extends StatefulWidget {
   const PendingLists({super.key});
@@ -37,7 +39,7 @@ class _PendingListsState extends State<PendingLists> {
       });
     });
 
-    AuthServices.getUsername().then((value) {
+    LocalStorage.getUsername().then((value) {
       setState(() {
         username = value;
       });
@@ -83,7 +85,7 @@ class _PendingListsState extends State<PendingLists> {
   }
 
   void sendMany(List<OfflineList> lists) async {
-    bool status = await saveManyList(username!, lists);
+    bool status = await listControllers.saveManyList(username!, lists);
 
     if (!status) {
       return;
@@ -210,7 +212,7 @@ class _PendingListsState extends State<PendingLists> {
                   label: const Text('Enviarla'),
                   onPressed: () async {
                     final navigator = Navigator.of(context);
-                    bool status = await saveOneList(
+                    bool status = await listControllers.saveOneList(
                         list.date!, list.jornal!, list.signature!);
 
                     if (status) {

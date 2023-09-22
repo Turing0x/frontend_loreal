@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Listero/pdf_listero.dart';
 import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
@@ -30,6 +30,7 @@ import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+final listControllers = ListControllers();
 class ListDetails extends ConsumerStatefulWidget {
   const ListDetails({
     super.key,
@@ -109,7 +110,7 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
             child: textoDosis(
                 'Está seguro que desea eliminar esta lista?', 20)),
         () {
-      final wasDelete = deleteOneList(id);
+      final wasDelete = listControllers.deleteOneList(id);
       wasDelete.then((value) {
         if (value) {
           Navigator.pushReplacementNamed(
@@ -122,7 +123,7 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
   @override
   void initState() {
 
-    AuthServices.getRole().then((value){
+    LocalStorage.getRole().then((value){
       if (value == 'banco' && widget.lotIncoming == '') {
         setState(() {
           change = true;
@@ -184,7 +185,7 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
         height: MediaQuery.of(context).size.height * 0.9,
         width: double.infinity,
         child: FutureBuilder(
-          future: getAllList(
+          future: listControllers.getAllList(
               username: widget.username,
               jornal: widget.jornal,
               date: widget.date),
@@ -315,7 +316,7 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
 
   Widget sumEachList() {
     return FutureBuilder(
-        future: getListById(id),
+        future: listControllers.getListById(id),
         builder: (_, AsyncSnapshot<List<BoliList>> snapshot) {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Container(

@@ -6,6 +6,7 @@ import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 
+final paymentsControllers = PaymentsControllers();
 class PaymentsToUser extends StatefulWidget {
   final String userID;
   final String username;
@@ -60,7 +61,7 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
             icon: const Icon(Icons.save),
             onPressed: (() {
               FocusScope.of(context).unfocus();
-              editPaymentsOfUser(
+              paymentsControllers.editPaymentsOfUser(
                   pagos_jugada_Corrido.text,
                   pagos_jugada_Centena.text,
                   pagos_jugada_Parle.text,
@@ -210,8 +211,8 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
   }
 
   getHisPayments(String userID) {
-    Future<List<Payments>> thisUser = getPaymentsOfUser(userID);
-    Future<List<Payments>> forPayments = getDataPayments();
+    Future<List<Payments>> thisUser = paymentsControllers.getPaymentsOfUser(userID);
+    Future<List<Payments>> forPayments = paymentsControllers.getDataPayments();
     thisUser.then((value) => {
           if (value.isNotEmpty)
             {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 
@@ -133,10 +134,11 @@ class PopupWidget extends ConsumerWidget {
   void enviarMethod(BuildContext context, dynamic lista, WidgetRef ref) async {
     final toJoinListM = ref.read(toJoinListR.notifier);
     final payCrtl = ref.read(paymentCrtl.notifier);
+    final listControllers = ListControllers();
 
     final jwt = _jwt(lista);
 
-    final result = await saveOneList(todayGlobal, jornalGlobal, jwt);
+    final result = await listControllers.saveOneList(todayGlobal, jornalGlobal, jwt);
     if (result) {
       fileManagerWriteGlobal(toBlockIfOutOfLimit);
       fileManagerWriteFCPC(toBlockIfOutOfLimitFCPC);

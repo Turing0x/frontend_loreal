@@ -70,6 +70,8 @@ class _CreateUserForColectorState extends State<CreateUserForColector> {
                     ),
                     label: textoDosis('Crear usuario', 20, color: Colors.white),
                     onPressed: () async {
+
+                      final userCtrl = UserControllers();
                       FocusScope.of(context).unfocus();
 
                       if (nameController.text.isEmpty ||
@@ -82,7 +84,7 @@ class _CreateUserForColectorState extends State<CreateUserForColector> {
                           'Confirmar crear usuario',
                           Text('Se creará el usuario ${nameController.text}.',
                               style: subtituloListTile), (() {
-                        saveOne(nameController.text.trim(),
+                        userCtrl.saveOne(nameController.text.trim(),
                             passController.text.trim(), widget.userAsOwner);
                         Navigator.pop(context);
                       }));

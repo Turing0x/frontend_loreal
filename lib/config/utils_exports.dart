@@ -5,21 +5,13 @@ import 'package:frontend_loreal/config/server/http/methods.dart';
 import 'package:frontend_loreal/design/Release/release_version_widget.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:r_upgrade/r_upgrade.dart';
-
-const storage = FlutterSecureStorage();
 
 TextStyle? tituloListTile =
     const TextStyle(fontFamily: 'Dosis', fontWeight: FontWeight.bold);
 TextStyle? subtituloListTile = const TextStyle(fontFamily: 'Dosis');
-
-String todayGlobal = DateFormat.MMMd().format(DateTime.now());
-String jornalGlobal = (TimeOfDay.now().hour < 14) ? 'dia' : 'noche';
-String globalUserName = '';
 
 Divider divisor = const Divider(
   color: Colors.black,
@@ -314,6 +306,7 @@ IconButton buscarActualziacionWidget(BuildContext context) {
 Padding toChangePass(BuildContext context) {
   TextEditingController actualPass = TextEditingController();
   TextEditingController newPass = TextEditingController();
+  final userCtrl = UserControllers();
 
   return dinamicGroupBox('Cambiar clave de acceso', [
     TxtInfo(
@@ -345,7 +338,7 @@ Padding toChangePass(BuildContext context) {
             elevation: 2,
           ),
           child: textoDosis('Cambiar clave', 20, color: Colors.white),
-          onPressed: () => changePass(actualPass.text, newPass.text, context)),
+          onPressed: () => userCtrl.changePass(actualPass.text, newPass.text, context)),
     ),
   ]);
 }

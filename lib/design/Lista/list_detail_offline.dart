@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/database/list_table/bd_provider.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Listero/pdf_listero.dart';
 import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
@@ -51,7 +51,7 @@ class _ListDetailsOfflineState extends ConsumerState<ListDetailsOffline> {
 
   @override
   void initState() {
-    final username = AuthServices.getUsername();
+    final username = LocalStorage.getUsername();
     username.then((value) => {userNameOffline = value!});
     super.initState();
   }

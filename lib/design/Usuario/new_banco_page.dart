@@ -69,6 +69,7 @@ class _NewBancoPageState extends State<NewBancoPage> {
                     label: textoDosis('Crear usuario', 20, color: Colors.white),
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
+                      final userCtrl = UserControllers();
 
                       if (nameController.text.isEmpty ||
                           passController.text.isEmpty) {
@@ -80,7 +81,7 @@ class _NewBancoPageState extends State<NewBancoPage> {
                           'Confirmar crear usuario',
                           Text('Se creará el usuario ${nameController.text}.',
                               style: subtituloListTile), (() {
-                        saveOne(nameController.text.trim(),
+                        userCtrl.saveOne(nameController.text.trim(),
                             passController.text.trim(), '');
                         Navigator.pop(context);
                       }));

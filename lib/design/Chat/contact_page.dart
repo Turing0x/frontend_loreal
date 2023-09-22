@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
@@ -21,8 +21,10 @@ class _ContactPageState extends ConsumerState<ContactPage> {
   @override
   void initState() {
 
-    AuthServices.getUserId().then((value) {
-      getMyPeople( value! ).then(
+    final userCtrl = UserControllers();
+
+    LocalStorage.getUserId().then((value) {
+      userCtrl.getMyPeople( value! ).then(
         (value) {
           setState(() {
             contacts = value;
@@ -107,7 +109,7 @@ class ShowList extends StatelessWidget {
                 trailing: const Icon(Icons.arrow_right_rounded, color: Colors.black),
                 onTap: () => Navigator.pushNamed(context, 'chat_page', arguments: [
                   list[index].id,
-                  list[index].username]),
+                  list[index].username, []]),
               
               ),
             );

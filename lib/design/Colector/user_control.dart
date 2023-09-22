@@ -94,12 +94,15 @@ class ShowList extends ConsumerStatefulWidget {
 class _ShowListState extends ConsumerState<ShowList> {
   @override
   Widget build(BuildContext context) {
+
+    final userCtrl = UserControllers();
+
     return Scaffold(
       body: ValueListenableBuilder<bool>(
           valueListenable: syncUserControl,
           builder: (_, __, ___) {
             return FutureBuilder(
-              future: getAllUsers(id: widget.idToSearch),
+              future: userCtrl.getAllUsers(id: widget.idToSearch),
               builder: (context, AsyncSnapshot<List<User>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return waitingWidget(context);
@@ -147,6 +150,7 @@ class _ShowListState extends ConsumerState<ShowList> {
 
   Switch btnEnable(
       BuildContext context, String id, String username, bool enable) {
+        final userCtrl = UserControllers();
     bool state = enable;
     return Switch(
       value: state,
@@ -157,7 +161,7 @@ class _ShowListState extends ConsumerState<ShowList> {
             Text(
                 'Se inhabilitará el acceso al sistema al usuario $username. Seguro desea hacerlo?',
                 style: subtituloListTile), (() {
-          editOneEnable(id, value);
+          userCtrl.editOneEnable(id, value);
           setState(() {
             state = value;
           });

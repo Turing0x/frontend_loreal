@@ -8,6 +8,7 @@ import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:flutter/services.dart';
 import 'package:frontend_loreal/models/Limites/limited_ball.dart';
 
+final limitsControllers = LimitsControllers();
 class LimitedBall extends StatefulWidget {
   const LimitedBall({super.key});
 
@@ -22,7 +23,7 @@ class _LimitedBallState extends State<LimitedBall> {
 
   @override
   void initState() {
-    Future<List<LimitedBallModel>> limits = getLimitedBallToday();
+    Future<List<LimitedBallModel>> limits = limitsControllers.getLimitedBallToday();
     limits.then((value) {
       if (value.isNotEmpty) {
         setState(() {
@@ -48,7 +49,7 @@ class _LimitedBallState extends State<LimitedBall> {
           icon: const Icon(Icons.save_outlined),
           onPressed: () {
             if (bolaLimitada.isNotEmpty) {
-              saveDataLimitsBalls(bolaLimitada);
+              limitsControllers.saveDataLimitsBalls(bolaLimitada);
               return;
             }
 

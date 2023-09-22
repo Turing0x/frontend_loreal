@@ -235,7 +235,8 @@ class _ListReviewPageState extends State<ListReviewPage> {
   }
 
   getHisPayments(String userID) {
-    Future<List<Payments>> thisUser = getPaymentsOfUser(userID);
+    final paymentsControllers = PaymentsControllers();
+    Future<List<Payments>> thisUser = paymentsControllers.getPaymentsOfUser(userID);
     thisUser.then((value) {
 
       if (value.isNotEmpty) {

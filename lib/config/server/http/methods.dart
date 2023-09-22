@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'auth.dart';
 
 Future<String> rutaInicial() async {
-  final role = await AuthServices.getRole();
-  final lastTime = await AuthServices.getTimeSign();
+  final role = await LocalStorage.getRole();
+  final lastTime = await LocalStorage.getTimeSign();
 
   if (role != null &&
       !excede100Minutos(
@@ -18,9 +18,9 @@ Future<String> rutaInicial() async {
 cerrarSesion(BuildContext context) async {
   final contex = Navigator.of(context);
 
-  await AuthServices.roleDelete();
-  await AuthServices.tokenDelete();
-  await AuthServices.userIdDelete();
+  await LocalStorage.roleDelete();
+  await LocalStorage.tokenDelete();
+  await LocalStorage.userIdDelete();
 
   toBlockIfOutOfLimit.clear();
   toBlockIfOutOfLimitFCPC.clear();

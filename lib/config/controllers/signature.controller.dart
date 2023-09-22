@@ -1,36 +1,53 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 
-Future<String> generateSignture(String date, String jornal) async {
-  try {
-    final queryData = {'jornal': jornal, 'date': date};
+class SignatureControllers {
 
-    EasyLoading.show(status: 'Generando firma general');
+  late Dio _dio;
 
-    final res = await http.get(
-        Uri.http(
-            dotenv.env['SERVER_URL']!, '/api/signature/generate', queryData),
+  SignatureControllers() {
+    _initializeDio();
+  }
+
+  Future<void> _initializeDio() async {
+    final token = await LocalStorage.getToken();
+
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
         headers: {
           'Content-Type': 'application/json',
-          'access-token': (await AuthServices.getToken())!
-        });
+          'access-token': token,
+        },
+      ),
+    );
+  }
 
-    final decodeData = json.decode(res.body) as Map<String, dynamic>;
-    if (decodeData['success'] == false) {
+  Future<String> generateSignture(String date, String jornal) async {
+    try {
+      final queryData = {'jornal': jornal, 'date': date};
+
+      EasyLoading.show(status: 'Generando firma general');
+      await _initializeDio();
+      Response response = await _dio.get('/api/signature/generate',
+        queryParameters: queryData);
+
+      if (response.data['success'] == false) {
+        EasyLoading.showError('Ha ocurrido algo grave');
+        return '';
+      }
+
+      String data = response.data['data'];
+
+      EasyLoading.showSuccess('Firma generada exitosamente');
+
+      return data;
+    } catch (e) {
       EasyLoading.showError('Ha ocurrido algo grave');
       return '';
     }
-
-    String data = decodeData['data'];
-
-    EasyLoading.showSuccess('Firma generada exitosamente');
-
-    return data;
-  } catch (e) {
-    EasyLoading.showError('Ha ocurrido algo grave');
-    return '';
   }
+
 }

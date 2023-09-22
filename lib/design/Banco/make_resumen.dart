@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/controllers/pdf_controllers.dart';
-import 'package:frontend_loreal/config/controllers/pdf_data_model.dart';
+import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
@@ -89,6 +90,7 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
 
   void makePdf() {
     try {
+      final pdfControllers = PdfControllers();
       EasyLoading.show(status: 'Buscando información para crear el vale...');
 
       DateTime now = DateTime.now();
@@ -96,7 +98,7 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
       List<InvoiceItemColector> toPDF = [];
 
       final janddate = ref.watch(janddateR);
-      final pdfData = getDataToPDF(
+      final pdfData = pdfControllers.getDataToPDF(
         widget.userName,
         janddate.currentDate,
         janddate.currentJornada,
@@ -208,12 +210,13 @@ class ShowList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userCtrl = UserControllers();
     return Scaffold(
       body: ValueListenableBuilder(
           valueListenable: recargar,
           builder: (_, __, ___) {
             return FutureBuilder(
-              future: getUserById(
+              future: userCtrl.getUserById(
                   id: seeChUsername,
                   userInfo: false,
                   janddate.currentJornada,

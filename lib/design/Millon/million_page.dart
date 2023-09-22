@@ -47,13 +47,14 @@ class _MillionGamePageState extends ConsumerState<MillionGamePage> {
 
   Widget searchLot() {
     final janddate = ref.watch(janddateR);
+    final sorteosControllers = SorteosControllers();
 
     return ValueListenableBuilder(
         valueListenable: cambioMillionGame,
         builder: (_, __, ___) {
           return FutureBuilder(
               future:
-                  getSorteoByJD(janddate.currentJornada, janddate.currentDate),
+                  sorteosControllers.getSorteoByJD(janddate.currentJornada, janddate.currentDate),
               builder: (_, AsyncSnapshot<String> snapshot) {
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return boldLabel('Sorteo del momento -> ', 'Sin dato', 23);

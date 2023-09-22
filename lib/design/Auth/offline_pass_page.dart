@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/simple_txt.dart';
 
@@ -59,7 +59,7 @@ class _OfflinePassState extends State<OfflinePass> {
                 ),
                 onPressed: () async {
                   Future<String?> offlinePass =
-                      AuthServices.getpassListerOffline();
+                      LocalStorage.getpassListerOffline();
                   offlinePass.then((value) {
                     if (passController.text != value) {
                       showToast('Contraseña incorrecta');

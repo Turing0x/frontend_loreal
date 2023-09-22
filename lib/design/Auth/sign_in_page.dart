@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/simple_txt.dart';
 
@@ -22,7 +23,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   void initState() {
-    Future<String?> offlinePass = AuthServices.getpassListerOffline();
+    Future<String?> offlinePass = LocalStorage.getpassListerOffline();
     offlinePass.then((value) {
       if (value != null) {
         setState(() {

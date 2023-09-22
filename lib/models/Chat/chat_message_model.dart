@@ -5,61 +5,89 @@ ChatMessage chatMessageFromJson(String str) => ChatMessage.fromJson(json.decode(
 String chatMessageToJson(ChatMessage data) => json.encode(data.toJson());
 
 class ChatMessage {
-  final String receiver;
-  final String receiverUsername;
-  final String sender;
-  final String senderUsername;
-  final Date date;
-  final String text;
-  final String messageType;
+  final UserInfo receiver;
+  final UserInfo sender;
+  final Messages messages;
 
   ChatMessage({
     required this.receiver,
-    required this.receiverUsername,
     required this.sender,
-    required this.senderUsername,
-    required this.date,
-    required this.text,
-    required this.messageType,
+    required this.messages,
   });
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
-    receiver: json["receiver"],
-    receiverUsername: json["receiverUsername"],
-    sender: json["sender"],
-    senderUsername: json["senderUsername"],
-    date: Date.fromJson(json["date"]),
-    text: json["text"],
-    messageType: json["messageType"],
+    receiver: UserInfo.fromJson(json["receiver"]),
+    sender: UserInfo.fromJson(json["sender"]),
+    messages: Messages.fromJson(json["messages"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "receiver": receiver,
-    "receiverUsername": receiverUsername,
-    "sender": sender,
-    "senderUsername": senderUsername,
-    "date": date.toJson(),
-    "text": text,
+    "receiver": receiver.toJson(),
+    "sender": sender.toJson(),
+    "messages": messages.toJson(),
+  };
+}
+
+class Messages {
+  final String messageType;
+  final Date date;
+  final String msglist;
+
+  Messages({
+    required this.messageType,
+    required this.date,
+    required this.msglist,
+  });
+
+  factory Messages.fromJson(Map<String, dynamic> json) => Messages(
+    messageType: json["messageType"],
+    date: Date.fromJson(json["date"]),
+    msglist: json["msglist"],
+  );
+
+  Map<String, dynamic> toJson() => {
     "messageType": messageType,
+    "date": date.toJson(),
+    "msglist": msglist,
   };
 }
 
 class Date {
-final String date;
-final String time;
+  final String time;
+  final String date;
 
   Date({
-    required this.date,
     required this.time,
+    required this.date,
   });
 
   factory Date.fromJson(Map<String, dynamic> json) => Date(
-    date: json["date"],
     time: json["time"],
+    date: json["date"],
   );
 
   Map<String, dynamic> toJson() => {
-    "date": date,
     "time": time,
+    "date": date,
+  };
+}
+
+class UserInfo {
+  final String id;
+  final String username;
+
+  UserInfo({
+    required this.id,
+    required this.username,
+  });
+
+  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
+    id: json["id"],
+    username: json["username"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "username": username,
   };
 }

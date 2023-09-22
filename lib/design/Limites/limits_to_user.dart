@@ -6,6 +6,7 @@ import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:frontend_loreal/models/Limites/limits_model.dart';
 
+final limitsControllers = LimitsControllers();
 class LimitsToUser extends StatefulWidget {
   final String userID;
   final String username;
@@ -41,7 +42,7 @@ class _LimitsToUserState extends State<LimitsToUser> {
             icon: const Icon(Icons.save),
             onPressed: (() {
               FocusScope.of(context).unfocus();
-              editLimitsOfUser(
+              limitsControllers.editLimitsOfUser(
                   limits_Fijo.text,
                   limits_Corrido.text,
                   limits_Parle.text,
@@ -148,7 +149,7 @@ class _LimitsToUserState extends State<LimitsToUser> {
   }
 
   getHisLimits(String userID) {
-    Future<List<Limits>> thisUser = getLimitsOfUser(userID);
+    Future<List<Limits>> thisUser = limitsControllers.getLimitsOfUser(userID);
     thisUser.then((value) => {
           if (value.isNotEmpty)
             {
