@@ -32,7 +32,7 @@ class AuthServices {
 
       authStatus.value = false;
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         String role = response.data['data'][2]['role']['code'];
 
         localStorage.usernameSave(response.data['data'][4]['username']);

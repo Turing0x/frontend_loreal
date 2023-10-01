@@ -35,7 +35,7 @@ class CalcsControllers {
       Response response = await _dio.get('/api/calcs',
         queryParameters: queryData);
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];

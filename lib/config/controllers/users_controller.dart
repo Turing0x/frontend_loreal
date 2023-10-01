@@ -38,7 +38,7 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.get('/api/users', queryParameters: queryData);
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
@@ -72,7 +72,7 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.get('/api/users/banksUsers');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
@@ -96,7 +96,7 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.get('/api/users/myPeople/$id');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
@@ -131,7 +131,7 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.get(endpoint, queryParameters: queryData);
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(response.data['api_message']);
         return {'data': [], 'missign': [], 'lotOfToday': ''};
       }
@@ -182,7 +182,7 @@ class UserControllers {
       Response response = await _dio.post('/api/users',
         data: jsonEncode({'username': name, 'password': pass, 'owner': owner}));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return;
       }
@@ -201,7 +201,7 @@ class UserControllers {
       Response response = await _dio.put('/api/users/changeEnable/$id',
         data: jsonEncode({ 'enable': enable }) );
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return true;
       }
@@ -220,7 +220,7 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.delete('/api/users/$id');
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return;
       }
@@ -241,7 +241,7 @@ class UserControllers {
       Response response = await _dio.post('/api/users/chpass', 
         data: jsonEncode({'actualPass': actualPass, 'newPass': newPass}));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         cont.pushNamedAndRemoveUntil(
             'signIn_page', (Route<dynamic> route) => false);
         if (context.mounted) await cerrarSesion(context);
@@ -266,7 +266,7 @@ class UserControllers {
       Response response = await _dio.post('/api/users/resetpass', 
         queryParameters: queryData );
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return;
       }
@@ -283,7 +283,7 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/users/checkJWT');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         return false;
       }
 

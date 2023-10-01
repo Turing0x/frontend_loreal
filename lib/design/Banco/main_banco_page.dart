@@ -116,12 +116,12 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
                 'Lleva la cuenta de la deuda pendiente de cada colección',
                 () => Navigator.pushNamed(context, 'colectors_debt_page'),
                 true),
-            optListTile(
-                Icons.chat_bubble_outline_outlined,
-                'Sala de chat',
-                'Chat interno con los colectores registrados',
-                () => Navigator.pushNamed(context, 'chat_room'),
-                true),
+            // optListTile(
+            //     Icons.chat_bubble_outline_outlined,
+            //     'Sala de chat',
+            //     'Chat interno con los colectores registrados',
+            //     () => Navigator.pushNamed(context, 'chat_room'),
+            //     true),
           ],
         )));
   }

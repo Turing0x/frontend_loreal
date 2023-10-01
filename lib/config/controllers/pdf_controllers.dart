@@ -45,7 +45,7 @@ class PdfControllers {
       Response response = await _dio.get('/api/vales/$username',
         queryParameters: queryData);
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         return [];
       }
 
@@ -78,7 +78,7 @@ class PdfControllers {
       Response response = await _dio.get('/api/vales/all',
         queryParameters: queryData);
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showError('Ha ocurrido algo grave');
         return [];
       }

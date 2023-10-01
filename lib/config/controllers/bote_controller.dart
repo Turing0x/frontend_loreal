@@ -36,7 +36,7 @@ class BoteControllers {
         data: {'fijo': fijo, 'parle': parle, 'centena': centena},
       );
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         return [];
       }
 

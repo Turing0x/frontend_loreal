@@ -39,8 +39,7 @@ class _SettingsColectorPageState extends ConsumerState<SettingsColectorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: showAppBar('Ajustes del sistema',
-          actions: [buscarActualziacionWidget(context)]),
+      appBar: showAppBar('Ajustes del sistema'),
       body: SingleChildScrollView(
           child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),

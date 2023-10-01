@@ -35,7 +35,7 @@ class PaymentsControllers {
 
       await _initializeDio();
       Response response = await _dio.get('/api/payments');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showError('Algo grave ha ocurrido');
         return [];
       }
@@ -58,7 +58,7 @@ class PaymentsControllers {
 
       await _initializeDio();
       Response response = await _dio.get('/api/payments/$id');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
@@ -108,7 +108,7 @@ class PaymentsControllers {
           'time': time
         }));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return;
       }
@@ -156,7 +156,7 @@ class PaymentsControllers {
       Response response = await _dio.put('/api/users/$userID',
         data: jsonEncode({'payments': pay_obj}));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return;
       }

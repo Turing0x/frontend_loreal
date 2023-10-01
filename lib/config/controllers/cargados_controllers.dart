@@ -22,7 +22,7 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
     Response response = await _dio.get('/api/list/cargados', 
       queryParameters: queryData);
 
-    if (response.data['success'] == false) {
+    if (!response.data['success']) {
       EasyLoading.showError('Ha ocurrido un error');
       return [];
     }
@@ -53,7 +53,7 @@ Future<List<BolaCargadaModel>> getParleCargadas(
     Response response = await _dio.get('/api/list/parle', 
       queryParameters: queryData);
 
-    if (response.data['success'] == false) {
+    if (!response.data['success']) {
       EasyLoading.showError('Ha ocurrido un error');
 
       return [];

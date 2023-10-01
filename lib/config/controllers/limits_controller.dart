@@ -40,7 +40,7 @@ class LimitsControllers {
       
       await _initializeDio();
       Response response = await _dio.get('/api/limits');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showError('No hay datos para mostrar');
         return [];
       }
@@ -63,7 +63,7 @@ class LimitsControllers {
       
       await _initializeDio();
       Response response = await _dio.get('/api/limits/$id');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
@@ -103,7 +103,7 @@ class LimitsControllers {
           'limitesMillonCorrido': limites_millon_Corrido,
         }));
 
-      if (response.data['success'] == true) {
+      if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
         return;
       }
@@ -139,7 +139,7 @@ class LimitsControllers {
       Response response = await _dio.put('/api/users/$id', 
         data: jsonEncode({'limits': limits_obj}));
 
-      if (response.data['success'] == true) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return;
       }
@@ -162,7 +162,7 @@ class LimitsControllers {
           'bola': bola,
         }));
 
-      if (response.data['success'] == true) {
+      if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
         return;
       }
@@ -181,7 +181,7 @@ class LimitsControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/limitnumbers');
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showError('No hay datos para mostrar');
         return [];
       }
@@ -206,7 +206,7 @@ class LimitsControllers {
       Response response = await _dio.post('/api/limitnumbers/parle',
         data: jsonEncode({ 'parle': parle }));
 
-      if (response.data['success'] == true) {
+      if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
         return;
       }
@@ -225,7 +225,7 @@ class LimitsControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/limitnumbers/parle');
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showError('Ha ocurrido un error');
         return [];
       }
@@ -263,7 +263,7 @@ class LimitsControllers {
           }
         }));
 
-      if (response.data['success'] == true) {
+      if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
         return;
       }
@@ -282,7 +282,7 @@ class LimitsControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/limits/bola/$id');
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showInfo(response.data['api_message']);
         return [];
       }
@@ -313,7 +313,7 @@ class LimitsControllers {
           }
         }));
 
-      if (response.data['success'] == true) {
+      if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
         return;
       }
@@ -332,7 +332,7 @@ class LimitsControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/limits/parle/$id');
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showInfo(response.data['api_message']);
         return [];
       }

@@ -36,7 +36,7 @@ class TimeControllers {
       
       await _initializeDio();
       Response response = await _dio.get('/api/time');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         return [];
       }
       final List<Time> timeData = [];
@@ -67,7 +67,7 @@ class TimeControllers {
         }));
 
       String api_message = response.data['api_message'];
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(api_message);
         return;
       }

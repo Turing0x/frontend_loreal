@@ -33,7 +33,7 @@ class MillionControllers {
       Response response = await _dio.get('/api/million',
         queryParameters: queryData);
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast('Ha ocurrido algo grave');
         return [];
       }

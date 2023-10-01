@@ -44,7 +44,7 @@ class ListControllers {
 
       await _initializeDio();
       Response response = await _dio.get('/api/list', queryParameters: queryData);
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return {'data': [], 'lotOfToday': 'Sin datos'};
@@ -73,7 +73,7 @@ class ListControllers {
     
           await _initializeDio();
       Response response = await _dio.get('/api/list/$id');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
@@ -97,7 +97,7 @@ class ListControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/list', queryParameters: queryData);
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(response.data['api_message']);
         return {'data': [], 'lotOfToday': ''};
       }
@@ -131,7 +131,7 @@ class ListControllers {
           'date': date,
         }));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return true;
       }
@@ -152,7 +152,7 @@ class ListControllers {
       Response response = await _dio.post('/api/list/many',
         data: jsonEncode({'owner': owner, 'lists': lists}));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return true;
       }
@@ -172,7 +172,7 @@ class ListControllers {
       await _initializeDio();
       Response response = await _dio.delete('/api/list/$id');
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return true;
       }
@@ -193,7 +193,7 @@ class ListControllers {
       Response response = await _dio.put('/api/list/$id',
         queryParameters: {'listOfIds': listOfIds});
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return true;
       }

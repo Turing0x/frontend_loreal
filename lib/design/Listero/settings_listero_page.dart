@@ -35,8 +35,7 @@ class _SettingsListeroPageState extends ConsumerState<SettingsListeroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: showAppBar('Ajustes del sistema',
-          actions: [buscarActualziacionWidget(context)]),
+      appBar: showAppBar('Ajustes del sistema'),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -37,7 +37,7 @@ class SorteosControllers {
       Response response = await _dio.get('/api/sorteos');
       final List<Sorteo> sorteosData = [];
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         return [];
       }
 
@@ -60,7 +60,7 @@ class SorteosControllers {
       Response response = await _dio.get('/api/sorteos',
         queryParameters: queryData);
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return '';
@@ -78,7 +78,7 @@ class SorteosControllers {
 
       await _initializeDio();
       Response response = await _dio.get('/api/sorteos/last');
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return '';
@@ -99,7 +99,7 @@ class SorteosControllers {
       Response response = await _dio.post('/api/sorteos',
         data: jsonEncode({'lot': lot, 'jornal': jornal, 'date': date}));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return true;
       }
@@ -119,7 +119,7 @@ class SorteosControllers {
       Response response = await _dio.put('/api/sorteos/$id',
         data: jsonEncode({ 'lot': lot }));
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         showToast(response.data['api_message'], type: true);
         return true;
       }
@@ -139,7 +139,7 @@ class SorteosControllers {
       await _initializeDio();
       Response response = await _dio.delete('/api/sorteos/$id');
 
-      if (response.statusCode == 200) {
+      if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
         return true;
       }

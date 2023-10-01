@@ -34,7 +34,7 @@ class SignatureControllers {
       Response response = await _dio.get('/api/signature/generate',
         queryParameters: queryData);
 
-      if (response.data['success'] == false) {
+      if (!response.data['success']) {
         EasyLoading.showError('Ha ocurrido algo grave');
         return '';
       }

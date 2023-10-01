@@ -40,9 +40,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     final seechUsername = ref.watch(chUser);
 
     return Scaffold(
-      appBar: showAppBar('Ajustes del sistema', actions: [
-        buscarActualziacionWidget(context),
-      ]),
+      appBar: showAppBar('Ajustes del sistema'),
       body: SingleChildScrollView(
           child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),

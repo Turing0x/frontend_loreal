@@ -27,8 +27,7 @@ class _ChatRoomState extends ConsumerState<ChatRoom> {
     sService.on('messageList', (data) {
       if( (data as List).isNotEmpty ){
         setState(() {
-          for( var msg in data ){
-            print(msg);
+          for( var _ in data ){
             // messages.add({
             //   'username': msg.,
             //   'last': msg,

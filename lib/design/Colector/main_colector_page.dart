@@ -166,12 +166,12 @@ class _MainColectorPageState extends State<MainColectorPage>
                 () => Navigator.pushNamed(context, 'see_limited_parle',
                     arguments: [mainID]),
                 true),
-            optListTile(
-                Icons.message_outlined,
-                'Sala de chat',
-                'Chat interno de la plataforma',
-                () => Navigator.pushNamed(context, 'chat_room'),
-                true),
+            // optListTile(
+            //     Icons.message_outlined,
+            //     'Sala de chat',
+            //     'Chat interno de la plataforma',
+            //     () => Navigator.pushNamed(context, 'chat_room'),
+            //     true),
           ],
         )));
   }
