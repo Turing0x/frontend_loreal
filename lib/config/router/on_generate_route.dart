@@ -6,7 +6,6 @@ import '../../design/Banco/make_resumen.dart';
 import '../../design/Banco/see_list_detail_to_send.dart';
 import '../../design/Cargados/see_details_bola.dart';
 import '../../design/Cargados/see_details_parle.dart';
-import '../../design/Chat/chat_page.dart';
 import '../../design/Colector/create_user_page.dart';
 import '../../design/Colector/user_control.dart';
 import '../../design/Limites/limited_ball_to_user_page.dart';
@@ -40,13 +39,6 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
     'making_all_docs': MaterialPageRoute(
       builder: (_) => MakingAllDocs(
         lotThisDay: argumentos[0],
-      )),
-
-    'chat_page': MaterialPageRoute(
-      builder: (_) => ChatPage(
-        id: argumentos[0],
-        username: argumentos[1],
-        incomingMessages: argumentos[2],
       )),
     
     'list_review_page': MaterialPageRoute(

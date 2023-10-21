@@ -12,8 +12,6 @@ import 'package:frontend_loreal/design/Banco/settings_banco_page.dart';
 import 'package:frontend_loreal/design/Bote/bote_page.dart';
 import 'package:frontend_loreal/design/Cargados/bola_cargada_page.dart';
 import 'package:frontend_loreal/design/Cargados/parle_cargada_page.dart';
-import 'package:frontend_loreal/design/Chat/main_chat_page.dart';
-import 'package:frontend_loreal/design/Chat/contact_page.dart';
 import 'package:frontend_loreal/design/Colector/main_colector_page.dart';
 import 'package:frontend_loreal/design/Colector/settings_colector_page.dart';
 import 'package:frontend_loreal/design/Firma/signature_page.dart';
@@ -67,9 +65,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'new_banco_page': (_) => const NewBancoPage(),
   'config_time_page': (_) => const TimePage(),
   'sorteos_page': (_) => const SorteosPage(),
-  'contact_page': (_) => const ContactPage(),
   'bote_page': (_) => const BotePage(),
-  'chat_room': (_) => const ChatRoom(),
 
 //--------------------------------------------------------------
 

@@ -10,6 +10,8 @@ import 'package:frontend_loreal/design/common/opt_list_tile.dart';
 import 'package:frontend_loreal/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
+import '../../config/server/socket/socket.dart';
+
 class MainColectorPage extends StatefulWidget {
   const MainColectorPage({super.key});
 
@@ -48,6 +50,13 @@ class _MainColectorPageState extends State<MainColectorPage>
 
   @override
   void initState() {
+
+    final sService = SocketServices().socket;
+
+    LocalStorage.getUserId().then((value){
+      sService.emit('sign', value);
+    });
+
     final timeControllers = TimeControllers();
     final getID = LocalStorage.getUserId();
     getID.then((value) {
@@ -165,13 +174,7 @@ class _MainColectorPageState extends State<MainColectorPage>
                 'Ver los parlés limitados para el día actual',
                 () => Navigator.pushNamed(context, 'see_limited_parle',
                     arguments: [mainID]),
-                true),
-            // optListTile(
-            //     Icons.message_outlined,
-            //     'Sala de chat',
-            //     'Chat interno de la plataforma',
-            //     () => Navigator.pushNamed(context, 'chat_room'),
-            //     true),
+                true)
           ],
         )));
   }
