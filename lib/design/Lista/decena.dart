@@ -106,6 +106,7 @@ class _DecenasWidgetState extends ConsumerState<DecenasWidget> {
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: fijo,
+          autofocus: true,
           left: 25,
           right: 15,
           inputFormatters: [

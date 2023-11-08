@@ -195,6 +195,8 @@ class _InternalStoragePageSListerotate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
+      if( !Directory('${appDocDirectory?.path}/PDFList').existsSync() ) return [];
+
       final fileList = Directory('${appDocDirectory?.path}/PDFList').listSync();
       for (var file in fileList) {
         getAllFilesInside(paths, file);

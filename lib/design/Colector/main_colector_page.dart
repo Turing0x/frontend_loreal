@@ -10,8 +10,6 @@ import 'package:frontend_loreal/design/common/opt_list_tile.dart';
 import 'package:frontend_loreal/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
-import '../../config/server/socket/socket.dart';
-
 class MainColectorPage extends StatefulWidget {
   const MainColectorPage({super.key});
 
@@ -50,12 +48,6 @@ class _MainColectorPageState extends State<MainColectorPage>
 
   @override
   void initState() {
-
-    final sService = SocketServices().socket;
-
-    LocalStorage.getUserId().then((value){
-      sService.emit('sign', value);
-    });
 
     final timeControllers = TimeControllers();
     final getID = LocalStorage.getUserId();

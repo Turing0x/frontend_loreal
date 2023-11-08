@@ -10,8 +10,10 @@ class SimpleTxt extends StatefulWidget {
   final String texto;
   final double left;
   final double right;
+  final int? maxLength;
   final double top;
   final bool obscureText;
+  final bool autofocus;
   final List<TextInputFormatter>? inputFormatters;
 
   const SimpleTxt({
@@ -23,6 +25,8 @@ class SimpleTxt extends StatefulWidget {
     required this.icon,
     required this.texto,
     this.obscureText = false,
+    this.autofocus = false,
+    this.maxLength,
     this.left = 30,
     this.right = 30,
     this.top = 10,
@@ -57,6 +61,8 @@ class _SimpleTxtState extends State<SimpleTxt> {
               controller: widget.controlador,
               inputFormatters: widget.inputFormatters,
               onChanged: widget.onChange,
+              autofocus: widget.autofocus,
+              maxLength: widget.maxLength,
               style: const TextStyle(fontFamily: 'Dosis', fontSize: 20),
               decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,

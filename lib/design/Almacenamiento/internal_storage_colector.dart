@@ -202,6 +202,8 @@ class _InternalStoragePageSColectortate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
+      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
+
       final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
       for (var file in fileList) {
         paths.add(file.path);
@@ -218,6 +220,8 @@ class _InternalStoragePageSColectortate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
+      if( !Directory('${appDocDirectory?.path}/PDFList').existsSync() ) return [];
+
       final fileList = Directory('${appDocDirectory?.path}/PDFList').listSync();
       for (var file in fileList) {
         paths.add(file.path);
@@ -234,6 +238,8 @@ class _InternalStoragePageSColectortate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
+      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
+
       final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
       for (var file in fileList) {
         paths.add(file.path);

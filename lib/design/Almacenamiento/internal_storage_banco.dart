@@ -200,6 +200,8 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
+      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
+
       final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
       for (var file in fileList) {
         paths.add(file.path);
@@ -216,6 +218,8 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
+      if( !Directory('${appDocDirectory?.path}/PDFList').existsSync() ) return [];
+
       final dir = Directory('${appDocDirectory?.path}/PDFList');
       if( dir.existsSync() ){
 
@@ -238,15 +242,11 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      final dir = Directory('${appDocDirectory?.path}/PDFDocs');
-      if( dir.existsSync() ){
+      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
 
-        final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
-        
-        for (var file in fileList) {
-          paths.add(file.path);
-        }
-
+      final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
+      for (var file in fileList) {
+        paths.add(file.path);
       }
 
       return paths;

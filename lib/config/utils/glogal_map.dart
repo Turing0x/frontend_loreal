@@ -1,4 +1,4 @@
-import '../enums/main_list_enum.dart';
+import 'package:frontend_loreal/config/enums/main_list_enum.dart';
 
 Map<String, int> toBlockIfOutOfLimit = <String, int>{};
 
@@ -10,13 +10,13 @@ Map<String, Map<String, int>> toBlockIfOutOfLimitTerminal =
 Map<String, Map<String, int>> toBlockIfOutOfLimitDecena =
     <String, Map<String, int>>{};
 
-List<Map<String, dynamic>> hasBeenDone = [];
-
 Map<String, List<dynamic>> listado = <String, List<dynamic>>{
   MainListEnum.fijoCorrido.toString(): [],
   MainListEnum.parles.toString(): [],
   MainListEnum.centenas.toString(): [],
 };
+
+List<Map<String, dynamic>> hasBeenDone = [];
 
 Map<String, dynamic> listadoCandado = {
   'candado': [],
@@ -39,6 +39,9 @@ Map<String, dynamic> listadoTerminal = {
 };
 
 void clearAllMaps() {
+  listado[MainListEnum.fijoCorrido.toString()]?.clear();
+  listado[MainListEnum.parles.toString()]?.clear();
+  listado[MainListEnum.centenas.toString()]?.clear();
   listadoCandado['candado']?.clear();
   listadoDecena['decena']?.clear();
   listadoMillon['millon']?.clear();

@@ -104,10 +104,11 @@ Future deleteAllFiles() async {
     final readFiletoBlockIfOutOfLimitDecena =
         await localFiletoBlockIfOutOfLimitDecena;
 
-    readFiletoBlockIfOutOfLimit.deleteSync();
-    readFiletoBlockIfOutOfLimitFCPC.deleteSync();
-    readFiletoBlockIfOutOfLimitTerminal.deleteSync();
-    readFiletoBlockIfOutOfLimitDecena.deleteSync();
+    if( readFiletoBlockIfOutOfLimit.existsSync() ) readFiletoBlockIfOutOfLimit.deleteSync();
+    if( readFiletoBlockIfOutOfLimitFCPC.existsSync() ) readFiletoBlockIfOutOfLimitFCPC.deleteSync();
+    if( readFiletoBlockIfOutOfLimitTerminal.existsSync() ) readFiletoBlockIfOutOfLimitTerminal.deleteSync();
+    if( readFiletoBlockIfOutOfLimitDecena.existsSync() ) readFiletoBlockIfOutOfLimitDecena.deleteSync();
+    
   } catch (e) {
     print('nada');
   }

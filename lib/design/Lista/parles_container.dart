@@ -44,15 +44,17 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
         List fcppc = toJoinList.currentList['ListaGeneralEnum.principales']![
             'MainListEnum.parles'];
         for (var element in fcppc) {
-          widget.listaParles.add(
-            ParlesModel.fromTextEditingController(
-              0,
-              uuid: uuid.v4(),
-              numplay: element.numplay[0].toString(),
-              numplay1: element.numplay[1].toString(),
-              fijo: element.fijo.toString(),
-            ),
-          );
+          if( !widget.listaParles.contains(element) ){
+            widget.listaParles.add(
+              ParlesModel.fromTextEditingController(
+                0,
+                uuid: element.uuid,
+                numplay: element.numplay[0].toString(),
+                numplay1: element.numplay[1].toString(),
+                fijo: element.fijo.toString(),
+              ),
+            );
+          }
         }
       }
     });
@@ -71,6 +73,8 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     ValueNotifier<bool> toChange = ValueNotifier(true);
+
+    final getLimit = ref.watch(globalLimits);
 
     return Container(
       decoration: BoxDecoration(
@@ -104,7 +108,7 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
                                 final payCrtl = ref.read(paymentCrtl.notifier);
 
                                 int bruto = parles.fijo;
-                                int limpioListero = (bruto * 0.30).toInt();
+                                int limpioListero = (bruto * (getLimit.porcientoParleListero / 100)).toInt();
 
                                 payCrtl.restaTotalBruto70 = bruto;
                                 payCrtl.restaLimpioListero = limpioListero;
@@ -223,7 +227,6 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
               ],
               onPressed: () => setState(() {
                 final payCrtl = ref.watch(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
 
                 if (pNum.text.isEmpty ||
                     pNum.text.length < 2 ||

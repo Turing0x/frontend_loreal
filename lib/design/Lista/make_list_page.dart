@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
 import 'package:frontend_loreal/config/enums/main_list_enum.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Lista/fijos_corridos_container.dart';
 import 'package:frontend_loreal/design/Lista/parles_container.dart';
 
-import '../../config/utils/glogal_map.dart';
 import 'centenas_container.dart';
 
 class MakeList extends ConsumerStatefulWidget {

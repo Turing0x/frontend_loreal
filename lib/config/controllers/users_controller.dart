@@ -260,9 +260,10 @@ class UserControllers {
   void resetPass(String userId) async {
     try {
       EasyLoading.show(status: 'Reseteando la contraseña...');
-
       
-            await _initializeDio();final queryData = {'userId': userId};
+      await _initializeDio();
+      final queryData = {'userId': userId};
+
       Response response = await _dio.post('/api/users/resetpass', 
         queryParameters: queryData );
 

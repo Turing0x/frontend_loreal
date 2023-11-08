@@ -100,6 +100,7 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: fijo,
+          autofocus: true,
           left: 25,
           right: 15,
           inputFormatters: [

@@ -11,6 +11,7 @@ class TxtInfo extends StatefulWidget {
   final String texto;
   final double left;
   final bool readOnly;
+  final bool autofocus;
   final double right;
   final double top;
   final List<TextInputFormatter>? inputFormatters;
@@ -25,6 +26,7 @@ class TxtInfo extends StatefulWidget {
     required this.texto,
     this.left = 30,
     this.readOnly = false,
+    this.autofocus = false,
     this.right = 30,
     this.top = 10,
     this.inputFormatters,
@@ -61,6 +63,7 @@ class _TxtInfoState extends State<TxtInfo> {
                     controller: widget.controlador,
                     onChanged: widget.onChange,
                     readOnly: widget.readOnly,
+                    autofocus: widget.autofocus,
                     style: const TextStyle(fontFamily: 'Dosis', fontSize: 20),
                     inputFormatters: widget.inputFormatters,
                     decoration: InputDecoration(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils/to_edit_list.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/num_redondo.dart';
@@ -8,7 +9,6 @@ import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
 
 import '../../../config/enums/lista_general_enum.dart';
 import '../../../config/enums/main_list_enum.dart';
-import '../../../config/utils/glogal_map.dart';
 
 class CentenasListaWidget extends ConsumerStatefulWidget {
   const CentenasListaWidget({

@@ -44,12 +44,14 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
         List fcppc = toJoinList.currentList['ListaGeneralEnum.principales']![
             'MainListEnum.centenas'];
         for (var element in fcppc) {
-          widget.listaCentenas.add(
-            CentenasModel.fromTextEditingController(0,
-                uuid: uuid.v4(),
-                numplay1: element.numplay.toString(),
-                fijo: element.fijo.toString()),
-          );
+          if( !widget.listaCentenas.contains(element) ){
+            widget.listaCentenas.add(
+              CentenasModel.fromTextEditingController(0,
+                  uuid: element.uuid,
+                  numplay1: element.numplay.toString(),
+                  fijo: element.fijo.toString()),
+            );
+          }
         }
       }
     });
@@ -68,6 +70,8 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     ValueNotifier<bool> toChange = ValueNotifier(true);
+
+    final getLimit = ref.watch(globalLimits);
 
     return Container(
       decoration: BoxDecoration(
@@ -101,7 +105,7 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
                                 final payCrtl = ref.read(paymentCrtl.notifier);
 
                                 int bruto = e.fijo;
-                                int limpioListero = (bruto * 0.30).toInt();
+                                int limpioListero = (bruto * (getLimit.porcientoParleListero / 100)).toInt();
 
                                 payCrtl.restaTotalBruto70 = bruto;
                                 payCrtl.restaLimpioListero = limpioListero;
@@ -184,7 +188,6 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
               ],
               onPressed: () => setState(() {
                 final payCrtl = ref.read(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
 
                 if ((cNum.text.isEmpty || cNum.text.length != 3) ||
                     cValor.text.isEmpty ||

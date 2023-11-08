@@ -53,6 +53,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 icon: Icons.attach_money,
                 keyboardType: TextInputType.number,
                 controlador: numplay,
+                autofocus: true,
                 left: 35,
                 right: 35,
                 inputFormatters: [

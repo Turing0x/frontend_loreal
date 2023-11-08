@@ -191,7 +191,7 @@ class ListControllers {
 
       await _initializeDio();
       Response response = await _dio.put('/api/list/$id',
-        queryParameters: {'listOfIds': listOfIds});
+        data: jsonEncode({'listOfIds': listOfIds}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);

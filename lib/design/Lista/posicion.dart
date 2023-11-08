@@ -43,6 +43,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 color: Colors.grey[200],
                 icon: Icons.numbers_outlined,
                 keyboardType: TextInputType.number,
+                autofocus: true,
                 controlador: posicion,
                 left: 35,
                 right: 35,

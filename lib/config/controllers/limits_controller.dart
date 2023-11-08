@@ -187,6 +187,11 @@ class LimitsControllers {
       }
 
       final List<LimitedBallModel> data = [];
+      if ( (response.data['data'] as List).isEmpty ) {
+        EasyLoading.showError('No hay datos para mostrar');
+        return [];
+      }
+
       final actual = LimitedBallModel.fromJson(response.data['data'][0]);
       data.add(actual);
 

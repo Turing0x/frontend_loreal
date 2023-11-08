@@ -234,10 +234,11 @@ pw.Widget _candadoView(CandadoModel model) {
     children: [
       pw.SizedBox(width: 10),
       pw.SizedBox(
-          width: 150,
-          child: textoDosisPDF(
-              toPrint.toString().replaceAll('[', '').replaceAll(']', ''), 18,
-              maxLines: 5)),
+        width: 150,
+        child: textoDosisPDF(
+          toPrint.toString().replaceAll('[', '').replaceAll(']', ''), 18,
+          maxLines: 10)
+        ),
       pw.SizedBox(width: 10),
       numeroRedondo(
         numero: model.fijo.toString(),

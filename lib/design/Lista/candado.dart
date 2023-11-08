@@ -84,6 +84,8 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
               texto: 'Números del candado',
               keyboardType: TextInputType.number,
               controlador: candado,
+              autofocus: true,
+              maxLength: 59,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 NumberTextInputFormatter(
