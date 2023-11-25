@@ -104,28 +104,32 @@ class _SeeLimitedParleState extends State<SeeLimitedParle> {
     ));
   }
 
-  Column diaNocheWidget(String jornada) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ..._insertarColumnas(jornada)
-            .map((subList) => Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ...subList
-                          .map(
-                            (numero) => NumeroRedondoWidget(
-                              numero: numero.toString(),
-                            ),
-                          )
-                          .toList()
-                    ],
-                  ),
-                ))
-            .toList(),
-      ],
+  Expanded diaNocheWidget(String jornada) {
+
+    final list = _insertarColumnas(jornada);
+    return Expanded(
+      child: ListView.builder(
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+
+          final subList = list[0];
+          return Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ...subList
+                    .map(
+                      (numero) => NumeroRedondoWidget(
+                        numero: numero.toString(),
+                      ),
+                    )
+                    .toList()
+              ],
+            ),
+          );
+        },
+      )
     );
   }
 

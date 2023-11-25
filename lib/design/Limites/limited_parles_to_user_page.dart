@@ -251,17 +251,15 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
                 child: containerRayaDebajo(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...subList
-                              .map(
-                                (listado) => fila(listado),
-                              )
-                              .toList()
-                        ],
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ...subList[0].map(
+                          (numero) => NumeroRedondoWidget(
+                              numero: numero.toString().rellenarCon0(2),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ));
@@ -269,22 +267,6 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
           ),
         );
       },
-    );
-  }
-
-  Row fila(List<int> lista) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ...lista.map(
-          (numero) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: NumeroRedondoWidget(
-              numero: numero.toString().rellenarCon0(2),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
