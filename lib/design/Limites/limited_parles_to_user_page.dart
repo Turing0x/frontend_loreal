@@ -135,8 +135,7 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
                   NumberTextInputFormatter(
                     groupDigits: 2,
                     groupSeparator: '-',
-                  ),
-                  LengthLimitingTextInputFormatter(5),
+                  )
                 ],
                 onChanged: (valor) => setState(() {
                   if (kDebugMode) {
@@ -168,14 +167,18 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
                           showToast('Revise los campos por favor');
                           return;
                         }
-                        parlesLimitado.addAll({
-                          jornada: _insertar(
-                              jornada: jornada,
-                              numero: number.text
-                                  .split('-')
-                                  .map((e) => e.intParsed)
-                                  .toList())
-                        });
+
+                        final candado = number.text.split('-').map((e) => e.intParsed).toList();
+                        final comb = combinaciones(candado);
+
+                        for (var element in comb) {
+                          parlesLimitado.addAll({
+                            jornada: _insertar(
+                                jornada: jornada,
+                                numero: element)
+                          });
+                        }
+
                         number.text = '';
                       })
                   : null,
@@ -204,7 +207,7 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
       ),
-      height: size.height * 0.72,
+      height: size.height * 0.70,
       width: size.width * 0.5,
       child: Column(
         children: [
@@ -224,43 +227,46 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
   }
 
   ValueListenableBuilder diaNocheWidget(String jornada) {
-    ValueNotifier<bool> toChange = ValueNotifier(true);
+    ValueNotifier<List<List<List<int>>>> toChange = ValueNotifier(_insertarColumnas(jornada));
 
     return ValueListenableBuilder(
       valueListenable: toChange,
       builder: (context, value, child) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ..._insertarColumnas(jornada)
-                .map((subList) => GestureDetector(
-                      onTap: () {
-                        List<List<int>>? listByJornal = parlesLimitado[jornada];
-                        int index = listByJornal!.indexOf(subList[0]);
-                        listByJornal.removeAt(index);
+        return Expanded(
+          child: ListView.builder(
+            itemCount: value.length,
+            itemBuilder: (context, index) {
+        
+              final subList = value[index];
 
-                        toChange.value = !toChange.value;
-                      },
-                      child: containerRayaDebajo(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                ...subList
-                                    .map(
-                                      (listado) => fila(listado),
-                                    )
-                                    .toList()
-                              ],
-                            ),
-                          ),
-                        ),
+              return GestureDetector(
+                onTap: () {
+                  int index = parlesLimitado[jornada]!.indexOf(subList[0]);
+                  parlesLimitado[jornada]!.removeAt(index);
+                  value.removeAt(index);
+
+                  toChange.value = List.from(value);
+
+                },
+                child: containerRayaDebajo(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ...subList
+                              .map(
+                                (listado) => fila(listado),
+                              )
+                              .toList()
+                        ],
                       ),
-                    ))
-                .toList(),
-          ],
+                    ),
+                  ),
+                ));
+            },
+          ),
         );
       },
     );
@@ -274,7 +280,7 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
           (numero) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: NumeroRedondoWidget(
-              numero: numero.toString(),
+              numero: numero.toString().rellenarCon0(2),
             ),
           ),
         ),
@@ -319,5 +325,19 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
     }
     map.addAll({'dia': listDia, 'noche': listNoche});
     return map;
+  }
+
+  List combinaciones( List<int> candado ){
+
+    List resultado = [];
+
+    for( int i = 0; i < candado.length - 1; i++ ){
+      for ( int j = i + 1; j < candado.length; j++ ){
+        resultado.add([candado[i], candado[j]]);
+      } 
+    }
+
+    return resultado;
+
   }
 }

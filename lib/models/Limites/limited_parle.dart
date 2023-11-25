@@ -8,7 +8,7 @@ class LimitedParleModel {
     required this.bola,
   });
 
-  Map<String, dynamic> bola;
+  Map<dynamic, dynamic> bola;
 
   factory LimitedParleModel.fromJson(Map<String, dynamic> json) => LimitedParleModel(
     bola: json['bola'],
