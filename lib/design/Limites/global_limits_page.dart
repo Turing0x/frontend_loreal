@@ -81,28 +81,28 @@ class _GlobalLimitsState extends State<GlobalLimits> {
     return Column(children: [
       TxtInfo(
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Corrido,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Parle:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Parle,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para la Centena:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Centena,
@@ -115,14 +115,14 @@ class _GlobalLimitsState extends State<GlobalLimits> {
       encabezado(context, 'Límites para Raspaito', false, () => null, false),
       TxtInfo(
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Corrido,

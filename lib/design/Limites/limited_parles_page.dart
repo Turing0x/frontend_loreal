@@ -120,7 +120,7 @@ class _LimitedParlesState extends State<LimitedParles> {
           child: Container(
             padding: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
-                color: Colors.grey[200],
+                
                 borderRadius: BorderRadius.circular(10)),
             child: SingleChildScrollView(
               child: TextField(

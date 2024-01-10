@@ -84,7 +84,7 @@ class _DecenasWidgetState extends ConsumerState<DecenasWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Corrido',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: corrido,
@@ -102,7 +102,7 @@ class _DecenasWidgetState extends ConsumerState<DecenasWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Fijo',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: fijo,

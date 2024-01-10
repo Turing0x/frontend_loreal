@@ -36,7 +36,7 @@ class _OfflinePassState extends State<OfflinePass> {
             textoDosis('Trabajar sin conexión a internet', 20,
                 fontWeight: FontWeight.bold, textAlign: TextAlign.center),
             SimpleTxt(
-                color: Colors.grey[300],
+                
                 icon: Icons.password_outlined,
                 texto: 'Clave de acceso',
                 obscureText: true,

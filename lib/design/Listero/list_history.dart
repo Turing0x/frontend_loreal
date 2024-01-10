@@ -163,21 +163,6 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
     showToast('Lista exportada exitosamente', type: true);
   }
 
-  Padding sumEachList(String lot) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          boldLabel('B: ', '3326', 18),
-          boldLabel('L: ', '3326', 18),
-          boldLabel('P: ', '3326', 18),
-          boldLabel('P: ', '3326', 18),
-          boldLabel('G: ', '3326', 18)
-        ],
-      ),
-    );
-  }
 }
 
 class ShowList extends StatefulWidget {
@@ -242,28 +227,35 @@ class _ShowListState extends State<ShowList> {
                   Container(
                     padding:
                         const EdgeInsets.only(top: 20, left: 30, right: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        boldLabel('B: ',
-                            decoded['bruto'].toStringAsFixed(0).toString(), 18),
-                        boldLabel(
-                            'L: ',
-                            decoded['limpio'].toStringAsFixed(0).toString(),
-                            18),
-                        boldLabel(
-                            'P: ',
-                            decoded['premio'].toStringAsFixed(0).toString(),
-                            18),
-                        boldLabel(
-                            'P: ',
-                            decoded['perdido'].toStringAsFixed(0).toString(),
-                            18),
-                        boldLabel(
-                            'G: ',
-                            decoded['ganado'].toStringAsFixed(0).toString(),
-                            18),
-                      ],
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: [
+                          boldLabel('B: ',
+                              decoded['bruto'].toStringAsFixed(0).toString(), 18),
+                          const SizedBox(width: 20),
+                          boldLabel(
+                              'L: ',
+                              decoded['limpio'].toStringAsFixed(0).toString(),
+                              18),
+                          const SizedBox(width: 20),
+                          boldLabel(
+                              'P: ',
+                              decoded['premio'].toStringAsFixed(0).toString(),
+                              18),
+                          const SizedBox(width: 20),
+                          boldLabel(
+                              'P: ',
+                              decoded['perdido'].toStringAsFixed(0).toString(),
+                              18),
+                          const SizedBox(width: 20),
+                          boldLabel(
+                              'G: ',
+                              decoded['ganado'].toStringAsFixed(0).toString(),
+                              18),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),

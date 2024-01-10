@@ -112,7 +112,7 @@ class _SeeLimitedParleState extends State<SeeLimitedParle> {
         itemCount: list.length,
         itemBuilder: (context, index) {
 
-          final subList = list[0];
+          final subList = list[index];
           return Padding(
             padding: const EdgeInsets.all(10),
             child: Row(

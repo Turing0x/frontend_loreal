@@ -46,7 +46,7 @@ class _OfflineListControlState extends ConsumerState<OfflineListControl> {
           label: const Row(children: [
             Icon(Icons.lock_reset_outlined, color: Colors.white),
             SizedBox(width: 10),
-            Text('Procesar encriptación')
+            Text('Procesar encriptación', style: TextStyle(color: Colors.white),)
           ]),
         ),
         body: SingleChildScrollView(

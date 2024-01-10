@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 
 class SimpleTxt extends StatefulWidget {
   final TextEditingController controlador;
   final TextInputType keyboardType;
   final Function(String?) onChange;
-  final Color? color;
   final IconData? icon;
   final String texto;
   final double left;
@@ -21,7 +21,6 @@ class SimpleTxt extends StatefulWidget {
     required this.keyboardType,
     required this.controlador,
     required this.onChange,
-    required this.color,
     required this.icon,
     required this.texto,
     this.obscureText = false,
@@ -49,7 +48,8 @@ class _SimpleTxtState extends State<SimpleTxt> {
         margin: const EdgeInsets.only(left: 10),
         padding: const EdgeInsets.only(left: 20),
         decoration: BoxDecoration(
-            color: widget.color, borderRadius: BorderRadius.circular(10)),
+            color: (isDark) ? Colors.black : Colors.grey[200], 
+            borderRadius: BorderRadius.circular(10)),
         child: FocusScope(
           child: Focus(
             onFocusChange: ((value) => setState(() {
@@ -67,7 +67,7 @@ class _SimpleTxtState extends State<SimpleTxt> {
               decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   suffixIcon: Icon(widget.icon,
-                      color: _changeColor ? Colors.blue : Colors.black),
+                          color: _changeColor ? Colors.blue : Colors.black),
                   focusedBorder: InputBorder.none,
                   counterText: '',
                   border: InputBorder.none,

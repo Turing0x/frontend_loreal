@@ -6,7 +6,7 @@ ListTile optListTile(IconData leading, String title, String subtitle,
     {Color? color = Colors.transparent}) {
   return ListTile(
     trailing: (flecha)
-        ? const Icon(Icons.arrow_right_rounded, color: Colors.black)
+        ? const Icon(Icons.arrow_right_rounded)
         : null,
     subtitle: Text(
       subtitle,
@@ -14,7 +14,6 @@ ListTile optListTile(IconData leading, String title, String subtitle,
     ),
     leading: Icon(
       leading,
-      color: Colors.black,
     ),
     title: Text(title, style: tituloListTile),
     tileColor: color,

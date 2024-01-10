@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 import 'package:frontend_loreal/config/controllers/sorteo_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/sorteos_stream.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
@@ -36,38 +37,19 @@ class _SorteosPageState extends ConsumerState<SorteosPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Flexible(
-                flex: 3,
-                child: TxtInfo(
-                    right: 20,
-                    texto: 'Sorteo: ',
-                    keyboardType: TextInputType.number,
-                    controlador: sorteo,
-                    color: Colors.grey[200],
-                    icon: Icons.numbers_outlined,
-                    inputFormatters: [
-                      MaskedInputFormatter('### ## ##',
-                          allowedCharMatcher: RegExp(r'[0-9]')),
-                      LengthLimitingTextInputFormatter(9),
-                    ],
-                    onChange: (valor) => (() {})),
-              ),
-              Flexible(
-                child: Container(
-                  margin: const EdgeInsets.only(right: 30, top: 10),
-                  width: 80,
-                  height: 40,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[300],
-                        elevation: 2,
-                      ),
-                      child: const Icon(Icons.screen_search_desktop_outlined),
-                      onPressed: () => searchLastLot()),
-                ),
-              ),
-            ]),
+            TxtInfo(
+              right: 20,
+              texto: 'Sorteo: ',
+              keyboardType: TextInputType.number,
+              controlador: sorteo,
+              
+              icon: Icons.numbers_outlined,
+              inputFormatters: [
+                MaskedInputFormatter('### ## ##',
+                    allowedCharMatcher: RegExp(r'[0-9]')),
+                LengthLimitingTextInputFormatter(9),
+              ],
+              onChange: (valor) => (() {})),
             const JornadAndDate(),
             Container(
               margin: const EdgeInsets.only(top: 20),
@@ -217,7 +199,7 @@ class ShowList extends StatelessWidget {
                       return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           height: 80,
-                          color: (index % 2 != 0)
+                          color: (isDark) ? Colors.black :(index % 2 != 0)
                               ? Colors.grey[200]
                               : Colors.grey[50],
                           alignment: Alignment.center,
@@ -335,7 +317,7 @@ class TxtEditar extends StatelessWidget {
         texto: 'Editar: ',
         keyboardType: TextInputType.number,
         controlador: forEdit,
-        color: Colors.grey[200],
+        
         icon: Icons.numbers_outlined,
         inputFormatters: [
           MaskedInputFormatter('### ## ##',

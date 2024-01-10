@@ -48,7 +48,7 @@ class _NewUserPageState extends State<NewUserPage> {
                   texto: 'Nombre de usuario:*',
                   keyboardType: TextInputType.name,
                   controlador: nameController,
-                  color: Colors.grey[200],
+                  
                   icon: Icons.person_outline,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 10),
@@ -56,7 +56,7 @@ class _NewUserPageState extends State<NewUserPage> {
                   texto: 'Contraseña:*',
                   keyboardType: TextInputType.name,
                   controlador: passController,
-                  color: Colors.grey[200],
+                  
                   icon: Icons.password_outlined,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 30),

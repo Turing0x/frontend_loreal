@@ -49,7 +49,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 () => showInfo(), MediaQuery.of(context).size.width * 0.7),
             TxtInfo(
                 texto: 'Sorteo a jugar: ',
-                color: Colors.grey[200],
+                
                 icon: Icons.attach_money,
                 keyboardType: TextInputType.number,
                 controlador: numplay,
@@ -67,7 +67,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Fijo',
-                      color: Colors.grey[200],
+                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: fijo,
@@ -84,7 +84,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Corrido',
-                      color: Colors.grey[200],
+                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: corrido,

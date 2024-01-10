@@ -179,7 +179,7 @@ class _FiltersOnAllListsState extends ConsumerState<FiltersOnAllLists> {
         left: 10,
         right: 10,
         texto: 'Cantidad:',
-        color: Colors.grey[200],
+        
         icon: Icons.numbers_outlined,
         keyboardType: TextInputType.number,
         controlador: cantElements,

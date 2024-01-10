@@ -78,7 +78,7 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Corrido',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: corrido,
@@ -96,7 +96,7 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Fijo',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: fijo,

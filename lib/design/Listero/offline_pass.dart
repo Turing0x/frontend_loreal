@@ -36,7 +36,7 @@ class _ConfigOfflinePassState extends State<ConfigOfflinePass> {
             textoDosis('Clave para el módulo OFFLINE', 20,
                 fontWeight: FontWeight.bold, textAlign: TextAlign.center),
             SimpleTxt(
-                color: Colors.grey[300],
+                
                 icon: Icons.password_outlined,
                 texto: 'Nueva clave',
                 obscureText: true,

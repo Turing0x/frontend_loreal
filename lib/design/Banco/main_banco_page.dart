@@ -1,5 +1,7 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
@@ -40,6 +42,14 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
       setIdToSearch.state = value;
     });
 
+    AdaptiveTheme.getThemeMode().then((value){
+      if(value!.isDark){
+        setState(() {
+          isDark = true;
+        });
+      }
+    });
+
     super.initState();
   }
 
@@ -52,7 +62,6 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
           IconButton(
             icon: const Icon(
               Icons.settings_outlined,
-              color: Colors.black,
             ),
             onPressed: () =>
                 Navigator.pushNamed(context, 'main_settigns_banco'),
@@ -66,20 +75,29 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
           label: const Row(children: [
             Icon(Icons.sports_outlined, color: Colors.white),
             SizedBox(width: 10),
-            Text('Añadir sorteo')
+            Text('Añadir sorteo', style: TextStyle(color: Colors.white),)
           ]),
         ),
         body: SingleChildScrollView(
             child: Column(
           children: [
             const SizedBox(height: 10),
-            dinamicGroupBox('Revisión de cargados', [
+            dinamicGroupBox('Cargados y Bote', [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  btnBolaCargada(context),
-                  btnParleCargado(context),
-                  btnBote(context),
+                  customBolaBtn(context, 
+                    onTap: () => Navigator.pushNamed(context, 'bola_cargada_page'), 
+                    icon: Icons.sports_baseball_outlined, 
+                    text: 'Bolas'),
+                  customBolaBtn(context, 
+                    onTap: () => Navigator.pushNamed(context, 'parle_cargada_page'), 
+                    icon: Icons.format_list_numbered_outlined, 
+                    text: 'Parlés'),
+                  customBolaBtn(context, 
+                    onTap: () => Navigator.pushNamed(context, 'bote_page'), 
+                    icon: Icons.warning_amber_outlined, 
+                    text: 'Bote'),
                 ],
               ),
               const SizedBox(height: 15),
@@ -121,66 +139,26 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
         )));
   }
 
-  GestureDetector btnBote(BuildContext context) {
+  GestureDetector customBolaBtn(BuildContext context, {
+    void Function()? onTap,
+    IconData? icon,
+    String text = '',
+  }) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'bote_page'),
+      onTap: onTap,
       child: Container(
         width: 70,
         height: 70,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: Colors.blue[100],
+            color: (!isDark) ? Colors.blue[100] : const Color(0xff282828),
             borderRadius: BorderRadius.circular(100),
             border: Border.all(color: Colors.black)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.warning_amber_outlined),
-            textoDosis('Bote', 15)
-          ],
-        ),
-      ),
-    );
-  }
-
-  GestureDetector btnParleCargado(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'parle_cargada_page'),
-      child: Container(
-        width: 70,
-        height: 70,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: Colors.blue[100],
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(color: Colors.black)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.format_list_numbered_outlined),
-            textoDosis('Parlés', 15)
-          ],
-        ),
-      ),
-    );
-  }
-
-  GestureDetector btnBolaCargada(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'bola_cargada_page'),
-      child: Container(
-        width: 70,
-        height: 70,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            color: Colors.blue[100],
-            borderRadius: BorderRadius.circular(100),
-            border: Border.all(color: Colors.black)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.sports_baseball_outlined),
-            textoDosis('Bolas', 15)
+            Icon(icon),
+            textoDosis(text, 15, color: (isDark) ? Colors.white : Colors.black)
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Cargados/provider/Bolas/get_bola_provider.dart';
@@ -63,9 +64,9 @@ class ShowList extends ConsumerWidget {
                     return GestureDetector(
                       child: Container(
                         padding: const EdgeInsets.only(left: 20),
-                        color: (index % 2 != 0)
-                            ? Colors.grey[200]
-                            : Colors.grey[50],
+                        color: (isDark) ? Colors.transparent :(index % 2 != 0)
+                              ? Colors.grey[200]
+                              : Colors.grey[50],
                         alignment: Alignment.centerLeft,
                         width: double.infinity,
                         height: 80,

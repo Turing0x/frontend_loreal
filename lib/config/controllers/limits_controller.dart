@@ -30,6 +30,7 @@ class LimitsControllers {
           'Content-Type': 'application/json',
           'access-token': token,
         },
+        validateStatus: (status) => true,
       ),
     );
   }

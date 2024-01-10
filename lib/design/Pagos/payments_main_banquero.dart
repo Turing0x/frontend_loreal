@@ -113,28 +113,28 @@ class _ConfigPaymentsPageState extends State<ConfigPaymentsPage> {
       encabezado(context, 'Pagos', false, () => null, false),
       TxtInfo(
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Corrido,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Parle:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Parle,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para la Centena:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Centena,
@@ -147,14 +147,14 @@ class _ConfigPaymentsPageState extends State<ConfigPaymentsPage> {
       encabezado(context, 'Pagos a Raspaito', false, () => null, false),
       TxtInfo(
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_millon_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_millon_Corrido,
@@ -167,21 +167,21 @@ class _ConfigPaymentsPageState extends State<ConfigPaymentsPage> {
       encabezado(context, 'Limitados', false, () => null, false),
       TxtInfo(
           texto: 'Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Corrido,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Parlé:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Parle,
@@ -194,14 +194,14 @@ class _ConfigPaymentsPageState extends State<ConfigPaymentsPage> {
       encabezado(context, 'Pagos en porcentaje', false, () => null, false),
       TxtInfo(
           texto: 'Bola listero:',
-          color: Colors.grey[200],
+          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_bola_listero,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Parlé listero:',
-          color: Colors.grey[200],
+          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_parle_listero,
@@ -214,7 +214,7 @@ class _ConfigPaymentsPageState extends State<ConfigPaymentsPage> {
       encabezado(context, 'Otros datos', false, () => null, false),
       TxtInfo(
           texto: 'Gastos:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: exprense,

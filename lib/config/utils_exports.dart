@@ -1,4 +1,6 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/methods/update_methods.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/methods.dart';
@@ -22,7 +24,7 @@ Divider divisor = const Divider(
 PreferredSizeWidget? showAppBar(String titulo,
     {Widget? leading, List<Widget>? actions, bool centerTitle = true}) {
   return AppBar(
-    title: textoDosis(titulo, 24, color: Colors.white),
+    title: textoDosis(titulo, 24, color: (isDark) ? Colors.black : Colors.white),
     elevation: 2,
     centerTitle: centerTitle,
     leading: leading,
@@ -58,6 +60,7 @@ Widget textoDosis(String texto, double? fontSize,
     Color? color = Colors.black,
     int? maxLines,
     bool underline = false}) {
+
   return Text(
     texto,
     overflow: TextOverflow.ellipsis,
@@ -65,7 +68,7 @@ Widget textoDosis(String texto, double? fontSize,
     style: TextStyle(
       decoration: (underline) ? TextDecoration.underline : null,
       fontFamily: 'Dosis',
-      color: color,
+      color: (isDark) ? Colors.white : color,
       fontSize: fontSize,
       fontWeight: fontWeight,
     ),
@@ -80,7 +83,7 @@ Widget boldLabel(String texto, String another, double? fontSize,
       // Here is the explicit parent TextStyle
       style: TextStyle(
         fontSize: fontSize,
-        color: Colors.black,
+        color: (isDark) ? Colors.white : Colors.black,
         fontFamily: 'Dosis',
       ),
       children: <TextSpan>[
@@ -253,13 +256,13 @@ Container containerRayaDebajo({required Widget child}) {
 ElevatedButton cerrarSesionWidget(BuildContext context) {
   return ElevatedButton.icon(
     style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.red[100],
+      backgroundColor: (isDark) ? Colors.black87 : Colors.red[100],
       elevation: 2,
     ),
     label: textoDosis('Cerrar sesión', 20),
-    icon: const Icon(
+    icon: Icon(
       Icons.logout_outlined,
-      color: Colors.black,
+      color: (isDark) ? Colors.white : Colors.black,
     ),
     onPressed: () async {
       await cerrarSesion(context);
@@ -313,7 +316,7 @@ Padding toChangePass(BuildContext context) {
       texto: 'Clave actual: ',
       keyboardType: TextInputType.text,
       controlador: actualPass,
-      color: Colors.grey[200],
+      
       icon: Icons.lock_outline_rounded,
       onChange: (valor) => (() {}),
       left: 5,
@@ -323,7 +326,7 @@ Padding toChangePass(BuildContext context) {
       texto: 'Nueva clave: ',
       keyboardType: TextInputType.text,
       controlador: newPass,
-      color: Colors.grey[200],
+      
       icon: Icons.password,
       onChange: (valor) => (() {}),
       left: 5,

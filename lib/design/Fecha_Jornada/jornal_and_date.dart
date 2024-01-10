@@ -64,7 +64,7 @@ class _JornadAndDateState extends ConsumerState<JornadAndDate> {
                       width: 150,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          
                           borderRadius: BorderRadius.circular(10)),
                       child: textoDosis(janddate.currentDate, 20)),
                 ),
@@ -75,7 +75,7 @@ class _JornadAndDateState extends ConsumerState<JornadAndDate> {
                         DateTime? pickedDate = await showDatePicker(
                             context: context,
                             initialDate: DateTime.now(),
-                            firstDate: DateTime(DateTime.now().year),
+                            firstDate: DateTime(DateTime.now().year - 1),
                             lastDate: DateTime(DateTime.now().year + 1));
 
                         if (pickedDate != null) {

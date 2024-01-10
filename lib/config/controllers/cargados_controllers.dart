@@ -1,35 +1,34 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
-
-Dio _dio = Dio(
-  BaseOptions(
-    baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  ),
-);
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 Future<List<BolaCargadaModel>> getBolasCargadas(
     {String jornal = '', String date = ''}) async {
   try {
+    final token = await LocalStorage.getToken();
+
     EasyLoading.show(status: 'Buscando cargados');
 
     final queryData = {'jornal': jornal, 'date': date};
+    final res = await http.get(
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/cargados', queryData),
+        headers: {
+          'Content-Type': 'application/json',
+          'access-token': token!
+        });
 
-    Response response = await _dio.get('/api/list/cargados', 
-      queryParameters: queryData);
-
-    if (!response.data['success']) {
+    final decodeData = json.decode(res.body) as Map<String, dynamic>;
+    if (decodeData['success'] == false) {
       EasyLoading.showError('Ha ocurrido un error');
       return [];
     }
 
     final List<BolaCargadaModel> cargados = [];
 
-    for (var data in response.data['data']) {
+    for (var data in decodeData['data']) {
       final actual = BolaCargadaModel.fromJson(data);
       cargados.add(actual);
     }
@@ -46,14 +45,20 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
 Future<List<BolaCargadaModel>> getParleCargadas(
     {String jornal = '', String date = ''}) async {
   try {
+    final token = await LocalStorage.getToken();
+
     EasyLoading.show(status: 'Buscando cargados');
 
     final queryData = {'jornal': jornal, 'date': date};
+    final res = await http.get(
+        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/parle', queryData),
+        headers: {
+          'Content-Type': 'application/json',
+          'access-token': token!
+        });
 
-    Response response = await _dio.get('/api/list/parle', 
-      queryParameters: queryData);
-
-    if (!response.data['success']) {
+    final decodeData = json.decode(res.body) as Map<String, dynamic>;
+    if (decodeData['success'] == false) {
       EasyLoading.showError('Ha ocurrido un error');
 
       return [];
@@ -61,7 +66,7 @@ Future<List<BolaCargadaModel>> getParleCargadas(
 
     final List<BolaCargadaModel> cargados = [];
 
-    for (var data in response.data['data']) {
+    for (var data in decodeData['data']) {
       final actual = BolaCargadaModel.fromJson(data);
       cargados.add(actual);
     }

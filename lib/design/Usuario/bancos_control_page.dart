@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
@@ -64,8 +65,8 @@ class _BanksControlPageState extends ConsumerState<BanksControlPage> {
             itemBuilder: (context, index) {
               return ListTile(
                 minLeadingWidth: 20,
-                leading: const Icon(Icons.person_outline_outlined,
-                    color: Colors.black),
+                leading: Icon(Icons.person_outline_outlined,
+                    color: (!isDark) ? Colors.black : Colors.white),
                 title: textoDosis(users[index].username, 18,
                     fontWeight: FontWeight.bold),
                 subtitle: textoDosis(users[index].role['name'], 20),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
 import 'package:frontend_loreal/config/controllers/pdf_controllers.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
 import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
@@ -76,7 +77,7 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
               keyboardType: TextInputType.text,
               icon: Icons.person_pin_outlined,
               texto: 'Filtrar por usuario: ',
-              color: Colors.grey[200],
+              
               controlador: usernameCTRL,
               onChange: (valor) => {}),
           encabezado(context, 'Resultados de la búsqueda', false, () {}, false),
@@ -412,66 +413,71 @@ class ShowList extends StatelessWidget {
                                 user[index].calcs as Map<String, dynamic>;
 
                             return Container(
-                              padding: const EdgeInsets.only(left: 10),
-                              height: 110,
-                              color: (index % 2 != 0)
-                                  ? Colors.grey[200]
-                                  : Colors.grey[50],
+                              margin: const EdgeInsets.symmetric(vertical: 5),
                               alignment: Alignment.center,
                               child: ListTile(
                                   title: textoDosis(user[index].username, 28,
                                       fontWeight: FontWeight.bold),
                                   subtitle: Column(
                                     children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          boldLabel(
-                                              'B: ',
-                                              calcs['bruto']
-                                                  .toStringAsFixed(0)
-                                                  .toString(),
-                                              18),
-                                          boldLabel(
-                                              'L: ',
-                                              calcs['limpio']
-                                                  .toStringAsFixed(0)
-                                                  .toString(),
-                                              18),
-                                          boldLabel(
-                                              'P: ',
-                                              calcs['premio']
-                                                  .toStringAsFixed(0)
-                                                  .toString(),
-                                              18),
-                                          boldLabel(
-                                              'P: ',
-                                              (calcs['perdido'] <
-                                                      calcs['ganado'])
-                                                  ? 0.toString()
-                                                  : calcs['perdido']
-                                                      .toStringAsFixed(0)
-                                                      .toString(),
-                                              18),
-                                          boldLabel(
-                                              'G: ',
-                                              (calcs['perdido'] >
-                                                      calcs['ganado'])
-                                                  ? 0.toString()
-                                                  : calcs['ganado']
-                                                      .toStringAsFixed(0)
-                                                      .toString(),
-                                              18),
-                                        ],
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            boldLabel(
+                                                'B: ',
+                                                calcs['bruto']
+                                                    .toStringAsFixed(0)
+                                                    .toString(),
+                                                18),
+                                                const SizedBox(width: 20),
+                                            boldLabel(
+                                                'L: ',
+                                                calcs['limpio']
+                                                    .toStringAsFixed(0)
+                                                    .toString(),
+                                                18),
+                                                const SizedBox(width: 20),
+                                            boldLabel(
+                                                'P: ',
+                                                calcs['premio']
+                                                    .toStringAsFixed(0)
+                                                    .toString(),
+                                                18),
+                                                const SizedBox(width: 20),
+                                            boldLabel(
+                                                'P: ',
+                                                (calcs['perdido'] <
+                                                        calcs['ganado'])
+                                                    ? 0.toString()
+                                                    : calcs['perdido']
+                                                        .toStringAsFixed(0)
+                                                        .toString(),
+                                                18),
+                                                const SizedBox(width: 20),
+                                            boldLabel(
+                                                'G: ',
+                                                (calcs['perdido'] >
+                                                        calcs['ganado'])
+                                                    ? 0.toString()
+                                                    : calcs['ganado']
+                                                        .toStringAsFixed(0)
+                                                        .toString(),
+                                                18),
+                                          ],
+                                        ),
                                       ),
                                       textoDosis(lot, 22,
                                           fontWeight: FontWeight.bold)
                                     ],
                                   ),
-                                  trailing: const Icon(Icons.arrow_right,
-                                      color: Colors.black),
-                                  tileColor: (index % 2 != 0)
+                                  trailing: const Icon(Icons.arrow_right),
+                                  tileColor: (isDark) 
+                                    ? Colors.black26
+                                    : (index % 2 != 0)
                                       ? Colors.grey[200]
                                       : Colors.grey[50],
                                   onTap: () {

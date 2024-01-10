@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 
 class NumeroRedondoWidget extends StatelessWidget {
@@ -43,7 +44,7 @@ class NumeroRedondoWidget extends StatelessWidget {
           shape: BoxShape.circle,
           color:
               tieneBorde(mostrarBorde: mostrarBorde, numero: int.parse(numero))
-                  ? color ?? Colors.white
+                  ? (!isDark) ? Colors.white : Colors.black
                   : Colors.transparent,
         ),
         child: Center(

@@ -115,7 +115,7 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
               ),
             ),
             SimpleTxt(
-                color: Colors.grey[300],
+                
                 right: 42,
                 icon: Icons.security_rounded,
                 texto: 'Pega aquí la firma',

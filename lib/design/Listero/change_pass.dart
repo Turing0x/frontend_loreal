@@ -37,7 +37,7 @@ class _ChangeAccessPassState extends State<ChangeAccessPass> {
             textoDosis('Cambiar la clave de acceso al sistema', 20,
                 fontWeight: FontWeight.bold, textAlign: TextAlign.center),
             SimpleTxt(
-                color: Colors.grey[300],
+                
                 icon: Icons.password_outlined,
                 texto: 'Clave actual',
                 obscureText: true,
@@ -47,7 +47,7 @@ class _ChangeAccessPassState extends State<ChangeAccessPass> {
                 right: 50,
                 onChange: (valor) => setState(() {})),
             SimpleTxt(
-                color: Colors.grey[300],
+                
                 icon: Icons.lock_reset_outlined,
                 texto: 'Nueva clave',
                 obscureText: true,

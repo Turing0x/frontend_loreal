@@ -83,7 +83,7 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
         icon: Icons.person_pin_outlined,
         texto: 'Usuario buscado: ',
         readOnly: true,
-        color: Colors.grey[200],
+        
         controlador: usernameCTRL,
         onChange: (valor) => {});
   }
@@ -160,7 +160,7 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
                 width: 150,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    
                     borderRadius: BorderRadius.circular(10)),
                 child: textoDosis('$startdate - $enddate', 18)),
           ),
@@ -248,51 +248,55 @@ class ShowList extends StatelessWidget {
                       return Container(
                         padding: const EdgeInsets.only(left: 10),
                         height: 110,
-                        color: (index % 2 != 0)
-                            ? Colors.grey[200]
-                            : Colors.grey[50],
+                        color: (isDark) ? Colors.black :(index % 2 != 0)
+                              ? Colors.grey[200]
+                              : Colors.grey[50],
                         alignment: Alignment.center,
                         child: ListTile(
                             title: textoDosis(user[index].username, 28,
                                 fontWeight: FontWeight.bold),
                             subtitle: FittedBox(
-                              child: Row(
-                                children: [
-                                  boldLabel(
-                                      'B: ',
-                                      calcs['bruto']
-                                          .toStringAsFixed(0)
-                                          .toString(),
-                                      18),
-                                  boldLabel(
-                                      'L: ',
-                                      calcs['limpio']
-                                          .toStringAsFixed(0)
-                                          .toString(),
-                                      18),
-                                  boldLabel(
-                                      'P: ',
-                                      calcs['premio']
-                                          .toStringAsFixed(0)
-                                          .toString(),
-                                      18),
-                                  boldLabel(
-                                      'P: ',
-                                      (calcs['perdido'] < calcs['ganado'])
-                                          ? 0.toString()
-                                          : calcs['perdido']
-                                              .toStringAsFixed(0)
-                                              .toString(),
-                                      18),
-                                  boldLabel(
-                                      'G: ',
-                                      (calcs['perdido'] > calcs['ganado'])
-                                          ? 0.toString()
-                                          : calcs['ganado']
-                                              .toStringAsFixed(0)
-                                              .toString(),
-                                      18),
-                                ],
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Row(
+                                  children: [
+                                    boldLabel(
+                                        'B: ',
+                                        calcs['bruto']
+                                            .toStringAsFixed(0)
+                                            .toString(),
+                                        18),
+                                    boldLabel(
+                                        'L: ',
+                                        calcs['limpio']
+                                            .toStringAsFixed(0)
+                                            .toString(),
+                                        18),
+                                    boldLabel(
+                                        'P: ',
+                                        calcs['premio']
+                                            .toStringAsFixed(0)
+                                            .toString(),
+                                        18),
+                                    boldLabel(
+                                        'P: ',
+                                        (calcs['perdido'] < calcs['ganado'])
+                                            ? 0.toString()
+                                            : calcs['perdido']
+                                                .toStringAsFixed(0)
+                                                .toString(),
+                                        18),
+                                    boldLabel(
+                                        'G: ',
+                                        (calcs['perdido'] > calcs['ganado'])
+                                            ? 0.toString()
+                                            : calcs['ganado']
+                                                .toStringAsFixed(0)
+                                                .toString(),
+                                        18),
+                                  ],
+                                ),
                               ),
                             ),
                             trailing: const Icon(Icons.arrow_right,

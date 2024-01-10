@@ -114,7 +114,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Fijo,
@@ -122,7 +122,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Corrido,
@@ -130,7 +130,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Parle:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Parle,
@@ -138,7 +138,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para la Centena:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Centena,
@@ -152,7 +152,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Fijo,
@@ -160,7 +160,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Corrido,
@@ -168,7 +168,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Parle:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Parle,
@@ -176,7 +176,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para la Centena:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Centena,
@@ -190,7 +190,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_millon_Fijo,
@@ -198,7 +198,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_millon_Corrido,
@@ -212,7 +212,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Fijo,
@@ -220,7 +220,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Corrido,
@@ -234,7 +234,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Fijo:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Fijo,
@@ -242,7 +242,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Corrido:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Corrido,
@@ -250,7 +250,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Parlé:',
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Parle,
@@ -264,7 +264,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Bola listero:',
-          color: Colors.grey[200],
+          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_bola_listero,
@@ -272,7 +272,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Parlé listero:',
-          color: Colors.grey[200],
+          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_parle_listero,
@@ -286,7 +286,7 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           texto: 'Gastos:',
           readOnly: true,
-          color: Colors.grey[200],
+          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: exprense,

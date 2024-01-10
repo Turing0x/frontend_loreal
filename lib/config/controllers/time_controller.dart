@@ -27,6 +27,7 @@ class TimeControllers {
           'Content-Type': 'application/json',
           'access-token': token,
         },
+        validateStatus: (status) => true,
       ),
     );
   }

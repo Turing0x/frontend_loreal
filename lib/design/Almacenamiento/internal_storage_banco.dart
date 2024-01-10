@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
@@ -104,14 +105,8 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
                   height: 70,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            spreadRadius: 0,
-                            blurRadius: 8,
-                            color: Colors.grey.withOpacity(0.5),
-                            offset: const Offset(0, 0))
-                      ]),
+                      color: (isDark) ? Colors.black87 : Colors.white,
+                      ),
                   child: Row(
                     children: [
                       const Icon(

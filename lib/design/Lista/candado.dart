@@ -79,7 +79,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
           const SizedBox(height: 20),
           textoDosis('Los números serán separados por una coma (,)', 18),
           SimpleTxt(
-              color: Colors.grey[300],
+              
               icon: Icons.lock_outlined,
               texto: 'Números del candado',
               keyboardType: TextInputType.number,
@@ -96,7 +96,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
               onChange: (valor) => setState(() {})),
           TxtInfo(
               texto: 'Apuesta: ',
-              color: Colors.grey[200],
+              
               icon: Icons.attach_money,
               keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],

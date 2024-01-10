@@ -135,7 +135,7 @@ class ShowList extends StatelessWidget {
                                       width: 100,
                                       height: 25,
                                       decoration: BoxDecoration(
-                                          color: Colors.grey[300],
+                                          
                                           border:
                                               Border.all(color: Colors.black),
                                           borderRadius: const BorderRadius.all(

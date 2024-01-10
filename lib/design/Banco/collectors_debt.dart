@@ -82,7 +82,7 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
             texto: 'Colección:*',
             keyboardType: TextInputType.name,
             controlador: nameCtrl,
-            color: Colors.grey[200],
+            
             icon: Icons.collections_bookmark,
             onChange: (valor) => (() {})),
     
@@ -92,7 +92,7 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
             texto: 'Deuda inicial:*',
             keyboardType: TextInputType.number,
             controlador: initialCahsCtrl,
-            color: Colors.grey[200],
+            
             icon: Icons.monetization_on_outlined,
             onChange: (valor) => (() {})),
 
@@ -100,7 +100,7 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
             texto: 'Porcentaje:*',
             keyboardType: TextInputType.number,
             controlador: percentCtrl,
-            color: Colors.grey[200],
+            
             icon: Icons.monetization_on_outlined,
             onChange: (valor) => (() {})),
 
@@ -273,7 +273,7 @@ class _ShowListState extends State<ShowList> {
           texto: '',
           keyboardType: TextInputType.number,
           controlador: plusDebtCtrl,
-          color: Colors.grey[200],
+          
           icon: Icons.add,
           onChange: (valor) => (() {})),
         () {
@@ -310,7 +310,7 @@ class _ShowListState extends State<ShowList> {
           texto: '',
           keyboardType: TextInputType.number,
           controlador: lessDebtCtrl,
-          color: Colors.grey[200],
+          
           icon: Icons.remove,
           onChange: (valor) => (() {})),
         () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Listero/pdf_listero.dart';
@@ -253,9 +254,12 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
                     child: ListView.builder(
                         itemCount: list.length,
                         itemBuilder: (context, index) {
-                          final color = (index % 2 != 0)
-                              ? Colors.grey[200]
-                              : Colors.grey[50];
+                          final color = (isDark) 
+                                ? Colors.black26
+                                : (index % 2 != 0)
+                                  ? Colors.grey[200]
+                                  : Colors.grey[50];
+                                  
                           return Container(
                             color: color,
                             margin: const EdgeInsets.symmetric(vertical: 5),

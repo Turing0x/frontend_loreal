@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 
 Column encabezado(BuildContext context,
@@ -28,7 +29,7 @@ Column encabezado(BuildContext context,
             if(activarBtn)
             OutlinedButton.icon(
               
-              icon: Icon(btnIcon, color: Colors.black, size: 20,),            
+              icon: Icon(btnIcon, color: (isDark) ? Colors.white : Colors.black, size: 20,),            
               label: textoDosis(btnText, 16),
               onPressed: onPressed 
               

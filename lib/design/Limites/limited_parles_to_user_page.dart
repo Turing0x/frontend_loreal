@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/limits_controller.dart';
 import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:flutter/foundation.dart';
@@ -123,7 +124,7 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
           child: Container(
             padding: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: (isDark) ? Colors.black : Colors.grey[200],
                 borderRadius: BorderRadius.circular(10)),
             child: SingleChildScrollView(
               child: TextField(
@@ -143,9 +144,9 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
                   }
                 }),
                 style: const TextStyle(fontFamily: 'Dosis'),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  suffixIcon: Icon(Icons.numbers_outlined, color: Colors.black),
+                  suffixIcon: Icon(Icons.numbers_outlined, color: (!isDark) ? Colors.black : Colors.white),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
@@ -72,7 +73,7 @@ class _UserControlPageState extends ConsumerState<UserControlPage> {
     return Column(
       children: [
         ListTile(
-          iconColor: Colors.black,
+          iconColor: (isDark) ? Colors.white : Colors.black,
           leading: const Icon(
             Icons.person_outline_outlined,
             size: 30,
@@ -80,9 +81,9 @@ class _UserControlPageState extends ConsumerState<UserControlPage> {
           title: textoDosis(widget.username, 28, fontWeight: FontWeight.w600),
           subtitle: textoDosis(widget.actualRole, 16),
           trailing: OutlinedButton.icon(
-              icon: const Icon(
+              icon: Icon(
                 Icons.add_circle_outline,
-                color: Colors.black,
+                color: (isDark) ? Colors.white : Colors.black,
                 size: 20,
               ),
               label: textoDosis('Nuevo usuario', 16),
@@ -92,7 +93,7 @@ class _UserControlPageState extends ConsumerState<UserControlPage> {
         Visibility(
           visible: widget.actualRole == 'Banco',
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 40),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             child: ListTile(
               title: textoDosis('Acceso al sistema', 18),
               trailing: btnEnable(widget.idToSearch, !toEditState.value),

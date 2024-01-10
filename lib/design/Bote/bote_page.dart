@@ -43,21 +43,21 @@ class _BotePageState extends ConsumerState<BotePage> {
                   texto: 'Fijo: ',
                   keyboardType: TextInputType.number,
                   controlador: fijoController,
-                  color: Colors.grey[200],
+                  
                   icon: Icons.sports_basketball_outlined,
                   onChange: (valor) => (() {})),
               TxtInfo(
                   texto: 'Parlé: ',
                   keyboardType: TextInputType.number,
                   controlador: parleController,
-                  color: Colors.grey[200],
+                  
                   icon: Icons.format_list_numbered_outlined,
                   onChange: (valor) => (() {})),
               TxtInfo(
                   texto: 'Centena',
                   keyboardType: TextInputType.number,
                   controlador: centenaController,
-                  color: Colors.grey[200],
+                  
                   icon: Icons.closed_caption_outlined,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 30),

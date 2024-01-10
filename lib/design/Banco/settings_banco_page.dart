@@ -1,5 +1,7 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/opt_list_tile.dart';
@@ -14,7 +16,11 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
+
   bool openPdf = false;
+  bool darkMode = false;
+  String textToShow = 'Activar Modo Oscuro';
+
   @override
   void initState() {
     RUpgrade.stream.listen((DownloadInfo info) {
@@ -43,7 +49,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       appBar: showAppBar('Ajustes del sistema'),
       body: SingleChildScrollView(
           child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             const SizedBox(height: 10),
@@ -96,6 +102,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 'Limitación de parlés (día y noche)',
                 () => Navigator.pushNamed(context, 'limited_parles_page'),
                 true),
+            optListTile(
+                Icons.change_circle_outlined,
+                'Cambiar contraseña',
+                'Cambiar la clave de acceso al sistema',
+                () => Navigator.pushNamed(context, 'change_pass_page'),
+                true,
+                color: isDark ? Colors.transparent : Colors.grey[200]),
             SwitchListTile(
               value: openPdf,
               onChanged: (value) async {
@@ -116,16 +129,34 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
             ),
-            optListTile(
-                Icons.change_circle_outlined,
-                'Cambiar contraseña',
-                'Cambiar la clave de acceso al sistema',
-                () => Navigator.pushNamed(context, 'change_pass_page'),
-                true,
-                color: Colors.grey[200]),
-            const SizedBox(height: 10),
-            const SizedBox(height: 10),
+            // SwitchListTile(
+            //   value: darkMode,
+            //   onChanged: (value) async {
+            //     if(!darkMode){
+            //       AdaptiveTheme.of(context).setDark();
+            //     }else{
+            //       AdaptiveTheme.of(context).setLight();
+            //     }
+            //     setState(() {
+            //       darkMode = value;
+            //       if( !darkMode ){
+            //         textToShow = 'Activar Modo Oscuro';
+            //       }else{textToShow = 'Quitar Modo Oscuro';}
+            //     });
+            //   },
+            //   title: Text(
+            //     textToShow,
+            //     style: tituloListTile,
+            //   ),
+            //   subtitle: Text('Abrir los vales automáticamente',
+            //       style: subtituloListTile),
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10)),
+            // ),
+            
+            const SizedBox(height: 20),
             cerrarSesionWidget(context),
+            const SizedBox(height: 20),
           ],
         ),
       )),

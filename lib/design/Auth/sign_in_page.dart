@@ -1,6 +1,8 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/auth.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
@@ -32,6 +34,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       }
     });
 
+    // AdaptiveTheme.getThemeMode().then((value){
+    //   if(value!.isDark){
+    //     setState(() {
+    //       isDark = true;
+    //     });
+    //   }
+    // });
+
     super.initState();
   }
 
@@ -56,13 +66,15 @@ class _SignInPageState extends ConsumerState<SignInPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                height: 250,
-                margin: EdgeInsets.only(
-                    left: size.width * .09,
-                    right: size.width * .09,
-                    top: size.width * .15),
-                child: SvgPicture.asset('lib/assets/undraw_unlock_re_a558.svg'),
+              (isDark)
+                ? const SizedBox(height: 100)
+                : Container(
+                  height: 250,
+                  margin: EdgeInsets.only(
+                      left: size.width * .09,
+                      right: size.width * .09,
+                      top: size.width * .15),
+                  child: SvgPicture.asset('lib/assets/undraw_unlock_re_a558.svg'),
               ),
               Container(
                 margin: EdgeInsets.only(
@@ -82,14 +94,12 @@ class _SignInPageState extends ConsumerState<SignInPage> {
               textoDosis('Ingrese sus datos de acceso al sistema', 20),
               const SizedBox(height: 30),
               SimpleTxt(
-                  color: Colors.grey[300],
                   icon: Icons.person_outline,
                   texto: 'Nombre de usuario',
                   keyboardType: TextInputType.text,
                   controlador: nameController,
                   onChange: (valor) => setState(() {})),
               SimpleTxt(
-                  color: Colors.grey[300],
                   icon: Icons.password_outlined,
                   texto: 'Clave de acceso',
                   obscureText: showPass,
@@ -116,7 +126,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                       margin: const EdgeInsets.only(right: 30),
                       child: ElevatedButton.icon(
                           icon: const Icon(Icons.link_off_outlined),
-                          label: textoDosis('Offline', 20, color: Colors.white),
+                          label: textoDosis('Offline', 20),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: (btnOffline)
                                 ? Colors.grey[300]
@@ -142,7 +152,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        textoDosis('Vamos allá!!!', 18, color: Colors.black),
+        textoDosis('Vamos allá!!!', 18),
         const SizedBox(width: 10),
         AbsorbPointer(
           absorbing: btnManager,
@@ -180,8 +190,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 return error;
               });
             },
-            child: textoDosis((!btnManager) ? 'Acceder' : 'Autenticando...', 20,
-                color: Colors.white),
+            child: textoDosis((!btnManager) ? 'Acceder' : 'Autenticando...', 20, color: Colors.white),
           ),
         ),
       ],

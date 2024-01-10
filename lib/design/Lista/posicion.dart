@@ -40,7 +40,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             const SizedBox(height: 20),
             TxtInfo(
                 texto: 'Número a jugar: ',
-                color: Colors.grey[200],
+                
                 icon: Icons.numbers_outlined,
                 keyboardType: TextInputType.number,
                 autofocus: true,
@@ -57,7 +57,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Fijo',
-                      color: Colors.grey[200],
+                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: fijo,
@@ -73,7 +73,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Corrido1',
-                      color: Colors.grey[200],
+                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: corrido,
@@ -91,7 +91,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             Flexible(
               child: SimpleTxt(
                   texto: 'Corrido2',
-                  color: Colors.grey[200],
+                  
                   icon: Icons.attach_money,
                   keyboardType: TextInputType.number,
                   controlador: corrido2,

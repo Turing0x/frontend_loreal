@@ -45,8 +45,9 @@ class TimePageState extends State<TimePage> {
             encabezado(
                 context, 'Establece horarios de trabajo', false, () {}, false),
             dinamicGroupBox(
+              padding: 10,
                 'Jornada del día', [dayStarttimePicker(), dayEndtimePicker()]),
-            dinamicGroupBox('Jornada de la noche',
+            dinamicGroupBox(padding: 10, 'Jornada de la noche',
                 [nigthStarttimePicker(), nigthEndtimePicker()]),
             const SizedBox(height: 20),
             Container(
@@ -82,7 +83,7 @@ class TimePageState extends State<TimePage> {
               width: 150,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  
                   borderRadius: BorderRadius.circular(10)),
               child: textoDosis(dayStart.format(context), 20),
             ),
@@ -120,7 +121,7 @@ class TimePageState extends State<TimePage> {
               width: 150,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  
                   borderRadius: BorderRadius.circular(10)),
               child: textoDosis(dayEnd.format(context), 20),
             ),
@@ -158,7 +159,7 @@ class TimePageState extends State<TimePage> {
               width: 150,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  
                   borderRadius: BorderRadius.circular(10)),
               child: textoDosis(nigthStart.format(context), 20),
             ),
@@ -196,7 +197,7 @@ class TimePageState extends State<TimePage> {
               width: 150,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  
                   borderRadius: BorderRadius.circular(10)),
               child: textoDosis(nigthEnd.format(context), 20),
             ),
