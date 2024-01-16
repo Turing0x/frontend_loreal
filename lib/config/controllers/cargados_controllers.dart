@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,7 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/cargados', queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/list/cargados', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token!
@@ -27,8 +28,28 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
     }
 
     final List<BolaCargadaModel> cargados = [];
+    
+    final lot = (decodeData['data'] as List).last;
+    var este = [];
+    if(lot != null && lot != ''){
+      este = (lot['lot'] as String).substring(1).split(' ');
+      globallot = (este as List<String>);
+    }
 
+    (decodeData['data'] as List).removeLast();
     for (var data in decodeData['data']) {
+
+      String splitted = data['numero'];
+      if(splitted == este[0]){
+        data.addAll({
+          'dinero': data['total'] * 75
+        });
+      } else if(splitted == este[1] || splitted == este[2]){
+        data.addAll({
+          'dinero': data['total'] * 25
+        });
+      } else { data['dinero'] = 0; }
+
       final actual = BolaCargadaModel.fromJson(data);
       cargados.add(actual);
     }
@@ -51,7 +72,7 @@ Future<List<BolaCargadaModel>> getParleCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/parle', queryData),
+        Uri.https(dotenv.env['SERVER_URL']!, '/api/list/parle', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token!
@@ -66,7 +87,23 @@ Future<List<BolaCargadaModel>> getParleCargadas(
 
     final List<BolaCargadaModel> cargados = [];
 
+    final lot = (decodeData['data'] as List).last;
+    var este = [];
+    if(lot != null && lot != ''){
+      este = (lot['lot'] as String).substring(1).split(' ');
+      globallot = (este as List<String>);
+    }
+
+    (decodeData['data'] as List).removeLast();
     for (var data in decodeData['data']) {
+
+      List<String> splitted = data['numero'].split('--');
+      if((este.contains(splitted[0]) && este.contains(splitted[1])) && splitted[0] != splitted[1]){
+        data.addAll({
+          'dinero': data['total'] * 1000
+        });
+      } else { data['dinero'] = 0; }
+
       final actual = BolaCargadaModel.fromJson(data);
       cargados.add(actual);
     }

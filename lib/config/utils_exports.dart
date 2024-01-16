@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/methods/update_methods.dart';

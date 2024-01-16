@@ -77,7 +77,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                         FilteringTextInputFormatter.digitsOnly,
                         LengthLimitingTextInputFormatter(3),
                         NumberTextInputFormatter(
-                            maxValue: getLimits.limitesmillonFijo.toString()),
+                          maxValue: getLimits.limitesmillonFijo.toString()),
                       ],
                       onChange: (valor) => setState(() {})),
                 ),

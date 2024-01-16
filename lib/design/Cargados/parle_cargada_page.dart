@@ -24,6 +24,9 @@ class ParleCargadoPage extends ConsumerWidget {
             child: Column(
           children: [
             const JornadAndDate(),
+            (globallot.isNotEmpty)
+              ? boldLabel('Sorteo: ', globallot.join(' - '), 25)
+              : Container(),
             const Divider(
               color: Colors.black,
               indent: 20,
@@ -61,7 +64,10 @@ class ShowList extends ConsumerWidget {
                   if (data.isEmpty) {
                     return noData(context);
                   }
-                  final list = data..sort((a, b) => b.total - a.total);
+
+                  final list = (globallot != [])
+                    ? (data..sort((a, b) => b.dinero! - a.dinero!))
+                    : (data..sort((a, b) => b.total - a.total));
 
                   return ListView.builder(
                       itemCount: list.length,
@@ -89,8 +95,13 @@ class ShowList extends ConsumerWidget {
                                       25,
                                       fontWeight: FontWeight.bold),
                                   textoDosis(
-                                      ' --> Apuesta: ${list[index].fijo.toString()}',
+                                      ' --> ${list[index].fijo.toString()}',
                                       25),
+                                  (list[index].dinero != 0)
+                                    ? textoDosis(
+                                      ' -> ${list[index].dinero}', 25,
+                                      fontWeight: FontWeight.bold)
+                                    : Container()
                                 ]),
                           ),
                           onTap: () => Navigator.pushNamed(
