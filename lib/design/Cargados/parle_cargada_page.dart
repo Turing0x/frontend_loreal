@@ -65,7 +65,7 @@ class ShowList extends ConsumerWidget {
                     return noData(context);
                   }
 
-                  final list = (globallot != [])
+                  final list = (globallot.isNotEmpty)
                     ? (data..sort((a, b) => b.dinero! - a.dinero!))
                     : (data..sort((a, b) => b.total - a.total));
 

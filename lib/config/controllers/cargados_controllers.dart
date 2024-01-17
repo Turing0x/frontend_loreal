@@ -34,20 +34,22 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
     if(lot != null && lot != ''){
       este = (lot['lot'] as String).substring(1).split(' ');
       globallot = (este as List<String>);
-    }
+    } else{ globallot = []; }
 
     (decodeData['data'] as List).removeLast();
     for (var data in decodeData['data']) {
 
-      String splitted = data['numero'];
-      if(splitted == este[0]){
-        data.addAll({
-          'dinero': data['total'] * 75
-        });
-      } else if(splitted == este[1] || splitted == este[2]){
-        data.addAll({
-          'dinero': data['total'] * 25
-        });
+      if(este.isNotEmpty){
+        String splitted = data['numero'];
+        if(splitted == este[0]){
+          data.addAll({
+            'dinero': data['total'] * 75
+          });
+        } else if(splitted == este[1] || splitted == este[2]){
+          data.addAll({
+            'dinero': data['total'] * 25
+          });
+        } else { data['dinero'] = 0; }
       } else { data['dinero'] = 0; }
 
       final actual = BolaCargadaModel.fromJson(data);
@@ -92,16 +94,18 @@ Future<List<BolaCargadaModel>> getParleCargadas(
     if(lot != null && lot != ''){
       este = (lot['lot'] as String).substring(1).split(' ');
       globallot = (este as List<String>);
-    }
+    } else{ globallot = []; }
 
     (decodeData['data'] as List).removeLast();
     for (var data in decodeData['data']) {
 
-      List<String> splitted = data['numero'].split('--');
-      if((este.contains(splitted[0]) && este.contains(splitted[1])) && splitted[0] != splitted[1]){
-        data.addAll({
-          'dinero': data['total'] * 1000
-        });
+      if(este.isNotEmpty){
+        List<String> splitted = data['numero'].split('--');
+        if((este.contains(splitted[0]) && este.contains(splitted[1])) && splitted[0] != splitted[1]){
+          data.addAll({
+            'dinero': data['total'] * 1000
+          });
+        } else { data['dinero'] = 0; }
       } else { data['dinero'] = 0; }
 
       final actual = BolaCargadaModel.fromJson(data);
