@@ -87,7 +87,9 @@ class ShowList extends ConsumerWidget {
                                   fontSize: 25,
                                 ),
                                 textoDosis(
-                                    ' -> ${list[index].total}', 25,
+                                    ' -> ${(list[index].jugada == 'fijo')
+                                      ? list[index].total
+                                      : list[index].totalCorrido}', 25,
                                     fontWeight: FontWeight.bold),
                                 (list[index].dinero != 0)
                                   ? textoDosis(
@@ -103,7 +105,9 @@ class ShowList extends ConsumerWidget {
                           arguments: [
                             list[index].numero.toString(),
                             list[index].total.toString(),
-                            list[index].listeros
+                            list[index].totalCorrido.toString(),
+                            list[index].listeros,
+                            list[index].jugada
                           ]),
                     );
                   });
