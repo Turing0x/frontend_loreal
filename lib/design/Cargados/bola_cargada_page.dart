@@ -9,6 +9,7 @@ import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
 import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
 
 class BolaCargadaPage extends ConsumerWidget {
   const BolaCargadaPage({super.key});
@@ -60,9 +61,10 @@ class ShowList extends ConsumerWidget {
                 return noData(context);
               }
 
-              final list = (globallot.isNotEmpty)
-                ? (data..sort((a, b) => b.dinero! - a.dinero!))
-                : (data..sort((a, b) => b.total - a.total));
+              List<BolaCargadaModel> list = data;
+              (globallot.isNotEmpty)
+                ? (list.sort((a, b) => b.dinero! - a.dinero!))
+                : (list.sort((a, b) => b.total - a.total));
 
               return ListView.builder(
                   itemCount: list.length,
@@ -87,9 +89,11 @@ class ShowList extends ConsumerWidget {
                                   fontSize: 25,
                                 ),
                                 textoDosis(
-                                    ' -> ${(list[index].jugada == 'fijo')
-                                      ? list[index].total
-                                      : list[index].totalCorrido}', 25,
+                                    ' -> ${(globallot.isNotEmpty)
+                                      ? (list[index].jugada == 'fijo')
+                                        ? list[index].total
+                                        : list[index].totalCorrido
+                                      : list[index].total}', 25,
                                     fontWeight: FontWeight.bold),
                                 (list[index].dinero != 0)
                                   ? textoDosis(

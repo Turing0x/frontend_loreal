@@ -40,9 +40,12 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
                 children: [
                   boldLabel('Bola: ', widget.bola, 30),
                   const SizedBox(width: 20),
-                  boldLabel('Total: ', (widget.jugada == 'fijo')
+                  boldLabel('Total: ', (widget.jugada == 'nada')
                     ? widget.total
-                    : widget.totalCorrido, 30)
+                    : (widget.jugada == 'fijo')
+                      ? widget.total
+                      : widget.totalCorrido, 30)
+                  
                 ],
               ),
             ]),

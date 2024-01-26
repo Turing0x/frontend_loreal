@@ -53,9 +53,13 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
           });
         } else { 
           data['dinero'] = 0;
+          data['jugada'] = 'nada';
+          
         }
       } else { 
         data['dinero'] = 0;
+        data['jugada'] = 'nada';
+        
       }
 
       final actual = BolaCargadaModel.fromJson(data);
