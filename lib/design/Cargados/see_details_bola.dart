@@ -65,50 +65,56 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
                   widget.listeros[index].separados
                       .sort((a, b) => b.fijo - a.fijo);
 
-                  return ExpansionTile(
-                    title: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          textoDosis(' $username ', 23,
-                              fontWeight: FontWeight.bold),
-                          textoDosis(' -> $total ', 23,
-                              fontWeight: FontWeight.bold),
-                        ]),
-                    trailing: Icon(
-                      customTileExpanded
-                          ? Icons.arrow_drop_down_circle
-                          : Icons.arrow_drop_down,
-                    ),
-                    onExpansionChanged: (bool expanded) {
-                      setState(() => customTileExpanded = expanded);
-                    },
-                    children: widget.listeros[index].separados.map((value) {
-                      if(widget.jugada == 'fijo'){
-                        if (value.fijo != 0) {
-                          return Container(
-                            alignment: Alignment.centerLeft,
-                            margin: const EdgeInsets.only(left: 30),
-                            child: textoDosis(' --> ${value.fijo} ', 20),
-                          );
-                        }
-                      } else {
-                        if (value.corrido != 0) {
-                          return Container(
-                            alignment: Alignment.centerLeft,
-                            margin: const EdgeInsets.only(left: 30),
-                            child: textoDosis(' --> ${value.corrido} ', 20),
-                          );
-                        }
-                      }
-                      
-                      return Container();
-                    }).toList(),
-                  );
+                  return (total == '0')
+                    ? Container()
+                    : detailsWidget(username, total, index);
                 }),
             )
           ],
         ),
       ),
+    );
+  }
+
+  ExpansionTile detailsWidget(String username, String total, int index) {
+    return ExpansionTile(
+      title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            textoDosis(' $username ', 23,
+                fontWeight: FontWeight.bold),
+            textoDosis(' -> $total ', 23,
+                fontWeight: FontWeight.bold),
+          ]),
+      trailing: Icon(
+        customTileExpanded
+            ? Icons.arrow_drop_down_circle
+            : Icons.arrow_drop_down,
+      ),
+      onExpansionChanged: (bool expanded) {
+        setState(() => customTileExpanded = expanded);
+      },
+      children: widget.listeros[index].separados.map((value) {
+        if(widget.jugada == 'fijo'){
+          if (value.fijo != 0) {
+            return Container(
+              alignment: Alignment.centerLeft,
+              margin: const EdgeInsets.only(left: 30),
+              child: textoDosis(' --> ${value.fijo} ', 20),
+            );
+          }
+        } else {
+          if (value.corrido != 0) {
+            return Container(
+              alignment: Alignment.centerLeft,
+              margin: const EdgeInsets.only(left: 30),
+              child: textoDosis(' --> ${value.corrido} ', 20),
+            );
+          }
+        }
+        
+        return Container();
+      }).toList(),
     );
   }
 }
