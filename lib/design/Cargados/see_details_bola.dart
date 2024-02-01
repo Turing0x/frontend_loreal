@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
@@ -31,6 +30,11 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
 
   @override
   Widget build(BuildContext context) {
+
+    (globallot.isNotEmpty)
+      ? (widget.listeros.sort((a, b) => b.corrido! - a.corrido!))
+      : (widget.listeros.sort((a, b) => b.total - a.total));
+
     return Scaffold(
       appBar: showAppBar('Revisión por listas'),
       body: SingleChildScrollView(
@@ -42,11 +46,9 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
                 children: [
                   boldLabel('Bola: ', widget.bola, 30),
                   const SizedBox(width: 20),
-                  boldLabel('Total: ', (widget.jugada == 'nada')
-                    ? widget.total
-                    : (widget.jugada == 'fijo')
-                      ? widget.total
-                      : widget.totalCorrido, 30)
+                  boldLabel('Total: ', (widget.jugada == 'corrido')
+                    ? widget.totalCorrido
+                    : widget.total, 30)
                   
                 ],
               ),
@@ -55,24 +57,23 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
                 context, 'Listas donde aparece', false, () => null, false),
             SizedBox(
               width: double.infinity,
-              height: 700,
+              height: 600,
               child: ListView.builder(
                 itemCount: widget.listeros.length,
                 itemBuilder: (context, index) {
-                  widget.listeros.sort((a, b) => b.total - a.total);
 
                   String username =
                       widget.listeros[index].username.toString();
-                  String total = (widget.jugada == 'nada')
-                    ? widget.listeros[index].total.toString()
-                    : widget.listeros[index].totalCorrido.toString();
-
-                  widget.listeros[index].separados
-                      .sort((a, b) => b.fijo - a.fijo);
+                  String total = (widget.jugada == 'corrido')
+                    ? widget.listeros[index].totalCorrido.toString()
+                    : widget.listeros[index].total.toString();
 
                   return (total == '0')
                     ? Container()
-                    : detailsWidget(username, total, index);
+                    : detailsWidget(
+                      username, 
+                      total, 
+                      widget.listeros[index].separados);
                 }),
             )
           ],
@@ -81,7 +82,8 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
     );
   }
 
-  ExpansionTile detailsWidget(String username, String total, int index) {
+  ExpansionTile detailsWidget(String username, String total, List<Separado> list) {
+
     return ExpansionTile(
       title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,8 +101,8 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
       onExpansionChanged: (bool expanded) {
         setState(() => customTileExpanded = expanded);
       },
-      children: widget.listeros[index].separados.map((value) {
-        if(widget.jugada == 'fijo'){
+      children: list.map((value) {
+        if(widget.jugada == 'fijo' || widget.jugada == 'nada' ){
           if (value.fijo != 0) {
             return Container(
               alignment: Alignment.centerLeft,

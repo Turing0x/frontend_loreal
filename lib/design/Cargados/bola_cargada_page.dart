@@ -90,9 +90,9 @@ class ShowList extends ConsumerWidget {
                                 ),
                                 textoDosis(
                                     ' -> ${(globallot.isNotEmpty)
-                                      ? (list[index].jugada == 'fijo')
-                                        ? list[index].total
-                                        : list[index].totalCorrido
+                                      ? (list[index].jugada == 'corrido')
+                                        ? list[index].totalCorrido
+                                        : list[index].total
                                       : list[index].total}', 25,
                                     fontWeight: FontWeight.bold),
                                 (list[index].dinero != 0)
