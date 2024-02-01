@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
@@ -31,7 +30,7 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
   @override
   Widget build(BuildContext context) {
 
-    (globallot.isNotEmpty)
+    (widget.jugada == 'corrido')
       ? (widget.listeros.sort((a, b) => b.corrido! - a.corrido!))
       : (widget.listeros.sort((a, b) => b.total - a.total));
 
