@@ -16,7 +16,7 @@ class AuthServices {
 
   final _dio = Dio(
     BaseOptions(
-      baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
+      baseUrl: Uri.https(dotenv.env['SERVER_URL']!).toString(),
       headers: { 'Content-Type': 'application/json' }
     )
   );
