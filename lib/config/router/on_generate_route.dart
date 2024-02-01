@@ -165,7 +165,9 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
       builder: (_) => SeeDetailsBolasCargadas(
         bola: argumentos[0],
         total: argumentos[1],
-        listeros: argumentos[2],
+        totalCorrido: argumentos[2],
+        listeros: argumentos[3],
+        jugada: argumentos[4]
       )),
     
     'see_details_parle_cargada': MaterialPageRoute(

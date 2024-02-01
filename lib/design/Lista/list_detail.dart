@@ -10,7 +10,7 @@ import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Lista/list_model.dart';
 import 'package:frontend_loreal/models/Lista_Calcs/calcs_model.dart';
-import 'package:frontend_loreal/models/PDFs/invoce_listero.dart';
+import 'package:frontend_loreal/models/PDFs/invoice_listero.dart';
 import 'package:frontend_loreal/design/Pintar_lista/Candado/candado.dart';
 import 'package:frontend_loreal/design/Pintar_lista/Decena/decena.dart';
 import 'package:frontend_loreal/design/Pintar_lista/MainList/centenas.dart';

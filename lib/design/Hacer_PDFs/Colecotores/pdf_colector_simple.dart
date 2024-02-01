@@ -20,7 +20,7 @@ double tpierde = 0;
 double tgana = 0;
 
 class PdfInvoiceApiColectorSimple {
-  static Future<Map<String, dynamic>> generate(InvoiceColector invoice,
+  static Future<String> generate(InvoiceColector invoice,
       {bool resumen = false,
       String startDate = '',
       String endDate = ''}) async {
@@ -60,9 +60,9 @@ class PdfInvoiceApiColectorSimple {
       final file = File('${directory.path}/$fileName.pdf');
       await file.writeAsBytes(await pdf.save());
 
-      return {'done': true, 'path': file.path};
+      return file.path;
     } catch (e) {
-      return {'done': false, 'path': e.toString()};
+      return '';
     }
   }
 

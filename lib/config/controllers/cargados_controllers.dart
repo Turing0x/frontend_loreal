@@ -43,14 +43,22 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
         String splitted = data['numero'];
         if(splitted == este[0]){
           data.addAll({
+            'jugada': 'fijo',
             'dinero': data['total'] * 75
           });
         } else if(splitted == este[1] || splitted == este[2]){
           data.addAll({
-            'dinero': data['total'] * 25
+            'jugada': 'corrido',
+            'dinero': data['totalCorrido'] * 25
           });
-        } else { data['dinero'] = 0; }
-      } else { data['dinero'] = 0; }
+        } else { 
+          data['dinero'] = 0;
+          data['jugada'] = 'nada';
+        }
+      } else { 
+        data['dinero'] = 0;
+        data['jugada'] = 'nada';
+      }
 
       final actual = BolaCargadaModel.fromJson(data);
       cargados.add(actual);

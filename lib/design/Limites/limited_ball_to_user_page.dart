@@ -49,9 +49,9 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
       appBar: showAppBar('Bola limitada', actions: [
         IconButton(
           icon: const Icon(Icons.save_outlined),
-          onPressed: () {
+          onPressed: () async{
             if (bolaLimitada.isNotEmpty) {
-              limitsControllers.saveDataLimitsBallsToUser(widget.userID, bolaLimitada);
+              await limitsControllers.saveDataLimitsBallsToUser(widget.userID, bolaLimitada);
               return;
             }
 
@@ -124,8 +124,8 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
           child: Container(
             padding: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
-                
-                borderRadius: BorderRadius.circular(10)),
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(10)),
             child: TextField(
               keyboardType: TextInputType.number,
               controller: number,
@@ -148,10 +148,13 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
         Flexible(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[300],
-                  elevation: 2,
+            decoration: BoxDecoration(
+              color: Colors.blue[300],
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.transparent)
                 ),
                 onPressed: number.text.isNotEmpty
                     ? () => setState(() {
