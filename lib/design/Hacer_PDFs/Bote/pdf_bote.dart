@@ -4,7 +4,7 @@ import 'package:frontend_loreal/design/Hacer_PDFs/Bote/columnas_bote.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/widgets/bold_text.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/widgets/texto_dosis.dart';
 import 'package:frontend_loreal/design/common/pdf_widget.dart';
-import 'package:frontend_loreal/models/PDFs/invoce_bote.dart';
+import 'package:frontend_loreal/models/PDFs/invoice_bote.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;

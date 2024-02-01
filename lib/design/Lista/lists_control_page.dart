@@ -5,6 +5,7 @@ import 'package:frontend_loreal/config/controllers/list_controller.dart';
 import 'package:frontend_loreal/config/controllers/pdf_controllers.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
+import 'package:frontend_loreal/models/PDFs/invoice_listero.dart';
 import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
@@ -21,7 +22,6 @@ import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/PDFs/invoce_listero.dart';
 import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 import 'package:intl/intl.dart';
@@ -120,48 +120,46 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
           List<InvoiceItemColector> toPDF = [];
 
           final janddate = ref.watch(janddateR);
-          final pdfData = pdfControllers.getDataToPDF(
+          final pdfData = await pdfControllers.getDataToPDF(
               widget.userName, janddate.currentDate, janddate.currentJornada);
 
-          pdfData.then((value) async {
-            Map<String, dynamic> result = {};
+          for(PdfData data in pdfData){
+            String result = '';
 
-            for (PdfData data in value) {
-              toPDF.add(InvoiceItemColector(
-                  codigo: data.username,
-                  exprense: data.payments.exprense,
-                  limpio: double.parse(
-                      data.calcs.limpio.toStringAsFixed(1).toString()),
-                  premio: double.parse(
-                      data.calcs.premio.toStringAsFixed(1).toString()),
-                  pierde: double.parse(
-                      data.calcs.perdido.toStringAsFixed(1).toString()),
-                  gana: double.parse(
-                      data.calcs.ganado.toStringAsFixed(1).toString())));
-            }
+            toPDF.add(InvoiceItemColector(
+              codigo: data.username,
+              exprense: data.payments.exprense,
+              limpio: double.parse(
+                  data.calcs.limpio.toStringAsFixed(1).toString()),
+              premio: double.parse(
+                  data.calcs.premio.toStringAsFixed(1).toString()),
+              pierde: double.parse(
+                  data.calcs.perdido.toStringAsFixed(1).toString()),
+              gana: double.parse(
+                  data.calcs.ganado.toStringAsFixed(1).toString())));
 
             final invoice = InvoiceColector(
-                infoColector: InvoiceInfoColector(
-                    fechaActual: formatFechaActual,
-                    fechaTirada: janddate.currentDate,
-                    jornada: janddate.currentJornada,
-                    coleccion: widget.userName,
-                    lote: lotThisDay),
-                usersColector: toPDF);
+              infoColector: InvoiceInfoColector(
+                fechaActual: formatFechaActual,
+                fechaTirada: janddate.currentDate,
+                jornada: janddate.currentJornada,
+                coleccion: widget.userName,
+                lote: lotThisDay),
+              usersColector: toPDF);
 
             (globalRoleToPDF == 'Banco')
-                ? result = await PdfInvoiceApiBanco.generate(invoice)
-                : (globalRoleToPDF == 'Colector General')
-                    ? result =
-                        await PdfInvoiceApiColectorGeneral.generate(invoice)
-                    : result =
-                        await PdfInvoiceApiColectorSimple.generate(invoice);
+              ? result = await PdfInvoiceApiBanco.generate(invoice)
+              : (globalRoleToPDF == 'Colector General')
+                ? result =
+                  await PdfInvoiceApiColectorGeneral.generate(invoice)
+                : result =
+                  await PdfInvoiceApiColectorSimple.generate(invoice);
 
             final openPdf = prefs.getBool('openPdf');
             if (openPdf ?? false) {
-              OpenFile.open(result['path']);
+              OpenFile.open(result);
             }
-          });
+          }
 
           EasyLoading.showSuccess('El vale ha sido creado exitosamente');
         } catch (e) {
@@ -179,8 +177,8 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
       onPressed: () async {
         try {
           EasyLoading.show(
-              status:
-                  'Buscando información para crear todos los vales de los usuarios implicados...');
+            status:
+              'Buscando información para crear todos los vales de los usuarios implicados...');
 
           if (!hasDataInList) {
             showToast('No hay información de listas para hacer el PDF');
@@ -192,11 +190,11 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
 
           for (User each in peoples) {
             if (each.role['code'] != 'listero') {
-              makePdf(
-                  each.username, janddate.currentDate, janddate.currentJornada);
+              await makePdf(
+                each.username, janddate.currentDate, janddate.currentJornada);
             } else {
-              makeListsPdf(
-                  each.username, janddate.currentDate, janddate.currentJornada);
+              await makeListsPdf(
+                each.username, janddate.currentDate, janddate.currentJornada);
             }
           }
 
@@ -208,51 +206,49 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
     );
   }
 
-  void makePdf(String username, String currentDate, String currentJornada) {
+  Future<void> makePdf(String username, String currentDate, String currentJornada) async{
     DateTime now = DateTime.now();
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
     List<InvoiceItemColector> toPDF = [];
 
-    final pdfData = pdfControllers.getDataToPDF(username, currentDate, currentJornada);
+    final pdfData = await pdfControllers.getDataToPDF(username, currentDate, currentJornada);
 
-    pdfData.then((value) {
-      for (PdfData data in value) {
-        if (data.calcs.limpio != 0 ||
-            data.calcs.premio != 0 ||
-            data.calcs.perdido != 0 ||
-            data.calcs.ganado != 0) {
-          toPDF.add(InvoiceItemColector(
-              codigo: data.username,
-              exprense: data.payments.exprense,
-              limpio:
-                  double.parse(data.calcs.limpio.toStringAsFixed(1).toString()),
-              premio:
-                  double.parse(data.calcs.premio.toStringAsFixed(1).toString()),
-              pierde: double.parse(
-                  data.calcs.perdido.toStringAsFixed(1).toString()),
-              gana: double.parse(
-                  data.calcs.ganado.toStringAsFixed(1).toString())));
+    for (PdfData data in pdfData) {
+      if (data.calcs.limpio != 0 ||
+          data.calcs.premio != 0 ||
+          data.calcs.perdido != 0 ||
+          data.calcs.ganado != 0) {
+        toPDF.add(InvoiceItemColector(
+            codigo: data.username,
+            exprense: data.payments.exprense,
+            limpio:
+                double.parse(data.calcs.limpio.toStringAsFixed(1).toString()),
+            premio:
+                double.parse(data.calcs.premio.toStringAsFixed(1).toString()),
+            pierde: double.parse(
+                data.calcs.perdido.toStringAsFixed(1).toString()),
+            gana: double.parse(
+                data.calcs.ganado.toStringAsFixed(1).toString())));
 
-          final invoice = InvoiceColector(
-              infoColector: InvoiceInfoColector(
-                  fechaActual: formatFechaActual,
-                  fechaTirada: currentDate,
-                  jornada: currentJornada,
-                  coleccion: username,
-                  lote: lotThisDay),
-              usersColector: toPDF);
+        final invoice = InvoiceColector(
+            infoColector: InvoiceInfoColector(
+                fechaActual: formatFechaActual,
+                fechaTirada: currentDate,
+                jornada: currentJornada,
+                coleccion: username,
+                lote: lotThisDay),
+            usersColector: toPDF);
 
-          (globalRoleToPDF == 'Banco')
-              ? PdfInvoiceApiBanco.generate(invoice)
-              : (globalRoleToPDF == 'Colector General')
-                  ? PdfInvoiceApiColectorGeneral.generate(invoice)
-                  : PdfInvoiceApiColectorSimple.generate(invoice);
-        }
+        (globalRoleToPDF == 'Banco')
+            ? await PdfInvoiceApiBanco.generate(invoice)
+            : (globalRoleToPDF == 'Colector General')
+                ? await PdfInvoiceApiColectorGeneral.generate(invoice)
+                : await PdfInvoiceApiColectorSimple.generate(invoice);
       }
-    });
+    }
   }
 
-  void makeListsPdf(
+  Future<void> makeListsPdf(
       String username, String currentDate, String currentJornada) async {
     
     final listControllers = ListControllers();

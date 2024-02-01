@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/controllers/limits_controller.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
@@ -61,7 +63,7 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
 
                   String username =
                       widget.listeros[index].username.toString();
-                  String total = (widget.jugada == 'fijo')
+                  String total = (widget.jugada == 'nada')
                     ? widget.listeros[index].total.toString()
                     : widget.listeros[index].totalCorrido.toString();
 

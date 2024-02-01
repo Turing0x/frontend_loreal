@@ -157,11 +157,14 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
         Flexible(
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[300],
-                elevation: 2,
-              ),
+            decoration: BoxDecoration(
+              color: Colors.blue[300],
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Colors.transparent)
+                ),
               onPressed: number.text.isNotEmpty
                   ? () => setState(() {
                         if (number.text.length < 4) {

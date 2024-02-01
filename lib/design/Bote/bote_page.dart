@@ -8,7 +8,7 @@ import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Bote/pdf_bote.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:frontend_loreal/models/PDFs/invoce_bote.dart';
+import 'package:frontend_loreal/models/PDFs/invoice_bote.dart';
 import 'package:intl/intl.dart';
 
 class BotePage extends ConsumerStatefulWidget {

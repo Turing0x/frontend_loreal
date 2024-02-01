@@ -8,7 +8,7 @@ import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
 import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
-import 'package:frontend_loreal/models/PDFs/invoce_listero.dart';
+import 'package:frontend_loreal/models/PDFs/invoice_listero.dart';
 import 'package:frontend_loreal/design/Pintar_lista/Candado/candado.dart';
 import 'package:frontend_loreal/design/Pintar_lista/Decena/decena.dart';
 import 'package:frontend_loreal/design/Pintar_lista/MainList/centenas.dart';

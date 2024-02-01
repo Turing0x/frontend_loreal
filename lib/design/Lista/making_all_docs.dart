@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
 import 'package:frontend_loreal/config/controllers/pdf_controllers.dart';
+import 'package:frontend_loreal/models/PDFs/invoice_listero.dart';
 import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
 import 'package:frontend_loreal/config/methods/methods.dart';
@@ -14,7 +15,6 @@ import 'package:frontend_loreal/design/Hacer_PDFs/Banco/pdf_banco.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Colecotores/pdf_colector_general.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Colecotores/pdf_colector_simple.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Listero/pdf_listero_banco.dart';
-import 'package:frontend_loreal/models/PDFs/invoce_listero.dart';
 import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 import 'package:intl/intl.dart';
@@ -92,7 +92,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
       blockBtn = true;
       textBtn = 'Procesando todos los vales';
       final janddate = ref.watch(janddateR);
-      Map<String, dynamic> result = {};
+      String result = '';
 
       int cont = 0;
 
@@ -108,7 +108,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
         cont++;
         setState(() {
           hasBeenDone.add(
-              {'done': result['done'], 'user': each, 'path': result['path']});
+              {'done': true, 'user': each, 'path': result});
           cant = cont;
         });
         if (cont == peoples.length) {
@@ -120,19 +120,17 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
     }
   }
 
-  Future<Map<String, dynamic>> makePdf(
+  Future<String> makePdf(
       String username, String currentDate, String currentJornada) async {
     DateTime now = DateTime.now();
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
     List<InvoiceItemColector> toPDF = [];
 
-    Map<String, dynamic> result = {};
+    String result = '';
 
-    final pdfData = pdfControllers.getDataToPDF(username, currentDate, currentJornada);
+    final pdfData = await pdfControllers.getDataToPDF(username, currentDate, currentJornada);
 
-    List<PdfData> value = await pdfData;
-
-    for (PdfData data in value) {
+    for (PdfData data in pdfData) {
       if (data.calcs.limpio != 0 ||
           data.calcs.premio != 0 ||
           data.calcs.perdido != 0 ||
@@ -169,7 +167,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
     return result;
   }
 
-  Future<Map<String, dynamic>> makeListsPdf(
+  Future<String> makeListsPdf(
       String username, String currentDate, String currentJornada) async {
     
     final listControllers = ListControllers();
@@ -177,7 +175,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
     DateTime now = DateTime.now();
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
 
-    Map<String, dynamic> result = {};
+    String result = '';
 
     final eachList = await listControllers.getAllList(
         username: username, jornal: currentJornada, date: currentDate);

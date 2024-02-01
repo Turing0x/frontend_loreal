@@ -19,7 +19,7 @@ import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
 import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
 import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
 import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
-import 'package:frontend_loreal/models/PDFs/invoce_listero.dart';
+import 'package:frontend_loreal/models/PDFs/invoice_listero.dart';
 import 'package:intl/intl.dart';
 
 class SeeListDetailAfterSend extends ConsumerStatefulWidget {

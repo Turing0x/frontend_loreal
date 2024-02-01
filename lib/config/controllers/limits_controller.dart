@@ -25,7 +25,7 @@ class LimitsControllers {
 
     _dio = Dio(
       BaseOptions(
-        baseUrl: Uri.https(dotenv.env['SERVER_URL']!).toString(),
+        baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token,
@@ -88,7 +88,7 @@ class LimitsControllers {
     }
   }
 
-  void saveDataLimits(String fijo, String corrido, String parle, String centena,
+  Future<void> saveDataLimits(String fijo, String corrido, String parle, String centena,
       String limites_millon_Fijo, String limites_millon_Corrido) async {
     try {
       EasyLoading.show(status: 'Configurando límites...');
@@ -116,7 +116,7 @@ class LimitsControllers {
     }
   }
 
-  void editLimitsOfUser(
+  Future<void> editLimitsOfUser(
       String fijo,
       String corrido,
       String parle,
@@ -152,7 +152,7 @@ class LimitsControllers {
     }
   }
 
-  void saveDataLimitsBalls(Map<String, List<int>> bola) async {
+  Future<void> saveDataLimitsBalls(Map<String, List<int>> bola) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
@@ -204,7 +204,7 @@ class LimitsControllers {
     }
   }
 
-  void saveDataLimitsParle(Map<String, List<List<int>>> parle) async {
+  Future<void> saveDataLimitsParle(Map<String, List<List<int>>> parle) async {
     try {
       EasyLoading.show(status: 'Guardando parlés limitados');
 
@@ -257,12 +257,36 @@ class LimitsControllers {
   }
 
   // Limites para los usuarios de manera independiente
-  void saveDataLimitsBallsToUser(String id, Map<String, List<int>> bola) async {
+  Future<void> saveDataLimitsBallsToUser(String id, Map<String, List<int>> bola) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
       await _initializeDio();
       Response response = await _dio.put('/api/users/$id',
+        data: jsonEncode({
+          'bola': {
+            'bola': bola,
+          }
+        }));
+
+      if (response.data['success']) {
+        EasyLoading.showSuccess('Limites configurados satisfactoriamente');
+        return;
+      }
+
+      EasyLoading.showToast('No se pudo configurar los límites');
+      return;
+    } catch (e) {
+      EasyLoading.showError('Ha ocurrido un error');
+    }
+  }
+
+  Future<void> saveDataLimitsBallsToUserCargados(String id, Map<String, List<int>> bola) async {
+    try {
+      EasyLoading.show(status: 'Guardando bolas limitadas');
+
+      await _initializeDio();
+      Response response = await _dio.put('/api/users/cargados/$id',
         data: jsonEncode({
           'bola': {
             'bola': bola,
@@ -306,7 +330,7 @@ class LimitsControllers {
     }
   }
 
-  void saveDataLimitsParleToUser(
+  Future<void> saveDataLimitsParleToUser(
       String id, Map<String, List<List<int>>> parle) async {
     try {
       EasyLoading.show(status: 'Guardando parlés limitados');
