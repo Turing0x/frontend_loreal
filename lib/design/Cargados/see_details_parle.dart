@@ -77,11 +77,21 @@ class _SeeDetailsParlesCargadosState extends State<SeeDetailsParlesCargados> {
                             textoDosis(' -> $total ', 23,
                                 fontWeight: FontWeight.bold),
                           ]),
-                      trailing: Icon(
-                        customTileExpanded
+                      trailing: (globallot.isEmpty)
+                        ? OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              side: const BorderSide(color: Colors.black26)
+                            ),
+                            child: textoDosis('Limitar', 16),
+                            onPressed: () async{
+                              final ctrl = LimitsControllers();
+                              await ctrl.saveDataLimitsParleToUserCargadosListero(username, widget.bola, widget.jornal);
+                            } 
+                          )
+                        : Icon(
+                          customTileExpanded
                             ? Icons.arrow_drop_down_circle
-                            : Icons.arrow_drop_down,
-                      ),
+                            : Icons.arrow_drop_down),
                       onExpansionChanged: (bool expanded) {
                         setState(() => customTileExpanded = expanded);
                       },

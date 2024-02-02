@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+
+import '../../config/globals/variables.dart';
 
 class SeeDetailsBolasCargadas extends StatefulWidget {
   const SeeDetailsBolasCargadas({
@@ -58,7 +59,7 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
             ]),
             encabezado(
                 context, 'Listas donde aparece', 
-                globallot.isEmpty, () async{
+                false, () async{
                   final ctrl = LimitsControllers();
                   await ctrl.saveDataLimitsBallsToUserCargados(widget.bola, widget.jornal);
                 },
@@ -103,11 +104,21 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
             textoDosis(' -> $total ', 23,
                 fontWeight: FontWeight.bold),
           ]),
-      trailing: Icon(
-        customTileExpanded
+      trailing: (globallot.isEmpty)
+        ? OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(color: Colors.black26)
+            ),
+            child: textoDosis('Limitar', 16),
+            onPressed: () async{
+              final ctrl = LimitsControllers();
+              await ctrl.saveDataLimitsBallsToUserCargadosListero(username, widget.bola, widget.jornal);
+            } 
+          )
+        : Icon(
+          customTileExpanded
             ? Icons.arrow_drop_down_circle
-            : Icons.arrow_drop_down,
-      ),
+            : Icons.arrow_drop_down),
       onExpansionChanged: (bool expanded) {
         setState(() => customTileExpanded = expanded);
       },

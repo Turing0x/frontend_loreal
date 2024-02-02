@@ -281,6 +281,7 @@ class LimitsControllers {
     }
   }
 
+  // Limites para todos los usuarios del cargado
   Future<void> saveDataLimitsBallsToUserCargados(String bola, String jornal) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
@@ -307,6 +308,47 @@ class LimitsControllers {
 
       await _initializeDio();
       Response response = await _dio.put('/api/users/cargadoparle/$parle/$jornal');
+
+      if (response.data['success']) {
+        EasyLoading.showSuccess('Limites configurados satisfactoriamente');
+        return;
+      }
+
+      EasyLoading.showToast('No se pudo configurar los límites');
+      return;
+    } catch (e) {
+      print(e);
+      EasyLoading.showError('Ha ocurrido un error');
+    }
+  }
+
+  // Limites para un listero del cargado
+  Future<void> saveDataLimitsBallsToUserCargadosListero(String username, String bola, String jornal) async {
+    try {
+      EasyLoading.show(status: 'Guardando bolas limitadas');
+
+      await _initializeDio();
+      Response response = await _dio.put('/api/users/listerocargados/$username/$bola/$jornal');
+
+      if (response.data['success']) {
+        EasyLoading.showSuccess('Limites configurados satisfactoriamente');
+        return;
+      }
+
+      EasyLoading.showToast('No se pudo configurar los límites');
+      return;
+    } catch (e) {
+      print(e);
+      EasyLoading.showError('Ha ocurrido un error');
+    }
+  }
+
+  Future<void> saveDataLimitsParleToUserCargadosListero(String username, String parle, String jornal) async {
+    try {
+      EasyLoading.show(status: 'Guardando bolas limitadas');
+
+      await _initializeDio();
+      Response response = await _dio.put('/api/users/listerocargadoparle/$username/$parle/$jornal');
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
