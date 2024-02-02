@@ -25,7 +25,7 @@ class LimitsControllers {
 
     _dio = Dio(
       BaseOptions(
-        baseUrl: Uri.https(dotenv.env['SERVER_URL']!).toString(),
+        baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token,
@@ -281,17 +281,12 @@ class LimitsControllers {
     }
   }
 
-  Future<void> saveDataLimitsBallsToUserCargados(String id, Map<String, List<int>> bola) async {
+  Future<void> saveDataLimitsBallsToUserCargados(String bola, String jornal) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
       await _initializeDio();
-      Response response = await _dio.put('/api/users/cargados/$id',
-        data: jsonEncode({
-          'bola': {
-            'bola': bola,
-          }
-        }));
+      Response response = await _dio.put('/api/users/cargados/$bola/$jornal');
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -301,6 +296,27 @@ class LimitsControllers {
       EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
+      print(e);
+      EasyLoading.showError('Ha ocurrido un error');
+    }
+  }
+
+  Future<void> saveDataLimitsPerleToUserCargados(String parle, String jornal) async {
+    try {
+      EasyLoading.show(status: 'Guardando bolas limitadas');
+
+      await _initializeDio();
+      Response response = await _dio.put('/api/users/cargadoparle/$parle/$jornal');
+
+      if (response.data['success']) {
+        EasyLoading.showSuccess('Limites configurados satisfactoriamente');
+        return;
+      }
+
+      EasyLoading.showToast('No se pudo configurar los límites');
+      return;
+    } catch (e) {
+      print(e);
       EasyLoading.showError('Ha ocurrido un error');
     }
   }

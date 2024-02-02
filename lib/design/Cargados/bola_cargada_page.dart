@@ -111,7 +111,8 @@ class ShowList extends ConsumerWidget {
                             list[index].total.toString(),
                             list[index].totalCorrido.toString(),
                             list[index].listeros,
-                            list[index].jugada
+                            list[index].jugada,
+                            janddate.currentJornada
                           ]),
                     );
                   });

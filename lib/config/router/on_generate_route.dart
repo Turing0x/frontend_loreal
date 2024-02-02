@@ -167,7 +167,8 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
         total: argumentos[1],
         totalCorrido: argumentos[2],
         listeros: argumentos[3],
-        jugada: argumentos[4]
+        jugada: argumentos[4],
+        jornal: argumentos[5]
       )),
     
     'see_details_parle_cargada': MaterialPageRoute(
@@ -176,6 +177,7 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
         fijo: argumentos[1],
         total: argumentos[2],
         listeros: argumentos[3],
+        jornal: argumentos[4],
       ))
       
   };

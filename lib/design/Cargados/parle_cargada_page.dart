@@ -110,7 +110,8 @@ class ShowList extends ConsumerWidget {
                                 list[index].numero.toString(),
                                 list[index].fijo.toString(),
                                 list[index].total.toString(),
-                                list[index].listeros
+                                list[index].listeros,
+                                janddate.currentJornada
                               ]),
                         );
                       });
