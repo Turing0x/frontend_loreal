@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/config/controllers/limits_controller.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+
+import '../../config/globals/variables.dart';
 
 class SeeDetailsBolasCargadas extends StatefulWidget {
   const SeeDetailsBolasCargadas({
@@ -10,7 +13,8 @@ class SeeDetailsBolasCargadas extends StatefulWidget {
     required this.total,
     required this.totalCorrido,
     required this.listeros, 
-    required this.jugada
+    required this.jugada,
+    required this.jornal
   });
 
   final String bola;
@@ -18,6 +22,7 @@ class SeeDetailsBolasCargadas extends StatefulWidget {
   final String totalCorrido;
   final List<Listero> listeros;
   final String jugada;
+  final String jornal;
 
   @override
   State<SeeDetailsBolasCargadas> createState() =>
@@ -53,7 +58,14 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
               ),
             ]),
             encabezado(
-                context, 'Listas donde aparece', false, () => null, false),
+                context, 'Listas donde aparece', 
+                false, () async{
+                  final ctrl = LimitsControllers();
+                  await ctrl.saveDataLimitsBallsToUserCargados(widget.bola, widget.jornal);
+                },
+                btnIcon: Icons.label_important_outline_sharp,
+                btnText: 'Limitar',
+                false),
             SizedBox(
               width: double.infinity,
               height: 600,
@@ -92,11 +104,21 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
             textoDosis(' -> $total ', 23,
                 fontWeight: FontWeight.bold),
           ]),
-      trailing: Icon(
-        customTileExpanded
+      trailing: (globallot.isEmpty)
+        ? OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(color: Colors.black26)
+            ),
+            child: textoDosis('Limitar', 16),
+            onPressed: () async{
+              final ctrl = LimitsControllers();
+              await ctrl.saveDataLimitsBallsToUserCargadosListero(username, widget.bola, widget.jornal);
+            } 
+          )
+        : Icon(
+          customTileExpanded
             ? Icons.arrow_drop_down_circle
-            : Icons.arrow_drop_down,
-      ),
+            : Icons.arrow_drop_down),
       onExpansionChanged: (bool expanded) {
         setState(() => customTileExpanded = expanded);
       },
