@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/assets/themes/dark_theme.dart';
 import 'package:frontend_loreal/assets/themes/light_theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'config/router/on_generate_route.dart';
 import 'config/router/routes.dart';
@@ -65,6 +66,14 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           builder: EasyLoading.init(),
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'),
+          ],
           theme: light,
           darkTheme: dark,
           title: 'Loreal',

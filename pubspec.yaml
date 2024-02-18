@@ -41,6 +41,9 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flutter_easyloading: ^3.0.5
   flutter_expanded_tile: ^0.3.6
+  flutter_localization: ^0.2.0
+  flutter_localizations:
+    sdk: flutter
   flutter_multi_formatter: ^2.2.1
   flutter_riverpod: ^2.0.2
   flutter_secure_storage: null
