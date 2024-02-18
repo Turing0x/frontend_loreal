@@ -49,7 +49,6 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 () => showInfo(), MediaQuery.of(context).size.width * 0.7),
             TxtInfo(
                 texto: 'Sorteo a jugar: ',
-                
                 icon: Icons.attach_money,
                 keyboardType: TextInputType.number,
                 controlador: numplay,
@@ -58,7 +57,7 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 right: 35,
                 inputFormatters: [
                   MaskedInputFormatter('### ## ##',
-                      allowedCharMatcher: RegExp(r'[0-9]')),
+                    allowedCharMatcher: RegExp(r'[0-9]')),
                   LengthLimitingTextInputFormatter(9),
                 ],
                 onChange: (valor) => setState(() {})),
@@ -67,7 +66,6 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Fijo',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: fijo,
@@ -77,14 +75,16 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                         FilteringTextInputFormatter.digitsOnly,
                         LengthLimitingTextInputFormatter(3),
                         NumberTextInputFormatter(
-                          maxValue: getLimits.limitesmillonFijo.toString()),
+                          maxValue: (getLimits.limitesmillonFijo != 0)
+                            ? getLimits.limitesmillonFijo.toString() 
+                            : '1'
+                          ),
                       ],
                       onChange: (valor) => setState(() {})),
                 ),
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Corrido',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: corrido,
@@ -94,91 +94,96 @@ class _FullMillionWidgetState extends ConsumerState<FullMillionWidget> {
                         FilteringTextInputFormatter.digitsOnly,
                         LengthLimitingTextInputFormatter(3),
                         NumberTextInputFormatter(
-                            maxValue:
-                                getLimits.limitesmillonCorrido.toString()),
+                          maxValue: (getLimits.limitesmillonCorrido != 0)
+                            ? getLimits.limitesmillonCorrido.toString() 
+                            : '1'
+                          ),
                       ],
                       onChange: (valor) => setState(() {})),
                 ),
               ],
             ),
-            Consumer(builder: (_, ref, __) {
-              return btnWithIcon(context, Colors.blue[300],
-                  const Icon(Icons.save_outlined), 'Guardar jugada', () {
-                String uuid = const Uuid().v4();
-                final payCrtl = ref.read(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
-                FocusScope.of(context).unfocus();
-
-                if ((numplay.text.isEmpty || numplay.text.length != 9) ||
-                    (fijo.text.isEmpty && corrido.text.isEmpty) ||
-                    (fijo.text == '0' && corrido.text == '0')) {
-                  showToast('Jugada inválida');
-                  return;
-                }
-
-                String toGetselectedNumber = numplay.text;
-                int toGetfijo = fijo.text.intTryParsed ?? 0;
-                int toGetcorrido = corrido.text.intTryParsed ?? 0;
-
-                final value = toBlockIfOutOfLimitFCPC[numplay.text] ?? {};
-
-                int fijoLimite = getLimits.limitesmillonFijo;
-                int corridoLimite = getLimits.limitesmillonCorrido;
-                int dineroFijo = toGetfijo;
-                int dineroCorrido = toGetcorrido;
-
-                bool excedeFijo =
-                    (value['fijo'] ?? 0) + dineroFijo > fijoLimite;
-                bool excedeCorrido =
-                    (value['corrido'] ?? 0) + dineroCorrido > corridoLimite;
-
-                if (excedeFijo) {
-                  showToast(
-                      'El límite para el fijo del Raspaito está establecido en $fijoLimite. No puede ser excedido');
-                  return;
-                }
-                if (excedeCorrido) {
-                  showToast(
-                      'El límite para el corrido del Raspaito está establecido en $corridoLimite. No puede ser excedido');
-                  return;
-                }
-
-                toBlockIfOutOfLimitFCPC.update(numplay.text, (value) {
-                  return {
-                    'fijo': value['fijo']! + toGetfijo,
-                    'corrido': value['corrido']! + toGetcorrido,
-                    'corrido2': value['corrido2']!,
-                  };
-                }, ifAbsent: () {
-                  return {
+            Visibility(
+              visible: getLimits.limitesmillonFijo != 0,
+              child: Consumer(builder: (_, ref, __) {
+                return btnWithIcon(context, Colors.blue[300],
+                    const Icon(Icons.save_outlined), 'Guardar jugada', () {
+                  String uuid = const Uuid().v4();
+                  final payCrtl = ref.read(paymentCrtl.notifier);
+                  final getLimit = ref.watch(globalLimits);
+                  FocusScope.of(context).unfocus();
+              
+                  if ((numplay.text.isEmpty || numplay.text.length != 9) ||
+                      (fijo.text.isEmpty && corrido.text.isEmpty) ||
+                      (fijo.text == '0' && corrido.text == '0')) {
+                    showToast('Jugada inválida');
+                    return;
+                  }
+              
+                  String toGetselectedNumber = numplay.text;
+                  int toGetfijo = fijo.text.intTryParsed ?? 0;
+                  int toGetcorrido = corrido.text.intTryParsed ?? 0;
+              
+                  final value = toBlockIfOutOfLimitFCPC[numplay.text] ?? {};
+              
+                  int fijoLimite = getLimits.limitesmillonFijo;
+                  int corridoLimite = getLimits.limitesmillonCorrido;
+                  int dineroFijo = toGetfijo;
+                  int dineroCorrido = toGetcorrido;
+              
+                  bool excedeFijo =
+                      (value['fijo'] ?? 0) + dineroFijo > fijoLimite;
+                  bool excedeCorrido =
+                      (value['corrido'] ?? 0) + dineroCorrido > corridoLimite;
+              
+                  if (excedeFijo) {
+                    showToast(
+                        'El límite para el fijo del Raspaito está establecido en $fijoLimite. No puede ser excedido');
+                    return;
+                  }
+                  if (excedeCorrido) {
+                    showToast(
+                        'El límite para el corrido del Raspaito está establecido en $corridoLimite. No puede ser excedido');
+                    return;
+                  }
+              
+                  toBlockIfOutOfLimitFCPC.update(numplay.text, (value) {
+                    return {
+                      'fijo': value['fijo']! + toGetfijo,
+                      'corrido': value['corrido']! + toGetcorrido,
+                      'corrido2': value['corrido2']!,
+                    };
+                  }, ifAbsent: () {
+                    return {
+                      'fijo': toGetfijo,
+                      'corrido': toGetcorrido,
+                      'corrido2': 0,
+                    };
+                  });
+              
+                  int bruto = toGetfijo + toGetcorrido;
+              
+                  payCrtl.totalBruto80 = bruto;
+                  payCrtl.limpioListero =
+                      (bruto * (getLimit.porcientoBolaListero / 100)).toInt();
+              
+                  listadoMillon['millon']?.add({
+                    'uuid': uuid,
+                    'numplay': toGetselectedNumber,
                     'fijo': toGetfijo,
                     'corrido': toGetcorrido,
-                    'corrido2': 0,
-                  };
-                });
-
-                int bruto = toGetfijo + toGetcorrido;
-
-                payCrtl.totalBruto80 = bruto;
-                payCrtl.limpioListero =
-                    (bruto * (getLimit.porcientoBolaListero / 100)).toInt();
-
-                listadoMillon['millon']?.add({
-                  'uuid': uuid,
-                  'numplay': toGetselectedNumber,
-                  'fijo': toGetfijo,
-                  'corrido': toGetcorrido,
-                  'dinero': 0,
-                });
-
-                toJoinListM.addCurrentList(
-                    key: ListaGeneralEnum.millon, data: listadoMillon);
-
-                numplay.text = '';
-                fijo.text = '';
-                corrido.text = '';
-              }, MediaQuery.of(context).size.width * 0.7);
-            })
+                    'dinero': 0,
+                  });
+              
+                  toJoinListM.addCurrentList(
+                      key: ListaGeneralEnum.millon, data: listadoMillon);
+              
+                  numplay.text = '';
+                  fijo.text = '';
+                  corrido.text = '';
+                }, MediaQuery.of(context).size.width * 0.7);
+              }),
+            )
           ],
         ));
   }

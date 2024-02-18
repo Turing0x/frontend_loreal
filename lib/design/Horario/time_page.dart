@@ -14,10 +14,10 @@ class TimePage extends StatefulWidget {
 }
 
 class TimePageState extends State<TimePage> {
-  TimeOfDay dayStart = const TimeOfDay(hour: 00, minute: 00);
-  TimeOfDay dayEnd = const TimeOfDay(hour: 00, minute: 00);
-  TimeOfDay nigthStart = const TimeOfDay(hour: 00, minute: 00);
-  TimeOfDay nigthEnd = const TimeOfDay(hour: 00, minute: 00);
+  String dayStart = '';
+  String dayEnd = '';
+  String nigthStart = '';
+  String nigthEnd = '';
 
   @override
   void initState() {
@@ -59,10 +59,10 @@ class TimePageState extends State<TimePage> {
                   ),
                   child: textoDosis('Guardar cambios', 20, color: Colors.white),
                   onPressed: () => timeControllers.saveDataTime(
-                      dayStart.format(context),
-                      dayEnd.format(context),
-                      nigthStart.format(context),
-                      nigthEnd.format(context))),
+                      dayStart,
+                      dayEnd,
+                      nigthStart,
+                      nigthEnd))
             ),
           ],
         ),
@@ -85,7 +85,7 @@ class TimePageState extends State<TimePage> {
               decoration: BoxDecoration(
                   
                   borderRadius: BorderRadius.circular(10)),
-              child: textoDosis(dayStart.format(context), 20),
+              child: textoDosis(dayStart, 20),
             ),
           ),
           Flexible(
@@ -98,7 +98,7 @@ class TimePageState extends State<TimePage> {
                   );
                   if (newTime != null) {
                     setState(() {
-                      dayStart = newTime;
+                      dayStart = '${newTime.hour}:${newTime.minute}';
                     });
                   }
                 }),
@@ -123,7 +123,7 @@ class TimePageState extends State<TimePage> {
               decoration: BoxDecoration(
                   
                   borderRadius: BorderRadius.circular(10)),
-              child: textoDosis(dayEnd.format(context), 20),
+              child: textoDosis(dayEnd, 20),
             ),
           ),
           Flexible(
@@ -136,7 +136,7 @@ class TimePageState extends State<TimePage> {
                   );
                   if (newTime != null) {
                     setState(() {
-                      dayEnd = newTime;
+                      dayEnd = '${newTime.hour}:${newTime.minute}';
                     });
                   }
                 }),
@@ -161,7 +161,7 @@ class TimePageState extends State<TimePage> {
               decoration: BoxDecoration(
                   
                   borderRadius: BorderRadius.circular(10)),
-              child: textoDosis(nigthStart.format(context), 20),
+              child: textoDosis(nigthStart, 20),
             ),
           ),
           Flexible(
@@ -174,7 +174,7 @@ class TimePageState extends State<TimePage> {
                   );
                   if (newTime != null) {
                     setState(() {
-                      nigthStart = newTime;
+                      nigthStart = '${newTime.hour}:${newTime.minute}';
                     });
                   }
                 }),
@@ -199,7 +199,7 @@ class TimePageState extends State<TimePage> {
               decoration: BoxDecoration(
                   
                   borderRadius: BorderRadius.circular(10)),
-              child: textoDosis(nigthEnd.format(context), 20),
+              child: textoDosis(nigthEnd, 20),
             ),
           ),
           Flexible(
@@ -212,7 +212,7 @@ class TimePageState extends State<TimePage> {
                   );
                   if (newTime != null) {
                     setState(() {
-                      nigthEnd = newTime;
+                      nigthEnd = '${newTime.hour}:${newTime.minute}';
                     });
                   }
                 }),
@@ -222,8 +222,9 @@ class TimePageState extends State<TimePage> {
     );
   }
 
-  TimeOfDay stringToTimeOfDay(String time) {
-    final format = DateFormat.Hm();
-    return TimeOfDay.fromDateTime(format.parse(time));
+  String stringToTimeOfDay(String time) {
+    var df =  DateFormat("h:mm a");
+    var dt = df.parse(time);
+    return DateFormat('HH:mm').format(dt);
   }
 }
