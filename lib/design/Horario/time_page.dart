@@ -25,10 +25,10 @@ class TimePageState extends State<TimePage> {
     times.then((value) {
       if (value.isNotEmpty) {
         setState(() {
-          dayStart = stringToTimeOfDay(value[0].dayStart);
-          dayEnd = stringToTimeOfDay(value[0].dayEnd);
-          nigthStart = stringToTimeOfDay(value[0].nightStart);
-          nigthEnd = stringToTimeOfDay(value[0].nightEnd);
+          dayStart = value[0].dayStart;
+          dayEnd = value[0].dayEnd;
+          nigthStart = value[0].nightStart;
+          nigthEnd = value[0].nightEnd;
         });
       }
     });
