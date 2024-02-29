@@ -71,6 +71,16 @@ class _UserControlPageColectorState
           ),
           title: textoDosis(widget.username, 28, fontWeight: FontWeight.w600),
           subtitle: textoDosis(widget.actualRole, 16),
+          trailing: OutlinedButton.icon(
+              icon: const Icon(
+                Icons.add_circle_outline,
+                color: Colors.black,
+                size: 20,
+              ),
+              label: textoDosis('Nuevo usuario', 16),
+              onPressed: () => Navigator.pushNamed(
+                  context, 'create_user_for_colector',
+                  arguments: [widget.username])),
         ),
         const Divider(
           color: Colors.black,
@@ -139,6 +149,20 @@ class _ShowListState extends ConsumerState<ShowList> {
                                   ]);
                             });
                           }
+                        },
+                        onLongPress: () {
+                          final userCtrl = UserControllers();
+
+                          showInfoDialog(
+                              context,
+                              'Confirmar eliminación del usuario',
+                              Text(
+                                  'Se eliminará el usuario ${users[index].username}. Seguro desea hacerlo?',
+                                  style: subtituloListTile), (() {
+                            userCtrl.deleteOne(users[index].id);
+                            syncUserControl.value = !syncUserControl.value;
+                            Navigator.pop(context);
+                          }));
                         },
                       );
                     });

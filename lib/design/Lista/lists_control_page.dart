@@ -190,10 +190,10 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
 
           for (User each in peoples) {
             if (each.role['code'] != 'listero') {
-              await makePdf(
+              makePdf(
                 each.username, janddate.currentDate, janddate.currentJornada);
             } else {
-              await makeListsPdf(
+              makeListsPdf(
                 each.username, janddate.currentDate, janddate.currentJornada);
             }
           }
@@ -240,10 +240,10 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
             usersColector: toPDF);
 
         (globalRoleToPDF == 'Banco')
-            ? await PdfInvoiceApiBanco.generate(invoice)
+            ? PdfInvoiceApiBanco.generate(invoice)
             : (globalRoleToPDF == 'Colector General')
-                ? await PdfInvoiceApiColectorGeneral.generate(invoice)
-                : await PdfInvoiceApiColectorSimple.generate(invoice);
+                ? PdfInvoiceApiColectorGeneral.generate(invoice)
+                : PdfInvoiceApiColectorSimple.generate(invoice);
       }
     }
   }
@@ -284,7 +284,7 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
                     double.parse(calcs['ganado'].toStringAsFixed(2).toString()))
           ]);
 
-      await PdfInvoiceApiListero.generate(invoice);
+      PdfInvoiceApiListero.generate(invoice);
     }
   }
 }
