@@ -6,8 +6,11 @@ void managerOfElementsOnList(WidgetRef ref, dynamic element) {
   final theList = ref.read(toEditAList.notifier);
   final theList1 = ref.watch(toEditAList.notifier);
 
-  if (theList1.state.contains(element)) {
-    theList.state.remove(element);
+  final theMoney = ref.read(toManageTheMoney.notifier);
+  final theMoney1 = ref.watch(toManageTheMoney.notifier);
+
+  if (theList1.state.contains(element.uuid)) {
+    theList.state.remove(element.uuid);
 
     if (theList.state.isEmpty) {
       theBottom.state = false;
@@ -16,6 +19,14 @@ void managerOfElementsOnList(WidgetRef ref, dynamic element) {
     return;
   }
 
-  theList.state.add(element);
+  final isInList = theMoney1.state.any((each) => 
+    each.uuid == element.uuid);
+  
+  if(isInList){
+    theMoney.state.removeWhere((each) => 
+      each.uuid == element.uuid);
+  }else { theMoney.state.add(element); }
+
+  theList.state.add(element.uuid);
   theBottom.state = true;
 }

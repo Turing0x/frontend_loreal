@@ -212,7 +212,7 @@ class TimePageState extends State<TimePage> {
                   );
                   if (newTime != null) {
                     setState(() {
-                      nigthEnd = '${newTime.hour}:${newTime.minute}';
+                      nigthEnd = '${newTime.hour.toString().padLeft(2, '0')}:${newTime.minute.toString().padLeft(2, '0')}';
                     });
                   }
                 }),
@@ -223,7 +223,7 @@ class TimePageState extends State<TimePage> {
   }
 
   String stringToTimeOfDay(String time) {
-    var df =  DateFormat("h:mm a");
+    var df =  DateFormat("H:mm a");
     var dt = df.parse(time);
     return DateFormat('HH:mm').format(dt);
   }

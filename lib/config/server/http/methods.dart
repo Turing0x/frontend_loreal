@@ -21,6 +21,7 @@ cerrarSesion(BuildContext context) async {
   await LocalStorage.roleDelete();
   await LocalStorage.tokenDelete();
   await LocalStorage.userIdDelete();
+  await LocalStorage.timeSignDelete();
 
   toBlockIfOutOfLimit.clear();
   toBlockIfOutOfLimitFCPC.clear();

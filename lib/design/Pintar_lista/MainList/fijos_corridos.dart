@@ -75,7 +75,7 @@ class _FijosCorridosListaWidgetState
             },
         onDoubleTap: () {
           if (widget.canEdit) {
-            managerOfElementsOnList(ref, widget.fijoCorrido.uuid);
+            managerOfElementsOnList(ref, widget.fijoCorrido);
             setState(() {
               isInList = !isInList;
             });

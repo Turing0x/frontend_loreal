@@ -136,7 +136,12 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
             return Container(
               alignment: Alignment.centerLeft,
               margin: const EdgeInsets.only(left: 30),
-              child: textoDosis(' --> ${value.corrido} ', 20),
+              child: Column(children: [
+                textoDosis(' --> ${value.corrido} ', 20),
+                if(value.corrido2 != null)
+                  textoDosis(' --> ${value.corrido2} ', 20)
+                
+              ]),
             );
           }
         }

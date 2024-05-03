@@ -84,6 +84,9 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
       });
     });
 
+    Future<List<Time>> times = timeControllers.getDataTime();
+    getServerTimes(times);
+
     getsavePdfFolder().then((value) async {
       if (value != null) {
         if (value != jornalGlobal) {
@@ -100,8 +103,6 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
             info: info,
           );
     });
-    Future<List<Time>> times = timeControllers.getDataTime();
-    getServerTimes(times);
 
     controller = AnimationController(
       vsync: this,
@@ -268,9 +269,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
           timeForThat = 'Tiempo para el cierre: ';
         });
 
-        getsavePdfFolder().then((value) => {
-              if (value == null) {savePdfFolder('dia')}
-            });
+        savePdfFolder('dia');
 
         startTimer(
             day_difference_end.inHours.remainder(60).abs(),
@@ -282,9 +281,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
           timeForThat = 'Tiempo para el cierre: ';
         });
 
-        getsavePdfFolder().then((value) => {
-              if (value == null) {savePdfFolder('noche')}
-            });
+        savePdfFolder('noche');
 
         startTimer(
             night_difference_end.inHours.remainder(60).abs(),

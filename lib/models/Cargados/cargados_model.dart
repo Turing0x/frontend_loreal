@@ -88,19 +88,23 @@ class Listero {
 class Separado {
   final int fijo;
   final int? corrido;
+  final int? corrido2;
 
   Separado({
     required this.fijo,
     required this.corrido,
+    required this.corrido2,
   });
 
   factory Separado.fromJson(Map<String, dynamic> json) => Separado(
     fijo: json["fijo"],
     corrido: json["corrido"],
+    corrido2: json["corrido2"],
   );
 
   Map<String, dynamic> toJson() => {
     "fijo": fijo,
     "corrido": corrido,
+    "corrido2": corrido2,
   };
 }

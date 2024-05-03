@@ -135,8 +135,8 @@ Future<File> get localFiletoBlockIfOutOfLimitDecena async {
 }
 
 Future<String> get localPath async {
-  Directory? appDocDirectory = await getExternalStorageDirectory();
-  final directory = await Directory('${appDocDirectory?.path}/$globalUserName')
+  Directory? appDocDirectory = await getApplicationDocumentsDirectory();
+  final directory = await Directory('${appDocDirectory.path}/$globalUserName')
       .create(recursive: true);
 
   return directory.path;

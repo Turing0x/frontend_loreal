@@ -3,6 +3,7 @@ import 'package:frontend_loreal/config/controllers/list_controller.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
 import 'package:frontend_loreal/design/Hacer_PDFs/Listero/pdf_listero.dart';
@@ -108,6 +109,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           'Eliminar', () async {
                         bool okay = await listControllers.editOneList(listID, theList.state);
                         if (okay) {
+                          eraseDataOfStorage();
                           theList.state.clear();
                           theBottom.state = false;
                           cambioListas.value = !cambioListas.value;
@@ -161,6 +163,21 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
       OpenFile.open(itsDone['path']);
     }
     showToast('Lista exportada exitosamente', type: true);
+  }
+
+  void eraseDataOfStorage() {
+    final list = ref.read(toManageTheMoney.notifier);
+
+    for(var each in list.state){
+      if(toBlockIfOutOfLimitFCPC.containsKey(each.numplay.toString())){
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
+          return {
+            'fijo': value['fijo']! - (each.fijo ?? 0),
+            'corrido': value['corrido']! - (each.corrido ?? 0),
+          };
+        });
+      }
+    }
   }
 
 }
