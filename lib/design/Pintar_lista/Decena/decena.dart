@@ -73,7 +73,7 @@ class _DecenaListaWidgetState extends ConsumerState<DecenaListaWidget> {
             },
           onDoubleTap: () {
             if (widget.canEdit) {
-              managerOfElementsOnList(ref, widget.numplay.uuid);
+              managerOfElementsOnList(ref, widget.numplay);
               setState(() {
                 isInList = !isInList;
               });

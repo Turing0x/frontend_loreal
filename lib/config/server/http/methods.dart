@@ -4,11 +4,9 @@ import 'package:frontend_loreal/config/utils/glogal_map.dart';
 
 Future<String> rutaInicial() async {
   final role = await LocalStorage.getRole();
-  final lastTime = await LocalStorage.getTimeSign();
+  // final lastTime = await LocalStorage.getTimeSign();
 
-  if (role != null &&
-      !excede100Minutos(
-          DateTime.parse(lastTime ?? '2020-01-01T00:00:00.000+00:00'))) {
+  if (role != null) {
     return _rutaInicial(role);
   }
 

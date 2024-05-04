@@ -199,14 +199,12 @@ class _DecenasWidgetState extends ConsumerState<DecenasWidget> {
     toBlockIfOutOfLimitDecena.update(selectedNumber, (value) {
       return {
         'fijo': value['fijo']! + toGetfijo,
-        'corrido': value['corrido']! + toGetcorrido,
-        'corrido2': value['corrido2']!,
+        'corrido': value['corrido']! + toGetcorrido
       };
     }, ifAbsent: () {
       return {
         'fijo': toGetfijo,
-        'corrido': toGetcorrido,
-        'corrido2': 0,
+        'corrido': toGetcorrido
       };
     });
 

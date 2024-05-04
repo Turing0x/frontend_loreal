@@ -197,13 +197,11 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
       return {
         'fijo': value['fijo']! + toGetfijo,
         'corrido': value['corrido']! + toGetcorrido,
-        'corrido2': value['corrido2']!,
       };
     }, ifAbsent: () {
       return {
         'fijo': toGetfijo,
         'corrido': toGetcorrido,
-        'corrido2': 0,
       };
     });
 

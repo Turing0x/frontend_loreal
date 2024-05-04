@@ -72,7 +72,7 @@ class _ParlesListaWidgetState extends ConsumerState<ParlesListaWidget> {
             },
           onDoubleTap: () {
             if (widget.canEdit) {
-              managerOfElementsOnList(ref, widget.parles.uuid);
+              managerOfElementsOnList(ref, widget.parles);
               setState(() {
                 isInList = !isInList;
               });

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/list_controller.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/utils/file_manager.dart';
 import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
@@ -107,9 +109,9 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           Colors.blue[300],
                           const Icon(Icons.delete_sweep_outlined),
                           'Eliminar', () async {
+                          eraseDataOfStorage();
                         bool okay = await listControllers.editOneList(listID, theList.state);
                         if (okay) {
-                          eraseDataOfStorage();
                           theList.state.clear();
                           theBottom.state = false;
                           cambioListas.value = !cambioListas.value;
@@ -169,15 +171,114 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
     final list = ref.read(toManageTheMoney.notifier);
 
     for(var each in list.state){
-      if(toBlockIfOutOfLimitFCPC.containsKey(each.numplay.toString())){
+
+      if(each is FijoCorridoModel){
         toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
           return {
-            'fijo': value['fijo']! - (each.fijo ?? 0),
-            'corrido': value['corrido']! - (each.corrido ?? 0),
+            'fijo': value['fijo']! - (each.fijo!),
+            'corrido': value['corrido']! - (each.corrido!),
+            'corrido2': value['corrido2']!,
           };
         });
       }
+      
+      if(each is MillionModel){
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
+          return {
+            'fijo': value['fijo']! - each.fijo,
+            'corrido': value['corrido']! - each.corrido,
+          };
+        });
+      }
+
+      if(each is PosicionModel){
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
+          return {
+            'fijo': value['fijo']! - each.fijo,
+            'corrido': value['corrido']! - each.corrido,
+            'corrido2': value['corrido2']! - each.corrido2,
+          };
+        });
+      }
+
+      if(each is TerminalModel){
+          toBlockIfOutOfLimitTerminal.update(each.terminal.toString(), (value) {
+            return {
+              'fijo': value['fijo']! - each.fijo,
+              'corrido': value['corrido']! - each.corrido,
+            };
+          });
+      }
+
+      if(each is DecenaModel){
+          toBlockIfOutOfLimitDecena.update(each.numplay.toString(), (value) {
+            return {
+              'fijo': value['fijo']! - each.fijo,
+              'corrido': value['corrido']! - each.corrido,
+            };
+          });
+      }
+
+      if(each is CentenasModel){
+        toBlockIfOutOfLimit.update(
+          each.numplay, (value) => value - each.fijo);
+      }
+
+      if(each is ParlesModel){
+
+        String a = each.numplay[0];
+        String b = each.numplay[1];
+
+        String joined = '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
+        String joined1 = '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
+
+        toBlockIfOutOfLimit.update(
+            joined, (value) => value - each.fijo);
+
+        toBlockIfOutOfLimit.update(
+            joined1, (value) => value - each.fijo);
+       
+      }
+
+      if(each is CandadoModel){
+
+        List allCombinations = combinaciones(each.numplay);
+        int dineroForEachParle = each.fijo ~/ 
+          ((each.numplay.length * (each.numplay.length - 1)) / 2);
+
+        for (var element in allCombinations) {
+          
+          String joined = '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
+          String joined1 = '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
+
+          toBlockIfOutOfLimit.update(
+              joined, (value) => value - dineroForEachParle);
+
+          toBlockIfOutOfLimit.update(
+              joined1, (value) => value - dineroForEachParle);
+        }
+       
+      }
+    
     }
+
+    fileManagerWriteGlobal(toBlockIfOutOfLimit);
+    fileManagerWriteFCPC(toBlockIfOutOfLimitFCPC);
+    fileManagerWriteTerminal(toBlockIfOutOfLimitTerminal);
+    fileManagerWriteDecena(toBlockIfOutOfLimitDecena);
+    list.state.clear();
+  }
+
+  List combinaciones(List array) {
+    List resultado = [];
+
+    for (int i = 0; i < array.length - 1; i++) {
+      for (int j = i + 1; j < array.length; j++) {
+        resultado.add([array[i], array[j]]);
+      }
+    }
+
+    return resultado;
   }
 
 }
@@ -309,21 +410,21 @@ class _ShowListState extends State<ShowList> {
       {required dynamic data, required Color color}) {
     final widgetMap = {
       FijoCorridoModel: (data) => FijosCorridosListaWidget(
-          fijoCorrido: data, color: color, canEdit: canEditList),
+          fijoCorrido: data, color: color, canEdit: true),
       ParlesModel: (data) =>
-          ParlesListaWidget(parles: data, color: color, canEdit: canEditList),
+          ParlesListaWidget(parles: data, color: color, canEdit: true),
       CentenasModel: (data) => CentenasListaWidget(
-          centenas: data, color: color, canEdit: canEditList),
+          centenas: data, color: color, canEdit: true),
       CandadoModel: (data) =>
-          CandadoListaWidget(candado: data, color: color, canEdit: canEditList),
+          CandadoListaWidget(candado: data, color: color, canEdit: true),
       TerminalModel: (data) => TerminalListaWidget(
-          terminal: data, color: color, canEdit: canEditList),
+          terminal: data, color: color, canEdit: true),
       PosicionModel: (data) => PosicionlListaWidget(
-          posicion: data, color: color, canEdit: canEditList),
+          posicion: data, color: color, canEdit: true),
       DecenaModel: (data) =>
-          DecenaListaWidget(numplay: data, color: color, canEdit: canEditList),
+          DecenaListaWidget(numplay: data, color: color, canEdit: true),
       MillionModel: (data) =>
-          MillionListaWidget(numplay: data, color: color, canEdit: canEditList),
+          MillionListaWidget(numplay: data, color: color, canEdit: true),
     };
 
     final widgetBuilder = widgetMap[data.runtimeType];

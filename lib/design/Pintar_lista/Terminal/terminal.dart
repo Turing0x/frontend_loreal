@@ -73,7 +73,7 @@ class _TerminalListaWidgetState extends ConsumerState<TerminalListaWidget> {
             },
           onDoubleTap: () {
             if (widget.canEdit) {
-              managerOfElementsOnList(ref, widget.terminal.uuid);
+              managerOfElementsOnList(ref, widget.terminal);
               setState(() {
                 isInList = !isInList;
               });

@@ -76,7 +76,7 @@ class _PosicionlListaWidgetState extends ConsumerState<PosicionlListaWidget> {
             },
           onDoubleTap: () {
             if (widget.canEdit) {
-              managerOfElementsOnList(ref, widget.posicion.uuid);
+              managerOfElementsOnList(ref, widget.posicion);
               setState(() {
                 isInList = !isInList;
               });

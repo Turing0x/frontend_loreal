@@ -75,7 +75,7 @@ class _CandadoListaWidgetState extends ConsumerState<CandadoListaWidget> {
             },
           onDoubleTap: () {
             if (widget.canEdit) {
-              managerOfElementsOnList(ref, widget.candado.uuid);
+              managerOfElementsOnList(ref, widget.candado);
               setState(() {
                 isInList = !isInList;
               });

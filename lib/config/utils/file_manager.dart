@@ -50,6 +50,8 @@ Future readAllFilesAndSaveInMaps() async {
       jsonDecode(contentsFTBIOL).forEach((key, value) {
         toBlockIfOutOfLimit[key] = value as int;
       });
+
+      print(toBlockIfOutOfLimit);
     }
 
     if (readFiletoBlockIfOutOfLimitFCPC.existsSync()) {
@@ -138,6 +140,5 @@ Future<String> get localPath async {
   Directory? appDocDirectory = await getApplicationDocumentsDirectory();
   final directory = await Directory('${appDocDirectory.path}/$globalUserName')
       .create(recursive: true);
-
   return directory.path;
 }

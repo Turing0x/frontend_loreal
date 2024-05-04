@@ -10,7 +10,6 @@ import 'package:frontend_loreal/design/Lista/candado.dart';
 import 'package:frontend_loreal/design/Lista/to_block.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
 import 'package:frontend_loreal/models/Lista/join_list.dart';
-import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
 import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
 import 'package:frontend_loreal/models/Release/release_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -39,7 +38,7 @@ final idToSearch = StateProvider<String>((ref) => '');
 final toCreateUser = StateProvider<String>((ref) => 'a, b');
 
 final toEditAList = StateProvider<List<String>>((ref) => []);
-final toManageTheMoney = StateProvider<List<FijoCorridoModel>>((ref) => []);
+final toManageTheMoney = StateProvider<List<dynamic>>((ref) => []);
 final showButtomtoEditAList = StateProvider<bool>((ref) => false);
 
 final globalRole = StateProvider<String>((ref) => '');

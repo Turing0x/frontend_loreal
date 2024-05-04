@@ -72,7 +72,7 @@ class _CentenasListaWidgetState extends ConsumerState<CentenasListaWidget> {
             },
           onDoubleTap: () {
             if (widget.canEdit) {
-              managerOfElementsOnList(ref, widget.centenas.uuid);
+              managerOfElementsOnList(ref, widget.centenas);
               setState(() {
                 isInList = !isInList;
               });
