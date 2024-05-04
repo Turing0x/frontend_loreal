@@ -109,9 +109,9 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           Colors.blue[300],
                           const Icon(Icons.delete_sweep_outlined),
                           'Eliminar', () async {
-                          eraseDataOfStorage();
                         bool okay = await listControllers.editOneList(listID, theList.state);
                         if (okay) {
+                          eraseDataOfStorage();
                           theList.state.clear();
                           theBottom.state = false;
                           cambioListas.value = !cambioListas.value;
