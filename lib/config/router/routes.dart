@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_loreal/design/Banco/collectors_debt.dart';
 import 'package:frontend_loreal/design/Banco/main_banco_page.dart';
 import 'package:frontend_loreal/design/Banco/offline_list_control.dart';
+import 'package:frontend_loreal/design/Banco/only_winners.dart';
 import 'package:frontend_loreal/design/Banco/settings_banco_page.dart';
 import 'package:frontend_loreal/design/Bote/bote_page.dart';
 import 'package:frontend_loreal/design/Cargados/bola_cargada_page.dart';
@@ -66,6 +67,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'config_time_page': (_) => const TimePage(),
   'sorteos_page': (_) => const SorteosPage(),
   'bote_page': (_) => const BotePage(),
+  'only_winners': (_) => const OnlyWinnersPage(),
 
 //--------------------------------------------------------------
 

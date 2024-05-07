@@ -13,11 +13,10 @@ import 'config/router/routes.dart';
 import 'config/server/http/methods.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   await dotenv.load(fileName: '.env');
   final rutIni = await rutaInicial();
 
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   

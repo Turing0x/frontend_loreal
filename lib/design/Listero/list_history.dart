@@ -410,21 +410,21 @@ class _ShowListState extends State<ShowList> {
       {required dynamic data, required Color color}) {
     final widgetMap = {
       FijoCorridoModel: (data) => FijosCorridosListaWidget(
-          fijoCorrido: data, color: color, canEdit: true),
+          fijoCorrido: data, color: color, canEdit: canEditList),
       ParlesModel: (data) =>
-          ParlesListaWidget(parles: data, color: color, canEdit: true),
+          ParlesListaWidget(parles: data, color: color, canEdit: canEditList),
       CentenasModel: (data) => CentenasListaWidget(
-          centenas: data, color: color, canEdit: true),
+          centenas: data, color: color, canEdit: canEditList),
       CandadoModel: (data) =>
-          CandadoListaWidget(candado: data, color: color, canEdit: true),
+          CandadoListaWidget(candado: data, color: color, canEdit: canEditList),
       TerminalModel: (data) => TerminalListaWidget(
-          terminal: data, color: color, canEdit: true),
+          terminal: data, color: color, canEdit: canEditList),
       PosicionModel: (data) => PosicionlListaWidget(
-          posicion: data, color: color, canEdit: true),
+          posicion: data, color: color, canEdit: canEditList),
       DecenaModel: (data) =>
-          DecenaListaWidget(numplay: data, color: color, canEdit: true),
+          DecenaListaWidget(numplay: data, color: color, canEdit: canEditList),
       MillionModel: (data) =>
-          MillionListaWidget(numplay: data, color: color, canEdit: true),
+          MillionListaWidget(numplay: data, color: color, canEdit: canEditList),
     };
 
     final widgetBuilder = widgetMap[data.runtimeType];

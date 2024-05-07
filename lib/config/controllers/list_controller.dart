@@ -9,6 +9,7 @@ import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend_loreal/models/Lista/only_winner.dart';
 
 class ListControllers {
 
@@ -111,6 +112,36 @@ class ListControllers {
         lists.add(dataTemp);
       });
       lotOfToday = response.data['data'][1];
+
+      return {'data': lists, 'lotOfToday': lotOfToday};
+    } catch (e) {
+      return {'data': [], 'lotOfToday': ''};
+    }
+  }
+  
+  Future<Map<String, dynamic>> getOnlyWinners(
+      String jornal, String date) async {
+    try {
+      final queryData = {'jornal': jornal, 'date': date};
+
+      await _initializeDio();
+      Response response = await _dio.get('/api/list/winners', queryParameters: queryData);
+
+      if (!response.data['success']) {
+        showToast(response.data['api_message']);
+        return {'data': [], 'lotOfToday': ''};
+      }
+
+      final List<OnlyWinner> lists = [];
+      String lotOfToday = '';
+
+      lotOfToday = response.data['data'].last['lot'];
+      response.data['data'].removeLast();
+
+      response.data['data'].forEach((value) {
+        final dataTemp = OnlyWinner.fromJson(value);
+        lists.add(dataTemp);
+      });
 
       return {'data': lists, 'lotOfToday': lotOfToday};
     } catch (e) {
