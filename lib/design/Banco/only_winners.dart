@@ -167,7 +167,7 @@ class _ShowListState extends State<ShowList> {
               } else if(typeFilter == 'parle'){
                 aux = list.where((play) => play.play == 'parle' || play.play == 'candado').toList();
               } else if(typeFilter == 'pos'){
-                aux = list.where((play) => play.play == 'pos' || play.play == 'centena').toList();
+                aux = list.where((play) => play.play == 'posicion' || play.play == 'centena').toList();
               }
 
               return Column(
