@@ -83,6 +83,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               () => Navigator.pushNamed(context, 'limited_parles_page'),
               true),
             optListTile(
+                Icons.money_off_csred_outlined,
+                'Recogida a colecciones',
+                'Lleva la cuenta de la deuda pendiente de cada colección',
+                () => Navigator.pushNamed(context, 'colectors_debt_page'),
+                true),
+            optListTile(
               Icons.mode_standby,
               'Raspaito',
               'Revisar esta jugada específica',

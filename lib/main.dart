@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
     required this.savedThemeMode,
   });
   final String rutaInicial;
-  final AdaptiveThemeMode? savedThemeMode;
+final AdaptiveThemeMode? savedThemeMode;
 
   @override
   Widget build(BuildContext context) {

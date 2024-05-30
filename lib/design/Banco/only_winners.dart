@@ -56,6 +56,12 @@ class _OnlyWinnersPageState extends ConsumerState<OnlyWinnersPage> {
               title = 'Solo Premios';
             });
           },
+          'fcpos': () {
+            setState(() {
+              typeFilter = 'fcpos';
+              title = 'Por Número';
+            });
+          },
           'bolas': () {
             setState(() {
               typeFilter = 'bolas';
@@ -82,6 +88,10 @@ class _OnlyWinnersPageState extends ConsumerState<OnlyWinnersPage> {
         PopupMenuItem(
           value: 'todos',
           child: textoDosis('Todas las jugadas', 18),
+        ),
+        PopupMenuItem(
+          value: 'fcpos',
+          child: textoDosis('Por Número', 18),
         ),
         PopupMenuItem(
           value: 'bolas',
@@ -148,9 +158,12 @@ class _ShowListState extends State<ShowList> {
                 return noData(context);
               }
 
+              List<List<OnlyWinner>> listByNumplay = [];
               List<OnlyWinner> list = snapshot.data!['data'];
               String lot = snapshot.data!['lotOfToday'];
               lotThisDay = lot;
+
+              int premio = 0;
 
               list.sort(((a, b) {
                 return b.element!.dinero! - a.element!.dinero!;
@@ -168,11 +181,34 @@ class _ShowListState extends State<ShowList> {
                 aux = list.where((play) => play.play == 'parle' || play.play == 'candado').toList();
               } else if(typeFilter == 'pos'){
                 aux = list.where((play) => play.play == 'posicion' || play.play == 'centena').toList();
+              } else if(typeFilter == 'fcpos'){
+
+                Map<String, List<OnlyWinner>> groupedByNumplay = {};
+
+                for(var winner in list){
+                  if(winner.element != null && winner.element!.numplay != null){
+                    if(!groupedByNumplay.containsKey(winner.element!.numplay.toString())){
+                      groupedByNumplay[winner.element!.numplay.toString()] = [];
+                    }
+                    groupedByNumplay[winner.element!.numplay.toString()]!.add(winner);
+                  }
+                }
+
+                listByNumplay = groupedByNumplay.entries.map((entry){
+                  return entry.value;
+                }).toList();
+                premio = listByNumplay.fold(
+                  0, (value, element) => 
+                    value + element.fold(0, (value, element) 
+                      => value + element.element!.dinero!));
+
               }
+              // premio = aux.fold(0, (value, element) => value + element.element!.dinero!);
 
               return Column(
                 children: [
                   boldLabel('Sorteo del momento -> ', lot, 23),
+                  boldLabel('Premio Total -> ', premio.toString(), 23),
 
                   OutlinedButton(
                     onPressed: (){
@@ -185,13 +221,46 @@ class _ShowListState extends State<ShowList> {
                       }
 
                       Navigator.pushNamed(context, 'winner_for_listero_page', arguments: [
-                        groupedByOwner
+                        groupedByOwner,
+                        typeFilter == 'pos' || typeFilter == 'bolas' 
                       ]);
 
                     }, 
                     child: textoDosis('Ver por Listero', 18)),
 
-                  SizedBox(
+                  (typeFilter == 'fcpos')
+                    ? SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.70,
+                    child: ListView.builder(
+                        itemCount: listByNumplay.length,
+                        itemBuilder: (context, index) {
+                          final color = (index % 2 != 0)
+                              ? Colors.grey[200]
+                              : Colors.grey[50];
+                          return Container(
+                            padding: const EdgeInsets.only(top: 10),
+                            color: color,
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Row(
+                                    children: [
+                                      textoDosis(listByNumplay[index].first.element!.numplay.toString(), 18),
+                                      textoDosis(' -> ${listByNumplay[index].fold(0, (value, element) 
+                                        => value + element.element!.dinero!)}', 
+                                          20, fontWeight: FontWeight.bold),
+                                    ],
+                                  )
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                  )
+                    : SizedBox(
                     height: MediaQuery.of(context).size.height * 0.70,
                     child: ListView.builder(
                         itemCount: aux.length,

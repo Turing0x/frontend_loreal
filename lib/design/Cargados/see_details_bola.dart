@@ -94,13 +94,6 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
   }
 
   ExpansionTile detailsWidget(String username, String total, List<Separado> list) {
-    String pos = '';
-    if(globallot.isNotEmpty){
-      pos = 
-        (widget.bola == globallot[0])
-          ? '1' : (widget.bola == globallot[1])
-            ? '2' : '3';
-    }
 
     return ExpansionTile(
       title: Row(
@@ -135,9 +128,7 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
             return Container(
               alignment: Alignment.centerLeft,
               margin: const EdgeInsets.only(left: 30),
-              child: textoDosis('--> ${value.fijo} ${
-                pos == '1' ? '-> ${value.fijo * 75}' : ''
-              }', 20),
+              child: textoDosis(' --> ${value.fijo} ', 20),
             );
           }
         } else {
@@ -145,14 +136,10 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
             return Container(
               alignment: Alignment.centerLeft,
               margin: const EdgeInsets.only(left: 30),
-              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                textoDosis('--> ${value.corrido} ${
-                  pos == '2' ? '-> ${value.corrido! * 25}' : ''
-              }', 20),
+              child: Column(children: [
+                textoDosis(' --> ${value.corrido} ', 20),
                 if(value.corrido2 != null)
-                  textoDosis('--> ${value.corrido2} ${
-                pos == '3' ? '-> ${value.corrido2! * 25}' : ''
-              }', 20)
+                  textoDosis(' --> ${value.corrido2} ', 20)
                 
               ]),
             );

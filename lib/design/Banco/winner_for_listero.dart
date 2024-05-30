@@ -21,9 +21,12 @@ import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
 import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
 
 class WinForListeroPage extends StatefulWidget {
-  const WinForListeroPage({super.key, required this.groupedByOwner});
+  const WinForListeroPage({super.key, 
+    this.pos = false,
+    required this.groupedByOwner});
 
   final Map<String, List<OnlyWinner>> groupedByOwner;
+  final bool pos;
 
   @override
   State<WinForListeroPage> createState() => _WinForListeroPageState();
@@ -33,10 +36,13 @@ class _WinForListeroPageState extends State<WinForListeroPage> {
 
   bool customTileExpanded = false;
   Map<String, int> totalMoneyByOwner = {};
-  int totalAmount = 0;
+  late Map<String, List<OnlyWinner>> insideGroupedByOwner;
+
+  bool change = true;
 
   @override
   void initState() {
+    insideGroupedByOwner = widget.groupedByOwner;
     for (var entry in widget.groupedByOwner.entries) {
       int totalMoney = 0;
       for (var winner in entry.value) {
@@ -45,8 +51,22 @@ class _WinForListeroPageState extends State<WinForListeroPage> {
       totalMoneyByOwner[entry.key] = totalMoney;
     }
 
-    totalAmount = totalMoneyByOwner.values.fold(0, 
-      (prev, elemnt) => prev + elemnt);
+    for (var entry in widget.groupedByOwner.entries) {
+      for (var winner in entry.value) {
+        if (winner.element != null && winner.element!.numplay != null) {
+          String numplayKey = winner.element!.numplay.toString();
+          if (!totalMoneyByOwner.containsKey(numplayKey)) {
+            totalMoneyByOwner[numplayKey] = 0;
+          }
+
+          totalMoneyByOwner[numplayKey] 
+            = (totalMoneyByOwner[numplayKey]?? 0) 
+              + winner.element!.dinero!;
+        
+        }
+      }
+    }
+
     super.initState();
   }
 
@@ -58,16 +78,29 @@ class _WinForListeroPageState extends State<WinForListeroPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 30),
-            boldLabel('Total de Fijo: ', totalAmount.toString(), 22),
+
+            Visibility(
+              visible: widget.pos,
+              child: OutlinedButton(onPressed: () {
+                if(change){
+                  changeAggrupation();
+                }else {
+                  setState(() {
+                    change = true;
+                    insideGroupedByOwner = widget.groupedByOwner;
+                  });
+                }
+              },
+              child: textoDosis(change ? 'Por Número' : 'Por Listero', 18)),
+            ),
             const SizedBox(height: 30),
             SizedBox(
               width: double.infinity,
               height: 600,
               child: ListView.builder(
-                itemCount: widget.groupedByOwner.length,
+                itemCount: insideGroupedByOwner.length,
                 itemBuilder: (context, index) {
-                  return widget.groupedByOwner.entries.map((entry) {
+                  return insideGroupedByOwner.entries.map((entry) {
                     String key = entry.key;
                     List<OnlyWinner> value = entry.value;
                     return detailsWidget(key, value);
@@ -106,6 +139,26 @@ class _WinForListeroPageState extends State<WinForListeroPage> {
         );
       }).toList(),
     );
+  }
+
+  changeAggrupation() {
+    Map<String, List<OnlyWinner>> groupedByNumplay = {};
+
+    for (var entry in widget.groupedByOwner.entries) {
+      for (var winner in entry.value) {
+        if (winner.element!= null && winner.element!.numplay != null) {
+          if (!groupedByNumplay.containsKey(winner.element!.numplay.toString())) {
+            groupedByNumplay[winner.element!.numplay.toString()] = [];
+          }
+          groupedByNumplay[winner.element!.numplay.toString()]!.add(winner);
+        }
+      }
+    }
+
+    setState(() {
+      insideGroupedByOwner = groupedByNumplay;
+    });
+    change = false;
   }
 
   Widget fila( {required dynamic type, required ElementData data}) {

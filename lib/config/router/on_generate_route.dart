@@ -183,6 +183,7 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
     'winner_for_listero_page': MaterialPageRoute(
       builder: (_) => WinForListeroPage(
         groupedByOwner: argumentos[0],
+        pos: argumentos[1],
       ))
       
   };

@@ -124,13 +124,6 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
                 'Listas y vales guardados en el teléfono',
                 () => Navigator.pushNamed(context, 'internal_storage_page'),
                 true),
-            optListTile(
-                Icons.money_off_csred_outlined,
-                'Recogida a colecciones',
-                'Lleva la cuenta de la deuda pendiente de cada colección',
-                () => Navigator.pushNamed(context, 'colectors_debt_page'),
-                true)
-
           ],
         )));
   }
