@@ -17,7 +17,7 @@ class SimpleTxt extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
 
   const SimpleTxt({
-    Key? key,
+    super.key,
     required this.keyboardType,
     required this.controlador,
     required this.onChange,
@@ -30,7 +30,7 @@ class SimpleTxt extends StatefulWidget {
     this.right = 30,
     this.top = 10,
     this.inputFormatters,
-  }) : super(key: key);
+  });
 
   @override
   State<SimpleTxt> createState() => _SimpleTxtState();

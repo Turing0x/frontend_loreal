@@ -154,7 +154,7 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
                                                       mostrarBorde: false,
                                                       isParles: true,
                                                     ))
-                                            .toList(),
+                                            ,
                                       ],
                                     ),
                                     NumeroRedondoWidget(

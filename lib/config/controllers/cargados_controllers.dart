@@ -1,5 +1,5 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
@@ -15,7 +15,7 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/cargados', queryData),
+        Uri.https(Environments().SERVER_URL, '/api/list/cargados', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token!
@@ -61,7 +61,7 @@ Future<List<BolaCargadaModel>> getParleCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.http(dotenv.env['SERVER_URL']!, '/api/list/parle', queryData),
+        Uri.https(Environments().SERVER_URL, '/api/list/parle', queryData),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token!

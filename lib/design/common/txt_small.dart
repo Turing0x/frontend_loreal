@@ -14,7 +14,7 @@ class TxtInfoSmall extends StatelessWidget {
   final Function(String?) onChange;
 
   const TxtInfoSmall({
-    Key? key,
+    super.key,
     this.maxLength,
     required this.keyboardType,
     required this.controlador,
@@ -25,7 +25,7 @@ class TxtInfoSmall extends StatelessWidget {
     this.validator,
     this.inputFormatters,
     this.autoFocus = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -33,3 +33,13 @@ extension StringExtension on String {
 extension IntExtension on int {
   String get numFormat => NumberFormat('#,###').format(this);
 }
+
+extension ListEquals on List<int> {
+  bool equals(List<dynamic> other) {
+    if (length != other.length) return false;
+    for (int i = 0; i < length; i++) {
+      if (this[i] != other[i]) return false;
+    }
+    return true;
+  }
+}

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
@@ -89,10 +90,10 @@ class _OnlyWinnersPageState extends ConsumerState<OnlyWinnersPage> {
           value: 'todos',
           child: textoDosis('Todas las jugadas', 18),
         ),
-        PopupMenuItem(
-          value: 'fcpos',
-          child: textoDosis('Por Número', 18),
-        ),
+        // PopupMenuItem(
+        //   value: 'fcpos',
+        //   child: textoDosis('Por Número', 18),
+        // ),
         PopupMenuItem(
           value: 'bolas',
           child: textoDosis('Bolas, Terminal y Decena', 18),
@@ -158,7 +159,7 @@ class _ShowListState extends State<ShowList> {
                 return noData(context);
               }
 
-              List<List<OnlyWinner>> listByNumplay = [];
+              List<ByNumplay> listByNumplay = [];
               List<OnlyWinner> list = snapshot.data!['data'];
               String lot = snapshot.data!['lotOfToday'];
               lotThisDay = lot;
@@ -183,27 +184,47 @@ class _ShowListState extends State<ShowList> {
                 aux = list.where((play) => play.play == 'posicion' || play.play == 'centena').toList();
               } else if(typeFilter == 'fcpos'){
 
-                Map<String, List<OnlyWinner>> groupedByNumplay = {};
+                Map<String, int> groupedByNumplay = {};
 
-                for(var winner in list){
-                  if(winner.element != null && winner.element!.numplay != null){
-                    if(!groupedByNumplay.containsKey(winner.element!.numplay.toString())){
-                      groupedByNumplay[winner.element!.numplay.toString()] = [];
+                for (var winner in list) {
+                  ElementData data = winner.element!;
+                  if ( data.numplay != null ) {
+                    if (winner.play == 'parle') {
+
+                      List<dynamic> parle = data.numplay.map(
+                        (e) => int.parse(e.toString().rellenarCon00(2))).toList();
+                        
+                      if(!groupedByNumplay.containsKey(parle.toString())){
+                        groupedByNumplay.addAll({parle.toString(): 0});
+                      }
+                      groupedByNumplay.update(parle.toString(),
+                        (value) => value + data.dinero!);
+
+                    } else {
+                      if(winner.play != 'candado'){
+                        if(!groupedByNumplay.containsKey(data.numplay.toString())){
+                          groupedByNumplay.addAll({data.numplay.toString(): 0});
+                        }
+                        groupedByNumplay.update(data.numplay.toString(), 
+                          (value) => value + data.dinero!);
+
+                      } 
                     }
-                    groupedByNumplay[winner.element!.numplay.toString()]!.add(winner);
                   }
                 }
 
                 listByNumplay = groupedByNumplay.entries.map((entry){
-                  return entry.value;
+                  return ByNumplay(numplay: entry.key, dinero: entry.value);
                 }).toList();
+
                 premio = listByNumplay.fold(
-                  0, (value, element) => 
-                    value + element.fold(0, (value, element) 
-                      => value + element.element!.dinero!));
+                  0, (value, element) => value + element.dinero);
 
               }
-              // premio = aux.fold(0, (value, element) => value + element.element!.dinero!);
+
+              if(typeFilter != 'fcpos'){
+                premio = aux.fold(0, (value, element) => value + element.element!.dinero!);
+              }
 
               return Column(
                 children: [
@@ -248,9 +269,8 @@ class _ShowListState extends State<ShowList> {
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Row(
                                     children: [
-                                      textoDosis(listByNumplay[index].first.element!.numplay.toString(), 18),
-                                      textoDosis(' -> ${listByNumplay[index].fold(0, (value, element) 
-                                        => value + element.element!.dinero!)}', 
+                                      textoDosis(listByNumplay[index].numplay.toString(), 18),
+                                      textoDosis(' -> ${listByNumplay[index].dinero}', 
                                           20, fontWeight: FontWeight.bold),
                                     ],
                                   )
@@ -322,4 +342,32 @@ class _ShowListState extends State<ShowList> {
     final widgetBuilder = widgetMap[type];
     return widgetBuilder != null ? widgetBuilder(data) : Container();
   }
+
+  List<List<int>> combinaciones(List<dynamic> array) {
+    List<List<int>> resultado = [];
+  
+    for (int i = 0; i < array.length - 1; i++) {
+      for (int j = i + 1; j < array.length; j++) {
+        resultado.add([array[i], array[j]]);
+      }
+    }
+  
+    return resultado;
+  }
+
+  bool listContainsList(List<List<int>> listOfLists, List<dynamic> target) {
+    return listOfLists.any((list) => list.equals(target));
+  }
+
+  List<int> foundInList(List<dynamic> target, List<List<int>> listOfLists) {
+    return listOfLists.firstWhere((list) => list.equals(target), orElse: () => []);
+  }
+
+}
+
+class ByNumplay {
+  final String numplay;
+  final int dinero;
+
+  ByNumplay({required this.numplay, required this.dinero});
 }

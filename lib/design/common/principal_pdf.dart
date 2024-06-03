@@ -94,7 +94,7 @@ pw.Widget _parlesView(ParlesModel model) {
                     isParles: true,
                     fontWeight: pw.FontWeight.bold,
                   ))
-              .toList(),
+              ,
         ],
       ),
       pw.SizedBox(width: 10),

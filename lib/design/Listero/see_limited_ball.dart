@@ -104,11 +104,11 @@ class _SeeLimitedBallState extends State<SeeLimitedBall> {
                               numero: numero.toString(),
                             ),
                           )
-                          .toList()
+                          
                     ],
                   ),
                 ))
-            .toList(),
+            ,
       ],
     );
   }

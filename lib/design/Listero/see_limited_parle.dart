@@ -124,7 +124,7 @@ class _SeeLimitedParleState extends State<SeeLimitedParle> {
                         numero: numero.toString(),
                       ),
                     )
-                    .toList()
+                    
               ],
             ),
           );

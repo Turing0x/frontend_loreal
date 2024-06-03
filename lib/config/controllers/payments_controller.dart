@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 import 'dart:convert';
 
@@ -20,7 +20,7 @@ class PaymentsControllers {
 
     _dio = Dio(
       BaseOptions(
-        baseUrl: Uri.http(dotenv.env['SERVER_URL']!).toString(),
+        baseUrl: Uri.https(Environments().SERVER_URL).toString(),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token,

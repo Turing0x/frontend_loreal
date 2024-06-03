@@ -10,17 +10,17 @@ ThemeData lightTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+      backgroundColor: WidgetStateProperty.resolveWith<Color>(
         (states) => Colors.white),
-      iconColor: MaterialStateProperty.resolveWith<Color>(
+      iconColor: WidgetStateProperty.resolveWith<Color>(
         (states) => Colors.white)
       )
   ),
-  iconButtonTheme: IconButtonThemeData(style: ButtonStyle(iconColor: MaterialStateProperty.resolveWith<Color>(
+  iconButtonTheme: IconButtonThemeData(style: ButtonStyle(iconColor: WidgetStateProperty.resolveWith<Color>(
       (states) => Colors.white))),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Colors.blue,
   ),
-  outlinedButtonTheme: OutlinedButtonThemeData(style: ButtonStyle(iconColor: MaterialStateProperty.resolveWith<Color>(
+  outlinedButtonTheme: OutlinedButtonThemeData(style: ButtonStyle(iconColor: WidgetStateProperty.resolveWith<Color>(
       (states) => Colors.black)))
 );

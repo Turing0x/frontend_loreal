@@ -101,14 +101,14 @@ class _ChangeLogWidgetState extends State<ChangeLogWidget> {
                                         textAlign: TextAlign.start,
                                       ),
                                     )
-                                    .toList(),
+                                    ,
                                 const Divider(),
                               ],
                             ),
                             controller: expandeds[pos++],
                           ),
                         )
-                        .toList()
+                        
                   ],
                 ),
               ),

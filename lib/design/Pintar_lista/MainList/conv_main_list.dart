@@ -20,7 +20,7 @@ List<dynamic> convertirPayloadListaPrincipal(Map<String, dynamic> map) {
       if (e.key == MainListEnum.centenas.toString()) {
         return _centenas(e.value);
       }
-    }).toList()
+    })
   ];
   return _lista(listaPrincipal);
 }
