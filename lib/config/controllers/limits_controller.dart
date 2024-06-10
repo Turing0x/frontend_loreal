@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print
+// ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -296,7 +296,6 @@ class LimitsControllers {
       EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
-      print(e);
       EasyLoading.showError('Ha ocurrido un error');
     }
   }
@@ -316,7 +315,6 @@ class LimitsControllers {
       EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
-      print(e);
       EasyLoading.showError('Ha ocurrido un error');
     }
   }
@@ -337,7 +335,6 @@ class LimitsControllers {
       EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
-      print(e);
       EasyLoading.showError('Ha ocurrido un error');
     }
   }
@@ -357,7 +354,6 @@ class LimitsControllers {
       EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
-      print(e);
       EasyLoading.showError('Ha ocurrido un error');
     }
   }

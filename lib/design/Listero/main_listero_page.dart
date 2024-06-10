@@ -13,13 +13,13 @@ import 'package:frontend_loreal/config/server/http/methods.dart';
 import 'package:frontend_loreal/config/utils/file_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/opt_list_tile.dart';
 import 'package:frontend_loreal/models/Horario/time_model.dart';
 import 'package:frontend_loreal/models/Limites/limits_model.dart';
 import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 import 'package:intl/intl.dart';
-import 'package:r_upgrade/r_upgrade.dart';
 
 class MainListeroPage extends ConsumerStatefulWidget {
   const MainListeroPage({super.key});
@@ -31,7 +31,6 @@ class MainListeroPage extends ConsumerStatefulWidget {
 
 class _MainListeroPageState extends ConsumerState<MainListeroPage>
     with SingleTickerProviderStateMixin {
-  late AnimationController controller;
   bool didDispose = false;
 
   String? username = '';
@@ -65,6 +64,14 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
       final payCrtl = ref.read(paymentCrtl.notifier);
 
       toJoinListM.clearList();
+
+      clearAllMaps();
+
+      toBlockIfOutOfLimit.clear();
+      toBlockIfOutOfLimitFCPC.clear();
+      toBlockIfOutOfLimitTerminal.clear();
+      toBlockIfOutOfLimitDecena.clear();
+      
       payCrtl.limpioAllCalcs();
     });
 
@@ -84,35 +91,20 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
       });
     });
 
-    Future<List<Time>> times = timeControllers.getDataTime();
-    getServerTimes(times);
+    timeControllers.getDataTime().then((value) {
+      if (value.isNotEmpty){ getServerTimes(value); }
 
-    getsavePdfFolder().then((value) async {
-      if (value != null) {
-        if (value != jornalGlobal) {
-          await deleteAllFiles();
-          return;
+      getsavePdfFolder().then((value) async {
+        if (value != null) {
+          if (value != jornalGlobal) {
+            await deleteAllFiles();
+            return;
+          }
         }
-      }
 
-      await readAllFilesAndSaveInMaps();
-    });
+        await readAllFilesAndSaveInMaps();
+      });
 
-    RUpgrade.stream.listen((DownloadInfo info) {
-      ref.read(release.notifier).actualizarState(
-            info: info,
-          );
-    });
-
-    controller = AnimationController(
-      vsync: this,
-    );
-
-    controller.addStatusListener((status) async {
-      if (status == AnimationStatus.completed) {
-        Navigator.pop(context);
-        controller.reset();
-      }
     });
 
     super.initState();
@@ -121,7 +113,6 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
   @override
   void dispose() {
     didDispose = true;
-    controller.dispose();
     super.dispose();
   }
 
@@ -231,84 +222,81 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
         ));
   }
 
-  getServerTimes(Future<List<Time>> times) {
-    times.then((value) {
-      if (value.isEmpty) return;
+  getServerTimes(List<Time> times) {
+    var format = DateFormat('HH:mm');
+    var format1 = DateFormat.Hm();
 
-      var format = DateFormat('HH:mm');
-      var format1 = DateFormat.Hm();
+    TimeOfDay now = TimeOfDay.now();
+    DateTime nowStringify = format.parse('${now.hour}:${now.minute}');
 
-      TimeOfDay now = TimeOfDay.now();
-      DateTime nowStringify = format.parse('${now.hour}:${now.minute}');
+    DateTime day_start = format1.parse(times[0].dayStart);
+    DateTime day_end = format1.parse(times[0].dayEnd);
+    DateTime night_start = format1.parse(times[0].nightStart);
+    DateTime night_end = format1.parse(times[0].nightEnd);
 
-      DateTime day_start = format1.parse(value[0].dayStart);
-      DateTime day_end = format1.parse(value[0].dayEnd);
-      DateTime night_start = format1.parse(value[0].nightStart);
-      DateTime night_end = format1.parse(value[0].nightEnd);
+    Duration day_difference_start = nowStringify.difference(day_start);
+    Duration day_difference_end = nowStringify.difference(day_end);
+    Duration night_difference_start = nowStringify.difference(night_start);
+    Duration night_difference_end = nowStringify.difference(night_end);
 
-      Duration day_difference_start = nowStringify.difference(day_start);
-      Duration day_difference_end = nowStringify.difference(day_end);
-      Duration night_difference_start = nowStringify.difference(night_start);
-      Duration night_difference_end = nowStringify.difference(night_end);
+    bool to_start_day = ((!day_difference_start.isNegative &&
+            !day_difference_end.isNegative) ||
+        (day_difference_start.isNegative && day_difference_end.isNegative));
 
-      bool to_start_day = ((!day_difference_start.isNegative &&
-              !day_difference_end.isNegative) ||
-          (day_difference_start.isNegative && day_difference_end.isNegative));
+    bool on_day_session =
+        (!day_difference_start.isNegative && day_difference_end.isNegative);
 
-      bool on_day_session =
-          (!day_difference_start.isNegative && day_difference_end.isNegative);
+    bool to_start_nigth =
+        (!day_difference_end.isNegative && night_difference_start.isNegative);
+    bool on_night_session = (!night_difference_start.isNegative &&
+        night_difference_end.isNegative);
 
-      bool to_start_nigth =
-          (!day_difference_end.isNegative && night_difference_start.isNegative);
-      bool on_night_session = (!night_difference_start.isNegative &&
-          night_difference_end.isNegative);
+    if (on_day_session) {
+      setState(() {
+        yuoAreIn = 'Sesión de la mañana';
+        timeForThat = 'Tiempo para el cierre: ';
+      });
 
-      if (on_day_session) {
-        setState(() {
-          yuoAreIn = 'Sesión de la mañana';
-          timeForThat = 'Tiempo para el cierre: ';
-        });
+      savePdfFolder('dia');
 
-        savePdfFolder('dia');
+      startTimer(
+          day_difference_end.inHours.remainder(60).abs(),
+          day_difference_end.inMinutes.remainder(60).abs(),
+          day_difference_end.inSeconds.remainder(60).abs());
+    } else if (on_night_session) {
+      setState(() {
+        yuoAreIn = 'Sesión de la tarde';
+        timeForThat = 'Tiempo para el cierre: ';
+      });
 
-        startTimer(
-            day_difference_end.inHours.remainder(60).abs(),
-            day_difference_end.inMinutes.remainder(60).abs(),
-            day_difference_end.inSeconds.remainder(60).abs());
-      } else if (on_night_session) {
-        setState(() {
-          yuoAreIn = 'Sesión de la tarde';
-          timeForThat = 'Tiempo para el cierre: ';
-        });
+      savePdfFolder('noche');
 
-        savePdfFolder('noche');
+      startTimer(
+          night_difference_end.inHours.remainder(60).abs(),
+          night_difference_end.inMinutes.remainder(60).abs(),
+          night_difference_end.inSeconds.remainder(60).abs());
+    } else if (to_start_nigth) {
+      setState(() {
+        yuoAreIn = 'Estás fuera de sesión';
+        timeForThat = 'Tiempo para comenzar: ';
+      });
 
-        startTimer(
-            night_difference_end.inHours.remainder(60).abs(),
-            night_difference_end.inMinutes.remainder(60).abs(),
-            night_difference_end.inSeconds.remainder(60).abs());
-      } else if (to_start_nigth) {
-        setState(() {
-          yuoAreIn = 'Estás fuera de sesión';
-          timeForThat = 'Tiempo para comenzar: ';
-        });
+      startTimer(
+          night_difference_start.inHours.remainder(60).abs(),
+          night_difference_start.inMinutes.remainder(60).abs(),
+          night_difference_start.inSeconds.remainder(60).abs());
+    } else if (to_start_day) {
+      setState(() {
+        yuoAreIn = 'Estás fuera de sesión';
+        timeForThat = 'Tiempo para comenzar: ';
+      });
 
-        startTimer(
-            night_difference_start.inHours.remainder(60).abs(),
-            night_difference_start.inMinutes.remainder(60).abs(),
-            night_difference_start.inSeconds.remainder(60).abs());
-      } else if (to_start_day) {
-        setState(() {
-          yuoAreIn = 'Estás fuera de sesión';
-          timeForThat = 'Tiempo para comenzar: ';
-        });
+      startTimer(
+          day_difference_start.inHours.remainder(60).abs(),
+          day_difference_start.inMinutes.remainder(60).abs(),
+          day_difference_start.inSeconds.remainder(60).abs());
+    }
 
-        startTimer(
-            day_difference_start.inHours.remainder(60).abs(),
-            day_difference_start.inMinutes.remainder(60).abs(),
-            day_difference_start.inSeconds.remainder(60).abs());
-      }
-    });
   }
 
   getHisLimits(String userID) {
