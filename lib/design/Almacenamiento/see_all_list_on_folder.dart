@@ -30,8 +30,10 @@ class _SeeListsOnFolderState extends State<SeeListsOnFolder> {
       });
     }
 
-    if (fileList[0] is Directory) {
-      isType = false;
+    if(fileList.isNotEmpty){
+      if (fileList[0] is Directory) {
+        isType = false;
+      }
     }
 
     super.initState();

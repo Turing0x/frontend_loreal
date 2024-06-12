@@ -90,10 +90,10 @@ class _OnlyWinnersPageState extends ConsumerState<OnlyWinnersPage> {
           value: 'todos',
           child: textoDosis('Todas las jugadas', 18),
         ),
-        // PopupMenuItem(
-        //   value: 'fcpos',
-        //   child: textoDosis('Por Número', 18),
-        // ),
+        PopupMenuItem(
+          value: 'fcpos',
+          child: textoDosis('Por Número', 18),
+        ),
         PopupMenuItem(
           value: 'bolas',
           child: textoDosis('Bolas, Terminal y Decena', 18),
@@ -166,10 +166,6 @@ class _ShowListState extends State<ShowList> {
 
               int premio = 0;
 
-              list.sort(((a, b) {
-                return b.element!.dinero! - a.element!.dinero!;
-              }));
-
               List<OnlyWinner> aux = [];
               if(typeFilter == 'todos'){
                 aux = list;
@@ -185,32 +181,65 @@ class _ShowListState extends State<ShowList> {
               } else if(typeFilter == 'fcpos'){
 
                 Map<String, int> groupedByNumplay = {};
+                String fijo = lotThisDay.split(' ')[0].substring(1);
+
+                final parlesLot = combinaciones(lotThisDay.split(' ').map(
+                (e) {
+                  if(e.length == 3){
+                    return int.parse(e.substring(1));
+                  }
+                  return int.parse(e);
+                }).toList());
 
                 for (var winner in list) {
                   ElementData data = winner.element!;
                   if ( data.numplay != null ) {
-                    if (winner.play == 'parle') {
+                    if (winner.play == 'parle' || winner.play == 'candado') {
+                      
+                      final candado = combinaciones(winner.element!.numplay);
 
-                      List<dynamic> parle = data.numplay.map(
-                        (e) => int.parse(e.toString().rellenarCon00(2))).toList();
-                        
-                      if(!groupedByNumplay.containsKey(parle.toString())){
-                        groupedByNumplay.addAll({parle.toString(): 0});
+                      for(var parle in parlesLot){
+                        if(listContainsList(candado, parle)){
+
+                          String parl = parle.toString().replaceAll(RegExp(r'\[|\]'), '');
+
+                          if(!groupedByNumplay.containsKey(parl)){
+                            groupedByNumplay.addAll({parl: 0});
+                          }
+                          groupedByNumplay.update(parl,
+                            (value) => value + data.dinero!);
+                        }
                       }
-                      groupedByNumplay.update(parle.toString(),
-                        (value) => value + data.dinero!);
 
                     } else {
-                      if(winner.play != 'candado'){
-                        if(!groupedByNumplay.containsKey(data.numplay.toString())){
-                          groupedByNumplay.addAll({data.numplay.toString(): 0});
-                        }
-                        groupedByNumplay.update(data.numplay.toString(), 
-                          (value) => value + data.dinero!);
 
-                      } 
+                      if(data.numplay.toString() == fijo){
+                        if(!groupedByNumplay.containsKey('c${data.numplay.toString()}')){
+                          groupedByNumplay.addAll({'c${data.numplay.toString()}': 0});
+                        }
+                        groupedByNumplay.update('c${data.numplay.toString()}', 
+                          (value) => value + data.corrido! * 25);
+                      }
+
+                      if(!groupedByNumplay.containsKey(data.numplay.toString())){
+                        groupedByNumplay.addAll({data.numplay.toString(): 0});
+                      }
+                      groupedByNumplay.update(data.numplay.toString(), 
+                        (value) => value + data.dinero!);
                     }
+                  } else {
+                    if(!groupedByNumplay.containsKey(data.terminal.toString())){
+                      groupedByNumplay.addAll({data.terminal.toString(): 0});
+                    }
+                    groupedByNumplay.update(data.terminal.toString(), 
+                      (value) => value + data.dinero!);
                   }
+                }
+
+                if(groupedByNumplay.containsKey('c$fijo')){
+                  int fijoCorrido = groupedByNumplay['c$fijo']!;
+                  groupedByNumplay.update(fijo, 
+                    (value) => value - fijoCorrido);
                 }
 
                 listByNumplay = groupedByNumplay.entries.map((entry){
@@ -224,6 +253,9 @@ class _ShowListState extends State<ShowList> {
 
               if(typeFilter != 'fcpos'){
                 premio = aux.fold(0, (value, element) => value + element.element!.dinero!);
+                aux.sort(((a, b) { return b.element!.dinero! - a.element!.dinero!; }));
+              }{
+                listByNumplay.sort(((a, b) { return b.dinero - a.dinero; }));
               }
 
               return Column(
@@ -269,7 +301,11 @@ class _ShowListState extends State<ShowList> {
                                   padding: const EdgeInsets.only(left: 20),
                                   child: Row(
                                     children: [
-                                      textoDosis(listByNumplay[index].numplay.toString(), 18),
+                                      (listByNumplay[index].numplay.contains('c'))
+                                        ? textoDosis('${
+                                          listByNumplay[index].numplay.split('c')[1]
+                                        } en corrido', 22)
+                                        : textoDosis(listByNumplay[index].numplay.toString(), 22),
                                       textoDosis(' -> ${listByNumplay[index].dinero}', 
                                           20, fontWeight: FontWeight.bold),
                                     ],
@@ -345,10 +381,12 @@ class _ShowListState extends State<ShowList> {
 
   List<List<int>> combinaciones(List<dynamic> array) {
     List<List<int>> resultado = [];
-  
+
     for (int i = 0; i < array.length - 1; i++) {
       for (int j = i + 1; j < array.length; j++) {
-        resultado.add([array[i], array[j]]);
+        resultado.add([
+          (array[i].runtimeType == String) ? int.parse(array[i]) : array[i],
+        (array[j].runtimeType == String) ? int.parse(array[j]) : array[j]]);
       }
     }
   
@@ -356,11 +394,9 @@ class _ShowListState extends State<ShowList> {
   }
 
   bool listContainsList(List<List<int>> listOfLists, List<dynamic> target) {
-    return listOfLists.any((list) => list.equals(target));
-  }
-
-  List<int> foundInList(List<dynamic> target, List<List<int>> listOfLists) {
-    return listOfLists.firstWhere((list) => list.equals(target), orElse: () => []);
+    return 
+      listOfLists.any((list) => list.equals(target)) || 
+      listOfLists.any((list) => list.equals(target.reversed.toList()));
   }
 
 }

@@ -11,14 +11,12 @@ class SeeDetailsParlesCargados extends StatefulWidget {
     super.key,
     required this.bola,
     required this.fijo,
-    required this.total,
     required this.listeros,
     required this.jornal,
   });
 
   final String bola;
   final String fijo;
-  final String total;
   final List<Listero> listeros;
   final String jornal;
 
@@ -43,13 +41,13 @@ class _SeeDetailsParlesCargadosState extends State<SeeDetailsParlesCargados> {
                 children: [
                   boldLabel('Parle: ', widget.bola.replaceAll(',', ' -- '), 30),
                   const SizedBox(width: 20),
-                  boldLabel('Total: ', widget.total, 20)
+                  boldLabel('Total: ', widget.fijo, 20)
                 ],
               ),
             ]),
             encabezado(
               context, 'Listas donde aparece', 
-              globallot.isEmpty, () async{
+              !withLot, () async{
                 final ctrl = LimitsControllers();
                 await ctrl.saveDataLimitsPerleToUserCargados(widget.bola, widget.jornal);
               },
@@ -62,11 +60,11 @@ class _SeeDetailsParlesCargadosState extends State<SeeDetailsParlesCargados> {
               child: ListView.builder(
                   itemCount: widget.listeros.length,
                   itemBuilder: (context, index) {
-                    widget.listeros.sort((a, b) => b.total - a.total);
+                    widget.listeros.sort((a, b) => b.fijo - a.fijo);
 
                     String username =
                         widget.listeros[index].username.toString();
-                    String total = widget.listeros[index].total.toString();
+                    String total = widget.listeros[index].fijo.toString();
 
                     return ExpansionTile(
                       title: Row(
@@ -77,7 +75,7 @@ class _SeeDetailsParlesCargadosState extends State<SeeDetailsParlesCargados> {
                             textoDosis(' -> $total ', 23,
                                 fontWeight: FontWeight.bold),
                           ]),
-                      trailing: (globallot.isEmpty)
+                      trailing: (!withLot)
                         ? OutlinedButton(
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: Colors.black26)
