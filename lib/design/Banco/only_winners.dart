@@ -159,7 +159,7 @@ class _ShowListState extends State<ShowList> {
                 return noData(context);
               }
 
-              List<ByNumplay> listByNumplay = [];
+              List<ByNumber> listByNumplay = [];
               List<OnlyWinner> list = snapshot.data!['data'];
               String lot = snapshot.data!['lotOfToday'];
               lotThisDay = lot;
@@ -180,7 +180,7 @@ class _ShowListState extends State<ShowList> {
                 aux = list.where((play) => play.play == 'posicion' || play.play == 'centena').toList();
               } else if(typeFilter == 'fcpos'){
 
-                Map<String, int> groupedByNumplay = {};
+                Map<String, ByNumber> groupedByNumplay = {};
                 String fijo = lotThisDay.split(' ')[0].substring(1);
 
                 final parlesLot = combinaciones(lotThisDay.split(' ').map(
@@ -196,7 +196,7 @@ class _ShowListState extends State<ShowList> {
                   if ( data.numplay != null ) {
                     if (winner.play == 'parle' || winner.play == 'candado') {
                       
-                      final candado = combinaciones(winner.element!.numplay);
+                      final candado = combinaciones(data.numplay);
 
                       for(var parle in parlesLot){
                         if(listContainsList(candado, parle)){
@@ -204,10 +204,15 @@ class _ShowListState extends State<ShowList> {
                           String parl = parle.toString().replaceAll(RegExp(r'\[|\]'), '');
 
                           if(!groupedByNumplay.containsKey(parl)){
-                            groupedByNumplay.addAll({parl: 0});
+                            groupedByNumplay.addAll({parl: ByNumber(
+                              numplay: parl, 
+                              fijo: 0, 
+                              dinero: 0)});
                           }
-                          groupedByNumplay.update(parl,
-                            (value) => value + data.dinero!);
+                          groupedByNumplay.update(parl, 
+                            (value) => value.copyWith(
+                              dinero: value.dinero + data.dinero!,
+                              fijo: value.fijo + data.fijo!));
                         }
                       }
 
@@ -215,35 +220,56 @@ class _ShowListState extends State<ShowList> {
 
                       if(data.numplay.toString() == fijo){
                         if(!groupedByNumplay.containsKey('c${data.numplay.toString()}')){
-                          groupedByNumplay.addAll({'c${data.numplay.toString()}': 0});
+                          groupedByNumplay.addAll({'c${data.numplay.toString()}': ByNumber(
+                            numplay: 'c${data.numplay.toString()}', 
+                            fijo: 0, 
+                            dinero: 0)});
                         }
                         groupedByNumplay.update('c${data.numplay.toString()}', 
-                          (value) => value + data.corrido! * 25);
+                          (value) => value.copyWith(
+                            dinero: value.dinero + data.corrido! * 25,
+                            fijo: value.fijo + data.corrido!));
                       }
 
                       if(!groupedByNumplay.containsKey(data.numplay.toString())){
-                        groupedByNumplay.addAll({data.numplay.toString(): 0});
+                        groupedByNumplay.addAll({data.numplay.toString(): ByNumber(
+                          numplay: data.numplay.toString(), 
+                          fijo: 0, 
+                          dinero: 0)});
                       }
                       groupedByNumplay.update(data.numplay.toString(), 
-                        (value) => value + data.dinero!);
+                        (value) => value.copyWith(
+                          dinero: value.dinero + data.dinero!,
+                          fijo: value.fijo + data.fijo!));
                     }
                   } else {
                     if(!groupedByNumplay.containsKey(data.terminal.toString())){
-                      groupedByNumplay.addAll({data.terminal.toString(): 0});
+                      groupedByNumplay.addAll({data.terminal.toString(): ByNumber(
+                        numplay: data.terminal.toString(), 
+                        fijo: 0, 
+                        dinero: 0)});
                     }
                     groupedByNumplay.update(data.terminal.toString(), 
-                      (value) => value + data.dinero!);
+                      (value) => value.copyWith(
+                        dinero: value.dinero + data.dinero!,
+                        fijo: value.fijo + data.fijo!));
                   }
                 }
 
                 if(groupedByNumplay.containsKey('c$fijo')){
-                  int fijoCorrido = groupedByNumplay['c$fijo']!;
+                  int dinero = groupedByNumplay['c$fijo']!.dinero;
+                  int fijoC = groupedByNumplay['c$fijo']!.fijo;
                   groupedByNumplay.update(fijo, 
-                    (value) => value - fijoCorrido);
+                    (value) => value.copyWith(
+                      dinero: value.dinero - dinero,
+                      fijo: value.fijo - fijoC));
                 }
 
-                listByNumplay = groupedByNumplay.entries.map((entry){
-                  return ByNumplay(numplay: entry.key, dinero: entry.value);
+                listByNumplay = groupedByNumplay.entries.map((entry) {
+                  return ByNumber(
+                    numplay: entry.key,
+                    fijo: entry.value.fijo,
+                    dinero: entry.value.dinero);
                 }).toList();
 
                 premio = listByNumplay.fold(
@@ -306,6 +332,8 @@ class _ShowListState extends State<ShowList> {
                                           listByNumplay[index].numplay.split('c')[1]
                                         } en corrido', 22)
                                         : textoDosis(listByNumplay[index].numplay.toString(), 22),
+                                      textoDosis(' -> ${listByNumplay[index].fijo}', 
+                                          20, fontWeight: FontWeight.bold),
                                       textoDosis(' -> ${listByNumplay[index].dinero}', 
                                           20, fontWeight: FontWeight.bold),
                                     ],
@@ -401,9 +429,23 @@ class _ShowListState extends State<ShowList> {
 
 }
 
-class ByNumplay {
+class ByNumber {
   final String numplay;
+  final int fijo;
   final int dinero;
 
-  ByNumplay({required this.numplay, required this.dinero});
+  ByNumber({
+    required this.numplay, 
+    required this.fijo, 
+    required this.dinero});
+    
+  ByNumber copyWith({
+    String? numplay, 
+    int? fijo, 
+    int? dinero}){
+    return ByNumber(
+      numplay: numplay ?? this.numplay, 
+      fijo: fijo ?? this.fijo, 
+      dinero: dinero ?? this.dinero);
+  }
 }

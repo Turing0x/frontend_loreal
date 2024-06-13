@@ -75,28 +75,25 @@ class _WinForListeroPageState extends State<WinForListeroPage> {
 
     return Scaffold(
       appBar: showAppBar('Premio por Listero'),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-
-            Visibility(
-              visible: widget.pos,
-              child: OutlinedButton(onPressed: () {
-                if(change){
-                  changeAggrupation();
-                }else {
-                  setState(() {
-                    change = true;
-                    insideGroupedByOwner = widget.groupedByOwner;
-                  });
-                }
-              },
-              child: textoDosis(change ? 'Por Número' : 'Por Listero', 18)),
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              height: 600,
+      body: Column(
+        children: [
+          Visibility(
+            visible: widget.pos,
+            child: OutlinedButton(onPressed: () {
+              if(change){
+                changeAggrupation();
+              }else {
+                setState(() {
+                  change = true;
+                  insideGroupedByOwner = widget.groupedByOwner;
+                });
+              }
+            },
+            child: textoDosis(change ? 'Por Número' : 'Por Listero', 18)),
+          ),
+          const SizedBox(height: 30),
+          Expanded(
+            child: SizedBox(
               child: ListView.builder(
                 itemCount: insideGroupedByOwner.length,
                 itemBuilder: (context, index) {
@@ -106,9 +103,9 @@ class _WinForListeroPageState extends State<WinForListeroPage> {
                     return detailsWidget(key, value);
                   }).toList()[index];
                 })
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
