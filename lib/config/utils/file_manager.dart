@@ -98,11 +98,9 @@ Future deleteAllFiles() async {
   try {
 
     getApplicationDocumentsDirectory().then((onValue) {
-      if(onValue.existsSync()){
-        onValue.list(recursive: true, followLinks: true).forEach((folder){
-          folder.deleteSync(recursive: true);
-        });
-      }
+      onValue.list(recursive: true, followLinks: true).forEach((folder){
+        folder.delete(recursive: true);
+      });
     });
 
   } catch (e) {
