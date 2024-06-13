@@ -180,6 +180,8 @@ class _ShowListState extends State<ShowList> {
                 aux = list.where((play) => play.play == 'posicion' || play.play == 'centena').toList();
               } else if(typeFilter == 'fcpos'){
 
+                aux = list;
+
                 Map<String, ByNumber> groupedByNumplay = {};
                 String fijo = lotThisDay.split(' ')[0].substring(1);
                 String c1 = lotThisDay.split(' ')[1];
@@ -223,12 +225,20 @@ class _ShowListState extends State<ShowList> {
                           'c${data.numplay.toString()}', 
                           data.corrido! * 25, data.corrido!);
                       }
-                      groupManager(groupedByNumplay, 
-                        data.numplay.toString(), data.dinero!, data.fijo!);
+                      if(data.numplay.toString().length == 1){
+                        groupManager(groupedByNumplay, 
+                          data.numplay.toString(), data.dinero!, 
+                          data.fijo!, type: 'd');
+                      }else {
+                        groupManager(groupedByNumplay, 
+                          data.numplay.toString(), data.dinero!, 
+                          data.fijo!);
+                      }
                     }
                   } else {
                     groupManager(groupedByNumplay, 
-                      data.terminal.toString(), data.dinero!, data.fijo!);
+                      data.terminal.toString(), data.dinero!, 
+                      data.fijo!, type: 't');
                   }
                 }
 
@@ -258,30 +268,27 @@ class _ShowListState extends State<ShowList> {
                   boldLabel('Sorteo del momento -> ', lot, 23),
                   boldLabel('Premio Total -> ', premio.toString(), 23),
 
-                  Visibility(
-                    visible: typeFilter != 'fcpos',
-                    child: OutlinedButton(
-                      onPressed: (){
-                        Map<String, List<OnlyWinner>> groupedByOwner = {};
-                        for (var winner in aux) {
-                          if (!groupedByOwner.containsKey(winner.owner)) {
-                              groupedByOwner[winner.owner!] = [];
-                          }
-                          groupedByOwner[winner.owner!]!.add(winner);
+                  OutlinedButton(
+                    onPressed: (){
+                      Map<String, List<OnlyWinner>> groupedByOwner = {};
+                      for (var winner in aux) {
+                        if (!groupedByOwner.containsKey(winner.owner)) {
+                            groupedByOwner[winner.owner!] = [];
                         }
-                    
-                        Navigator.pushNamed(context, 'winner_for_listero_page', arguments: [
-                          groupedByOwner,
-                          typeFilter == 'pos' || typeFilter == 'bolas' 
-                        ]);
-                    
-                      }, 
-                      child: textoDosis('Ver por Listero', 18)),
-                  ),
+                        groupedByOwner[winner.owner!]!.add(winner);
+                      }
+                  
+                      Navigator.pushNamed(context, 'winner_for_listero_page', arguments: [
+                        groupedByOwner,
+                        typeFilter == 'pos' || typeFilter == 'bolas' 
+                      ]);
+                  
+                    }, 
+                    child: textoDosis('Ver por Listero', 18)),
 
                   (typeFilter == 'fcpos')
                     ? SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.60,
+                    height: MediaQuery.of(context).size.height * 0.58,
                     child: ListView.builder(
                         itemCount: listByNumplay.length,
                         itemBuilder: (context, index) {
@@ -347,19 +354,26 @@ class _ShowListState extends State<ShowList> {
       return '${numplay.split('n')[1]} en 2da posición';
     } else if(numplay.contains('m')){
       return '${numplay.split('m')[1]} en 3ra posición';
+    } else if(numplay.contains('d')){
+      return '${numplay.split('d')[1]} como decena';
+    } else if(numplay.contains('t')){
+      return '${numplay.split('t')[1]} como terminal';
     }
 
     return numplay;
   }
 
-  void groupManager( Map<String, ByNumber> map, String key, int dinero, int fijo) {
-    map.putIfAbsent(key, () => ByNumber(
-      numplay: key,
+  void groupManager( Map<String, ByNumber> map, String key, int dinero, int fijo, {String? type = ''}) {
+
+    String name = (type == 't') ? 't$key' : ( type == 'd') ? 'd$key' : key;
+
+    map.putIfAbsent(name, () => ByNumber(
+      numplay: name,
       fijo: 0,
       dinero: 0,
     ));
 
-    map.update(key, (value) => value.copyWith(
+    map.update(name, (value) => value.copyWith(
       dinero: value.dinero + dinero,
       fijo: value.fijo + fijo,
     ));
@@ -369,12 +383,10 @@ class _ShowListState extends State<ShowList> {
     // Verificar si la clave 'key' existe en el mapa
     if (map.containsKey(key)) {
       int dinero = map[key]!.dinero;
-      int fijoC = map[key]!.fijo;
 
       // Asegurar que la clave 'target' está presente en el mapa antes de actualizarla
       map.update(target, (value) => value.copyWith(
-        dinero: value.dinero - dinero,
-        fijo: value.fijo - fijoC,
+        dinero: value.dinero - dinero
       ));
     }
   }
