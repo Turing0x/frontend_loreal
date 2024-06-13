@@ -182,6 +182,8 @@ class _ShowListState extends State<ShowList> {
 
                 Map<String, ByNumber> groupedByNumplay = {};
                 String fijo = lotThisDay.split(' ')[0].substring(1);
+                String c1 = lotThisDay.split(' ')[1];
+                String c2 = lotThisDay.split(' ')[2];
 
                 final parlesLot = combinaciones(lotThisDay.split(' ').map(
                 (e) {
@@ -195,75 +197,42 @@ class _ShowListState extends State<ShowList> {
                   ElementData data = winner.element!;
                   if ( data.numplay != null ) {
                     if (winner.play == 'parle' || winner.play == 'candado') {
-                      
                       final candado = combinaciones(data.numplay);
-
                       for(var parle in parlesLot){
                         if(listContainsList(candado, parle)){
-
                           String parl = parle.toString().replaceAll(RegExp(r'\[|\]'), '');
-
-                          if(!groupedByNumplay.containsKey(parl)){
-                            groupedByNumplay.addAll({parl: ByNumber(
-                              numplay: parl, 
-                              fijo: 0, 
-                              dinero: 0)});
-                          }
-                          groupedByNumplay.update(parl, 
-                            (value) => value.copyWith(
-                              dinero: value.dinero + data.dinero!,
-                              fijo: value.fijo + data.fijo!));
+                          int fijo = (data.fijo! / ((data.numplay.length * (data.numplay.length - 1)) / 2)).toInt();
+                          groupManager(groupedByNumplay, parl, data.dinero!, fijo);
                         }
                       }
-
-                    } else {
-
+                    } else if ( winner.play == 'posicion' ){
                       if(data.numplay.toString() == fijo){
-                        if(!groupedByNumplay.containsKey('c${data.numplay.toString()}')){
-                          groupedByNumplay.addAll({'c${data.numplay.toString()}': ByNumber(
-                            numplay: 'c${data.numplay.toString()}', 
-                            fijo: 0, 
-                            dinero: 0)});
-                        }
-                        groupedByNumplay.update('c${data.numplay.toString()}', 
-                          (value) => value.copyWith(
-                            dinero: value.dinero + data.corrido! * 25,
-                            fijo: value.fijo + data.corrido!));
+                        groupManager(groupedByNumplay, 
+                          'p$fijo', data.dinero!, data.fijo!);
+                      } else if(data.numplay.toString() == c1){
+                        groupManager(groupedByNumplay, 
+                          'n$c1', data.dinero!, data.corrido!);
+                      } else if(data.numplay.toString() == c2){
+                        groupManager(groupedByNumplay, 
+                          'm$c2', data.dinero!, data.corrido2!);
                       }
-
-                      if(!groupedByNumplay.containsKey(data.numplay.toString())){
-                        groupedByNumplay.addAll({data.numplay.toString(): ByNumber(
-                          numplay: data.numplay.toString(), 
-                          fijo: 0, 
-                          dinero: 0)});
+                    }
+                    else {
+                      if(data.numplay.toString() == fijo){
+                        groupManager(groupedByNumplay, 
+                          'c${data.numplay.toString()}', 
+                          data.corrido! * 25, data.corrido!);
                       }
-                      groupedByNumplay.update(data.numplay.toString(), 
-                        (value) => value.copyWith(
-                          dinero: value.dinero + data.dinero!,
-                          fijo: value.fijo + data.fijo!));
+                      groupManager(groupedByNumplay, 
+                        data.numplay.toString(), data.dinero!, data.fijo!);
                     }
                   } else {
-                    if(!groupedByNumplay.containsKey(data.terminal.toString())){
-                      groupedByNumplay.addAll({data.terminal.toString(): ByNumber(
-                        numplay: data.terminal.toString(), 
-                        fijo: 0, 
-                        dinero: 0)});
-                    }
-                    groupedByNumplay.update(data.terminal.toString(), 
-                      (value) => value.copyWith(
-                        dinero: value.dinero + data.dinero!,
-                        fijo: value.fijo + data.fijo!));
+                    groupManager(groupedByNumplay, 
+                      data.terminal.toString(), data.dinero!, data.fijo!);
                   }
                 }
 
-                if(groupedByNumplay.containsKey('c$fijo')){
-                  int dinero = groupedByNumplay['c$fijo']!.dinero;
-                  int fijoC = groupedByNumplay['c$fijo']!.fijo;
-                  groupedByNumplay.update(fijo, 
-                    (value) => value.copyWith(
-                      dinero: value.dinero - dinero,
-                      fijo: value.fijo - fijoC));
-                }
+                toLess(groupedByNumplay, 'c$fijo', fijo);
 
                 listByNumplay = groupedByNumplay.entries.map((entry) {
                   return ByNumber(
@@ -289,27 +258,30 @@ class _ShowListState extends State<ShowList> {
                   boldLabel('Sorteo del momento -> ', lot, 23),
                   boldLabel('Premio Total -> ', premio.toString(), 23),
 
-                  OutlinedButton(
-                    onPressed: (){
-                      Map<String, List<OnlyWinner>> groupedByOwner = {};
-                      for (var winner in aux) {
-                        if (!groupedByOwner.containsKey(winner.owner)) {
-                            groupedByOwner[winner.owner!] = [];
+                  Visibility(
+                    visible: typeFilter != 'fcpos',
+                    child: OutlinedButton(
+                      onPressed: (){
+                        Map<String, List<OnlyWinner>> groupedByOwner = {};
+                        for (var winner in aux) {
+                          if (!groupedByOwner.containsKey(winner.owner)) {
+                              groupedByOwner[winner.owner!] = [];
+                          }
+                          groupedByOwner[winner.owner!]!.add(winner);
                         }
-                        groupedByOwner[winner.owner!]!.add(winner);
-                      }
-
-                      Navigator.pushNamed(context, 'winner_for_listero_page', arguments: [
-                        groupedByOwner,
-                        typeFilter == 'pos' || typeFilter == 'bolas' 
-                      ]);
-
-                    }, 
-                    child: textoDosis('Ver por Listero', 18)),
+                    
+                        Navigator.pushNamed(context, 'winner_for_listero_page', arguments: [
+                          groupedByOwner,
+                          typeFilter == 'pos' || typeFilter == 'bolas' 
+                        ]);
+                    
+                      }, 
+                      child: textoDosis('Ver por Listero', 18)),
+                  ),
 
                   (typeFilter == 'fcpos')
                     ? SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.70,
+                    height: MediaQuery.of(context).size.height * 0.60,
                     child: ListView.builder(
                         itemCount: listByNumplay.length,
                         itemBuilder: (context, index) {
@@ -320,32 +292,19 @@ class _ShowListState extends State<ShowList> {
                             padding: const EdgeInsets.only(top: 10),
                             color: color,
                             margin: const EdgeInsets.symmetric(vertical: 5),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Row(
-                                    children: [
-                                      (listByNumplay[index].numplay.contains('c'))
-                                        ? textoDosis('${
-                                          listByNumplay[index].numplay.split('c')[1]
-                                        } en corrido', 22)
-                                        : textoDosis(listByNumplay[index].numplay.toString(), 22),
-                                      textoDosis(' -> ${listByNumplay[index].fijo}', 
-                                          20, fontWeight: FontWeight.bold),
-                                      textoDosis(' -> ${listByNumplay[index].dinero}', 
-                                          20, fontWeight: FontWeight.bold),
-                                    ],
-                                  )
-                                ),
-                              ],
-                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: ListTile(
+                                title: textoDosis( getName(listByNumplay[index].numplay), 22),
+                                subtitle: textoDosis('Dinero: ${listByNumplay[index].fijo}', 20, 
+                                  fontWeight: FontWeight.bold),
+                                trailing: textoDosis(listByNumplay[index].dinero.toString(), 
+                                  20, fontWeight: FontWeight.bold)))
                           );
                         }),
                   )
                     : SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.70,
+                    height: MediaQuery.of(context).size.height * 0.60,
                     child: ListView.builder(
                         itemCount: aux.length,
                         itemBuilder: (context, index) {
@@ -377,6 +336,47 @@ class _ShowListState extends State<ShowList> {
             },
           );
         });
+  }
+
+  getName(String numplay) {
+    if(numplay.contains('c')){
+      return '${numplay.split('c')[1]} en corrido';
+    } else if(numplay.contains('p')){
+      return '${numplay.split('p')[1]} en 1ra posición';
+    } else if(numplay.contains('n')){
+      return '${numplay.split('n')[1]} en 2da posición';
+    } else if(numplay.contains('m')){
+      return '${numplay.split('m')[1]} en 3ra posición';
+    }
+
+    return numplay;
+  }
+
+  void groupManager( Map<String, ByNumber> map, String key, int dinero, int fijo) {
+    map.putIfAbsent(key, () => ByNumber(
+      numplay: key,
+      fijo: 0,
+      dinero: 0,
+    ));
+
+    map.update(key, (value) => value.copyWith(
+      dinero: value.dinero + dinero,
+      fijo: value.fijo + fijo,
+    ));
+  }
+
+  void toLess(Map<String, ByNumber> map, String key, String target) {
+    // Verificar si la clave 'key' existe en el mapa
+    if (map.containsKey(key)) {
+      int dinero = map[key]!.dinero;
+      int fijoC = map[key]!.fijo;
+
+      // Asegurar que la clave 'target' está presente en el mapa antes de actualizarla
+      map.update(target, (value) => value.copyWith(
+        dinero: value.dinero - dinero,
+        fijo: value.fijo - fijoC,
+      ));
+    }
   }
 
   Widget fila( {required dynamic type, required ElementData data, required Color color}) {
