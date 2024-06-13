@@ -87,7 +87,7 @@ Future<int> totalBrutoBolaCargada(TotalBrutoBolaCargadaRef ref) async {
   try {
     return result.isLoading
         ? 0
-        : result.asData!.value.fold<int>(0, (sum, item) => sum + item.total);
+        : result.asData!.value.fold<int>(0, (sum, item) => sum + item.fijo);
   } on Exception catch (_) {
     return 0;
   }
@@ -105,7 +105,7 @@ Future<int> totalBrutoParlesCargado(TotalBrutoParlesCargadoRef ref) async {
   try {
     return result.isLoading
         ? 0
-        : result.asData!.value.fold<int>(0, (sum, item) => sum + item.total);
+        : result.asData!.value.fold<int>(0, (sum, item) => sum + item.fijo);
   } on Exception catch (_) {
     return 0;
   }

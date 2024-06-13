@@ -165,20 +165,17 @@ MaterialPageRoute<dynamic>? onGenerateRoute ( RouteSettings settings ) {
     'see_details_bola_cargada': MaterialPageRoute(
       builder: (_) => SeeDetailsBolasCargadas(
         bola: argumentos[0],
-        total: argumentos[1],
-        totalCorrido: argumentos[2],
-        listeros: argumentos[3],
-        jugada: argumentos[4],
-        jornal: argumentos[5]
+        fijo: argumentos[1],
+        listeros: argumentos[2],
+        jornal: argumentos[3]
       )),
     
     'see_details_parle_cargada': MaterialPageRoute(
       builder: (_) => SeeDetailsParlesCargados(
         bola: argumentos[0],
         fijo: argumentos[1],
-        total: argumentos[2],
-        listeros: argumentos[3],
-        jornal: argumentos[4],
+        listeros: argumentos[2],
+        jornal: argumentos[3],
       )),
     'winner_for_listero_page': MaterialPageRoute(
       builder: (_) => WinForListeroPage(

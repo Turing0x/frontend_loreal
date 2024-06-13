@@ -10,18 +10,14 @@ class SeeDetailsBolasCargadas extends StatefulWidget {
   const SeeDetailsBolasCargadas({
     super.key,
     required this.bola,
-    required this.total,
-    required this.totalCorrido,
+    required this.fijo,
     required this.listeros, 
-    required this.jugada,
     required this.jornal
   });
 
   final String bola;
-  final String total;
-  final String totalCorrido;
+  final String fijo;
   final List<Listero> listeros;
-  final String jugada;
   final String jornal;
 
   @override
@@ -35,9 +31,7 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
   @override
   Widget build(BuildContext context) {
 
-    (widget.jugada == 'corrido')
-      ? (widget.listeros.sort((a, b) => b.corrido! - a.corrido!))
-      : (widget.listeros.sort((a, b) => b.total - a.total));
+    widget.listeros.sort((a, b) => b.fijo - a.fijo);
 
     return Scaffold(
       appBar: showAppBar('Revisión por listas'),
@@ -50,16 +44,14 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
                 children: [
                   boldLabel('Bola: ', widget.bola, 30),
                   const SizedBox(width: 20),
-                  boldLabel('Total: ', (widget.jugada == 'corrido')
-                    ? widget.totalCorrido
-                    : widget.total, 30)
+                  boldLabel('Total: ', widget.fijo, 30)
                   
                 ],
               ),
             ]),
             encabezado(
                 context, 'Listas donde aparece', 
-                false, () async{
+                !withLot, () async{
                   final ctrl = LimitsControllers();
                   await ctrl.saveDataLimitsBallsToUserCargados(widget.bola, widget.jornal);
                 },
@@ -75,9 +67,7 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
 
                   String username =
                       widget.listeros[index].username.toString();
-                  String total = (widget.jugada == 'corrido')
-                    ? widget.listeros[index].totalCorrido.toString()
-                    : widget.listeros[index].total.toString();
+                  String total = widget.listeros[index].fijo.toString();
 
                   return (total == '0')
                     ? Container()
@@ -104,7 +94,7 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
             textoDosis(' -> $total ', 23,
                 fontWeight: FontWeight.bold),
           ]),
-      trailing: (globallot.isEmpty)
+      trailing: (!withLot)
         ? OutlinedButton(
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Colors.black26)
@@ -123,30 +113,11 @@ class _SeeDetailsBolasCargadasState extends State<SeeDetailsBolasCargadas> {
         setState(() => customTileExpanded = expanded);
       },
       children: list.map((value) {
-        if(widget.jugada == 'fijo' || widget.jugada == 'nada' ){
-          if (value.fijo != 0) {
-            return Container(
-              alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.only(left: 30),
-              child: textoDosis(' --> ${value.fijo} ', 20),
-            );
-          }
-        } else {
-          if (value.corrido != 0) {
-            return Container(
-              alignment: Alignment.centerLeft,
-              margin: const EdgeInsets.only(left: 30),
-              child: Column(children: [
-                textoDosis(' --> ${value.corrido} ', 20),
-                if(value.corrido2 != null)
-                  textoDosis(' --> ${value.corrido2} ', 20)
-                
-              ]),
-            );
-          }
-        }
-        
-        return Container();
+        return Container(
+          alignment: Alignment.centerLeft,
+          margin: const EdgeInsets.only(left: 30),
+          child: textoDosis(' --> ${value.fijo} ', 20),
+        );
       }).toList(),
     );
   }

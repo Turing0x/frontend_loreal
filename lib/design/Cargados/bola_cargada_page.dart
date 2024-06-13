@@ -4,7 +4,6 @@ import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/Cargados/provider/Bolas/get_bola_provider.dart';
-import 'package:frontend_loreal/design/Cargados/provider/Bolas/observar_bola_provider.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
 import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:frontend_loreal/design/common/num_redondo.dart';
@@ -15,30 +14,18 @@ class BolaCargadaPage extends ConsumerWidget {
   const BolaCargadaPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final janddate = ref.watch(janddateR);
-    final bruto = ref.watch(
-        BolaTotalBrutoProvider(janddate.currentJornada, janddate.currentDate));
 
     return Scaffold(
         appBar: showAppBar('Bolas cargadas'),
-        body: Column(
+        body: const Column(
           children: [
-            const JornadAndDate(),
-            (globallot.isNotEmpty)
-              ? boldLabel('Sorteo: ', globallot.join(' - '), 25)
-              : Container(),
-            const Divider(
+            JornadAndDate(),
+            Divider(
               color: Colors.black,
               indent: 20,
               endIndent: 20,
             ),
-            const SizedBox(height: 20),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-              boldLabel('Bruto: ', bruto.toString(), 25),
-              boldLabel('Limpio: ', (bruto * 0.80).round().toString(), 25),
-            ]),
-            const SizedBox(height: 20),
-            const Expanded(child: ShowList())
+            Expanded(child: ShowList())
           ],
         ));
   }
@@ -62,9 +49,7 @@ class ShowList extends ConsumerWidget {
               }
 
               List<BolaCargadaModel> list = data;
-              (globallot.isNotEmpty)
-                ? (list.sort((a, b) => b.dinero! - a.dinero!))
-                : (list.sort((a, b) => b.total - a.total));
+              list.sort((a, b) => b.fijo - a.fijo);
 
               return ListView.builder(
                   itemCount: list.length,
@@ -89,18 +74,8 @@ class ShowList extends ConsumerWidget {
                                   fontSize: 25,
                                 ),
                                 textoDosis(
-                                    ' -> ${(globallot.isNotEmpty)
-                                      ? (list[index].jugada == 'corrido')
-                                        ? list[index].totalCorrido
-                                        : list[index].total
-                                      : list[index].total}', 25,
-                                    fontWeight: FontWeight.bold),
-                                (list[index].dinero != 0)
-                                  ? textoDosis(
-                                    ' -> ${list[index].dinero}', 25,
+                                    ' -> ${list[index].fijo}', 25,
                                     fontWeight: FontWeight.bold)
-                                  : Container()
-                                
                               ]),
                         ),
                       ),
@@ -108,10 +83,8 @@ class ShowList extends ConsumerWidget {
                           context, 'see_details_bola_cargada',
                           arguments: [
                             list[index].numero.toString(),
-                            list[index].total.toString(),
-                            list[index].totalCorrido.toString(),
+                            list[index].fijo.toString(),
                             list[index].listeros,
-                            list[index].jugada,
                             janddate.currentJornada
                           ]),
                     );
