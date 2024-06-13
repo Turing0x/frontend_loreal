@@ -203,42 +203,48 @@ class _ShowListState extends State<ShowList> {
                       for(var parle in parlesLot){
                         if(listContainsList(candado, parle)){
                           String parl = parle.toString().replaceAll(RegExp(r'\[|\]'), '');
-                          int fijo = (data.fijo! / ((data.numplay.length * (data.numplay.length - 1)) / 2)).toInt();
+                          double fijo = data.fijo! / ((data.numplay.length * (data.numplay.length - 1)) / 2);
                           groupManager(groupedByNumplay, parl, data.dinero!, fijo);
                         }
                       }
                     } else if ( winner.play == 'posicion' ){
                       if(data.numplay.toString() == fijo){
                         groupManager(groupedByNumplay, 
-                          'p$fijo', data.dinero!, data.fijo!);
+                          'p$fijo', data.dinero!, data.fijo!.toDouble());
                       } else if(data.numplay.toString() == c1){
                         groupManager(groupedByNumplay, 
-                          'n$c1', data.dinero!, data.corrido!);
+                          'n$c1', data.dinero!, data.corrido!.toDouble());
                       } else if(data.numplay.toString() == c2){
                         groupManager(groupedByNumplay, 
-                          'm$c2', data.dinero!, data.corrido2!);
+                          'm$c2', data.dinero!, data.corrido2!.toDouble());
                       }
-                    }
-                    else {
+                    } else if (winner.play == 'bola'){
+
                       if(data.numplay.toString() == fijo){
                         groupManager(groupedByNumplay, 
                           'c${data.numplay.toString()}', 
-                          data.corrido! * 25, data.corrido!);
+                          data.corrido! * 25, data.corrido!.toDouble());
+
+                        groupManager(groupedByNumplay, 
+                          data.numplay.toString(), data.dinero!, 
+                          data.fijo!.toDouble());
+
+                      } else {
+                        groupManager(groupedByNumplay, 
+                          data.numplay.toString(), data.dinero!, 
+                          data.corrido!.toDouble());
                       }
+                    } else {
                       if(data.numplay.toString().length == 1){
                         groupManager(groupedByNumplay, 
                           data.numplay.toString(), data.dinero!, 
-                          data.fijo!, type: 'd');
-                      }else {
-                        groupManager(groupedByNumplay, 
-                          data.numplay.toString(), data.dinero!, 
-                          data.fijo!);
+                          data.fijo!.toDouble(), type: 'd');
                       }
                     }
                   } else {
                     groupManager(groupedByNumplay, 
                       data.terminal.toString(), data.dinero!, 
-                      data.fijo!, type: 't');
+                      data.fijo!.toDouble(), type: 't');
                   }
                 }
 
@@ -303,7 +309,9 @@ class _ShowListState extends State<ShowList> {
                               padding: const EdgeInsets.only(right: 15),
                               child: ListTile(
                                 title: textoDosis( getName(listByNumplay[index].numplay), 22),
-                                subtitle: textoDosis('Dinero: ${listByNumplay[index].fijo}', 20, 
+                                subtitle: textoDosis('Dinero: ${
+                                  listByNumplay[index].fijo.toStringAsFixed(2)
+                                  .replaceAll('.00', '')}', 20, 
                                   fontWeight: FontWeight.bold),
                                 trailing: textoDosis(listByNumplay[index].dinero.toString(), 
                                   20, fontWeight: FontWeight.bold)))
@@ -363,7 +371,7 @@ class _ShowListState extends State<ShowList> {
     return numplay;
   }
 
-  void groupManager( Map<String, ByNumber> map, String key, int dinero, int fijo, {String? type = ''}) {
+  void groupManager( Map<String, ByNumber> map, String key, int dinero, double fijo, {String? type = ''}) {
 
     String name = (type == 't') ? 't$key' : ( type == 'd') ? 'd$key' : key;
 
@@ -443,7 +451,7 @@ class _ShowListState extends State<ShowList> {
 
 class ByNumber {
   final String numplay;
-  final int fijo;
+  final double fijo;
   final int dinero;
 
   ByNumber({
@@ -453,7 +461,7 @@ class ByNumber {
     
   ByNumber copyWith({
     String? numplay, 
-    int? fijo, 
+    double? fijo, 
     int? dinero}){
     return ByNumber(
       numplay: numplay ?? this.numplay, 
