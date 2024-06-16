@@ -97,11 +97,19 @@ Future readAllFilesAndSaveInMaps() async {
 Future deleteAllFiles() async {
   try {
 
-    getApplicationDocumentsDirectory().then((onValue) {
-      onValue.list(recursive: true, followLinks: true).forEach((folder){
-        folder.delete(recursive: true);
-      });
-    });
+    final readFiletoBlockIfOutOfLimit = await localFiletoBlockIfOutOfLimit;
+    final readFiletoBlockIfOutOfLimitFCPC =
+        await localFiletoBlockIfOutOfLimitFCPC;
+    final readFiletoBlockIfOutOfLimitTerminal =
+        await localFiletoBlockIfOutOfLimitTerminal;
+    final readFiletoBlockIfOutOfLimitDecena =
+        await localFiletoBlockIfOutOfLimitDecena;
+
+    if( readFiletoBlockIfOutOfLimit.existsSync() ) readFiletoBlockIfOutOfLimit.deleteSync();
+    if( readFiletoBlockIfOutOfLimitFCPC.existsSync() ) readFiletoBlockIfOutOfLimitFCPC.deleteSync();
+    if( readFiletoBlockIfOutOfLimitTerminal.existsSync() ) readFiletoBlockIfOutOfLimitTerminal.deleteSync();
+    if( readFiletoBlockIfOutOfLimitDecena.existsSync() ) readFiletoBlockIfOutOfLimitDecena.deleteSync();
+    
 
   } catch (e) {
     print('nada');
