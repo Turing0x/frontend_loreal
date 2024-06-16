@@ -235,16 +235,26 @@ class _ShowListState extends State<ShowList> {
                           data.corrido!.toDouble());
                       }
                     } else {
-                      if(data.numplay.toString().length == 1){
+                      if(fijo.startsWith(data.numplay.toString())){
                         groupManager(groupedByNumplay, 
                           data.numplay.toString(), data.dinero!, 
-                          ((data.fijo! + data.corrido!) * 10).toDouble(), type: 'd');
+                          (data.fijo! + data.corrido!).toDouble(), type: 'd');
+                      }else {
+                        groupManager(groupedByNumplay, 
+                          data.numplay.toString(), data.dinero!, 
+                          data.corrido!.toDouble(), type: 'd');
                       }
                     }
                   } else {
-                    groupManager(groupedByNumplay, 
-                      data.terminal.toString(), data.dinero!, 
-                      ((data.fijo! + data.corrido!) * 10).toDouble(), type: 't');
+                    if(fijo.endsWith(data.terminal.toString())){
+                      groupManager(groupedByNumplay, 
+                        data.terminal.toString(), data.dinero!, 
+                        (data.fijo! + data.corrido!).toDouble(), type: 't');
+                    }else {
+                      groupManager(groupedByNumplay, 
+                        data.terminal.toString(), data.dinero!, 
+                        data.corrido!.toDouble(), type: 't');
+                    }
                   }
                 }
 
