@@ -98,6 +98,7 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
     return IconButton(
       icon: const Icon(Icons.picture_as_pdf_outlined),
       onPressed: () async {
+
         try {
           if (!hasDataInList) {
             showToast('No hay información de listas para hacer el PDF');
@@ -123,8 +124,8 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
           final pdfData = await pdfControllers.getDataToPDF(
               widget.userName, janddate.currentDate, janddate.currentJornada);
 
+          String result = '';
           for(PdfData data in pdfData){
-            String result = '';
 
             toPDF.add(InvoiceItemColector(
               codigo: data.username,
@@ -155,10 +156,11 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
                 : result =
                   await PdfInvoiceApiColectorSimple.generate(invoice);
 
-            final openPdf = prefs.getBool('openPdf');
-            if (openPdf ?? false) {
-              OpenFile.open(result);
-            }
+          }
+
+          final openPdf = prefs.getBool('openPdf');
+          if (openPdf ?? false) {
+            OpenFile.open(result);
           }
 
           EasyLoading.showSuccess('El vale ha sido creado exitosamente');
