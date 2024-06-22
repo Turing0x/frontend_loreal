@@ -31,6 +31,10 @@ import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
 String lotThisDay = '';
 String typeFilter = 'todos';
 
+String fijo = lotThisDay.split(' ')[0].substring(1);
+String c1 = lotThisDay.split(' ')[1];
+String c2 = lotThisDay.split(' ')[2];
+
 class OnlyWinnersPage extends ConsumerStatefulWidget {
   const OnlyWinnersPage({super.key});
 
@@ -183,10 +187,7 @@ class _ShowListState extends State<ShowList> {
                 aux = list;
 
                 Map<String, ByNumber> groupedByNumplay = {};
-                String fijo = lotThisDay.split(' ')[0].substring(1);
-                String c1 = lotThisDay.split(' ')[1];
-                String c2 = lotThisDay.split(' ')[2];
-
+                
                 final parlesLot = combinaciones(lotThisDay.split(' ').map(
                 (e) {
                   if(e.length == 3){
@@ -365,7 +366,7 @@ class _ShowListState extends State<ShowList> {
 
   getName(String numplay) {
     if(numplay.contains('c')){
-      return '${numplay.split('c')[1]} en corrido';
+      return '${numplay.split('c')[1]} fijo pagado corrido';
     } else if(numplay.contains('p')){
       return '${numplay.split('p')[1]} en 1ra posición';
     } else if(numplay.contains('n')){
@@ -378,7 +379,7 @@ class _ShowListState extends State<ShowList> {
       return '${numplay.split('t')[1]} como terminal';
     }
 
-    return numplay;
+    return numplay == fijo ? '$numplay en fijo' : '$numplay en corrido';
   }
 
   void groupManager( Map<String, ByNumber> map, String key, int dinero, double fijo, {String? type = ''}) {
