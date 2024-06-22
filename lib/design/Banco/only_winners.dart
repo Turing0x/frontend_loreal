@@ -379,7 +379,8 @@ class _ShowListState extends State<ShowList> {
       return '${numplay.split('t')[1]} como terminal';
     }
 
-    return numplay == fijo ? '$numplay en fijo' : '$numplay en corrido';
+    return numplay == fijo ? '$numplay en fijo' : 
+      numplay.length == 6 ? numplay : '$numplay en corrido';
   }
 
   void groupManager( Map<String, ByNumber> map, String key, int dinero, double fijo, {String? type = ''}) {
