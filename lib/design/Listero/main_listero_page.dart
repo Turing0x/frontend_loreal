@@ -91,20 +91,20 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
       });
     });
 
+    getsavePdfFolder().then((value) async {
+      if (value != null) {
+        if (value != username! + jornalGlobal) {
+          await deleteAllFiles();
+          savePdfFolder(username! + jornalGlobal);
+          return;
+        } else {
+          await readAllFilesAndSaveInMaps();
+        }
+      }
+    });
+
     timeControllers.getDataTime().then((value) {
       if (value.isNotEmpty){ getServerTimes(value); }
-
-      getsavePdfFolder().then((value) async {
-        if (value != null) {
-          if (value != jornalGlobal) {
-            await deleteAllFiles();
-            return;
-          }
-        }
-
-        await readAllFilesAndSaveInMaps();
-      });
-
     });
 
     super.initState();
@@ -257,8 +257,6 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
         timeForThat = 'Tiempo para el cierre: ';
       });
 
-      savePdfFolder('dia');
-
       startTimer(
           day_difference_end.inHours.remainder(60).abs(),
           day_difference_end.inMinutes.remainder(60).abs(),
@@ -268,8 +266,6 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
         yuoAreIn = 'Sesión de la tarde';
         timeForThat = 'Tiempo para el cierre: ';
       });
-
-      savePdfFolder('noche');
 
       startTimer(
           night_difference_end.inHours.remainder(60).abs(),
