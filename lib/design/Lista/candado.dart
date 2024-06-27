@@ -82,7 +82,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
           SimpleTxt(
               icon: Icons.lock_outlined,
               texto: 'Números del candado',
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               controlador: candado,
               autofocus: true,
               maxLength: 59,
@@ -97,7 +97,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
           TxtInfo(
               texto: 'Apuesta: ',
               icon: Icons.attach_money,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               controlador: apuesta,
               left: 45,
@@ -128,16 +128,19 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
               return;
             }
 
-            int dineroForEachParle = int.parse(apuesta.text) ~/
-                ((aux.length * (aux.length - 1)) / 2);
+            int cantParles = (aux.length * (aux.length - 1)) ~/ 2;
+            int dineroForEachParle = int.parse(apuesta.text) ~/ cantParles;
 
-            bool exedeLimite = dineroForEachParle > getFijoLimit;
+            // print(cantParles);
+            // print(dineroForEachParle);
 
-            if (exedeLimite) {
-              showToast(
-                  'El límite para la apuesta del candado está establecido en $getFijoLimit. No puede ser excedido');
-              return;
-            }
+            // bool exedeLimite = dineroForEachParle > getFijoLimit;
+
+            // if (exedeLimite) {
+            //   showToast(
+            //     'En su candado tiene ${cantParles.toInt()} parles, para los cuales corresponde $dineroForEachParle pesos por cada uno de ellos.\n\n El límite para la apuesta del parle está establecido en $getFijoLimit. No puede ser excedido. ');
+            //   return;
+            // }
 
             List allCombinations = combinaciones(aux);
 
@@ -153,7 +156,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
 
               if (excedeApuesta) {
                 showToast(
-                    'El límite para el parlé está establecido en $getFijoLimit. No puede ser excedido');
+                    'El Parle $joined suma un total de $dineroForEachParle pesos. \n\n El límite para el parlé está establecido en $getFijoLimit. No puede ser excedido');
                 return;
               }
             }
