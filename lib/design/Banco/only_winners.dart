@@ -29,11 +29,9 @@ import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
 import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
 
 String lotThisDay = '';
+String fijoAux = '';
 String typeFilter = 'todos';
 
-String fijo = lotThisDay.split(' ')[0].substring(1);
-String c1 = lotThisDay.split(' ')[1];
-String c2 = lotThisDay.split(' ')[2];
 
 class OnlyWinnersPage extends ConsumerStatefulWidget {
   const OnlyWinnersPage({super.key});
@@ -185,10 +183,15 @@ class _ShowListState extends State<ShowList> {
               } else if(typeFilter == 'fcpos'){
 
                 aux = list;
+                String fijo = lot.split(' ')[0].substring(1);
+                String c1 = lot.split(' ')[1];
+                String c2 = lot.split(' ')[2];
+
+                fijoAux = fijo;
 
                 Map<String, ByNumber> groupedByNumplay = {};
                 
-                final parlesLot = combinaciones(lotThisDay.split(' ').map(
+                final parlesLot = combinaciones(lot.split(' ').map(
                 (e) {
                   if(e.length == 3){
                     return int.parse(e.substring(1));
@@ -198,6 +201,8 @@ class _ShowListState extends State<ShowList> {
 
                 for (var winner in list) {
                   ElementData data = winner.element!;
+                  String numplay = data.numplay.toString().rellenarCon0(2);
+
                   if ( data.numplay != null ) {
                     if (winner.play == 'parle' || winner.play == 'candado') {
                       final candado = combinaciones(data.numplay);
@@ -209,30 +214,30 @@ class _ShowListState extends State<ShowList> {
                         }
                       }
                     } else if ( winner.play == 'posicion' ){
-                      if(data.numplay.toString() == fijo){
+
+                      if( numplay == fijo){
                         groupManager(groupedByNumplay, 
                           'p$fijo', data.dinero!, data.fijo!.toDouble());
-                      } else if(data.numplay.toString() == c1){
+                      } else if(numplay == c1){
                         groupManager(groupedByNumplay, 
                           'n$c1', data.dinero!, data.corrido!.toDouble());
-                      } else if(data.numplay.toString() == c2){
+                      } else if(numplay == c2){
                         groupManager(groupedByNumplay, 
                           'm$c2', data.dinero!, data.corrido2!.toDouble());
                       }
                     } else if (winner.play == 'bola'){
-
-                      if(data.numplay.toString() == fijo){
+                      if(numplay == fijo){
                         groupManager(groupedByNumplay, 
-                          'c${data.numplay.toString()}', 
+                          'c$numplay',
                           data.corrido! * 25, data.corrido!.toDouble());
 
                         groupManager(groupedByNumplay, 
-                          data.numplay.toString(), data.dinero!, 
+                          numplay, data.dinero!, 
                           data.fijo!.toDouble());
 
                       } else {
                         groupManager(groupedByNumplay, 
-                          data.numplay.toString(), data.dinero!, 
+                          numplay, data.dinero!, 
                           data.corrido!.toDouble());
                       }
                     } else {
@@ -379,7 +384,7 @@ class _ShowListState extends State<ShowList> {
       return '${numplay.split('t')[1]} como terminal';
     }
 
-    return numplay == fijo ? '$numplay en fijo' : 
+    return numplay == fijoAux ? '$numplay en fijo' : 
       numplay.length == 6 ? numplay : '$numplay en corrido';
   }
 
