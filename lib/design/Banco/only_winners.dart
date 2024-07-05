@@ -201,7 +201,7 @@ class _ShowListState extends State<ShowList> {
 
                 for (var winner in list) {
                   ElementData data = winner.element!;
-                  String numplay = data.numplay.toString().rellenarCon0(2);
+                  String numplay = data.numplay.toString().rellenarCon0(2).trim();
 
                   if ( data.numplay != null ) {
                     if (winner.play == 'parle' || winner.play == 'candado') {
@@ -370,6 +370,7 @@ class _ShowListState extends State<ShowList> {
   }
 
   getName(String numplay) {
+
     if(numplay.contains('c')){
       return '${numplay.split('c')[1]} fijo pagado corrido';
     } else if(numplay.contains('p')){
@@ -449,9 +450,11 @@ class _ShowListState extends State<ShowList> {
 
     for (int i = 0; i < array.length - 1; i++) {
       for (int j = i + 1; j < array.length; j++) {
-        resultado.add([
-          (array[i].runtimeType == String) ? int.parse(array[i]) : array[i],
-        (array[j].runtimeType == String) ? int.parse(array[j]) : array[j]]);
+
+        String iString = array[i].toString().rellenarCon0(2);
+        String jString = array[j].toString().rellenarCon0(2);
+
+        resultado.add([ int.parse(iString) , int.parse(jString)]);
       }
     }
   
