@@ -208,9 +208,10 @@ class _ShowListState extends State<ShowList> {
                       final candado = combinaciones(data.numplay);
                       for(var parle in parlesLot){
                         if(listContainsList(candado, parle)){
-                          String parl = parle.toString().replaceAll(RegExp(r'\[|\]'), '');
+                          String parl = parle.toString().replaceAll(RegExp(r'\[|\]'), '').split(',').map(
+                            (e) => e.trim().rellenarCon0(2).trim() ).join(', ');
                           double fijo = data.fijo! / ((data.numplay.length * (data.numplay.length - 1)) / 2);
-                          groupManager(groupedByNumplay, parl, data.dinero!, fijo);
+                          groupManager(groupedByNumplay, parl, (fijo * 1100).toInt(), fijo);
                         }
                       }
                     } else if ( winner.play == 'posicion' ){
@@ -288,7 +289,9 @@ class _ShowListState extends State<ShowList> {
               return Column(
                 children: [
                   boldLabel('Sorteo del momento -> ', lot, 23),
-                  boldLabel('Premio Total -> ', premio.toString(), 23),
+                  Visibility(
+                    visible: typeFilter == 'todos',
+                    child: boldLabel('Premio Total -> ', premio.toString(), 23)),
 
                   OutlinedButton(
                     onPressed: (){

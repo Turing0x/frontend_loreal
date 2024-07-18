@@ -19,6 +19,8 @@ import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
 import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 bool hasDataInList = false;
 String role = '';
@@ -88,8 +90,10 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
         onChange: (valor) => {});
   }
 
-  void makePdf() {
+  void makePdf() async{
     try {
+
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       final pdfControllers = PdfControllers();
       EasyLoading.show(status: 'Buscando información para crear el vale...');
 
@@ -107,7 +111,9 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
         endDate: enddate,
       );
 
-      pdfData.then((value) {
+      pdfData.then((value) async{
+
+        String result = '';
         for (PdfData data in value) {
           toPDF.add(InvoiceItemColector(
               codigo: data.username,
@@ -132,13 +138,18 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
             usersColector: toPDF);
 
         (globalRoleToPDF == 'Banco')
-            ? PdfInvoiceApiBanco.generate(invoice,
+            ? result = await PdfInvoiceApiBanco.generate(invoice,
                 resumen: true, startDate: startdate, endDate: enddate)
             : (globalRoleToPDF == 'Colector General')
-                ? PdfInvoiceApiColectorGeneral.generate(invoice,
+                ? result = await PdfInvoiceApiColectorGeneral.generate(invoice,
                     resumen: true, startDate: startdate, endDate: enddate)
-                : PdfInvoiceApiColectorSimple.generate(invoice,
+                : result = await PdfInvoiceApiColectorSimple.generate(invoice,
                     resumen: true, startDate: startdate, endDate: enddate);
+
+        final openPdf = prefs.getBool('openPdf');
+        if (openPdf ?? false) {
+          OpenFile.open(result);
+        }
       });
 
       EasyLoading.showSuccess('El vale ha sido creado exitosamente');

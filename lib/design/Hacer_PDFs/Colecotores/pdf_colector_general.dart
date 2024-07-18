@@ -270,7 +270,7 @@ class PdfInvoiceApiColectorGeneral {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(height: 0.5 * PdfPageFormat.cm),
-        pwtextoDosis('RESÚMEN POR FECHA DE COLECTOR SIMPLE', 20,
+        pwtextoDosis('RESÚMEN POR FECHA DE COLECTOR GENERAL', 20,
             fontWeight: FontWeight.bold),
         pwboldLabel('Generado el día: ', invoice.infoColector.fechaActual, 18)
       ],
