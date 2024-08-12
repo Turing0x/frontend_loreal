@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/controllers/cargados_controllers.dart';
+import 'package:frontend_loreal/config/riverpod/date_range_bloc.dart';
 import 'package:frontend_loreal/config/riverpod/filters_provider.dart';
 import 'package:frontend_loreal/config/riverpod/limits_provider.dart';
 import 'package:frontend_loreal/config/riverpod/payments_provider.dart';
@@ -61,6 +62,9 @@ final toJoinListR = StateNotifierProvider<JoinListProvider, JoinListModel>(
 final toBlockAnyBtnR =
     StateNotifierProvider<ToBlockAnyBtnProvider, ToBlockAnyBtnModel>(
         (ref) => ToBlockAnyBtnProvider());
+
+final dateRangeR = StateNotifierProvider<DateRnageProvider, DateRangeModel>(
+  (ref) => DateRnageProvider());
 
 ValueNotifier<bool> cambioMillionGame = ValueNotifier<bool>(true);
 ValueNotifier<bool> searchCargados = ValueNotifier<bool>(true);

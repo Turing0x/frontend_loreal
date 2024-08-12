@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/controllers/pdf_controllers.dart';
+import 'package:frontend_loreal/design/common/date_range_widget.dart';
 import 'package:frontend_loreal/models/pdf_data_model.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
@@ -24,9 +25,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 bool hasDataInList = false;
 String role = '';
-
-String startdate = todayGlobal;
-String enddate = todayGlobal;
 
 class MakeResumenForBank extends ConsumerStatefulWidget {
   const MakeResumenForBank({super.key, required this.userName});
@@ -66,10 +64,16 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
       ]),
       body: Column(
         children: [
+          
           const JornadAndDate(showDate: false),
-          ctnDateRangePicker(context),
+          
+          const InitialDateSelect(),
+          const EndDateSelect(),
+
           txtUser(),
+          
           encabezado(context, 'Resultados de la búsqueda', false, () {}, false),
+          
           Expanded(
             child: ShowList(
                 janddate: janddate, ref: ref, seeChUsername: usernameCTRL.text),
@@ -93,6 +97,8 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
   void makePdf() async{
     try {
 
+      final dateRange = ref.watch(dateRangeR);
+
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       final pdfControllers = PdfControllers();
       EasyLoading.show(status: 'Buscando información para crear el vale...');
@@ -107,8 +113,8 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
         janddate.currentDate,
         janddate.currentJornada,
         makeResumen: 'resumen',
-        startDate: startdate,
-        endDate: enddate,
+        startDate: dateRange.initialDate,
+        endDate: dateRange.endDate,
       );
 
       pdfData.then((value) async{
@@ -139,12 +145,18 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
 
         (globalRoleToPDF == 'Banco')
             ? result = await PdfInvoiceApiBanco.generate(invoice,
-                resumen: true, startDate: startdate, endDate: enddate)
+                resumen: true, 
+                startDate: dateRange.initialDate, 
+                endDate: dateRange.endDate)
             : (globalRoleToPDF == 'Colector General')
                 ? result = await PdfInvoiceApiColectorGeneral.generate(invoice,
-                    resumen: true, startDate: startdate, endDate: enddate)
+                    resumen: true, 
+                    startDate: dateRange.initialDate, 
+                    endDate: dateRange.endDate)
                 : result = await PdfInvoiceApiColectorSimple.generate(invoice,
-                    resumen: true, startDate: startdate, endDate: enddate);
+                    resumen: true, 
+                    startDate: dateRange.initialDate, 
+                    endDate: dateRange.endDate);
 
         final openPdf = prefs.getBool('openPdf');
         if (openPdf ?? false) {
@@ -158,53 +170,6 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
     }
   }
 
-  Container ctnDateRangePicker(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 30, right: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          textoDosis('Rango:', 20, fontWeight: FontWeight.bold),
-          Flexible(
-            child: Container(
-                height: 40,
-                width: 150,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    
-                    borderRadius: BorderRadius.circular(10)),
-                child: textoDosis('$startdate - $enddate', 18)),
-          ),
-          Flexible(
-            child: OutlinedButton(
-                child: textoDosis('Cambiar', 16),
-                onPressed: () async {
-                  DateTimeRange? pickedDate = await showDateRangePicker(
-                      context: context,
-                      firstDate: DateTime(DateTime.now().year),
-                      lastDate: DateTime(DateTime.now().year + 1));
-
-                  if (pickedDate != null) {
-                    String pickedStart = pickedDate.toString().split(' - ')[0];
-                    String pickedEnd = pickedDate.toString().split(' - ')[1];
-
-                    String formattedStartDate =
-                        DateFormat.MMMd().format(DateTime.parse(pickedStart));
-
-                    String formattedEndDate =
-                        DateFormat.MMMd().format(DateTime.parse(pickedEnd));
-
-                    setState(() {
-                      startdate = formattedStartDate;
-                      enddate = formattedEndDate;
-                    });
-                  }
-                }),
-          )
-        ],
-      ),
-    );
-  }
 }
 
 class ShowList extends StatelessWidget {
@@ -221,6 +186,9 @@ class ShowList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final dateRange = ref.watch(dateRangeR);
+
     final userCtrl = UserControllers();
     return Scaffold(
       body: ValueListenableBuilder(
@@ -232,8 +200,8 @@ class ShowList extends StatelessWidget {
                   userInfo: false,
                   janddate.currentJornada,
                   janddate.currentDate,
-                  startDate: startdate,
-                  endDate: enddate,
+                  startDate: dateRange.initialDate,
+                  endDate: dateRange.endDate,
                   makeResumen: true),
               builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
