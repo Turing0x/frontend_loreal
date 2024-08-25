@@ -132,11 +132,8 @@ class _ShowListState extends ConsumerState<ShowList> {
                         title: textoDosis(users[index].username, 18,
                             fontWeight: FontWeight.bold),
                         subtitle: textoDosis(users[index].role['name'], 20),
-                        trailing: (users[index].role['code'] == 'listero')
-                            ? btnEnable(context, users[index].id,
-                                users[index].username, users[index].enable)
-                            : const Icon(Icons.arrow_right_rounded,
-                                color: Colors.black, size: 30),
+                        trailing: btnEnable(context, users[index].id,
+                          users[index].username, users[index].enable),
                         onTap: () {
                           if (users[index].role['code'] != 'listero') {
                             setState(() {
