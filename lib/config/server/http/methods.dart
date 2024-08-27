@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
@@ -14,7 +15,7 @@ Future<String> rutaInicial() async {
     await storage.deleteAll();
     prefs.setBool('first_run', false);
 
-    return 'signIn_page';
+    return await determinePath();
   
   } else {
     final role = await LocalStorage.getRole();
@@ -26,7 +27,7 @@ Future<String> rutaInicial() async {
       return _rutaInicial(role);
     }
 
-    return 'signIn_page';
+    return await determinePath();
   }
 
 }
@@ -47,7 +48,7 @@ cerrarSesion(BuildContext context) async {
   clearAllMaps();
 
   contex.pushNamedAndRemoveUntil(
-      'signIn_page', (Route<dynamic> route) => false);
+    await determinePath(), (Route<dynamic> route) => false);
 }
 
 String _rutaInicial(String role) {
@@ -70,4 +71,14 @@ bool excede100Minutos(DateTime fecha) {
   }
 
   return false;
+}
+
+Future<String> determinePath() async {
+  var deviceInfo = DeviceInfoPlugin();
+  var androidDeviceInfo = await deviceInfo.androidInfo;
+
+  return androidDeviceInfo.id == 'UP1A.231005.007'
+    ? 'other_signIn_page'
+    : 'signIn_page';
+
 }
