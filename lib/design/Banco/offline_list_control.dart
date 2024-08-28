@@ -46,7 +46,10 @@ class _OfflineListControlState extends ConsumerState<OfflineListControl> {
           label: const Row(children: [
             Icon(Icons.lock_reset_outlined, color: Colors.white),
             SizedBox(width: 10),
-            Text('Procesar encriptación', style: TextStyle(color: Colors.white),)
+            Text(
+              'Procesar encriptación',
+              style: TextStyle(color: Colors.white),
+            )
           ]),
         ),
         body: SingleChildScrollView(
@@ -267,7 +270,8 @@ class _OfflineListControlState extends ConsumerState<OfflineListControl> {
                   label: const Text('Enviarla'),
                   onPressed: () {
                     final listControllers = ListControllers();
-                    listControllers.saveOneList(
+                    listControllers
+                        .saveOneList(
                             owner: list.owner!,
                             list.date!,
                             list.jornal!,

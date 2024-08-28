@@ -7,7 +7,6 @@ import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_extend/share_extend.dart';
 
 class InternalStoragePage extends StatefulWidget {
   const InternalStoragePage({super.key});
@@ -200,7 +199,9 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
+      if (!Directory('${appDocDirectory?.path}/PDFDocs').existsSync()) {
+        return [];
+      }
 
       final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
       for (var file in fileList) {
@@ -218,17 +219,18 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      if( !Directory('${appDocDirectory?.path}/PDFList').existsSync() ) return [];
+      if (!Directory('${appDocDirectory?.path}/PDFList').existsSync()) {
+        return [];
+      }
 
       final dir = Directory('${appDocDirectory?.path}/PDFList');
-      if( dir.existsSync() ){
+      if (dir.existsSync()) {
+        final fileList =
+            Directory('${appDocDirectory?.path}/PDFList').listSync();
 
-        final fileList = Directory('${appDocDirectory?.path}/PDFList').listSync();
-        
         for (var file in fileList) {
           paths.add(file.path);
         }
-
       }
 
       return paths;
@@ -242,7 +244,9 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
+      if (!Directory('${appDocDirectory?.path}/PDFDocs').existsSync()) {
+        return [];
+      }
 
       final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
       for (var file in fileList) {
@@ -262,15 +266,6 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
           color: Colors.green,
         ),
         onPressed: () => OpenFile.open(path, type: 'application/pdf'));
-  }
-
-  IconButton shareFile(String path) {
-    return IconButton(
-        icon: const Icon(
-          Icons.share_outlined,
-          color: Colors.blue,
-        ),
-        onPressed: () => ShareExtend.share(path, 'file'));
   }
 
   IconButton deleteFile(String path) {

@@ -5,7 +5,6 @@ import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:open_file/open_file.dart';
-import 'package:share_extend/share_extend.dart';
 
 class SeeListsOnFolder extends StatefulWidget {
   const SeeListsOnFolder({super.key, required this.path});
@@ -30,7 +29,7 @@ class _SeeListsOnFolderState extends State<SeeListsOnFolder> {
       });
     }
 
-    if(fileList.isNotEmpty){
+    if (fileList.isNotEmpty) {
       if (fileList[0] is Directory) {
         isType = false;
       }
@@ -155,7 +154,6 @@ class _SeeListsOnFolderState extends State<SeeListsOnFolder> {
                                   '${fileName[0]} -> ${fileName[1]}', 18,
                                   fontWeight: FontWeight.bold),
                           const Spacer(),
-                          shareFile(files[index]),
                           deleteFile(files[index])
                         ],
                       ),
@@ -164,15 +162,6 @@ class _SeeListsOnFolderState extends State<SeeListsOnFolder> {
                 },
               ),
             ));
-  }
-
-  IconButton shareFile(String path) {
-    return IconButton(
-        icon: const Icon(
-          Icons.share_outlined,
-          color: Colors.blue,
-        ),
-        onPressed: () => ShareExtend.share(path, 'file'));
   }
 
   IconButton deleteFile(String path) {

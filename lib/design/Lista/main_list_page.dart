@@ -11,7 +11,6 @@ import 'package:frontend_loreal/design/Lista/terminales.dart';
 import 'package:frontend_loreal/design/common/popup_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Lista/join_list.dart';
-import 'package:r_upgrade/r_upgrade.dart';
 
 class MainMakeList extends ConsumerStatefulWidget {
   const MainMakeList({super.key, required this.username});
@@ -26,38 +25,28 @@ class _MainMakeListState extends ConsumerState<MainMakeList> {
   TextEditingController apuesta = TextEditingController();
 
   @override
-  void initState() {
-    RUpgrade.stream.listen((DownloadInfo info) {
-      ref.read(release.notifier).actualizarState(
-            info: info,
-          );
-    });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final toJoinList = ref.watch(toJoinListR);
     final toJoinListM = ref.read(toJoinListR.notifier);
     final layoutModel = ref.watch(currentPage);
 
     return Scaffold(
-      appBar: showAppBar('Creación de listas', actions: [
-        IconButton(
-          icon: const Icon(Icons.cleaning_services_outlined),
-          onPressed: toJoinList.currentList.isNotEmpty
-              ? () => clearData(toJoinListM)
-              : null,
-        ),
-        IconButton(
-          icon: const Icon(Icons.energy_savings_leaf_outlined),
-          onPressed: () => Navigator.pushNamed(context, 'for_now_page')
-        ),
-        PopupWidget(
-          username: widget.username,
-        )
-      ], centerTitle: false),
+      appBar: showAppBar('Creación de listas',
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.cleaning_services_outlined),
+              onPressed: toJoinList.currentList.isNotEmpty
+                  ? () => clearData(toJoinListM)
+                  : null,
+            ),
+            IconButton(
+                icon: const Icon(Icons.energy_savings_leaf_outlined),
+                onPressed: () => Navigator.pushNamed(context, 'for_now_page')),
+            PopupWidget(
+              username: widget.username,
+            )
+          ],
+          centerTitle: false),
       body: SingleChildScrollView(
         child: Column(
           children: [
