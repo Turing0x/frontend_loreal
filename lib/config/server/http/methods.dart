@@ -1,4 +1,3 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
@@ -6,17 +5,14 @@ import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<String> rutaInicial() async {
-
   final prefs = await SharedPreferences.getInstance();
 
   if (prefs.getBool('first_run') ?? true) {
-    
     const FlutterSecureStorage storage = FlutterSecureStorage();
     await storage.deleteAll();
     prefs.setBool('first_run', false);
 
-    return await determinePath();
-  
+    return determinePath();
   } else {
     final role = await LocalStorage.getRole();
     final lastTime = await LocalStorage.getTimeSign();
@@ -27,9 +23,8 @@ Future<String> rutaInicial() async {
       return _rutaInicial(role);
     }
 
-    return await determinePath();
+    return determinePath();
   }
-
 }
 
 cerrarSesion(BuildContext context) async {
@@ -48,7 +43,7 @@ cerrarSesion(BuildContext context) async {
   clearAllMaps();
 
   contex.pushNamedAndRemoveUntil(
-    await determinePath(), (Route<dynamic> route) => false);
+      determinePath(), (Route<dynamic> route) => false);
 }
 
 String _rutaInicial(String role) {
@@ -73,12 +68,7 @@ bool excede100Minutos(DateTime fecha) {
   return false;
 }
 
-Future<String> determinePath() async {
-  var deviceInfo = DeviceInfoPlugin();
-  var androidDeviceInfo = await deviceInfo.androidInfo;
-
-  return androidDeviceInfo.id == 'UP1A.231005.007'
-    ? 'other_signIn_page'
-    : 'signIn_page';
-
+String determinePath() {
+  return 'other_signIn_page';
+  // return 'signIn_page';
 }
