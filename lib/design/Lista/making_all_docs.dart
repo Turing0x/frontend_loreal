@@ -19,15 +19,13 @@ import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
-import 'package:share_extend/share_extend.dart';
 
 // ignore: prefer_typing_uninitialized_variables
 var toChange;
 final pdfControllers = PdfControllers();
 
 class MakingAllDocs extends ConsumerStatefulWidget {
-  const MakingAllDocs(
-      {super.key, required this.lotThisDay});
+  const MakingAllDocs({super.key, required this.lotThisDay});
 
   final String lotThisDay;
 
@@ -36,9 +34,8 @@ class MakingAllDocs extends ConsumerStatefulWidget {
 }
 
 class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
-  
   List<User> allUsers = [];
-  
+
   int cant = 0;
   int total = 0;
 
@@ -107,8 +104,7 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
         }
         cont++;
         setState(() {
-          hasBeenDone.add(
-              {'done': true, 'user': each, 'path': result});
+          hasBeenDone.add({'done': true, 'user': each, 'path': result});
           cant = cont;
         });
         if (cont == peoples.length) {
@@ -128,7 +124,8 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
 
     String result = '';
 
-    final pdfData = await pdfControllers.getDataToPDF(username, currentDate, currentJornada);
+    final pdfData = await pdfControllers.getDataToPDF(
+        username, currentDate, currentJornada);
 
     for (PdfData data in pdfData) {
       if (data.calcs.limpio != 0 ||
@@ -169,9 +166,8 @@ class _MakingAllDocsState extends ConsumerState<MakingAllDocs> {
 
   Future<String> makeListsPdf(
       String username, String currentDate, String currentJornada) async {
-    
     final listControllers = ListControllers();
-    
+
     DateTime now = DateTime.now();
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
 
@@ -264,14 +260,10 @@ class _ShowListState extends State<ShowList> {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: style,
         child: ListTile(
-          title: textoDosis(user.username, 18, fontWeight: FontWeight.bold),
-          subtitle: textoDosis(user.role['name'], 18),
-          leading: SizedBox(height: double.infinity, child: done),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [shareFile(user), deleteFile(user)],
-          ),
-        ),
+            title: textoDosis(user.username, 18, fontWeight: FontWeight.bold),
+            subtitle: textoDosis(user.role['name'], 18),
+            leading: SizedBox(height: double.infinity, child: done),
+            trailing: deleteFile(user)),
       ),
     );
   }
@@ -304,20 +296,6 @@ class _ShowListState extends State<ShowList> {
                       ? icon
                       : fallo)),
     );
-  }
-
-  Flexible shareFile(User user) {
-    return Flexible(
-        child: IconButton(
-            icon: const Icon(
-              Icons.share_outlined,
-              color: Colors.blue,
-            ),
-            onPressed: () {
-              var userFound =
-                  hasBeenDone.singleWhere((data) => data['user'] == user);
-              ShareExtend.share(userFound['path'], 'file');
-            }));
   }
 
   Flexible deleteFile(User user) {

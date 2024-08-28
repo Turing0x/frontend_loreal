@@ -1,4 +1,3 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
@@ -42,14 +41,6 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
       setIdToSearch.state = value;
     });
 
-    AdaptiveTheme.getThemeMode().then((value){
-      if(value!.isDark){
-        setState(() {
-          isDark = true;
-        });
-      }
-    });
-
     super.initState();
   }
 
@@ -75,7 +66,10 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
           label: const Row(children: [
             Icon(Icons.sports_outlined, color: Colors.white),
             SizedBox(width: 10),
-            Text('Añadir sorteo', style: TextStyle(color: Colors.white),)
+            Text(
+              'Añadir sorteo',
+              style: TextStyle(color: Colors.white),
+            )
           ]),
         ),
         body: SingleChildScrollView(
@@ -86,14 +80,16 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  customBolaBtn(context, 
-                    onTap: () => Navigator.pushNamed(context, 'bola_cargada_page'), 
-                    icon: Icons.sports_baseball_outlined, 
-                    text: 'Bolas'),
-                  customBolaBtn(context, 
-                    onTap: () => Navigator.pushNamed(context, 'parle_cargada_page'), 
-                    icon: Icons.format_list_numbered_outlined, 
-                    text: 'Parlés')
+                  customBolaBtn(context,
+                      onTap: () =>
+                          Navigator.pushNamed(context, 'bola_cargada_page'),
+                      icon: Icons.sports_baseball_outlined,
+                      text: 'Bolas'),
+                  customBolaBtn(context,
+                      onTap: () =>
+                          Navigator.pushNamed(context, 'parle_cargada_page'),
+                      icon: Icons.format_list_numbered_outlined,
+                      text: 'Parlés')
                 ],
               ),
               const SizedBox(height: 15),
@@ -128,7 +124,8 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
         )));
   }
 
-  GestureDetector customBolaBtn(BuildContext context, {
+  GestureDetector customBolaBtn(
+    BuildContext context, {
     void Function()? onTap,
     IconData? icon,
     String text = '',

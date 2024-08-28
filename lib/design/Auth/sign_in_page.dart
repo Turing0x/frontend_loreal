@@ -33,6 +33,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       }
     });
 
+    // AdaptiveTheme.getThemeMode().then((value){
+    //   if(value!.isDark){
+    //     setState(() {
+    //       isDark = true;
+    //     });
+    //   }
+    // });
+
     super.initState();
   }
 

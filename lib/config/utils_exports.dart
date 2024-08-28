@@ -1,14 +1,9 @@
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/methods/update_methods.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/design/Release/release_version_widget.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
-import 'package:r_upgrade/r_upgrade.dart';
 
 TextStyle? tituloListTile =
     const TextStyle(fontFamily: 'Dosis', fontWeight: FontWeight.bold);
@@ -23,7 +18,8 @@ Divider divisor = const Divider(
 PreferredSizeWidget? showAppBar(String titulo,
     {Widget? leading, List<Widget>? actions, bool centerTitle = true}) {
   return AppBar(
-    title: textoDosis(titulo, 24, color: (isDark) ? Colors.black : Colors.white),
+    title:
+        textoDosis(titulo, 24, color: (isDark) ? Colors.black : Colors.white),
     elevation: 2,
     centerTitle: centerTitle,
     leading: leading,
@@ -38,7 +34,8 @@ void showToast(String msg, {bool type = false}) => Fluttertoast.showToast(
     );
 
 Container btnWithIcon(BuildContext context, Color? backgroundColor, Widget icon,
-    String texto, void Function()? onPressed, double width, {double fontSize = 20}) {
+    String texto, void Function()? onPressed, double width,
+    {double fontSize = 20}) {
   return Container(
     margin: const EdgeInsets.only(top: 10),
     width: width,
@@ -59,7 +56,6 @@ Widget textoDosis(String texto, double? fontSize,
     Color? color = Colors.black,
     int? maxLines,
     bool underline = false}) {
-
   return Text(
     texto,
     overflow: TextOverflow.ellipsis,
@@ -269,42 +265,6 @@ ElevatedButton cerrarSesionWidget(BuildContext context) {
   );
 }
 
-IconButton buscarActualziacionWidget(BuildContext context) {
-  return IconButton(
-      onPressed: () {
-        mostrarDialogo(
-          context,
-          title: 'Actualización disponible',
-          widgetTitle: Consumer(
-            builder: (_, ref, __) {
-              final releaseActual = ref.watch(release);
-              return IconButton(
-                onPressed: !releaseActual.buscandoRelease
-                    ? () async {
-                        final id = await RUpgrade.getLastUpgradedId();
-                        if (id != null) {
-                          await RUpgrade.cancel(id);
-                        }
-                        await buscarActualizacionMethod(ref);
-                      }
-                    : null,
-                icon: const Icon(Icons.refresh),
-              );
-            },
-          ),
-          shape: shape(),
-          titleBoton: 'Aceptar',
-          mostrarCancelar: false,
-          onPressed: () => Navigator.pop(context),
-          content: SizedBox(
-            width: MediaQuery.of(context).size.height * 0.7,
-            child: const ReleaseVersionsWidget(),
-          ),
-        );
-      },
-      icon: const Icon(Icons.update));
-}
-
 Padding toChangePass(BuildContext context) {
   TextEditingController actualPass = TextEditingController();
   TextEditingController newPass = TextEditingController();
@@ -315,7 +275,6 @@ Padding toChangePass(BuildContext context) {
       texto: 'Clave actual: ',
       keyboardType: TextInputType.text,
       controlador: actualPass,
-      
       icon: Icons.lock_outline_rounded,
       onChange: (valor) => (() {}),
       left: 5,
@@ -325,7 +284,6 @@ Padding toChangePass(BuildContext context) {
       texto: 'Nueva clave: ',
       keyboardType: TextInputType.text,
       controlador: newPass,
-      
       icon: Icons.password,
       onChange: (valor) => (() {}),
       left: 5,
@@ -340,7 +298,8 @@ Padding toChangePass(BuildContext context) {
             elevation: 2,
           ),
           child: textoDosis('Cambiar clave', 20, color: Colors.white),
-          onPressed: () => userCtrl.changePass(actualPass.text, newPass.text, context)),
+          onPressed: () =>
+              userCtrl.changePass(actualPass.text, newPass.text, context)),
     ),
   ]);
 }

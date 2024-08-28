@@ -14,7 +14,6 @@ import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:share_extend/share_extend.dart';
 
 import '../../config/database/list_table/bd_bloc.dart';
 
@@ -138,7 +137,8 @@ class PopupWidget extends ConsumerWidget {
 
     final jwt = _jwt(lista);
 
-    final result = await listControllers.saveOneList(todayGlobal, jornalGlobal, jwt);
+    final result =
+        await listControllers.saveOneList(todayGlobal, jornalGlobal, jwt);
     if (result) {
       fileManagerWriteGlobal(toBlockIfOutOfLimit);
       fileManagerWriteFCPC(toBlockIfOutOfLimitFCPC);
@@ -196,11 +196,6 @@ class PopupWidget extends ConsumerWidget {
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: obtenerKey));
                     showToast('Firma copiada al portapapeles', type: true);
-                  }),
-              IconButton(
-                  icon: const Icon(Icons.share_outlined, color: Colors.black),
-                  onPressed: () {
-                    ShareExtend.share(obtenerKey, 'text');
                   })
             ],
           ),

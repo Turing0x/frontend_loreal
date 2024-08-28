@@ -39,7 +39,6 @@ import '../../design/Limites/global_limits_page.dart';
 import '../../design/Lista/for_now_page.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
-
   'config_off_page': (_) => const ConfigOfflinePass(),
   'change_pass_page': (_) => const ChangeAccessPass(),
   'main_listero_page': (_) => const MainListeroPage(),

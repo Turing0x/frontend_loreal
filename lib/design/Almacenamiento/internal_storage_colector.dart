@@ -7,7 +7,6 @@ import 'package:frontend_loreal/design/common/encabezado.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_extend/share_extend.dart';
 
 class InternalStorageColectorPage extends StatefulWidget {
   const InternalStorageColectorPage({super.key});
@@ -202,7 +201,9 @@ class _InternalStoragePageSColectortate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
+      if (!Directory('${appDocDirectory?.path}/PDFDocs').existsSync()) {
+        return [];
+      }
 
       final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
       for (var file in fileList) {
@@ -220,7 +221,9 @@ class _InternalStoragePageSColectortate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      if( !Directory('${appDocDirectory?.path}/PDFList').existsSync() ) return [];
+      if (!Directory('${appDocDirectory?.path}/PDFList').existsSync()) {
+        return [];
+      }
 
       final fileList = Directory('${appDocDirectory?.path}/PDFList').listSync();
       for (var file in fileList) {
@@ -238,7 +241,9 @@ class _InternalStoragePageSColectortate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      if( !Directory('${appDocDirectory?.path}/PDFDocs').existsSync() ) return [];
+      if (!Directory('${appDocDirectory?.path}/PDFDocs').existsSync()) {
+        return [];
+      }
 
       final fileList = Directory('${appDocDirectory?.path}/PDFDocs').listSync();
       for (var file in fileList) {
@@ -258,15 +263,6 @@ class _InternalStoragePageSColectortate
           color: Colors.green,
         ),
         onPressed: () => OpenFile.open(path));
-  }
-
-  IconButton shareFile(String path) {
-    return IconButton(
-        icon: const Icon(
-          Icons.share_outlined,
-          color: Colors.blue,
-        ),
-        onPressed: () => ShareExtend.share(path, 'file'));
   }
 
   IconButton deleteFile(String path) {

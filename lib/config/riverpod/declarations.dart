@@ -5,20 +5,15 @@ import 'package:frontend_loreal/config/riverpod/date_range_bloc.dart';
 import 'package:frontend_loreal/config/riverpod/filters_provider.dart';
 import 'package:frontend_loreal/config/riverpod/limits_provider.dart';
 import 'package:frontend_loreal/config/riverpod/payments_provider.dart';
-import 'package:frontend_loreal/config/riverpod/release_riverpod.dart';
 import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date_bloc.dart';
 import 'package:frontend_loreal/design/Lista/candado.dart';
 import 'package:frontend_loreal/design/Lista/to_block.dart';
 import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
 import 'package:frontend_loreal/models/Lista/join_list.dart';
 import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
-import 'package:frontend_loreal/models/Release/release_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'declarations.g.dart';
-
-final release = StateNotifierProvider<ReleaseRiverpod, ReleaseModel>(
-    (ref) => ReleaseRiverpod());
 
 final paymentCrtl = StateNotifierProvider<PaymentsProvider, Payments>(
     (ref) => PaymentsProvider());
@@ -64,7 +59,7 @@ final toBlockAnyBtnR =
         (ref) => ToBlockAnyBtnProvider());
 
 final dateRangeR = StateNotifierProvider<DateRnageProvider, DateRangeModel>(
-  (ref) => DateRnageProvider());
+    (ref) => DateRnageProvider());
 
 ValueNotifier<bool> cambioMillionGame = ValueNotifier<bool>(true);
 ValueNotifier<bool> searchCargados = ValueNotifier<bool>(true);

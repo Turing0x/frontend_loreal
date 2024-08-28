@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/opt_list_tile.dart';
-import 'package:r_upgrade/r_upgrade.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsColectorPage extends ConsumerStatefulWidget {
@@ -19,12 +17,6 @@ class _SettingsColectorPageState extends ConsumerState<SettingsColectorPage> {
 
   @override
   void initState() {
-    RUpgrade.stream.listen((DownloadInfo info) {
-      ref.read(release.notifier).actualizarState(
-            info: info,
-          );
-    });
-
     SharedPreferences.getInstance().then((value) {
       if (value.getBool('openPdf') != null) {
         setState(() {

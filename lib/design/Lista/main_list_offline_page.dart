@@ -13,7 +13,6 @@ import 'package:frontend_loreal/design/Lista/terminales.dart';
 import 'package:frontend_loreal/design/Listero/main_listero_page.dart';
 import 'package:frontend_loreal/design/common/popup_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:r_upgrade/r_upgrade.dart';
 
 class MainMakeListOffline extends ConsumerStatefulWidget {
   const MainMakeListOffline({super.key});
@@ -29,12 +28,6 @@ class _MainMakeListOfflineState extends ConsumerState<MainMakeListOffline> {
 
   @override
   void initState() {
-    RUpgrade.stream.listen((DownloadInfo info) {
-      ref.read(release.notifier).actualizarState(
-            info: info,
-          );
-    });
-
     LocalStorage.getUsername().then((value) {
       if (value!.isNotEmpty) {
         username = value;

@@ -7,7 +7,6 @@ import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/no_data.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_extend/share_extend.dart';
 
 class InternalStorageListeroPage extends StatefulWidget {
   const InternalStorageListeroPage({super.key});
@@ -122,11 +121,7 @@ class _InternalStoragePageSListerotate
                           fontWeight: FontWeight.bold)),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
-                      openFile(list[index]),
-                      shareFile(list[index]),
-                      deleteFile(list[index])
-                    ],
+                    children: [openFile(list[index]), deleteFile(list[index])],
                   ),
                 );
               },
@@ -195,7 +190,9 @@ class _InternalStoragePageSListerotate
       List<String> paths = [];
 
       Directory? appDocDirectory = await getExternalStorageDirectory();
-      if( !Directory('${appDocDirectory?.path}/PDFList').existsSync() ) return [];
+      if (!Directory('${appDocDirectory?.path}/PDFList').existsSync()) {
+        return [];
+      }
 
       final fileList = Directory('${appDocDirectory?.path}/PDFList').listSync();
       for (var file in fileList) {
@@ -215,15 +212,6 @@ class _InternalStoragePageSListerotate
           color: Colors.green,
         ),
         onPressed: () => OpenFile.open(path));
-  }
-
-  IconButton shareFile(String path) {
-    return IconButton(
-        icon: const Icon(
-          Icons.share_outlined,
-          color: Colors.blue,
-        ),
-        onPressed: () => ShareExtend.share(path, 'file'));
   }
 
   IconButton deleteFile(String path) {
