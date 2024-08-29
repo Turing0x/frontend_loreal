@@ -15,11 +15,8 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.https(Environments().SERVER_URL, '/api/list/cargados', queryData),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': token!
-        });
+        Uri.http(Environments().SERVER_URL, '/api/list/cargados', queryData),
+        headers: {'Content-Type': 'application/json', 'access-token': token!});
 
     final decodeData = json.decode(res.body) as Map<String, dynamic>;
     if (decodeData['success'] == false) {
@@ -28,9 +25,9 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
     }
 
     final List<BolaCargadaModel> cargados = [];
-    
+
     final lot = (decodeData['data'] as List).last;
-    if(lot != null && lot != ''){
+    if (lot != null && lot != '') {
       withLot = true;
     }
 
@@ -58,11 +55,8 @@ Future<List<BolaCargadaModel>> getParleCargadas(
 
     final queryData = {'jornal': jornal, 'date': date};
     final res = await http.get(
-        Uri.https(Environments().SERVER_URL, '/api/list/parle', queryData),
-        headers: {
-          'Content-Type': 'application/json',
-          'access-token': token!
-        });
+        Uri.http(Environments().SERVER_URL, '/api/list/parle', queryData),
+        headers: {'Content-Type': 'application/json', 'access-token': token!});
 
     final decodeData = json.decode(res.body) as Map<String, dynamic>;
     if (decodeData['success'] == false) {
@@ -74,7 +68,7 @@ Future<List<BolaCargadaModel>> getParleCargadas(
     final List<BolaCargadaModel> cargados = [];
 
     final lot = (decodeData['data'] as List).last;
-    if(lot != null && lot != ''){
+    if (lot != null && lot != '') {
       withLot = true;
     }
 

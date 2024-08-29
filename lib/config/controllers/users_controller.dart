@@ -10,8 +10,7 @@ import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 
 import 'package:dio/dio.dart';
 
-class UserControllers { 
-
+class UserControllers {
   late Dio _dio;
 
   UserControllers() {
@@ -23,7 +22,7 @@ class UserControllers {
 
     _dio = Dio(
       BaseOptions(
-        baseUrl: Uri.https(Environments().SERVER_URL).toString(),
+        baseUrl: Uri.http(Environments().SERVER_URL).toString(),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token,
@@ -38,7 +37,8 @@ class UserControllers {
       final queryData = {'id': id};
 
       await _initializeDio();
-      Response response = await _dio.get('/api/users', queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/users', queryParameters: queryData);
       if (!response.data['success']) {
         showToast(
             'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
@@ -48,7 +48,7 @@ class UserControllers {
       final List<User> users = [];
 
       if (id != '') {
-        if( response.data['data'].isNotEmpty ){
+        if (response.data['data'].isNotEmpty) {
           for (var toShow in response.data['data']) {
             final actual = User.fromJson(toShow);
             users.add(actual);
@@ -67,10 +67,9 @@ class UserControllers {
       return [];
     }
   }
-  
+
   Future<List<User>> getAllBanks() async {
     try {
-
       await _initializeDio();
       Response response = await _dio.get('/api/users/banksUsers');
       if (!response.data['success']) {
@@ -94,7 +93,6 @@ class UserControllers {
 
   Future<List<User>> getMyPeople(String id) async {
     try {
-
       await _initializeDio();
       Response response = await _dio.get('/api/users/myPeople/$id');
       if (!response.data['success']) {
@@ -157,7 +155,11 @@ class UserControllers {
           lotOfToday = response.data['data'][3]['lot'];
         }
 
-        return {'data': users, 'missign': missingLists, 'lotOfToday': lotOfToday};
+        return {
+          'data': users,
+          'missign': missingLists,
+          'lotOfToday': lotOfToday
+        };
       }
 
       if (response.data['data'] != []) {
@@ -181,7 +183,8 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/users',
-        data: jsonEncode({'username': name, 'password': pass, 'owner': owner}));
+          data:
+              jsonEncode({'username': name, 'password': pass, 'owner': owner}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -200,7 +203,7 @@ class UserControllers {
 
       await _initializeDio();
       Response response = await _dio.put('/api/users/changeEnable/$id',
-        data: jsonEncode({ 'enable': enable }) );
+          data: jsonEncode({'enable': enable}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -233,14 +236,15 @@ class UserControllers {
     }
   }
 
-  void changePass(String actualPass, String newPass, BuildContext context) async {
+  void changePass(
+      String actualPass, String newPass, BuildContext context) async {
     try {
       EasyLoading.show(status: 'Cambiando contraseña...');
       final cont = Navigator.of(context);
 
       await _initializeDio();
-      Response response = await _dio.post('/api/users/chpass', 
-        data: jsonEncode({'actualPass': actualPass, 'newPass': newPass}));
+      Response response = await _dio.post('/api/users/chpass',
+          data: jsonEncode({'actualPass': actualPass, 'newPass': newPass}));
 
       if (response.data['success']) {
         cont.pushNamedAndRemoveUntil(
@@ -261,12 +265,12 @@ class UserControllers {
   void resetPass(String userId) async {
     try {
       EasyLoading.show(status: 'Reseteando la contraseña...');
-      
+
       await _initializeDio();
       final queryData = {'userId': userId};
 
-      Response response = await _dio.post('/api/users/resetpass', 
-        queryParameters: queryData );
+      Response response =
+          await _dio.post('/api/users/resetpass', queryParameters: queryData);
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -282,7 +286,6 @@ class UserControllers {
 
   Future<bool> checkJWT() async {
     try {
-
       await _initializeDio();
       Response response = await _dio.post('/api/users/checkJWT');
       if (!response.data['success']) {
@@ -294,5 +297,4 @@ class UserControllers {
       return false;
     }
   }
-
 }

@@ -13,22 +13,17 @@ int vecesMal = 0;
 String incomingUsername = '';
 
 class AuthServices {
-
-  final _dio = Dio(
-    BaseOptions(
-      baseUrl: Uri.https(Environments().SERVER_URL).toString(),
-      headers: { 'Content-Type': 'application/json' }
-    )
-  );
+  final _dio = Dio(BaseOptions(
+      baseUrl: Uri.http(Environments().SERVER_URL).toString(),
+      headers: {'Content-Type': 'application/json'}));
 
   Future<String> login(String username, String pass) async {
     authStatus.value = true;
     try {
-
       final localStorage = LocalStorage();
 
       Response response = await _dio.post('/api/users/signin',
-        data: jsonEncode({'username': username, 'password': pass}));
+          data: jsonEncode({'username': username, 'password': pass}));
 
       authStatus.value = false;
 
@@ -41,7 +36,7 @@ class AuthServices {
         localStorage.tokenSave(response.data['data'][0]);
         localStorage.roleSave(role);
 
-        if( role != 'banco' ){
+        if (role != 'banco') {
           localStorage.userOwnerSave(response.data['data'][3]['owner']);
         }
 

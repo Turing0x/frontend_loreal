@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/utils/biometrics.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/opt_list_tile.dart';
+import 'package:local_auth/local_auth.dart';
 
 class MainBanqueroPage extends ConsumerStatefulWidget {
   const MainBanqueroPage({super.key});
@@ -20,6 +22,35 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
 
   @override
   void initState() {
+    final LocalAuthentication auth = LocalAuthentication();
+    final contex = Navigator.of(context);
+
+    if (!isAuthenticatedBiometrics) {
+      hasBiometrics().then((value) => {
+            if (value)
+              {
+                auth
+                    .authenticate(
+                        options: const AuthenticationOptions(
+                            biometricOnly: true, stickyAuth: true),
+                        localizedReason:
+                            'Touch your finger on the sensor to verify the identity')
+                    .then((didAuthenticate) {
+                  if (!didAuthenticate) {
+                    isAuthenticatedBiometrics = false;
+                    contex.pushNamedAndRemoveUntil(
+                        'other_signIn_page', (Route<dynamic> route) => false);
+                    return;
+                  } else {
+                    setState(() {
+                      isAuthenticatedBiometrics = true;
+                    });
+                  }
+                })
+              }
+          });
+    }
+
     final chUsername = ref.read(chUser.notifier);
     final setIdToSearch = ref.read(idToSearch.notifier);
 
@@ -48,7 +79,7 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
   Widget build(BuildContext context) {
     final seechUsername = ref.watch(chUser);
 
-    return Scaffold(
+    return !isAuthenticatedBiometrics ? Container() : Scaffold(
         appBar: showAppBar('Página principal', actions: [
           IconButton(
             icon: const Icon(

@@ -8,3 +8,5 @@ String globalUserName = '';
 bool withLot = false;
 
 bool isDark = false;
+
+bool isAuthenticatedBiometrics = false;

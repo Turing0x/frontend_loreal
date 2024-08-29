@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils/glogal_map.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,6 +42,7 @@ cerrarSesion(BuildContext context) async {
   toBlockIfOutOfLimitDecena.clear();
 
   clearAllMaps();
+  isAuthenticatedBiometrics = false;
 
   contex.pushNamedAndRemoveUntil(
       determinePath(), (Route<dynamic> route) => false);

@@ -12,7 +12,6 @@ import 'package:frontend_loreal/models/Limites/limits_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LimitsControllers {
-
   late Dio _dio;
 
   LimitsControllers() {
@@ -24,7 +23,7 @@ class LimitsControllers {
 
     _dio = Dio(
       BaseOptions(
-        baseUrl: Uri.https(Environments().SERVER_URL).toString(),
+        baseUrl: Uri.http(Environments().SERVER_URL).toString(),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token,
@@ -37,7 +36,7 @@ class LimitsControllers {
   Future<List<Limits>> getDataLimits() async {
     try {
       EasyLoading.show(status: 'Buscando limites');
-      
+
       await _initializeDio();
       Response response = await _dio.get('/api/limits');
       if (!response.data['success']) {
@@ -60,7 +59,6 @@ class LimitsControllers {
 
   Future<List<Limits>> getLimitsOfUser(String id) async {
     try {
-      
       await _initializeDio();
       Response response = await _dio.get('/api/limits/$id');
       if (!response.data['success']) {
@@ -87,21 +85,26 @@ class LimitsControllers {
     }
   }
 
-  Future<void> saveDataLimits(String fijo, String corrido, String parle, String centena,
-      String limites_millon_Fijo, String limites_millon_Corrido) async {
+  Future<void> saveDataLimits(
+      String fijo,
+      String corrido,
+      String parle,
+      String centena,
+      String limites_millon_Fijo,
+      String limites_millon_Corrido) async {
     try {
       EasyLoading.show(status: 'Configurando límites...');
 
       await _initializeDio();
-      Response response = await _dio.post('/api/limits', 
-        data: jsonEncode({
-          'fijo': fijo,
-          'corrido': corrido,
-          'parle': parle,
-          'centena': centena,
-          'limitesMillonFijo': limites_millon_Fijo,
-          'limitesMillonCorrido': limites_millon_Corrido,
-        }));
+      Response response = await _dio.post('/api/limits',
+          data: jsonEncode({
+            'fijo': fijo,
+            'corrido': corrido,
+            'parle': parle,
+            'centena': centena,
+            'limitesMillonFijo': limites_millon_Fijo,
+            'limitesMillonCorrido': limites_millon_Corrido,
+          }));
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -136,8 +139,8 @@ class LimitsControllers {
       };
 
       await _initializeDio();
-      Response response = await _dio.put('/api/users/$id', 
-        data: jsonEncode({'limits': limits_obj}));
+      Response response = await _dio.put('/api/users/$id',
+          data: jsonEncode({'limits': limits_obj}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -156,11 +159,11 @@ class LimitsControllers {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
       await _initializeDio();
-      Response response = await _dio.post('/api/limitnumbers', 
-        data: jsonEncode({
-          'date': todayGlobal,
-          'bola': bola,
-        }));
+      Response response = await _dio.post('/api/limitnumbers',
+          data: jsonEncode({
+            'date': todayGlobal,
+            'bola': bola,
+          }));
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -187,7 +190,7 @@ class LimitsControllers {
       }
 
       final List<LimitedBallModel> data = [];
-      if ( (response.data['data'] as List).isEmpty ) {
+      if ((response.data['data'] as List).isEmpty) {
         EasyLoading.showError('No hay datos para mostrar');
         return [];
       }
@@ -209,7 +212,7 @@ class LimitsControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/limitnumbers/parle',
-        data: jsonEncode({ 'parle': parle }));
+          data: jsonEncode({'parle': parle}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -256,17 +259,18 @@ class LimitsControllers {
   }
 
   // Limites para los usuarios de manera independiente
-  Future<void> saveDataLimitsBallsToUser(String id, Map<String, List<int>> bola) async {
+  Future<void> saveDataLimitsBallsToUser(
+      String id, Map<String, List<int>> bola) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
       await _initializeDio();
       Response response = await _dio.put('/api/users/$id',
-        data: jsonEncode({
-          'bola': {
-            'bola': bola,
-          }
-        }));
+          data: jsonEncode({
+            'bola': {
+              'bola': bola,
+            }
+          }));
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -281,7 +285,8 @@ class LimitsControllers {
   }
 
   // Limites para todos los usuarios del cargado
-  Future<void> saveDataLimitsBallsToUserCargados(String bola, String jornal) async {
+  Future<void> saveDataLimitsBallsToUserCargados(
+      String bola, String jornal) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
@@ -300,12 +305,14 @@ class LimitsControllers {
     }
   }
 
-  Future<void> saveDataLimitsPerleToUserCargados(String parle, String jornal) async {
+  Future<void> saveDataLimitsPerleToUserCargados(
+      String parle, String jornal) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
       await _initializeDio();
-      Response response = await _dio.put('/api/users/cargadoparle/$parle/$jornal');
+      Response response =
+          await _dio.put('/api/users/cargadoparle/$parle/$jornal');
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -320,12 +327,14 @@ class LimitsControllers {
   }
 
   // Limites para un listero del cargado
-  Future<void> saveDataLimitsBallsToUserCargadosListero(String username, String bola, String jornal) async {
+  Future<void> saveDataLimitsBallsToUserCargadosListero(
+      String username, String bola, String jornal) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
       await _initializeDio();
-      Response response = await _dio.put('/api/users/listerocargados/$username/$bola/$jornal');
+      Response response =
+          await _dio.put('/api/users/listerocargados/$username/$bola/$jornal');
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -339,12 +348,14 @@ class LimitsControllers {
     }
   }
 
-  Future<void> saveDataLimitsParleToUserCargadosListero(String username, String parle, String jornal) async {
+  Future<void> saveDataLimitsParleToUserCargadosListero(
+      String username, String parle, String jornal) async {
     try {
       EasyLoading.show(status: 'Guardando bolas limitadas');
 
       await _initializeDio();
-      Response response = await _dio.put('/api/users/listerocargadoparle/$username/$parle/$jornal');
+      Response response = await _dio
+          .put('/api/users/listerocargadoparle/$username/$parle/$jornal');
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -390,11 +401,11 @@ class LimitsControllers {
 
       await _initializeDio();
       Response response = await _dio.put('/api/users/$id',
-        data: jsonEncode({
-          'parle': {
-            'parle': parle,
-          }
-        }));
+          data: jsonEncode({
+            'parle': {
+              'parle': parle,
+            }
+          }));
 
       if (response.data['success']) {
         EasyLoading.showSuccess('Limites configurados satisfactoriamente');
@@ -438,5 +449,4 @@ class LimitsControllers {
       return [];
     }
   }
-
 }

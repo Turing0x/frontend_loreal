@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/auth.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/utils/biometrics.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:local_auth/local_auth.dart';
 
 class OtherSignInPage extends ConsumerStatefulWidget {
   const OtherSignInPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _OtherSignInPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _OtherSignInPageState();
 }
 
 class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
@@ -19,8 +23,12 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
   bool btnOffline = true;
   bool showPass = true;
 
+  bool successAuth = false;
+
   @override
   void initState() {
+    final LocalAuthentication auth = LocalAuthentication();
+
     Future<String?> offlinePass = LocalStorage.getpassListerOffline();
     offlinePass.then((value) {
       if (value != null) {
@@ -30,12 +38,32 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
       }
     });
 
+    if (!isAuthenticatedBiometrics) {
+      hasBiometrics().then((value) => {
+            if (value)
+              {
+                auth
+                    .authenticate(
+                        options: const AuthenticationOptions(
+                            biometricOnly: true, stickyAuth: true),
+                        localizedReason:
+                            'Touch your finger on the sensor to login')
+                    .then((didAuthenticate) {
+                  if (didAuthenticate) {
+                    setState(() {
+                      successAuth = true;
+                    });
+                  }
+                })
+              }
+          });
+    }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     Map<String, void Function()> routesByRole = {
       'banco': () =>
           Navigator.pushReplacementNamed(context, 'main_banquero_page'),
@@ -56,40 +84,39 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
               const SizedBox(height: 150),
               Container(
                 alignment: Alignment.center,
-                child: textoDosis('Welcome Back!', 25, fontWeight: FontWeight.bold),
+                child: textoDosis('Welcome Back!', 25,
+                    fontWeight: FontWeight.bold),
               ),
               textoDosis('Enter your account here', 20, color: Colors.grey),
               const SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
+                  enabled: successAuth,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email or phone number',
-                    hintText: 'Enter your email or phone number'),
-                    controller: nameController,
+                      border: OutlineInputBorder(),
+                      labelText: 'Email or phone number',
+                      hintText: 'Enter your email or phone number'),
+                  controller: nameController,
                   onChanged: (value) => setState(() {}),
                 ),
               ),
               const SizedBox(height: 10),
-              
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
+                  enabled: successAuth,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter your username'),
-                    obscureText: true,
-                    controller: passController,
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                      hintText: 'Enter your username'),
+                  obscureText: true,
+                  controller: passController,
                   onChanged: (value) => setState(() {}),
                 ),
               ),
-
               _contBotones(routesByRole),
-
               textoDosis('or continue with', 20, color: Colors.grey),
-
               Container(
                 padding: const EdgeInsets.all(20),
                 width: double.infinity,
@@ -99,10 +126,10 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
                     elevation: 2,
                   ),
                   onPressed: () {},
-                child: textoDosis('Google', 20, color: Colors.white, fontWeight: FontWeight.bold),
+                  child: textoDosis('Google', 20,
+                      color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -110,11 +137,11 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
                   const SizedBox(width: 10),
                   InkWell(
                     onTap: () {},
-                    child: textoDosis('Sign Up', 20, color: Colors.green, fontWeight: FontWeight.bold),
+                    child: textoDosis('Sign Up', 20,
+                        color: Colors.green, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-
             ],
           ),
         ),
@@ -143,30 +170,32 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
             FocusScope.of(context).unfocus();
             final chUsername = ref.read(chUser.notifier);
             final setGlobalRole = ref.read(globalRole.notifier);
-            
+
             if (nameController.text.isEmpty || passController.text.isEmpty) {
               btnManagerM.state = false;
               return showToast('Please fill in the form');
             }
-            
+
             final typeRole = authService.login(
                 nameController.text.trim(), passController.text.trim());
-            
+
             typeRole.then((value) {
               if (value != '') {
                 routesByRole[value]!.call();
               }
               chUsername.state = nameController.text.trim();
               setGlobalRole.state = value;
+              isAuthenticatedBiometrics = true;
               btnManagerM.state = false;
             }).catchError((error) {
-              showToast(
-                  'Something went wrong. Please, try again later');
+              showToast('Something went wrong. Please, try again later');
               btnManagerM.state = false;
               return error;
             });
           },
-          child: textoDosis((!btnManager) ? 'Make Login' : 'Authenticating...', 20, color: Colors.white, fontWeight: FontWeight.bold),
+          child: textoDosis(
+              (!btnManager) ? 'Make Login' : 'Authenticating...', 20,
+              color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

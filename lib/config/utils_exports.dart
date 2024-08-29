@@ -2,7 +2,6 @@ import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/server/http/methods.dart';
 import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
 TextStyle? tituloListTile =
@@ -27,11 +26,12 @@ PreferredSizeWidget? showAppBar(String titulo,
   );
 }
 
-void showToast(String msg, {bool type = false}) => Fluttertoast.showToast(
-      backgroundColor: type ? Colors.green[400] : Colors.red[400],
-      msg: msg,
-      toastLength: Toast.LENGTH_LONG,
-    );
+void showToast(BuildContext context, String msg, {bool type = false}) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(msg),
+    backgroundColor: (type) ? Colors.red : Colors.white,
+  ));
+}
 
 Container btnWithIcon(BuildContext context, Color? backgroundColor, Widget icon,
     String texto, void Function()? onPressed, double width,
