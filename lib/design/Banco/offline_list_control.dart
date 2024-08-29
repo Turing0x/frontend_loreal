@@ -34,13 +34,13 @@ class _OfflineListControlState extends ConsumerState<OfflineListControl> {
           onPressed: () {
             Clipboard.getData(Clipboard.kTextPlain).then((value) {
               if (value!.text!.isEmpty) {
-                showToast('Sin datos en el portapapeles');
+                showToast(context, 'Sin datos en el portapapeles');
                 return;
               }
 
               showInfo(context, ref, value.text!);
             }).catchError((error) {
-              showToast(error.toString());
+              showToast(context, error.toString());
             });
           },
           label: const Row(children: [
@@ -58,7 +58,8 @@ class _OfflineListControlState extends ConsumerState<OfflineListControl> {
             encabezado(context, 'Listas para enviar', true, () {
               pendigLists.value.clear();
               changeState.value = !changeState.value;
-              showToast('Limpieza realizada correctamente', type: true);
+              showToast(context, 'Limpieza realizada correctamente',
+                  type: true);
             }, false, btnIcon: Icons.clear_all_rounded, btnText: 'Limpiar'),
             showList(context),
           ],
@@ -298,7 +299,7 @@ class _OfflineListControlState extends ConsumerState<OfflineListControl> {
         pendigLists.value.removeAt(index);
 
         changeState.value = !changeState.value;
-        showToast('Lista eliminada');
+        showToast(context, 'Lista eliminada');
       },
     );
   }

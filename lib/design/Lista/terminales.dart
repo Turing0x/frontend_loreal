@@ -78,7 +78,6 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Corrido',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: corrido,
@@ -96,7 +95,6 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Fijo',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: fijo,
@@ -141,7 +139,7 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
 
     if (fijo.text.isEmpty && corrido.text.isEmpty ||
         (fijo.text == '0' && corrido.text == '0')) {
-      showToast('Jugada inválida');
+      showToast(context, 'Jugada inválida');
       return;
     }
 
@@ -160,13 +158,13 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     });
 
     if ((sumaF + toGetfijo) > getLimit.fijo) {
-      showToast(
+      showToast(context,
           'Límite excedido, ya existe en la jugada un total de \$$sumaF pesos para los terminales $selectedNumber');
       return;
     }
 
     if ((sumaC + toGetcorrido) > getLimit.corrido) {
-      showToast(
+      showToast(context,
           'Límite excedido, ya existe en la jugada un total de \$$sumaC pesos para los terminales $selectedNumber');
       return;
     }
@@ -182,7 +180,8 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
         int actualCorrido = value['corrido']! + toGetcorrido + sumaC;
 
         if (actualFijo > getLimit.fijo || actualCorrido > getLimit.corrido) {
-          showToast('Límite excedido, ya esta pasado en la bola $key.');
+          showToast(
+              context, 'Límite excedido, ya esta pasado en la bola $key.');
           doLater = false;
           break;
         }

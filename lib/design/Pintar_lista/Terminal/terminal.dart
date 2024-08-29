@@ -51,26 +51,25 @@ class _TerminalListaWidgetState extends ConsumerState<TerminalListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
-            onLongPress: () {
-              if (widget.canEdit) {
-                final toJoinListM = ref.read(toJoinListR.notifier);
-                final payCrtl = ref.watch(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
+          onLongPress: () {
+            if (widget.canEdit) {
+              final toJoinListM = ref.read(toJoinListR.notifier);
+              final payCrtl = ref.watch(paymentCrtl.notifier);
+              final getLimit = ref.watch(globalLimits);
 
-                listadoTerminal.values.first.removeWhere((element)
-                  => element['uuid'] == widget.terminal.uuid);
+              listadoTerminal.values.first.removeWhere(
+                  (element) => element['uuid'] == widget.terminal.uuid);
 
-                toJoinListM.addCurrentList(
+              toJoinListM.addCurrentList(
                   key: ListaGeneralEnum.terminal, data: listadoTerminal);
 
-                payCrtl.restaTotalBruto80 = sum;
-                payCrtl.restaLimpioListero =
-                    (sum * (getLimit.porcientoBolaListero / 100))
-                        .toInt();
+              payCrtl.restaTotalBruto80 = sum;
+              payCrtl.restaLimpioListero =
+                  (sum * (getLimit.porcientoBolaListero / 100)).toInt();
 
-                showToast('La jugada fue eliminada exitosamente');
-              }
-            },
+              showToast(context, 'La jugada fue eliminada exitosamente');
+            }
+          },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.terminal);

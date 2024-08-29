@@ -66,30 +66,30 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               (isDark)
-                ? const SizedBox(height: 100)
-                : Container(
-                  height: 250,
-                  margin: EdgeInsets.only(
-                      left: size.width * .09,
-                      right: size.width * .09,
-                      top: size.width * .15),
-                  child: SvgPicture.asset('lib/assets/undraw_unlock_re_a558.svg'),
-              ),
+                  ? const SizedBox(height: 100)
+                  : Container(
+                      height: 250,
+                      margin: EdgeInsets.only(
+                          left: size.width * .09,
+                          right: size.width * .09,
+                          top: size.width * .15),
+                      child: SvgPicture.asset(
+                          'lib/assets/undraw_unlock_re_a558.svg'),
+                    ),
               Container(
-                margin: EdgeInsets.only(
-                    left: 45, right: 45, top: size.height * 0.05),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    textoDosis('Loreal', 55, fontWeight: FontWeight.w600),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: textoDosis('v1', 20),
-                    )
-                  ],
-                )
-              ),
+                  margin: EdgeInsets.only(
+                      left: 45, right: 45, top: size.height * 0.05),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      textoDosis('Loreal', 55, fontWeight: FontWeight.w600),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: textoDosis('v1', 20),
+                      )
+                    ],
+                  )),
               textoDosis('Ingrese sus datos de acceso al sistema', 20),
               const SizedBox(height: 30),
               SimpleTxt(
@@ -109,9 +109,15 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 padding: const EdgeInsets.only(right: 30),
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: OutlinedButton(onPressed: () => setState(() {
-                    showPass = !showPass;
-                  }), child: textoDosis(( showPass ) ? 'Mostrar contraseña' : 'Ocultar contraseña', 18)),
+                  child: OutlinedButton(
+                      onPressed: () => setState(() {
+                            showPass = !showPass;
+                          }),
+                      child: textoDosis(
+                          (showPass)
+                              ? 'Mostrar contraseña'
+                              : 'Ocultar contraseña',
+                          18)),
                 ),
               ),
               const SizedBox(height: 20),
@@ -169,7 +175,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
               if (nameController.text.isEmpty || passController.text.isEmpty) {
                 btnManagerM.state = false;
-                return showToast('Debe completar la información de registro');
+                return showToast(
+                    context, 'Debe completar la información de registro');
               }
 
               final typeRole = authService.login(
@@ -183,13 +190,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 setGlobalRole.state = value;
                 btnManagerM.state = false;
               }).catchError((error) {
-                showToast(
+                showToast(context,
                     'Ha ocurrido un error al conectar con el servidor. Por favor, revise su conexión a internet');
                 btnManagerM.state = false;
                 return error;
               });
             },
-            child: textoDosis((!btnManager) ? 'Acceder' : 'Autenticando...', 20, color: Colors.white),
+            child: textoDosis((!btnManager) ? 'Acceder' : 'Autenticando...', 20,
+                color: Colors.white),
           ),
         ),
       ],

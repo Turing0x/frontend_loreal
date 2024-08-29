@@ -36,7 +36,6 @@ class _ConfigOfflinePassState extends State<ConfigOfflinePass> {
             textoDosis('Clave para el módulo OFFLINE', 20,
                 fontWeight: FontWeight.bold, textAlign: TextAlign.center),
             SimpleTxt(
-                
                 icon: Icons.password_outlined,
                 texto: 'Nueva clave',
                 obscureText: true,
@@ -57,14 +56,15 @@ class _ConfigOfflinePassState extends State<ConfigOfflinePass> {
                   label: textoDosis('Cambiar clave', 20, color: Colors.white),
                   onPressed: () async {
                     if (newOfflinePass.text == '') {
-                      showToast('Escriba la contraseña por favor');
+                      showToast(context, 'Escriba la contraseña por favor');
                       return;
                     }
 
                     const storage = FlutterSecureStorage();
                     await storage.write(
                         key: 'passListerOffline', value: newOfflinePass.text);
-                    showToast('Clave establecida con éxito', type: true);
+                    showToast(context, 'Clave establecida con éxito',
+                        type: true);
                     if (context.mounted) Navigator.pop(context);
                   }),
             ),

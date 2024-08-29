@@ -46,7 +46,8 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
                       backgroundColor: Colors.blue[300]),
                   onPressed: () {
                     final janddate = ref.watch(janddateR);
-                    signatureControllers.generateSignture(
+                    signatureControllers
+                        .generateSignture(
                             janddate.currentDate, janddate.currentJornada)
                         .then((value) {
                       setState(() {
@@ -58,7 +59,7 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
             ),
             encabezado(context, 'Información', true, () async {
               if (sign == '') {
-                showToast('Antes debe generar una firma');
+                showToast(context, 'Antes debe generar una firma');
                 return;
               }
 
@@ -72,9 +73,9 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
                     '${directory.path}/Firma-${janddate.currentDate}-${janddate.currentJornada}.txt');
                 await file.writeAsString(sign);
 
-                showToast('Firma guardada exitosamente', type: true);
+                showToast(context, 'Firma guardada exitosamente', type: true);
               }).catchError((onError) {
-                showToast(onError);
+                showToast(context, onError);
               });
             }, false, btnText: 'Guardar', btnIcon: Icons.save_alt_rounded),
             Padding(
@@ -85,7 +86,7 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
                   OutlinedButton.icon(
                       onPressed: () {
                         if (sign == '') {
-                          showToast('Antes debe generar una firma');
+                          showToast(context, 'Antes debe generar una firma');
                           return;
                         }
                       },
@@ -97,17 +98,20 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
                           backgroundColor: Colors.blue[300]),
                       onPressed: () {
                         if (sign == '' || signatureController.text.isEmpty) {
-                          showToast('Faltan datos para realizar esta acción');
+                          showToast(context,
+                              'Faltan datos para realizar esta acción');
                           return;
                         }
 
                         if (sign == signatureController.text) {
-                          showToast('Ambas firmas son idénticas. Todo en órden',
+                          showToast(context,
+                              'Ambas firmas son idénticas. Todo en órden',
                               type: true);
                           return;
                         }
 
-                        showToast('Las firmas son distintas. Algo esta mal');
+                        showToast(
+                            context, 'Las firmas son distintas. Algo esta mal');
                       },
                       icon: const Icon(Icons.security_rounded),
                       label: textoDosis('Comprobar', 18, color: Colors.white))
@@ -115,7 +119,6 @@ class _SignaturePageState extends ConsumerState<SignaturePage> {
               ),
             ),
             SimpleTxt(
-                
                 right: 42,
                 icon: Icons.security_rounded,
                 texto: 'Pega aquí la firma',

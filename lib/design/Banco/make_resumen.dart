@@ -59,21 +59,17 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
         IconButton(
             icon: const Icon(Icons.picture_as_pdf_outlined),
             onPressed: () => (!hasDataInList)
-                ? showToast('No hay información de listas para general el PDF')
+                ? showToast(
+                    context, 'No hay información de listas para general el PDF')
                 : makePdf())
       ]),
       body: Column(
         children: [
-          
           const JornadAndDate(showDate: false),
-          
           const InitialDateSelect(),
           const EndDateSelect(),
-
           txtUser(),
-          
           encabezado(context, 'Resultados de la búsqueda', false, () {}, false),
-          
           Expanded(
             child: ShowList(
                 janddate: janddate, ref: ref, seeChUsername: usernameCTRL.text),
@@ -89,14 +85,12 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
         icon: Icons.person_pin_outlined,
         texto: 'Usuario buscado: ',
         readOnly: true,
-        
         controlador: usernameCTRL,
         onChange: (valor) => {});
   }
 
-  void makePdf() async{
+  void makePdf() async {
     try {
-
       final dateRange = ref.watch(dateRangeR);
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -117,8 +111,7 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
         endDate: dateRange.endDate,
       );
 
-      pdfData.then((value) async{
-
+      pdfData.then((value) async {
         String result = '';
         for (PdfData data in value) {
           toPDF.add(InvoiceItemColector(
@@ -145,17 +138,17 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
 
         (globalRoleToPDF == 'Banco')
             ? result = await PdfInvoiceApiBanco.generate(invoice,
-                resumen: true, 
-                startDate: dateRange.initialDate, 
+                resumen: true,
+                startDate: dateRange.initialDate,
                 endDate: dateRange.endDate)
             : (globalRoleToPDF == 'Colector General')
                 ? result = await PdfInvoiceApiColectorGeneral.generate(invoice,
-                    resumen: true, 
-                    startDate: dateRange.initialDate, 
+                    resumen: true,
+                    startDate: dateRange.initialDate,
                     endDate: dateRange.endDate)
                 : result = await PdfInvoiceApiColectorSimple.generate(invoice,
-                    resumen: true, 
-                    startDate: dateRange.initialDate, 
+                    resumen: true,
+                    startDate: dateRange.initialDate,
                     endDate: dateRange.endDate);
 
         final openPdf = prefs.getBool('openPdf');
@@ -169,7 +162,6 @@ class _MakeResumenForBankState extends ConsumerState<MakeResumenForBank> {
       EasyLoading.showError('Ha ocurrido algo grave');
     }
   }
-
 }
 
 class ShowList extends StatelessWidget {
@@ -186,7 +178,6 @@ class ShowList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final dateRange = ref.watch(dateRangeR);
 
     final userCtrl = UserControllers();
@@ -227,9 +218,11 @@ class ShowList extends StatelessWidget {
                       return Container(
                         padding: const EdgeInsets.only(left: 10),
                         height: 110,
-                        color: (isDark) ? Colors.black :(index % 2 != 0)
-                              ? Colors.grey[200]
-                              : Colors.grey[50],
+                        color: (isDark)
+                            ? Colors.black
+                            : (index % 2 != 0)
+                                ? Colors.grey[200]
+                                : Colors.grey[50],
                         alignment: Alignment.center,
                         child: ListTile(
                             title: textoDosis(user[index].username, 28,
@@ -237,7 +230,8 @@ class ShowList extends StatelessWidget {
                             subtitle: FittedBox(
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: Row(
                                   children: [
                                     boldLabel(
@@ -287,7 +281,8 @@ class ShowList extends StatelessWidget {
                               (user[index].role['code'] != 'listero')
                                   ? Navigator.pushNamed(context, 'make_resumen',
                                       arguments: [user[index].username])
-                                  : showToast('Sin acciones para los listeros');
+                                  : showToast(context,
+                                      'Sin acciones para los listeros');
                             }),
                       );
                     });

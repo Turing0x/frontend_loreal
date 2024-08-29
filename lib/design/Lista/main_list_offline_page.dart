@@ -81,7 +81,7 @@ class _MainMakeListOfflineState extends ConsumerState<MainMakeListOffline> {
 
                   payCrtl.limpioAllCalcs();
 
-                  showToast('Lista vaciada', type: true);
+                  showToast(context, 'Lista vaciada', type: true);
                 }
               : null,
         ),

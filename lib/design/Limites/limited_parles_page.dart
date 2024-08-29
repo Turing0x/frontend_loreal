@@ -11,6 +11,7 @@ import 'package:frontend_loreal/models/Limites/limited_parle.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 final limitsControllers = LimitsControllers();
+
 class LimitedParles extends StatefulWidget {
   const LimitedParles({super.key});
 
@@ -25,7 +26,8 @@ class _LimitedParlesState extends State<LimitedParles> {
 
   @override
   void initState() {
-    Future<List<LimitedParleModel>> limits = limitsControllers.getLimitedParleToday();
+    Future<List<LimitedParleModel>> limits =
+        limitsControllers.getLimitedParleToday();
     limits.then((value) {
       if (value.isNotEmpty) {
         setState(() {
@@ -51,7 +53,7 @@ class _LimitedParlesState extends State<LimitedParles> {
               return;
             }
 
-            showToast('Añada algún número para limitar');
+            showToast(context, 'Añada algún número para limitar');
           },
         )
       ]),
@@ -119,9 +121,7 @@ class _LimitedParlesState extends State<LimitedParles> {
         Flexible(
           child: Container(
             padding: const EdgeInsets.only(left: 20),
-            decoration: BoxDecoration(
-                
-                borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: SingleChildScrollView(
               child: TextField(
                 keyboardType: TextInputType.number,
@@ -161,18 +161,20 @@ class _LimitedParlesState extends State<LimitedParles> {
               onPressed: number.text.isNotEmpty
                   ? () => setState(() {
                         if (number.text.length < 4) {
-                          showToast('Revise los campos por favor');
+                          showToast(context, 'Revise los campos por favor');
                           return;
                         }
 
-                        final candado = number.text.split('-').map((e) => e.intParsed).toList();
+                        final candado = number.text
+                            .split('-')
+                            .map((e) => e.intParsed)
+                            .toList();
                         final comb = combinaciones(candado);
 
                         for (var element in comb) {
                           parlesLimitado.addAll({
-                            jornada: _insertar(
-                                jornada: jornada,
-                                numero: element)
+                            jornada:
+                                _insertar(jornada: jornada, numero: element)
                           });
                         }
 
@@ -224,7 +226,8 @@ class _LimitedParlesState extends State<LimitedParles> {
   }
 
   ValueListenableBuilder diaNocheWidget(String jornada) {
-    ValueNotifier<List<List<List<int>>>> toChange = ValueNotifier(_insertarColumnas(jornada));
+    ValueNotifier<List<List<List<int>>>> toChange =
+        ValueNotifier(_insertarColumnas(jornada));
 
     return ValueListenableBuilder(
       valueListenable: toChange,
@@ -233,35 +236,33 @@ class _LimitedParlesState extends State<LimitedParles> {
           child: ListView.builder(
             itemCount: value.length,
             itemBuilder: (context, index) {
-        
               final subList = value[index];
 
               return GestureDetector(
-                onTap: () {
-                  int index = parlesLimitado[jornada]!.indexOf(subList[0]);
-                  parlesLimitado[jornada]!.removeAt(index);
-                  value.removeAt(index);
+                  onTap: () {
+                    int index = parlesLimitado[jornada]!.indexOf(subList[0]);
+                    parlesLimitado[jornada]!.removeAt(index);
+                    value.removeAt(index);
 
-                  toChange.value = List.from(value);
-
-                },
-                child: containerRayaDebajo(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...subList
-                              .map(
-                                (listado) => fila(listado),
-                              )
-                              .toList()
-                        ],
+                    toChange.value = List.from(value);
+                  },
+                  child: containerRayaDebajo(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ...subList
+                                .map(
+                                  (listado) => fila(listado),
+                                )
+                                .toList()
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ));
+                  ));
             },
           ),
         );
@@ -324,17 +325,15 @@ class _LimitedParlesState extends State<LimitedParles> {
     return map;
   }
 
-  List combinaciones( List<int> candado ){
-
+  List combinaciones(List<int> candado) {
     List resultado = [];
 
-    for( int i = 0; i < candado.length - 1; i++ ){
-      for ( int j = i + 1; j < candado.length; j++ ){
+    for (int i = 0; i < candado.length - 1; i++) {
+      for (int j = i + 1; j < candado.length; j++) {
         resultado.add([candado[i], candado[j]]);
-      } 
+      }
     }
 
     return resultado;
-
   }
 }

@@ -5,7 +5,6 @@ import 'package:frontend_loreal/models/Sorteo/sorteos_model.dart';
 import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 
 class SorteosControllers {
@@ -60,8 +59,6 @@ class SorteosControllers {
           await _dio.get('/api/sorteos', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return '';
       }
       final data = response.data['data'];
@@ -77,14 +74,11 @@ class SorteosControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/sorteos/last');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return '';
       }
 
       return response.data['data']['lot'];
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return '';
     }
   }
@@ -104,8 +98,7 @@ class SorteosControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
@@ -117,14 +110,11 @@ class SorteosControllers {
           await _dio.put('/api/sorteos/$id', data: jsonEncode({'lot': lot}));
 
       if (response.data['success']) {
-        showToast(response.data['api_message'], type: true);
         return true;
       }
 
-      showToast(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
@@ -143,9 +133,8 @@ class SorteosControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       EasyLoading.showError('Algo grave ha ocurrido');
-      showToast(e.toString());
       return false;
     }
   }

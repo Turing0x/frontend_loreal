@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:frontend_loreal/models/Limites/limited_ball.dart';
 
 final limitsControllers = LimitsControllers();
+
 class LimitedBall extends StatefulWidget {
   const LimitedBall({super.key});
 
@@ -23,7 +24,8 @@ class _LimitedBallState extends State<LimitedBall> {
 
   @override
   void initState() {
-    Future<List<LimitedBallModel>> limits = limitsControllers.getLimitedBallToday();
+    Future<List<LimitedBallModel>> limits =
+        limitsControllers.getLimitedBallToday();
     limits.then((value) {
       if (value.isNotEmpty) {
         setState(() {
@@ -53,7 +55,7 @@ class _LimitedBallState extends State<LimitedBall> {
               return;
             }
 
-            showToast('Añada algún número para limitar');
+            showToast(context, 'Añada algún número para limitar');
           },
         )
       ]),
@@ -121,9 +123,7 @@ class _LimitedBallState extends State<LimitedBall> {
         Flexible(
           child: Container(
             padding: const EdgeInsets.only(left: 20),
-            decoration: BoxDecoration(
-                
-                borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: TextField(
               keyboardType: TextInputType.number,
               controller: number,
@@ -212,32 +212,28 @@ class _LimitedBallState extends State<LimitedBall> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ..._insertarColumnas(jornada)
-                .map((subList) => Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ...subList
-                              .map(
-                                (numero) => GestureDetector(
-                                  onTap: () {
-                                    List<int>? listByJornal = bolaLimitada[jornada];
-                                    int index = listByJornal!.indexOf(numero);
-                                    listByJornal.removeAt(index);
+            ..._insertarColumnas(jornada).map((subList) => Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ...subList.map(
+                        (numero) => GestureDetector(
+                          onTap: () {
+                            List<int>? listByJornal = bolaLimitada[jornada];
+                            int index = listByJornal!.indexOf(numero);
+                            listByJornal.removeAt(index);
 
-                                    toChange.value = !toChange.value;
-                                  },
-                                  child: NumeroRedondoWidget(
-                                    numero: numero.toString(),
-                                  ),
-                                ),
-                              )
-                              
-                        ],
-                      ),
-                    ))
-                ,
+                            toChange.value = !toChange.value;
+                          },
+                          child: NumeroRedondoWidget(
+                            numero: numero.toString(),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
           ],
         );
       },

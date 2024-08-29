@@ -7,8 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import '../../utils_exports.dart';
-
 int vecesMal = 0;
 String incomingUsername = '';
 
@@ -40,17 +38,14 @@ class AuthServices {
           localStorage.userOwnerSave(response.data['data'][3]['owner']);
         }
 
-        showToast(response.data['api_message'], type: true);
         return role;
       }
 
-      showToast(response.data['api_message']);
       _comprobarSiBorraData(username);
 
       return '';
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       authStatus.value = false;
-      showToast(e.toString());
       _comprobarSiBorraData(username);
       return '';
     }
@@ -67,7 +62,6 @@ class AuthServices {
     if (vecesMal == 3) {
       await _borrarDatos(username.trim());
       vecesMal = 0;
-      showToast('Se equivocó demasiadas veces. Se tomaron medidas al respecto');
     }
   }
 

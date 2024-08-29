@@ -109,7 +109,8 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           Colors.blue[300],
                           const Icon(Icons.delete_sweep_outlined),
                           'Eliminar', () async {
-                        bool okay = await listControllers.editOneList(listID, theList.state);
+                        bool okay = await listControllers.editOneList(
+                            listID, theList.state);
                         if (okay) {
                           eraseDataOfStorage();
                           theList.state.clear();
@@ -164,15 +165,14 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
     if (openPdf ?? false) {
       OpenFile.open(itsDone['path']);
     }
-    showToast('Lista exportada exitosamente', type: true);
+    showToast(context, 'Lista exportada exitosamente', type: true);
   }
 
   void eraseDataOfStorage() {
     final list = ref.read(toManageTheMoney.notifier);
 
-    for(var each in list.state){
-
-      if(each is FijoCorridoModel){
+    for (var each in list.state) {
+      if (each is FijoCorridoModel) {
         toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
           return {
             'fijo': value['fijo']! - (each.fijo!),
@@ -181,8 +181,8 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
           };
         });
       }
-      
-      if(each is MillionModel){
+
+      if (each is MillionModel) {
         toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
           return {
             'fijo': value['fijo']! - each.fijo,
@@ -191,7 +191,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
         });
       }
 
-      if(each is PosicionModel){
+      if (each is PosicionModel) {
         toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
           return {
             'fijo': value['fijo']! - each.fijo,
@@ -201,55 +201,52 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
         });
       }
 
-      if(each is TerminalModel){
-          toBlockIfOutOfLimitTerminal.update(each.terminal.toString(), (value) {
-            return {
-              'fijo': value['fijo']! - each.fijo,
-              'corrido': value['corrido']! - each.corrido,
-            };
-          });
+      if (each is TerminalModel) {
+        toBlockIfOutOfLimitTerminal.update(each.terminal.toString(), (value) {
+          return {
+            'fijo': value['fijo']! - each.fijo,
+            'corrido': value['corrido']! - each.corrido,
+          };
+        });
       }
 
-      if(each is DecenaModel){
-          toBlockIfOutOfLimitDecena.update(each.numplay.toString(), (value) {
-            return {
-              'fijo': value['fijo']! - each.fijo,
-              'corrido': value['corrido']! - each.corrido,
-            };
-          });
+      if (each is DecenaModel) {
+        toBlockIfOutOfLimitDecena.update(each.numplay.toString(), (value) {
+          return {
+            'fijo': value['fijo']! - each.fijo,
+            'corrido': value['corrido']! - each.corrido,
+          };
+        });
       }
 
-      if(each is CentenasModel){
-        toBlockIfOutOfLimit.update(
-          each.numplay, (value) => value - each.fijo);
+      if (each is CentenasModel) {
+        toBlockIfOutOfLimit.update(each.numplay, (value) => value - each.fijo);
       }
 
-      if(each is ParlesModel){
-
+      if (each is ParlesModel) {
         String a = each.numplay[0];
         String b = each.numplay[1];
 
-        String joined = '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
-        String joined1 = '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
+        String joined =
+            '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
+        String joined1 =
+            '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
 
-        toBlockIfOutOfLimit.update(
-            joined, (value) => value - each.fijo);
+        toBlockIfOutOfLimit.update(joined, (value) => value - each.fijo);
 
-        toBlockIfOutOfLimit.update(
-            joined1, (value) => value - each.fijo);
-       
+        toBlockIfOutOfLimit.update(joined1, (value) => value - each.fijo);
       }
 
-      if(each is CandadoModel){
-
+      if (each is CandadoModel) {
         List allCombinations = combinaciones(each.numplay);
-        int dineroForEachParle = each.fijo ~/ 
-          ((each.numplay.length * (each.numplay.length - 1)) / 2);
+        int dineroForEachParle = each.fijo ~/
+            ((each.numplay.length * (each.numplay.length - 1)) / 2);
 
         for (var element in allCombinations) {
-          
-          String joined = '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
-          String joined1 = '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
+          String joined =
+              '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
+          String joined1 =
+              '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
 
           toBlockIfOutOfLimit.update(
               joined, (value) => value - dineroForEachParle);
@@ -257,9 +254,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
           toBlockIfOutOfLimit.update(
               joined1, (value) => value - dineroForEachParle);
         }
-       
       }
-    
     }
 
     fileManagerWriteGlobal(toBlockIfOutOfLimit);
@@ -280,7 +275,6 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
 
     return resultado;
   }
-
 }
 
 class ShowList extends StatefulWidget {
@@ -350,8 +344,10 @@ class _ShowListState extends State<ShowList> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
-                          boldLabel('B: ',
-                              decoded['bruto'].toStringAsFixed(0).toString(), 18),
+                          boldLabel(
+                              'B: ',
+                              decoded['bruto'].toStringAsFixed(0).toString(),
+                              18),
                           const SizedBox(width: 20),
                           boldLabel(
                               'L: ',

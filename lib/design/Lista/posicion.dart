@@ -40,7 +40,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             const SizedBox(height: 20),
             TxtInfo(
                 texto: 'Número a jugar: ',
-                
                 icon: Icons.numbers_outlined,
                 keyboardType: TextInputType.number,
                 autofocus: true,
@@ -57,7 +56,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Fijo',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: fijo,
@@ -73,7 +71,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Corrido1',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: corrido,
@@ -91,7 +88,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             Flexible(
               child: SimpleTxt(
                   texto: 'Corrido2',
-                  
                   icon: Icons.attach_money,
                   keyboardType: TextInputType.number,
                   controlador: corrido2,
@@ -117,7 +113,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                   (fijo.text == '0' &&
                       corrido.text == '0' &&
                       corrido2.text == '0')) {
-                showToast('Jugada inválida');
+                showToast(context, 'Jugada inválida');
                 return;
               }
 
@@ -136,12 +132,12 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                   (value['corrido2'] ?? 0) + ncorrido2 > getLimit.corrido;
 
               if (excedeFijo) {
-                showToast(
+                showToast(context,
                     'El límite para el fijo está establecido en ${getLimit.fijo}. No puede ser excedido');
                 return;
               }
               if (excedeCorrido || excedeCorrido2) {
-                showToast(
+                showToast(context,
                     'El límite para el corrido está establecido en ${getLimit.corrido}. No puede ser excedido');
                 return;
               }

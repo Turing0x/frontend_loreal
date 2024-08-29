@@ -44,7 +44,7 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
         List fcppc = toJoinList.currentList['ListaGeneralEnum.principales']![
             'MainListEnum.centenas'];
         for (var element in fcppc) {
-          if( !widget.listaCentenas.contains(element) ){
+          if (!widget.listaCentenas.contains(element)) {
             widget.listaCentenas.add(
               CentenasModel.fromTextEditingController(0,
                   uuid: element.uuid,
@@ -105,7 +105,9 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
                                 final payCrtl = ref.read(paymentCrtl.notifier);
 
                                 int bruto = e.fijo;
-                                int limpioListero = (bruto * (getLimit.porcientoParleListero / 100)).toInt();
+                                int limpioListero = (bruto *
+                                        (getLimit.porcientoParleListero / 100))
+                                    .toInt();
 
                                 payCrtl.restaTotalBruto70 = bruto;
                                 payCrtl.restaLimpioListero = limpioListero;
@@ -192,7 +194,7 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
                 if ((cNum.text.isEmpty || cNum.text.length != 3) ||
                     cValor.text.isEmpty ||
                     cValor.text == '0') {
-                  showToast('Revise los campos por favor');
+                  showToast(context, 'Revise los campos por favor');
                   return;
                 }
 
@@ -202,7 +204,7 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
                         int.parse(widget.centena);
 
                 if (excedeApuesta) {
-                  showToast(
+                  showToast(context,
                       'El límite para la centena está establecido en ${widget.centena}. No puede ser excedido');
                   return;
                 }

@@ -173,7 +173,7 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
 
             if (nameController.text.isEmpty || passController.text.isEmpty) {
               btnManagerM.state = false;
-              return showToast('Please fill in the form');
+              return showToast(context, 'Please fill in the form');
             }
 
             final typeRole = authService.login(
@@ -188,7 +188,8 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
               isAuthenticatedBiometrics = true;
               btnManagerM.state = false;
             }).catchError((error) {
-              showToast('Something went wrong. Please, try again later');
+              showToast(
+                  context, 'Something went wrong. Please, try again later');
               btnManagerM.state = false;
               return error;
             });

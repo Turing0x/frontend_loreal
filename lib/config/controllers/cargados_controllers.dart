@@ -37,8 +37,6 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
       cargados.add(actual);
     }
 
-    EasyLoading.showToast('Información cargada');
-
     return cargados;
   } catch (e) {
     EasyLoading.showError('Ha ocurrido un error');
@@ -77,8 +75,6 @@ Future<List<BolaCargadaModel>> getParleCargadas(
       final actual = BolaCargadaModel.fromJson(data);
       cargados.add(actual);
     }
-
-    EasyLoading.showToast('Información cargada');
 
     return cargados;
   } catch (e) {

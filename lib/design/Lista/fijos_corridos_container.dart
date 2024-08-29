@@ -43,14 +43,13 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
 
   @override
   void initState() {
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final toJoinList = ref.watch(toJoinListR);
       if (toJoinList.currentList['ListaGeneralEnum.principales']!.isNotEmpty) {
         List fcppc = toJoinList.currentList['ListaGeneralEnum.principales']![
             'MainListEnum.fijoCorrido'];
         for (var element in fcppc) {
-          if( !widget.listaFijoCorrido.contains(element) ){
+          if (!widget.listaFijoCorrido.contains(element)) {
             widget.listaFijoCorrido.add(
               FijoCorridoModel.fromTextEditingController(
                 0,
@@ -115,7 +114,9 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
                                 final payCrtl = ref.read(paymentCrtl.notifier);
 
                                 int bruto = e.fijo! + e.corrido!;
-                                int limpioListero = (bruto * (getLimit.porcientoBolaListero / 100)).toInt();
+                                int limpioListero = (bruto *
+                                        (getLimit.porcientoBolaListero / 100))
+                                    .toInt();
 
                                 payCrtl.restaTotalBruto80 = bruto;
                                 payCrtl.restaLimpioListero = limpioListero;
@@ -229,7 +230,7 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
                             fcValorCorrido.text.isEmpty) ||
                         (fcValorFijo.text == '0' &&
                             fcValorCorrido.text == '0')) {
-                      showToast('Revise los campos por favor');
+                      showToast(context, 'Revise los campos por favor');
                       return;
                     }
 
@@ -247,7 +248,7 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
                                 corridoLimite);
 
                     if (excedeFijo) {
-                      showToast(
+                      showToast(context,
                           'Los límites están establecido en $fijoLimite y $corridoLimite. No pueden ser excedido');
                       return;
                     }

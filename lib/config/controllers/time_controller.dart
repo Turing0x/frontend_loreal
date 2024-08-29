@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:frontend_loreal/models/Horario/time_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 
 import '../server/http/local_storage.dart';
@@ -74,7 +73,7 @@ class TimeControllers {
       EasyLoading.showError(api_message);
       return;
     } catch (e) {
-      showToast(e.toString());
+      return;
     }
   }
 }

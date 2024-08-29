@@ -5,7 +5,6 @@ import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 
 import 'package:dio/dio.dart';
@@ -40,8 +39,6 @@ class UserControllers {
       Response response =
           await _dio.get('/api/users', queryParameters: queryData);
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 
@@ -73,8 +70,6 @@ class UserControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/users/banksUsers');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 
@@ -96,8 +91,6 @@ class UserControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/users/myPeople/$id');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 
@@ -131,7 +124,6 @@ class UserControllers {
       await _initializeDio();
       Response response = await _dio.get(endpoint, queryParameters: queryData);
       if (!response.data['success']) {
-        showToast(response.data['api_message']);
         return {'data': [], 'missign': [], 'lotOfToday': ''};
       }
 
@@ -257,8 +249,8 @@ class UserControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
+      return;
     }
   }
 
@@ -279,9 +271,7 @@ class UserControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return;
-    } on Exception catch (e) {
-      showToast(e.toString());
-    }
+    } on Exception catch (_) {}
   }
 
   Future<bool> checkJWT() async {

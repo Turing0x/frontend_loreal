@@ -43,21 +43,18 @@ class _BotePageState extends ConsumerState<BotePage> {
                   texto: 'Fijo: ',
                   keyboardType: TextInputType.number,
                   controlador: fijoController,
-                  
                   icon: Icons.sports_basketball_outlined,
                   onChange: (valor) => (() {})),
               TxtInfo(
                   texto: 'Parlé: ',
                   keyboardType: TextInputType.number,
                   controlador: parleController,
-                  
                   icon: Icons.format_list_numbered_outlined,
                   onChange: (valor) => (() {})),
               TxtInfo(
                   texto: 'Centena',
                   keyboardType: TextInputType.number,
                   controlador: centenaController,
-                  
                   icon: Icons.closed_caption_outlined,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 30),
@@ -81,7 +78,7 @@ class _BotePageState extends ConsumerState<BotePage> {
                         if (fijoController.text.isEmpty &&
                             parleController.text.isEmpty &&
                             centenaController.text.isEmpty) {
-                          showToast(
+                          showToast(context,
                               'Escribe una cantidad para botar en algún campo');
                           return;
                         }

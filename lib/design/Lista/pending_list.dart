@@ -173,7 +173,8 @@ class _PendingListsState extends State<PendingLists> {
                   onPressed: () {
                     DBProviderListas.db.eliminarLista(id);
                     toSend.removeWhere((element) => element.id == id);
-                    showToast('Lista eliminada exitosamente', type: true);
+                    showToast(context, 'Lista eliminada exitosamente',
+                        type: true);
                     cambioListas.value = !cambioListas.value;
                     Navigator.pop(context);
                   }),

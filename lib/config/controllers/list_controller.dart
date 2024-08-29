@@ -8,7 +8,6 @@ import 'package:frontend_loreal/models/Lista/list_model.dart';
 import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/models/Lista/only_winner.dart';
 
 class ListControllers {
@@ -47,8 +46,6 @@ class ListControllers {
       Response response =
           await _dio.get('/api/list', queryParameters: queryData);
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return {'data': [], 'lotOfToday': 'Sin datos'};
       }
 
@@ -75,8 +72,6 @@ class ListControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/list/$id');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 
@@ -100,7 +95,6 @@ class ListControllers {
           await _dio.get('/api/list', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(response.data['api_message']);
         return {'data': [], 'lotOfToday': ''};
       }
 
@@ -129,7 +123,6 @@ class ListControllers {
           await _dio.get('/api/list/winners', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(response.data['api_message']);
         return {'data': [], 'lotOfToday': ''};
       }
 
@@ -212,8 +205,7 @@ class ListControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
@@ -233,8 +225,7 @@ class ListControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
