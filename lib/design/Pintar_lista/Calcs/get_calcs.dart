@@ -15,7 +15,7 @@ class CalcsControllers {
 
     _dio = Dio(
       BaseOptions(
-        baseUrl: Uri.http(Environments().SERVER_URL).toString(),
+        baseUrl: Uri.https(Environments().SERVER_URL).toString(),
         headers: {
           'Content-Type': 'application/json',
           'access-token': token,

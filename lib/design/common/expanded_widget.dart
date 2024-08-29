@@ -21,7 +21,6 @@ class ExpandedWidget extends StatelessWidget {
     return ExpandedTile(
       key: UniqueKey(),
       theme: const ExpandedTileThemeData(
-        headerRadius: 12,
         headerPadding: EdgeInsets.all(10),
         contentPadding: EdgeInsets.symmetric(horizontal: 40),
         contentBackgroundColor: Colors.transparent,
