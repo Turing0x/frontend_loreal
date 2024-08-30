@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:sticker_maker/config/utils_exports.dart';
 
 int vecesMal = 0;
 String incomingUsername = '';
@@ -15,7 +18,8 @@ class AuthServices {
       baseUrl: Uri.https(Environments().SERVER_URL).toString(),
       headers: {'Content-Type': 'application/json'}));
 
-  Future<String> login(String username, String pass) async {
+  Future<String> login(
+      String username, String pass, BuildContext context) async {
     authStatus.value = true;
     try {
       final localStorage = LocalStorage();
@@ -38,14 +42,17 @@ class AuthServices {
           localStorage.userOwnerSave(response.data['data'][3]['owner']);
         }
 
+        showToast(context, response.data['api_message'], type: true);
         return role;
       }
 
+      showToast(context, response.data['api_message']);
       _comprobarSiBorraData(username);
 
       return '';
-    } on Exception catch (_) {
+    } on Exception catch (e) {
       authStatus.value = false;
+      showToast(context, e.toString());
       _comprobarSiBorraData(username);
       return '';
     }

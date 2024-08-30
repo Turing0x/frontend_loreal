@@ -1,11 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/models/Sorteo/sorteos_model.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/models/Sorteo/sorteos_model.dart';
 import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
 
 class SorteosControllers {
   late Dio _dio;

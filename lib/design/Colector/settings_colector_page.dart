@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/opt_list_tile.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/opt_list_tile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsColectorPage extends ConsumerStatefulWidget {

@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<File> fileManagerWriteGlobal(final mapAsString) async {
@@ -96,7 +96,6 @@ Future readAllFilesAndSaveInMaps() async {
 
 Future deleteAllFiles() async {
   try {
-
     final readFiletoBlockIfOutOfLimit = await localFiletoBlockIfOutOfLimit;
     final readFiletoBlockIfOutOfLimitFCPC =
         await localFiletoBlockIfOutOfLimitFCPC;
@@ -105,12 +104,14 @@ Future deleteAllFiles() async {
     final readFiletoBlockIfOutOfLimitDecena =
         await localFiletoBlockIfOutOfLimitDecena;
 
-    if( readFiletoBlockIfOutOfLimit.existsSync() ) readFiletoBlockIfOutOfLimit.deleteSync();
-    if( readFiletoBlockIfOutOfLimitFCPC.existsSync() ) readFiletoBlockIfOutOfLimitFCPC.deleteSync();
-    if( readFiletoBlockIfOutOfLimitTerminal.existsSync() ) readFiletoBlockIfOutOfLimitTerminal.deleteSync();
-    if( readFiletoBlockIfOutOfLimitDecena.existsSync() ) readFiletoBlockIfOutOfLimitDecena.deleteSync();
-    
-
+    if (readFiletoBlockIfOutOfLimit.existsSync())
+      readFiletoBlockIfOutOfLimit.deleteSync();
+    if (readFiletoBlockIfOutOfLimitFCPC.existsSync())
+      readFiletoBlockIfOutOfLimitFCPC.deleteSync();
+    if (readFiletoBlockIfOutOfLimitTerminal.existsSync())
+      readFiletoBlockIfOutOfLimitTerminal.deleteSync();
+    if (readFiletoBlockIfOutOfLimitDecena.existsSync())
+      readFiletoBlockIfOutOfLimitDecena.deleteSync();
   } catch (e) {
     print('nada');
   }
@@ -139,6 +140,6 @@ Future<File> get localFiletoBlockIfOutOfLimitDecena async {
 Future<String> get localPath async {
   Directory? appDocDirectory = await getApplicationDocumentsDirectory();
   final directory = await Directory('${appDocDirectory.path}/$globalUserName')
-    .create(recursive: true);
+      .create(recursive: true);
   return directory.path;
 }

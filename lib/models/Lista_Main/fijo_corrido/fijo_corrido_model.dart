@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'fijo_corrido_model.g.dart';

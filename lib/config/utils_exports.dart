@@ -1,7 +1,7 @@
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/server/http/methods.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
 import 'package:flutter/material.dart';
 
 TextStyle? tituloListTile =
@@ -29,7 +29,7 @@ PreferredSizeWidget? showAppBar(String titulo,
 void showToast(BuildContext context, String msg, {bool type = false}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(msg),
-    backgroundColor: (type) ? Colors.red : Colors.white,
+    backgroundColor: (!type) ? Colors.red : Colors.blue,
   ));
 }
 

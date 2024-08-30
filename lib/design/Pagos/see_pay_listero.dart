@@ -1,16 +1,16 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/controllers/payments_controller.dart';
-import 'package:frontend_loreal/config/controllers/time_controller.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
-import 'package:frontend_loreal/models/Limites/limits_model.dart';
-import 'package:frontend_loreal/models/Pagos/payments_model.dart';
+import 'package:sticker_maker/config/controllers/limits_controller.dart';
+import 'package:sticker_maker/config/controllers/payments_controller.dart';
+import 'package:sticker_maker/config/controllers/time_controller.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
+import 'package:sticker_maker/models/Horario/time_model.dart';
+import 'package:sticker_maker/models/Limites/limits_model.dart';
+import 'package:sticker_maker/models/Pagos/payments_model.dart';
 
 class SeePaymentsPage extends StatefulWidget {
   const SeePaymentsPage({super.key});
@@ -114,7 +114,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Fijo,
@@ -122,7 +121,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Corrido,
@@ -130,7 +128,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Parle:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Parle,
@@ -138,7 +135,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para la Centena:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Centena,
@@ -152,7 +148,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Fijo,
@@ -160,7 +155,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Corrido,
@@ -168,7 +162,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Parle:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Parle,
@@ -176,7 +169,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para la Centena:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Centena,
@@ -190,7 +182,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_millon_Fijo,
@@ -198,7 +189,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_millon_Corrido,
@@ -212,7 +202,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Fijo,
@@ -220,7 +209,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Corrido,
@@ -234,7 +222,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Fijo,
@@ -242,7 +229,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Corrido,
@@ -250,7 +236,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Parlé:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Parle,
@@ -264,7 +249,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Bola listero:',
-          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_bola_listero,
@@ -272,7 +256,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           readOnly: true,
           texto: 'Parlé listero:',
-          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_parle_listero,
@@ -286,7 +269,6 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
       TxtInfo(
           texto: 'Gastos:',
           readOnly: true,
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: exprense,
@@ -348,7 +330,8 @@ class _ConfigPaymentsPageState extends State<SeePaymentsPage> {
 
   getHisPayments(String userID) {
     final PaymentsControllers paymentsControllers = PaymentsControllers();
-    Future<List<Payments>> forPayments = paymentsControllers.getPaymentsOfUser(userID);
+    Future<List<Payments>> forPayments =
+        paymentsControllers.getPaymentsOfUser(userID);
     forPayments.then((value) => {
           if (value.isNotEmpty)
             {

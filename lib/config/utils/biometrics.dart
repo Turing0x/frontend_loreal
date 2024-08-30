@@ -5,5 +5,6 @@ Future<bool> hasBiometrics() async {
 
   final isAvailable = await auth.canCheckBiometrics;
   final isDeviceSupported = await auth.isDeviceSupported();
+
   return isAvailable && isDeviceSupported;
 }

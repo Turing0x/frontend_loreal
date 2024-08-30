@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/time_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:sticker_maker/config/controllers/time_controller.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
 final timeControllers = TimeControllers();
+
 class TimePage extends StatefulWidget {
   const TimePage({super.key});
 
@@ -45,25 +46,25 @@ class TimePageState extends State<TimePage> {
             encabezado(
                 context, 'Establece horarios de trabajo', false, () {}, false),
             dinamicGroupBox(
-              padding: 10,
-                'Jornada del día', [dayStarttimePicker(), dayEndtimePicker()]),
-            dinamicGroupBox(padding: 10, 'Jornada de la noche',
+                padding: 10,
+                'Jornada del día',
+                [dayStarttimePicker(), dayEndtimePicker()]),
+            dinamicGroupBox(
+                padding: 10,
+                'Jornada de la noche',
                 [nigthStarttimePicker(), nigthEndtimePicker()]),
             const SizedBox(height: 20),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[300],
-                    elevation: 2,
-                  ),
-                  child: textoDosis('Guardar cambios', 20, color: Colors.white),
-                  onPressed: () => timeControllers.saveDataTime(
-                      dayStart,
-                      dayEnd,
-                      nigthStart,
-                      nigthEnd))
-            ),
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[300],
+                      elevation: 2,
+                    ),
+                    child:
+                        textoDosis('Guardar cambios', 20, color: Colors.white),
+                    onPressed: () => timeControllers.saveDataTime(
+                        dayStart, dayEnd, nigthStart, nigthEnd))),
           ],
         ),
       ),
@@ -82,9 +83,8 @@ class TimePageState extends State<TimePage> {
               height: 40,
               width: 150,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  
-                  borderRadius: BorderRadius.circular(10)),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: textoDosis(dayStart, 20),
             ),
           ),
@@ -120,9 +120,8 @@ class TimePageState extends State<TimePage> {
               height: 40,
               width: 150,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  
-                  borderRadius: BorderRadius.circular(10)),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: textoDosis(dayEnd, 20),
             ),
           ),
@@ -158,9 +157,8 @@ class TimePageState extends State<TimePage> {
               height: 40,
               width: 150,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  
-                  borderRadius: BorderRadius.circular(10)),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: textoDosis(nigthStart, 20),
             ),
           ),
@@ -196,9 +194,8 @@ class TimePageState extends State<TimePage> {
               height: 40,
               width: 150,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  
-                  borderRadius: BorderRadius.circular(10)),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
               child: textoDosis(nigthEnd, 20),
             ),
           ),
@@ -212,7 +209,8 @@ class TimePageState extends State<TimePage> {
                   );
                   if (newTime != null) {
                     setState(() {
-                      nigthEnd = '${newTime.hour.toString().padLeft(2, '0')}:${newTime.minute.toString().padLeft(2, '0')}';
+                      nigthEnd =
+                          '${newTime.hour.toString().padLeft(2, '0')}:${newTime.minute.toString().padLeft(2, '0')}';
                     });
                   }
                 }),
@@ -223,7 +221,7 @@ class TimePageState extends State<TimePage> {
   }
 
   String stringToTimeOfDay(String time) {
-    var df =  DateFormat("H:mm a");
+    var df = DateFormat("H:mm a");
     var dt = df.parse(time);
     return DateFormat('HH:mm').format(dt);
   }

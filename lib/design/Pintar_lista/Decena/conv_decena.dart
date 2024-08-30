@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/models/Lista_Decena/decena_model.dart';
+import 'package:sticker_maker/models/Lista_Decena/decena_model.dart';
 
 List<dynamic> convertirPayloadDecena(
     String uuid, int numplay, int fijo, int corrido, int dinero) {

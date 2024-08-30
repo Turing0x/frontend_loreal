@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/time_controller.dart';
-import 'package:frontend_loreal/config/methods/update_methods.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/opt_list_tile.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:sticker_maker/config/controllers/time_controller.dart';
+import 'package:sticker_maker/config/methods/update_methods.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/server/http/methods.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/opt_list_tile.dart';
+import 'package:sticker_maker/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
 class MainColectorPage extends StatefulWidget {

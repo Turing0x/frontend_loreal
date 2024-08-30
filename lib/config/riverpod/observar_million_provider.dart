@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/config/riverpod/get_all_million_provider.dart';
+import 'package:sticker_maker/config/riverpod/get_all_million_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'observar_million_provider.g.dart';

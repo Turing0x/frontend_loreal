@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/models/Bote/bote_model.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/models/Bote/bote_model.dart';
 
 class BoteControllers {
   late Dio _dio;

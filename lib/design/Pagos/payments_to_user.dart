@@ -1,12 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/payments_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:frontend_loreal/models/Pagos/payments_model.dart';
+import 'package:sticker_maker/config/controllers/payments_controller.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
+import 'package:sticker_maker/models/Pagos/payments_model.dart';
 
 final paymentsControllers = PaymentsControllers();
+
 class PaymentsToUser extends StatefulWidget {
   final String userID;
   final String username;
@@ -101,28 +102,24 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
     return Column(children: [
       TxtInfo(
           texto: 'Para el Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Corrido,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Parle:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Parle,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para la Centena:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_jugada_Centena,
@@ -141,7 +138,6 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: pagos_millon_Corrido,
@@ -154,21 +150,18 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
       encabezado(context, 'Limitados', false, () => null, false),
       TxtInfo(
           texto: 'Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Corrido,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Parlé:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limitados_Parle,
@@ -181,14 +174,12 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
       encabezado(context, 'Pagos en porcentaje', false, () => null, false),
       TxtInfo(
           texto: 'Bola listero:',
-          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_bola_listero,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Parlé listero:',
-          
           icon: Icons.percent_outlined,
           keyboardType: TextInputType.number,
           controlador: porciento_parle_listero,
@@ -201,7 +192,6 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
       encabezado(context, 'Otros datos', false, () => null, false),
       TxtInfo(
           texto: 'Gastos:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: exprense,
@@ -210,7 +200,8 @@ class _PaymentsToUserState extends State<PaymentsToUser> {
   }
 
   getHisPayments(String userID) {
-    Future<List<Payments>> thisUser = paymentsControllers.getPaymentsOfUser(userID);
+    Future<List<Payments>> thisUser =
+        paymentsControllers.getPaymentsOfUser(userID);
     Future<List<Payments>> forPayments = paymentsControllers.getDataPayments();
     thisUser.then((value) => {
           if (value.isNotEmpty)

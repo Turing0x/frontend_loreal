@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/no_data.dart';
+import 'package:sticker_maker/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
+import 'package:sticker_maker/models/Usuario/user_show_model.dart';
 
 final userCtrl = UserControllers();
+
 class BanksControlPage extends ConsumerStatefulWidget {
   const BanksControlPage({super.key});
 
@@ -48,7 +49,6 @@ class _BanksControlPageState extends ConsumerState<BanksControlPage> {
   }
 
   FutureBuilder<List<User>> showList() {
-
     return FutureBuilder(
       future: userCtrl.getAllBanks(),
       builder: (context, AsyncSnapshot<List<User>> snapshot) {

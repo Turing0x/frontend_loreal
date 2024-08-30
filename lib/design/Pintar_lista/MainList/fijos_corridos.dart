@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils/to_edit_list.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils/to_edit_list.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:sticker_maker/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
 
 import '../../../config/enums/lista_general_enum.dart';
 import '../../../config/enums/main_list_enum.dart';

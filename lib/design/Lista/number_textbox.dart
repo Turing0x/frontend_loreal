@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
 class NumberTextbox extends StatelessWidget {
   const NumberTextbox({
@@ -39,9 +39,7 @@ class NumberTextbox extends StatelessWidget {
             height: 30,
             child: ElevatedButton(
               onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
               child: Align(
                   alignment: Alignment.center,
                   child: textoDosis('+', 20, color: Colors.white)),

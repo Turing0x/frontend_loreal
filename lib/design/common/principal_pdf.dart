@@ -1,13 +1,13 @@
-import 'package:frontend_loreal/design/Hacer_PDFs/widgets/texto_dosis.dart';
-import 'package:frontend_loreal/design/common/pdf_widget.dart';
-import 'package:frontend_loreal/models/Lista_Candado/candado_model.dart';
-import 'package:frontend_loreal/models/Lista_Decena/decena_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
-import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
-import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
-import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
+import 'package:sticker_maker/design/Hacer_PDFs/widgets/texto_dosis.dart';
+import 'package:sticker_maker/design/common/pdf_widget.dart';
+import 'package:sticker_maker/models/Lista_Candado/candado_model.dart';
+import 'package:sticker_maker/models/Lista_Decena/decena_model.dart';
+import 'package:sticker_maker/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:sticker_maker/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:sticker_maker/models/Lista_Main/parles/parles_model.dart';
+import 'package:sticker_maker/models/Lista_Millon/million_model.dart';
+import 'package:sticker_maker/models/Lista_Posicion/posicion_model.dart';
+import 'package:sticker_maker/models/Lista_Terminal/terminal_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -86,15 +86,13 @@ pw.Widget _parlesView(ParlesModel model) {
       pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.center,
         children: [
-          ...model.numplay
-              .map((numero) => numeroRedondo(
-                    numero: numero.toString(),
-                    mostrarBorde: false,
-                    margin: 2,
-                    isParles: true,
-                    fontWeight: pw.FontWeight.bold,
-                  ))
-              ,
+          ...model.numplay.map((numero) => numeroRedondo(
+                numero: numero.toString(),
+                mostrarBorde: false,
+                margin: 2,
+                isParles: true,
+                fontWeight: pw.FontWeight.bold,
+              )),
         ],
       ),
       pw.SizedBox(width: 10),
@@ -234,11 +232,10 @@ pw.Widget _candadoView(CandadoModel model) {
     children: [
       pw.SizedBox(width: 10),
       pw.SizedBox(
-        width: 150,
-        child: textoDosisPDF(
-          toPrint.toString().replaceAll('[', '').replaceAll(']', ''), 18,
-          maxLines: 10)
-        ),
+          width: 150,
+          child: textoDosisPDF(
+              toPrint.toString().replaceAll('[', '').replaceAll(']', ''), 18,
+              maxLines: 10)),
       pw.SizedBox(width: 10),
       numeroRedondo(
         numero: model.fijo.toString(),

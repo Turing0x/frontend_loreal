@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/models/Lista/list_model.dart';
-import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/models/Lista/list_model.dart';
+import 'package:sticker_maker/models/Lista/list_offline_model.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/models/Lista/only_winner.dart';
+import 'package:sticker_maker/models/Lista/only_winner.dart';
 
 class ListControllers {
   final storage = const FlutterSecureStorage();

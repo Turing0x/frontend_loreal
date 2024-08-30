@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
 class TxtInfo extends StatefulWidget {
   final TextEditingController controlador;
@@ -51,7 +51,7 @@ class _TxtInfoState extends State<TxtInfo> {
               margin: const EdgeInsets.only(left: 10),
               padding: const EdgeInsets.only(left: 20),
               decoration: BoxDecoration(
-                  color: (isDark) ? Colors.black : Colors.grey[200], 
+                  color: (isDark) ? Colors.black : Colors.grey[200],
                   borderRadius: BorderRadius.circular(10)),
               child: FocusScope(
                 child: Focus(

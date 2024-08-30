@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils/biometrics.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/opt_list_tile.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/utils/biometrics.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/opt_list_tile.dart';
 import 'package:local_auth/local_auth.dart';
 
 class MainBanqueroPage extends ConsumerStatefulWidget {
@@ -79,80 +79,82 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
   Widget build(BuildContext context) {
     final seechUsername = ref.watch(chUser);
 
-    return !isAuthenticatedBiometrics ? Container() : Scaffold(
-        appBar: showAppBar('Página principal', actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.settings_outlined,
-            ),
-            onPressed: () =>
-                Navigator.pushNamed(context, 'main_settigns_banco'),
-          )
-        ]),
-        floatingActionButton: FloatingActionButton.extended(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          elevation: 2,
-          onPressed: () => Navigator.pushNamed(context, 'sorteos_page'),
-          label: const Row(children: [
-            Icon(Icons.sports_outlined, color: Colors.white),
-            SizedBox(width: 10),
-            Text(
-              'Añadir sorteo',
-              style: TextStyle(color: Colors.white),
-            )
-          ]),
-        ),
-        body: SingleChildScrollView(
-            child: Column(
-          children: [
-            const SizedBox(height: 10),
-            dinamicGroupBox('Cargados y Bote', [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  customBolaBtn(context,
-                      onTap: () =>
-                          Navigator.pushNamed(context, 'bola_cargada_page'),
-                      icon: Icons.sports_baseball_outlined,
-                      text: 'Bolas'),
-                  customBolaBtn(context,
-                      onTap: () =>
-                          Navigator.pushNamed(context, 'parle_cargada_page'),
-                      icon: Icons.format_list_numbered_outlined,
-                      text: 'Parlés')
-                ],
-              ),
-              const SizedBox(height: 15),
+    return !isAuthenticatedBiometrics
+        ? Container()
+        : Scaffold(
+            appBar: showAppBar('Página principal', actions: [
+              IconButton(
+                icon: const Icon(
+                  Icons.settings_outlined,
+                ),
+                onPressed: () =>
+                    Navigator.pushNamed(context, 'main_settigns_banco'),
+              )
             ]),
-            optListTile(
-                Icons.groups_outlined,
-                'Equipo de trabajo',
-                'Control total sobre los usurios del sistema',
-                () => Navigator.pushNamed(context, 'user_control_page',
-                    arguments: [userName, 'Banco', mainID]),
-                true),
-            optListTile(
-                Icons.attach_money_rounded,
-                'Solo Premio',
-                'Ver las jugadas que dieron premio',
-                () => Navigator.pushNamed(context, 'only_winners'),
-                true),
-            optListTile(
-                Icons.list,
-                'Control de listas',
-                'Visualiza y controla todas las listas en el servidor',
-                () => Navigator.pushNamed(context, 'list_control_page',
-                    arguments: [seechUsername, mainID]),
-                true),
-            optListTile(
-                Icons.sd_storage_outlined,
-                'Almacenamiento interno',
-                'Listas y vales guardados en el teléfono',
-                () => Navigator.pushNamed(context, 'internal_storage_page'),
-                true),
-          ],
-        )));
+            floatingActionButton: FloatingActionButton.extended(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 2,
+              onPressed: () => Navigator.pushNamed(context, 'sorteos_page'),
+              label: const Row(children: [
+                Icon(Icons.sports_outlined, color: Colors.white),
+                SizedBox(width: 10),
+                Text(
+                  'Añadir sorteo',
+                  style: TextStyle(color: Colors.white),
+                )
+              ]),
+            ),
+            body: SingleChildScrollView(
+                child: Column(
+              children: [
+                const SizedBox(height: 10),
+                dinamicGroupBox('Cargados y Bote', [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      customBolaBtn(context,
+                          onTap: () =>
+                              Navigator.pushNamed(context, 'bola_cargada_page'),
+                          icon: Icons.sports_baseball_outlined,
+                          text: 'Bolas'),
+                      customBolaBtn(context,
+                          onTap: () => Navigator.pushNamed(
+                              context, 'parle_cargada_page'),
+                          icon: Icons.format_list_numbered_outlined,
+                          text: 'Parlés')
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                ]),
+                optListTile(
+                    Icons.groups_outlined,
+                    'Equipo de trabajo',
+                    'Control total sobre los usurios del sistema',
+                    () => Navigator.pushNamed(context, 'user_control_page',
+                        arguments: [userName, 'Banco', mainID]),
+                    true),
+                optListTile(
+                    Icons.attach_money_rounded,
+                    'Solo Premio',
+                    'Ver las jugadas que dieron premio',
+                    () => Navigator.pushNamed(context, 'only_winners'),
+                    true),
+                optListTile(
+                    Icons.list,
+                    'Control de listas',
+                    'Visualiza y controla todas las listas en el servidor',
+                    () => Navigator.pushNamed(context, 'list_control_page',
+                        arguments: [seechUsername, mainID]),
+                    true),
+                optListTile(
+                    Icons.sd_storage_outlined,
+                    'Almacenamiento interno',
+                    'Listas y vales guardados en el teléfono',
+                    () => Navigator.pushNamed(context, 'internal_storage_page'),
+                    true),
+              ],
+            )));
   }
 
   GestureDetector customBolaBtn(

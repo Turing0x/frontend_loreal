@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
@@ -64,7 +64,6 @@ class _JornadAndDateState extends ConsumerState<JornadAndDate> {
                       width: 150,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          
                           borderRadius: BorderRadius.circular(10)),
                       child: textoDosis(janddate.currentDate, 20)),
                 ),

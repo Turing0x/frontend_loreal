@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/auth.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils/biometrics.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/server/http/auth.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/utils/biometrics.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 import 'package:local_auth/local_auth.dart';
 
 class OtherSignInPage extends ConsumerStatefulWidget {
@@ -27,8 +27,6 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
 
   @override
   void initState() {
-    final LocalAuthentication auth = LocalAuthentication();
-
     Future<String?> offlinePass = LocalStorage.getpassListerOffline();
     offlinePass.then((value) {
       if (value != null) {
@@ -37,27 +35,6 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
         });
       }
     });
-
-    if (!isAuthenticatedBiometrics) {
-      hasBiometrics().then((value) => {
-            if (value)
-              {
-                auth
-                    .authenticate(
-                        options: const AuthenticationOptions(
-                            biometricOnly: true, stickyAuth: true),
-                        localizedReason:
-                            'Touch your finger on the sensor to login')
-                    .then((didAuthenticate) {
-                  if (didAuthenticate) {
-                    setState(() {
-                      successAuth = true;
-                    });
-                  }
-                })
-              }
-          });
-    }
 
     super.initState();
   }
@@ -92,7 +69,6 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
-                  enabled: successAuth,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email or phone number',
@@ -105,18 +81,29 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
-                  enabled: successAuth,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Password',
                       hintText: 'Enter your username'),
-                  obscureText: true,
+                  obscureText: showPass,
                   controller: passController,
                   onChanged: (value) => setState(() {}),
                 ),
               ),
               _contBotones(routesByRole),
-              textoDosis('or continue with', 20, color: Colors.grey),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  textoDosis('or continue ', 20, color: Colors.grey),
+                  GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showPass = !showPass;
+                        });
+                      },
+                      child: textoDosis('with', 20, color: Colors.grey)),
+                ],
+              ),
               Container(
                 padding: const EdgeInsets.all(20),
                 width: double.infinity,
@@ -165,7 +152,30 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
                 (!btnManager) ? Colors.green[300] : Colors.grey[400],
             elevation: 2,
           ),
-          onPressed: () {
+          onPressed: () async {
+            final LocalAuthentication auth = LocalAuthentication();
+
+            bool has = await hasBiometrics();
+            if (has) {
+              bool didAuthenticate = await auth.authenticate(
+                  options: const AuthenticationOptions(
+                      biometricOnly: true, stickyAuth: true),
+                  localizedReason: 'Touch your finger on the sensor to login');
+
+              if (didAuthenticate) {
+                setState(() {
+                  successAuth = true;
+                });
+              }
+            } else {
+              showToast(context, 'Your device does not support biometrics');
+            }
+
+            if (!successAuth) {
+              showToast(context, "We couldn't authenticate you");
+              return;
+            }
+
             btnManagerM.state = true;
             FocusScope.of(context).unfocus();
             final chUsername = ref.read(chUser.notifier);
@@ -176,8 +186,8 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
               return showToast(context, 'Please fill in the form');
             }
 
-            final typeRole = authService.login(
-                nameController.text.trim(), passController.text.trim());
+            final typeRole = authService.login(nameController.text.trim(),
+                passController.text.trim(), context);
 
             typeRole.then((value) {
               if (value != '') {

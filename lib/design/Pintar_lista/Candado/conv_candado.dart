@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/models/Lista_Candado/candado_model.dart';
+import 'package:sticker_maker/models/Lista_Candado/candado_model.dart';
 
 List<dynamic> convertirPayloadCandado(
     String uuid, List<dynamic> numplay, int fijo, int dinero) {

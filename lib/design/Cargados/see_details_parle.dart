@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/models/Cargados/cargados_model.dart';
 
 import '../../config/controllers/limits_controller.dart';
 import '../../config/globals/variables.dart';
@@ -45,15 +45,14 @@ class _SeeDetailsParlesCargadosState extends State<SeeDetailsParlesCargados> {
                 ],
               ),
             ]),
-            encabezado(
-              context, 'Listas donde aparece', 
-              !withLot, () async{
-                final ctrl = LimitsControllers();
-                await ctrl.saveDataLimitsPerleToUserCargados(widget.bola, widget.jornal);
-              },
-              btnIcon: Icons.label_important_outline_sharp,
-              btnText: 'Limitar',
-              false),
+            encabezado(context, 'Listas donde aparece', !withLot, () async {
+              final ctrl = LimitsControllers();
+              await ctrl.saveDataLimitsPerleToUserCargados(
+                  widget.bola, widget.jornal);
+            },
+                btnIcon: Icons.label_important_outline_sharp,
+                btnText: 'Limitar',
+                false),
             SizedBox(
               width: double.infinity,
               height: 700,
@@ -76,20 +75,20 @@ class _SeeDetailsParlesCargadosState extends State<SeeDetailsParlesCargados> {
                                 fontWeight: FontWeight.bold),
                           ]),
                       trailing: (!withLot)
-                        ? OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: Colors.black26)
-                            ),
-                            child: textoDosis('Limitar', 16),
-                            onPressed: () async{
-                              final ctrl = LimitsControllers();
-                              await ctrl.saveDataLimitsParleToUserCargadosListero(username, widget.bola, widget.jornal);
-                            } 
-                          )
-                        : Icon(
-                          customTileExpanded
-                            ? Icons.arrow_drop_down_circle
-                            : Icons.arrow_drop_down),
+                          ? OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  side:
+                                      const BorderSide(color: Colors.black26)),
+                              child: textoDosis('Limitar', 16),
+                              onPressed: () async {
+                                final ctrl = LimitsControllers();
+                                await ctrl
+                                    .saveDataLimitsParleToUserCargadosListero(
+                                        username, widget.bola, widget.jornal);
+                              })
+                          : Icon(customTileExpanded
+                              ? Icons.arrow_drop_down_circle
+                              : Icons.arrow_drop_down),
                       onExpansionChanged: (bool expanded) {
                         setState(() => customTileExpanded = expanded);
                       },

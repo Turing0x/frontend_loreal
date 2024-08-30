@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/config/enums/main_list_enum.dart';
+import 'package:sticker_maker/config/enums/main_list_enum.dart';
 
 Map<String, int> toBlockIfOutOfLimit = <String, int>{};
 
