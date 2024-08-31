@@ -37,6 +37,7 @@ Future<List<BolaCargadaModel>> getBolasCargadas(
       cargados.add(actual);
     }
 
+    EasyLoading.showInfo('Informacion cargada');
     return cargados;
   } catch (e) {
     EasyLoading.showError('Ha ocurrido un error');
@@ -76,6 +77,7 @@ Future<List<BolaCargadaModel>> getParleCargadas(
       cargados.add(actual);
     }
 
+    EasyLoading.showInfo('Informacion cargada');
     return cargados;
   } catch (e) {
     EasyLoading.showError('Ha ocurrido un error');
