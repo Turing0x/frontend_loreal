@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
 import 'package:open_file/open_file.dart';
 
 class SeeListsOnFolder extends StatefulWidget {
@@ -177,7 +177,8 @@ class _SeeListsOnFolderState extends State<SeeListsOnFolder> {
           try {
             if (directory.listSync().length != 1) {
               file.deleteSync();
-              showToast('Documento eliminado exitosamente', type: true);
+              showToast(context, 'Documento eliminado exitosamente',
+                  type: true);
               files.remove(path);
               cambioListas.value = !cambioListas.value;
               return;
@@ -185,10 +186,10 @@ class _SeeListsOnFolderState extends State<SeeListsOnFolder> {
 
             directory.deleteSync(recursive: true);
             Navigator.pop(context);
-            showToast('Documento eliminado exitosamente', type: true);
+            showToast(context, 'Documento eliminado exitosamente', type: true);
             cambioListas.value = !cambioListas.value;
           } catch (e) {
-            showToast('No se pudo eliminar el documento');
+            showToast(context, 'No se pudo eliminar el documento');
           }
         });
   }
@@ -211,11 +212,12 @@ class _SeeListsOnFolderState extends State<SeeListsOnFolder> {
               final folder = Directory(path);
               try {
                 folder.deleteSync(recursive: true);
-                showToast('Documento eliminado exitosamente', type: true);
+                showToast(context, 'Documento eliminado exitosamente',
+                    type: true);
                 cambioListas.value = !cambioListas.value;
                 Navigator.pop(context);
               } catch (e) {
-                showToast('No se pudo eliminar el documento');
+                showToast(context, 'No se pudo eliminar el documento');
               }
             }));
   }

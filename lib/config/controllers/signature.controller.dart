@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
 
 class SignatureControllers {
-
   late Dio _dio;
 
   SignatureControllers() {
@@ -32,8 +31,8 @@ class SignatureControllers {
 
       EasyLoading.show(status: 'Generando firma general');
       await _initializeDio();
-      Response response = await _dio.get('/api/signature/generate',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/signature/generate', queryParameters: queryData);
 
       if (!response.data['success']) {
         EasyLoading.showError('Ha ocurrido algo grave');
@@ -50,5 +49,4 @@ class SignatureControllers {
       return '';
     }
   }
-
 }

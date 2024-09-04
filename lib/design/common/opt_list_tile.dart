@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
 ListTile optListTile(IconData leading, String title, String subtitle,
     Function()? onTap, bool flecha,
     {Color? color = Colors.transparent}) {
   return ListTile(
-    trailing: (flecha)
-        ? const Icon(Icons.arrow_right_rounded)
-        : null,
+    trailing: (flecha) ? const Icon(Icons.arrow_right_rounded) : null,
     subtitle: Text(
       subtitle,
       style: subtituloListTile,

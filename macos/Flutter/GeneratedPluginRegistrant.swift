@@ -6,6 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import flutter_localization
+
 import path_provider_foundation
 import printing
 import shared_preferences_foundation

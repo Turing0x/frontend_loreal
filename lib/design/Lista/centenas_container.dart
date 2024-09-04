@@ -1,17 +1,17 @@
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/design/Lista/number_textbox.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
-import 'package:frontend_loreal/design/common/txt_small.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/design/Lista/number_textbox.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
+import 'package:sticker_maker/design/common/txt_small.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista/rango_numero_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:sticker_maker/models/Lista/rango_numero_model.dart';
+import 'package:sticker_maker/models/Lista_Main/centenas/centenas_model.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
 class CentenasWidget extends ConsumerStatefulWidget {
   const CentenasWidget({
@@ -44,7 +44,7 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
         List fcppc = toJoinList.currentList['ListaGeneralEnum.principales']![
             'MainListEnum.centenas'];
         for (var element in fcppc) {
-          if( !widget.listaCentenas.contains(element) ){
+          if (!widget.listaCentenas.contains(element)) {
             widget.listaCentenas.add(
               CentenasModel.fromTextEditingController(0,
                   uuid: element.uuid,
@@ -105,7 +105,9 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
                                 final payCrtl = ref.read(paymentCrtl.notifier);
 
                                 int bruto = e.fijo;
-                                int limpioListero = (bruto * (getLimit.porcientoParleListero / 100)).toInt();
+                                int limpioListero = (bruto *
+                                        (getLimit.porcientoParleListero / 100))
+                                    .toInt();
 
                                 payCrtl.restaTotalBruto70 = bruto;
                                 payCrtl.restaLimpioListero = limpioListero;
@@ -192,7 +194,7 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
                 if ((cNum.text.isEmpty || cNum.text.length != 3) ||
                     cValor.text.isEmpty ||
                     cValor.text == '0') {
-                  showToast('Revise los campos por favor');
+                  showToast(context, 'Revise los campos por favor');
                   return;
                 }
 
@@ -202,7 +204,7 @@ class _CentenasWidgetState extends ConsumerState<CentenasWidget> {
                         int.parse(widget.centena);
 
                 if (excedeApuesta) {
-                  showToast(
+                  showToast(context,
                       'El límite para la centena está establecido en ${widget.centena}. No puede ser excedido');
                   return;
                 }

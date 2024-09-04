@@ -1,38 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/list_controller.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils/file_manager.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/Hacer_PDFs/Listero/pdf_listero.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Candado/candado.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Decena/decena.dart';
-import 'package:frontend_loreal/design/Pintar_lista/MainList/centenas.dart';
-import 'package:frontend_loreal/design/Pintar_lista/MainList/fijos_corridos.dart';
-import 'package:frontend_loreal/design/Pintar_lista/MainList/parles.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Millon/million.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Posicion/posicion.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Terminal/terminal.dart';
-import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:sticker_maker/config/controllers/list_controller.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/utils/file_manager.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:sticker_maker/design/Hacer_PDFs/Listero/pdf_listero.dart';
+import 'package:sticker_maker/design/Pintar_lista/Candado/candado.dart';
+import 'package:sticker_maker/design/Pintar_lista/Decena/decena.dart';
+import 'package:sticker_maker/design/Pintar_lista/MainList/centenas.dart';
+import 'package:sticker_maker/design/Pintar_lista/MainList/fijos_corridos.dart';
+import 'package:sticker_maker/design/Pintar_lista/MainList/parles.dart';
+import 'package:sticker_maker/design/Pintar_lista/Millon/million.dart';
+import 'package:sticker_maker/design/Pintar_lista/Posicion/posicion.dart';
+import 'package:sticker_maker/design/Pintar_lista/Terminal/terminal.dart';
+import 'package:sticker_maker/design/Pintar_lista/methods.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/no_data.dart';
+import 'package:sticker_maker/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista/list_model.dart';
-import 'package:frontend_loreal/models/Lista_Calcs/calcs_model.dart';
-import 'package:frontend_loreal/models/Lista_Candado/candado_model.dart';
-import 'package:frontend_loreal/models/Lista_Decena/decena_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
-import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
-import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
-import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
-import 'package:frontend_loreal/models/PDFs/invoice_listero.dart';
+import 'package:sticker_maker/models/Lista/list_model.dart';
+import 'package:sticker_maker/models/Lista_Calcs/calcs_model.dart';
+import 'package:sticker_maker/models/Lista_Candado/candado_model.dart';
+import 'package:sticker_maker/models/Lista_Decena/decena_model.dart';
+import 'package:sticker_maker/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:sticker_maker/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:sticker_maker/models/Lista_Main/parles/parles_model.dart';
+import 'package:sticker_maker/models/Lista_Millon/million_model.dart';
+import 'package:sticker_maker/models/Lista_Posicion/posicion_model.dart';
+import 'package:sticker_maker/models/Lista_Terminal/terminal_model.dart';
+import 'package:sticker_maker/models/PDFs/invoice_listero.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,7 +109,8 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
                           Colors.blue[300],
                           const Icon(Icons.delete_sweep_outlined),
                           'Eliminar', () async {
-                        bool okay = await listControllers.editOneList(listID, theList.state);
+                        bool okay = await listControllers.editOneList(
+                            listID, theList.state);
                         if (okay) {
                           eraseDataOfStorage();
                           theList.state.clear();
@@ -164,16 +165,16 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
     if (openPdf ?? false) {
       OpenFile.open(itsDone['path']);
     }
-    showToast('Lista exportada exitosamente', type: true);
+    showToast(context, 'Lista exportada exitosamente', type: true);
   }
 
   void eraseDataOfStorage() {
     final list = ref.read(toManageTheMoney.notifier);
 
-    for(var each in list.state){
-
-      if(each is FijoCorridoModel){
-        toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
+    for (var each in list.state) {
+      if (each is FijoCorridoModel) {
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon0(2),
+            (value) {
           return {
             'fijo': value['fijo']! - (each.fijo!),
             'corrido': value['corrido']! - (each.corrido!),
@@ -181,8 +182,8 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
           };
         });
       }
-      
-      if(each is MillionModel){
+
+      if (each is MillionModel) {
         toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
           return {
             'fijo': value['fijo']! - each.fijo,
@@ -191,8 +192,9 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
         });
       }
 
-      if(each is PosicionModel){
-        toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
+      if (each is PosicionModel) {
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon0(2),
+            (value) {
           return {
             'fijo': value['fijo']! - each.fijo,
             'corrido': value['corrido']! - each.corrido,
@@ -201,55 +203,52 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
         });
       }
 
-      if(each is TerminalModel){
-          toBlockIfOutOfLimitTerminal.update(each.terminal.toString(), (value) {
-            return {
-              'fijo': value['fijo']! - each.fijo,
-              'corrido': value['corrido']! - each.corrido,
-            };
-          });
+      if (each is TerminalModel) {
+        toBlockIfOutOfLimitTerminal.update(each.terminal.toString(), (value) {
+          return {
+            'fijo': value['fijo']! - each.fijo,
+            'corrido': value['corrido']! - each.corrido,
+          };
+        });
       }
 
-      if(each is DecenaModel){
-          toBlockIfOutOfLimitDecena.update(each.numplay.toString(), (value) {
-            return {
-              'fijo': value['fijo']! - each.fijo,
-              'corrido': value['corrido']! - each.corrido,
-            };
-          });
+      if (each is DecenaModel) {
+        toBlockIfOutOfLimitDecena.update(each.numplay.toString(), (value) {
+          return {
+            'fijo': value['fijo']! - each.fijo,
+            'corrido': value['corrido']! - each.corrido,
+          };
+        });
       }
 
-      if(each is CentenasModel){
-        toBlockIfOutOfLimit.update(
-          each.numplay, (value) => value - each.fijo);
+      if (each is CentenasModel) {
+        toBlockIfOutOfLimit.update(each.numplay, (value) => value - each.fijo);
       }
 
-      if(each is ParlesModel){
-
+      if (each is ParlesModel) {
         String a = each.numplay[0];
         String b = each.numplay[1];
 
-        String joined = '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
-        String joined1 = '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
+        String joined =
+            '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
+        String joined1 =
+            '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
 
-        toBlockIfOutOfLimit.update(
-            joined, (value) => value - each.fijo);
+        toBlockIfOutOfLimit.update(joined, (value) => value - each.fijo);
 
-        toBlockIfOutOfLimit.update(
-            joined1, (value) => value - each.fijo);
-       
+        toBlockIfOutOfLimit.update(joined1, (value) => value - each.fijo);
       }
 
-      if(each is CandadoModel){
-
+      if (each is CandadoModel) {
         List allCombinations = combinaciones(each.numplay);
-        int dineroForEachParle = each.fijo ~/ 
-          ((each.numplay.length * (each.numplay.length - 1)) / 2);
+        int dineroForEachParle = each.fijo ~/
+            ((each.numplay.length * (each.numplay.length - 1)) / 2);
 
         for (var element in allCombinations) {
-          
-          String joined = '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
-          String joined1 = '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
+          String joined =
+              '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
+          String joined1 =
+              '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
 
           toBlockIfOutOfLimit.update(
               joined, (value) => value - dineroForEachParle);
@@ -257,9 +256,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
           toBlockIfOutOfLimit.update(
               joined1, (value) => value - dineroForEachParle);
         }
-       
       }
-    
     }
 
     fileManagerWriteGlobal(toBlockIfOutOfLimit);
@@ -280,7 +277,6 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
 
     return resultado;
   }
-
 }
 
 class ShowList extends StatefulWidget {
@@ -350,8 +346,10 @@ class _ShowListState extends State<ShowList> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
-                          boldLabel('B: ',
-                              decoded['bruto'].toStringAsFixed(0).toString(), 18),
+                          boldLabel(
+                              'B: ',
+                              decoded['bruto'].toStringAsFixed(0).toString(),
+                              18),
                           const SizedBox(width: 20),
                           boldLabel(
                               'L: ',

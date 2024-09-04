@@ -2,23 +2,23 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/controllers/payments_controller.dart';
-import 'package:frontend_loreal/config/controllers/time_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/methods/update_methods.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/config/utils/file_manager.dart';
+import 'package:sticker_maker/config/controllers/limits_controller.dart';
+import 'package:sticker_maker/config/controllers/payments_controller.dart';
+import 'package:sticker_maker/config/controllers/time_controller.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/methods/update_methods.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/server/http/methods.dart';
+import 'package:sticker_maker/config/utils/file_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/opt_list_tile.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
-import 'package:frontend_loreal/models/Limites/limits_model.dart';
-import 'package:frontend_loreal/models/Pagos/payments_model.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/opt_list_tile.dart';
+import 'package:sticker_maker/models/Horario/time_model.dart';
+import 'package:sticker_maker/models/Limites/limits_model.dart';
+import 'package:sticker_maker/models/Pagos/payments_model.dart';
 import 'package:intl/intl.dart';
 
 class MainListeroPage extends ConsumerStatefulWidget {
@@ -71,7 +71,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
       toBlockIfOutOfLimitFCPC.clear();
       toBlockIfOutOfLimitTerminal.clear();
       toBlockIfOutOfLimitDecena.clear();
-      
+
       payCrtl.limpioAllCalcs();
     });
 
@@ -104,7 +104,9 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
     });
 
     timeControllers.getDataTime().then((value) {
-      if (value.isNotEmpty){ getServerTimes(value); }
+      if (value.isNotEmpty) {
+        getServerTimes(value);
+      }
     });
 
     super.initState();
@@ -139,7 +141,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
               optListTile(
                   Icons.line_style_outlined, 'Formalizar nueva lista', '', () {
                 (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'))
-                    ? showToast(
+                    ? showToast(context,
                         'Acción bloqueda en este horario. \nInténtelo más tarde')
                     : Navigator.pushNamed(context, 'main_make_list',
                         arguments: [username]);
@@ -177,7 +179,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
               optListTile(Icons.pending_actions_outlined, 'Listas pendientes',
                   'Listas pendientes a ser enviadas al servidor', () {
                 (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'))
-                    ? showToast(
+                    ? showToast(context,
                         'Acción bloqueda en este horario. \nInténtelo más tarde')
                     : Navigator.pushNamed(context, 'pending_lists',
                         arguments: [username]);
@@ -239,17 +241,17 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
     Duration night_difference_start = nowStringify.difference(night_start);
     Duration night_difference_end = nowStringify.difference(night_end);
 
-    bool to_start_day = ((!day_difference_start.isNegative &&
-            !day_difference_end.isNegative) ||
-        (day_difference_start.isNegative && day_difference_end.isNegative));
+    bool to_start_day =
+        ((!day_difference_start.isNegative && !day_difference_end.isNegative) ||
+            (day_difference_start.isNegative && day_difference_end.isNegative));
 
     bool on_day_session =
         (!day_difference_start.isNegative && day_difference_end.isNegative);
 
     bool to_start_nigth =
         (!day_difference_end.isNegative && night_difference_start.isNegative);
-    bool on_night_session = (!night_difference_start.isNegative &&
-        night_difference_end.isNegative);
+    bool on_night_session =
+        (!night_difference_start.isNegative && night_difference_end.isNegative);
 
     if (on_day_session) {
       setState(() {
@@ -292,7 +294,6 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
           day_difference_start.inMinutes.remainder(60).abs(),
           day_difference_start.inSeconds.remainder(60).abs());
     }
-
   }
 
   getHisLimits(String userID) {
@@ -316,7 +317,8 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
   getHisPayments(String userID) {
     final setLimits = ref.watch(globalLimits);
     final paymentsControllers = PaymentsControllers();
-    Future<List<Payments>> forPayments = paymentsControllers.getPaymentsOfUser(userID);
+    Future<List<Payments>> forPayments =
+        paymentsControllers.getPaymentsOfUser(userID);
     forPayments.then((value) {
       if (value.isNotEmpty) {
         setLimits.porcientoBolaListero = value[0].bolaListero;

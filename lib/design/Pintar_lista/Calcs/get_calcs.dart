@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/models/Lista_Calcs/other_model.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/models/Lista_Calcs/other_model.dart';
 
 class CalcsControllers {
-
   late Dio _dio;
 
   CalcsControllers() {
@@ -33,12 +31,10 @@ class CalcsControllers {
       final queryData = {'lot': lot, 'signature': signature};
 
       await _initializeDio();
-      Response response = await _dio.get('/api/calcs',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/calcs', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 
@@ -52,5 +48,4 @@ class CalcsControllers {
       return [];
     }
   }
-
 }

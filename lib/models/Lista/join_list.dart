@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
+import 'package:sticker_maker/config/extensions/lista_general_extensions.dart';
 import '../../config/enums/lista_general_enum.dart';
 
 class JoinListProvider extends StateNotifier<JoinListModel> {
@@ -24,9 +24,8 @@ class JoinListProvider extends StateNotifier<JoinListModel> {
     }
   }
 
-  bool isEmpty() 
-    => state.currentList.values
-      .every((element) => element.isEmpty);
+  bool isEmpty() =>
+      state.currentList.values.every((element) => element.isEmpty);
 }
 
 class JoinListModel {

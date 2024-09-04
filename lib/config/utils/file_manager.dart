@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<File> fileManagerWriteGlobal(final mapAsString) async {
@@ -104,14 +104,18 @@ Future deleteAllFiles() async {
     final readFiletoBlockIfOutOfLimitDecena =
         await localFiletoBlockIfOutOfLimitDecena;
 
-    if (readFiletoBlockIfOutOfLimit.existsSync())
+    if (readFiletoBlockIfOutOfLimit.existsSync()) {
       readFiletoBlockIfOutOfLimit.deleteSync();
-    if (readFiletoBlockIfOutOfLimitFCPC.existsSync())
+    }
+    if (readFiletoBlockIfOutOfLimitFCPC.existsSync()) {
       readFiletoBlockIfOutOfLimitFCPC.deleteSync();
-    if (readFiletoBlockIfOutOfLimitTerminal.existsSync())
+    }
+    if (readFiletoBlockIfOutOfLimitTerminal.existsSync()) {
       readFiletoBlockIfOutOfLimitTerminal.deleteSync();
-    if (readFiletoBlockIfOutOfLimitDecena.existsSync())
+    }
+    if (readFiletoBlockIfOutOfLimitDecena.existsSync()) {
       readFiletoBlockIfOutOfLimitDecena.deleteSync();
+    }
   } catch (e) {
     print('nada');
   }

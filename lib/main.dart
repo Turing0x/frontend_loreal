@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sticker_maker/assets/themes/light_theme.dart';
 
 import 'config/router/on_generate_route.dart';
 import 'config/router/routes.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         builder: EasyLoading.init(),
+        theme: lightTheme,
         debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,

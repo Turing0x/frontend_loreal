@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/simple_txt.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/simple_txt.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ChangeAccessPass extends StatefulWidget {
@@ -37,7 +37,6 @@ class _ChangeAccessPassState extends State<ChangeAccessPass> {
             textoDosis('Cambiar la clave de acceso al sistema', 20,
                 fontWeight: FontWeight.bold, textAlign: TextAlign.center),
             SimpleTxt(
-                
                 icon: Icons.password_outlined,
                 texto: 'Clave actual',
                 obscureText: true,
@@ -47,7 +46,6 @@ class _ChangeAccessPassState extends State<ChangeAccessPass> {
                 right: 50,
                 onChange: (valor) => setState(() {})),
             SimpleTxt(
-                
                 icon: Icons.lock_reset_outlined,
                 texto: 'Nueva clave',
                 obscureText: true,
@@ -58,18 +56,19 @@ class _ChangeAccessPassState extends State<ChangeAccessPass> {
                 onChange: (valor) => setState(() {})),
             const SizedBox(height: 10),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 30),
-              child: ElevatedButton.icon(
-                  icon: const Icon(Icons.security_outlined),
-                  label: textoDosis('Cambiar clave', 20, color: Colors.white),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[300],
-                    elevation: 2,
-                  ),
-                  onPressed: () {
-                    final userCtrl = UserControllers();
-                    userCtrl.changePass(actualPass.text, newPass.text, context);
-                  })),
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                child: ElevatedButton.icon(
+                    icon: const Icon(Icons.security_outlined),
+                    label: textoDosis('Cambiar clave', 20, color: Colors.white),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[300],
+                      elevation: 2,
+                    ),
+                    onPressed: () {
+                      final userCtrl = UserControllers();
+                      userCtrl.changePass(
+                          actualPass.text, newPass.text, context);
+                    })),
             SizedBox(height: MediaQuery.of(context).size.height * 0.12),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(

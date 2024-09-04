@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils/to_edit_list.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:sticker_maker/config/enums/lista_general_enum.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils/to_edit_list.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../models/Lista_Posicion/posicion_model.dart';
@@ -43,7 +43,6 @@ class _PosicionlListaWidgetState extends ConsumerState<PosicionlListaWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     int sum = widget.posicion.fijo +
         widget.posicion.corrido +
         widget.posicion.corrido2;
@@ -55,25 +54,25 @@ class _PosicionlListaWidgetState extends ConsumerState<PosicionlListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
-            onLongPress: () {
-              final toJoinListM = ref.read(toJoinListR.notifier);
-              final payCrtl = ref.watch(paymentCrtl.notifier);
-              final getLimit = ref.watch(globalLimits);
+          onLongPress: () {
+            final toJoinListM = ref.read(toJoinListR.notifier);
+            final payCrtl = ref.watch(paymentCrtl.notifier);
+            final getLimit = ref.watch(globalLimits);
 
-              listadoPosicion.values.first.removeWhere((element)
-                  => element['uuid'] == widget.posicion.uuid);
+            listadoPosicion.values.first.removeWhere(
+                (element) => element['uuid'] == widget.posicion.uuid);
 
-              toJoinListM.addCurrentList(
+            toJoinListM.addCurrentList(
                 key: ListaGeneralEnum.posicion, data: listadoPosicion);
-              
-              int limpioListero =
-                  (sum * (getLimit.porcientoBolaListero / 100)).toInt();
 
-              payCrtl.restaTotalBruto80 = sum;
-              payCrtl.restaLimpioListero = limpioListero;
+            int limpioListero =
+                (sum * (getLimit.porcientoBolaListero / 100)).toInt();
 
-              showToast('La jugada fue eliminada exitosamente');
-            },
+            payCrtl.restaTotalBruto80 = sum;
+            payCrtl.restaLimpioListero = limpioListero;
+
+            showToast(context, 'La jugada fue eliminada exitosamente');
+          },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.posicion);

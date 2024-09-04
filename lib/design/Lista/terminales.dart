@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/riverpod/limits_provider.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/enums/lista_general_enum.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/riverpod/limits_provider.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/simple_txt.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/simple_txt.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -78,7 +78,6 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Corrido',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: corrido,
@@ -96,7 +95,6 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     return Flexible(
       child: SimpleTxt(
           texto: 'Fijo',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: fijo,
@@ -141,7 +139,7 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
 
     if (fijo.text.isEmpty && corrido.text.isEmpty ||
         (fijo.text == '0' && corrido.text == '0')) {
-      showToast('Jugada inválida');
+      showToast(context, 'Jugada inválida');
       return;
     }
 
@@ -160,13 +158,13 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
     });
 
     if ((sumaF + toGetfijo) > getLimit.fijo) {
-      showToast(
+      showToast(context,
           'Límite excedido, ya existe en la jugada un total de \$$sumaF pesos para los terminales $selectedNumber');
       return;
     }
 
     if ((sumaC + toGetcorrido) > getLimit.corrido) {
-      showToast(
+      showToast(context,
           'Límite excedido, ya existe en la jugada un total de \$$sumaC pesos para los terminales $selectedNumber');
       return;
     }
@@ -182,7 +180,8 @@ class _TerminalesWidgetState extends ConsumerState<TerminalesWidget> {
         int actualCorrido = value['corrido']! + toGetcorrido + sumaC;
 
         if (actualFijo > getLimit.fijo || actualCorrido > getLimit.corrido) {
-          showToast('Límite excedido, ya esta pasado en la bola $key.');
+          showToast(
+              context, 'Límite excedido, ya esta pasado en la bola $key.');
           doLater = false;
           break;
         }

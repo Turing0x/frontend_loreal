@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/file_manager.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Lista/candado.dart';
-import 'package:frontend_loreal/design/Lista/decena.dart';
-import 'package:frontend_loreal/design/Lista/full_million.dart';
-import 'package:frontend_loreal/design/Lista/posicion.dart';
-import 'package:frontend_loreal/design/Lista/terminales.dart';
-import 'package:frontend_loreal/design/common/popup_widget.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/file_manager.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/Lista/candado.dart';
+import 'package:sticker_maker/design/Lista/decena.dart';
+import 'package:sticker_maker/design/Lista/full_million.dart';
+import 'package:sticker_maker/design/Lista/posicion.dart';
+import 'package:sticker_maker/design/Lista/terminales.dart';
+import 'package:sticker_maker/design/common/popup_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Lista/join_list.dart';
 
@@ -77,7 +77,7 @@ class _MainMakeListState extends ConsumerState<MainMakeList> {
 
     payCrtl.limpioAllCalcs();
 
-    showToast('Lista vaciada', type: true);
+    showToast(context, 'Lista vaciada', type: true);
   }
 
   Row rowArriba() {

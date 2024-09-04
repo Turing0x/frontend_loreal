@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
 
 void managerOfElementsOnList(WidgetRef ref, dynamic element) {
   final theBottom = ref.read(showButtomtoEditAList.notifier);
@@ -19,13 +19,13 @@ void managerOfElementsOnList(WidgetRef ref, dynamic element) {
     return;
   }
 
-  final isInList = theMoney1.state.any((each) => 
-    each.uuid == element.uuid);
-  
-  if(isInList){
-    theMoney.state.removeWhere((each) => 
-      each.uuid == element.uuid);
-  }else { theMoney.state.add(element); }
+  final isInList = theMoney1.state.any((each) => each.uuid == element.uuid);
+
+  if (isInList) {
+    theMoney.state.removeWhere((each) => each.uuid == element.uuid);
+  } else {
+    theMoney.state.add(element);
+  }
 
   theList.state.add(element.uuid);
   theBottom.state = true;

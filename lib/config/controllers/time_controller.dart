@@ -2,15 +2,13 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:sticker_maker/models/Horario/time_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
 
 import '../server/http/local_storage.dart';
 
 class TimeControllers {
-
   late Dio _dio;
 
   TimeControllers() {
@@ -34,7 +32,6 @@ class TimeControllers {
 
   Future<List<Time>> getDataTime() async {
     try {
-      
       await _initializeDio();
       Response response = await _dio.get('/api/time');
       if (!response.data['success']) {
@@ -59,13 +56,13 @@ class TimeControllers {
       EasyLoading.show(status: 'Configurando horarios...');
 
       await _initializeDio();
-      Response response = await _dio.post('/api/time', 
-        data: jsonEncode({ 
-          'dayStart': day_start,
-          'dayEnd': day_end,
-          'nightStart': night_start,
-          'nightEnd': night_end 
-        }));
+      Response response = await _dio.post('/api/time',
+          data: jsonEncode({
+            'dayStart': day_start,
+            'dayEnd': day_end,
+            'nightStart': night_start,
+            'nightEnd': night_end
+          }));
 
       String api_message = response.data['api_message'];
       if (response.data['success']) {
@@ -76,8 +73,7 @@ class TimeControllers {
       EasyLoading.showError(api_message);
       return;
     } catch (e) {
-      showToast(e.toString());
+      return;
     }
   }
-
 }

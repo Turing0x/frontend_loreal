@@ -4,6 +4,7 @@ import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/design/common/opt_list_tile.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {

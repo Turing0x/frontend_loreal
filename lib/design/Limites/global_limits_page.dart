@@ -1,12 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:frontend_loreal/models/Limites/limits_model.dart';
+import 'package:sticker_maker/config/controllers/limits_controller.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
+import 'package:sticker_maker/models/Limites/limits_model.dart';
 
 final limitsControllers = LimitsControllers();
+
 class GlobalLimits extends StatefulWidget {
   const GlobalLimits({super.key});
 
@@ -81,28 +82,24 @@ class _GlobalLimitsState extends State<GlobalLimits> {
     return Column(children: [
       TxtInfo(
           texto: 'Para el Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Corrido,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Parle:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Parle,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para la Centena:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limits_Centena,
@@ -115,14 +112,12 @@ class _GlobalLimitsState extends State<GlobalLimits> {
       encabezado(context, 'Límites para Raspaito', false, () => null, false),
       TxtInfo(
           texto: 'Para el Fijo:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Fijo,
           onChange: (valor) => setState(() {})),
       TxtInfo(
           texto: 'Para el Corrido:',
-          
           icon: Icons.attach_money,
           keyboardType: TextInputType.number,
           controlador: limites_millon_Corrido,

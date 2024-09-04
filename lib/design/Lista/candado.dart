@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/enums/lista_general_enum.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/simple_txt.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/simple_txt.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -24,14 +23,6 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
   TextEditingController candado = TextEditingController();
   TextEditingController apuesta = TextEditingController();
   String specialSymbol = '##';
-
-  FToast fToast = FToast();
-
-  @override
-  void initState() {
-    super.initState();
-    fToast.init(context);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +69,6 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
                   color: Colors.red, underline: true)),
           const SizedBox(height: 20),
           textoDosis('Los números serán separados por una coma (,)', 18),
-
           SimpleTxt(
               icon: Icons.lock_outlined,
               texto: 'Números del candado',
@@ -114,7 +104,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
                 candado.text.isEmpty ||
                 apuesta.text.isEmpty ||
                 apuesta.text == '0') {
-              showToast('Jugada inválida');
+              showToast(context, 'Jugada inválida');
               return;
             }
 
@@ -124,7 +114,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
 
             bool allEquals = aux.every((element) => element == aux[0]);
             if (allEquals) {
-              showToast('Jugada inválida');
+              showToast(context, 'Jugada inválida');
               return;
             }
 
@@ -137,7 +127,7 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
             // bool exedeLimite = dineroForEachParle > getFijoLimit;
 
             // if (exedeLimite) {
-            //   showToast(
+            //   showToast(context,
             //     'En su candado tiene ${cantParles.toInt()} parles, para los cuales corresponde $dineroForEachParle pesos por cada uno de ellos.\n\n El límite para la apuesta del parle está establecido en $getFijoLimit. No puede ser excedido. ');
             //   return;
             // }
@@ -145,8 +135,10 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
             List allCombinations = combinaciones(aux);
 
             for (var element in allCombinations) {
-              String joined = '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
-              String joined1 = '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
+              String joined =
+                  '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
+              String joined1 =
+                  '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
 
               bool excedeApuesta = (((((toBlockIfOutOfLimit[joined] ?? 0) +
                           dineroForEachParle) >
@@ -155,15 +147,17 @@ class _CandadoWidgetState extends ConsumerState<CandadoWidget> {
                       getFijoLimit)));
 
               if (excedeApuesta) {
-                showToast(
+                showToast(context,
                     'El Parle $joined suma un total de $dineroForEachParle pesos. \n\n El límite para el parlé está establecido en $getFijoLimit. No puede ser excedido');
                 return;
               }
             }
 
             for (var element in allCombinations) {
-              String joined = '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
-              String joined1 = '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
+              String joined =
+                  '${element[0].toString().rellenarCon00(2)}${element[1].toString().rellenarCon00(2)}';
+              String joined1 =
+                  '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
 
               toBlockIfOutOfLimit.update(
                   joined, (value) => value + dineroForEachParle,

@@ -2,17 +2,15 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/models/Lista/list_model.dart';
-import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/models/Lista/list_model.dart';
+import 'package:sticker_maker/models/Lista/list_offline_model.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/models/Lista/only_winner.dart';
+import 'package:sticker_maker/models/Lista/only_winner.dart';
 
 class ListControllers {
-
   final storage = const FlutterSecureStorage();
   late Dio _dio;
 
@@ -45,10 +43,9 @@ class ListControllers {
       };
 
       await _initializeDio();
-      Response response = await _dio.get('/api/list', queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/list', queryParameters: queryData);
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return {'data': [], 'lotOfToday': 'Sin datos'};
       }
 
@@ -72,12 +69,9 @@ class ListControllers {
 
   Future<List<BoliList>> getListById(String id) async {
     try {
-    
-          await _initializeDio();
+      await _initializeDio();
       Response response = await _dio.get('/api/list/$id');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 
@@ -97,10 +91,10 @@ class ListControllers {
       final queryData = {'jornal': jornal, 'date': date, 'cant': cant};
 
       await _initializeDio();
-      Response response = await _dio.get('/api/list', queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/list', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(response.data['api_message']);
         return {'data': [], 'lotOfToday': ''};
       }
 
@@ -118,17 +112,17 @@ class ListControllers {
       return {'data': [], 'lotOfToday': ''};
     }
   }
-  
+
   Future<Map<String, dynamic>> getOnlyWinners(
       String jornal, String date) async {
     try {
       final queryData = {'jornal': jornal, 'date': date};
 
       await _initializeDio();
-      Response response = await _dio.get('/api/list/winners', queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/list/winners', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(response.data['api_message']);
         return {'data': [], 'lotOfToday': ''};
       }
 
@@ -156,12 +150,12 @@ class ListControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/list',
-        data: jsonEncode({
-          'owner': owner,
-          'signature': signature,
-          'jornal': jornal,
-          'date': date,
-        }));
+          data: jsonEncode({
+            'owner': owner,
+            'signature': signature,
+            'jornal': jornal,
+            'date': date,
+          }));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -182,7 +176,7 @@ class ListControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/list/many',
-        data: jsonEncode({'owner': owner, 'lists': lists}));
+          data: jsonEncode({'owner': owner, 'lists': lists}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -211,8 +205,7 @@ class ListControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
@@ -223,7 +216,7 @@ class ListControllers {
 
       await _initializeDio();
       Response response = await _dio.put('/api/list/$id',
-        data: jsonEncode({'listOfIds': listOfIds}));
+          data: jsonEncode({'listOfIds': listOfIds}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -232,10 +225,8 @@ class ListControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
-
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/simple_txt.dart';
+import 'package:sticker_maker/config/enums/lista_general_enum.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/simple_txt.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -40,7 +40,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             const SizedBox(height: 20),
             TxtInfo(
                 texto: 'Número a jugar: ',
-                
                 icon: Icons.numbers_outlined,
                 keyboardType: TextInputType.number,
                 autofocus: true,
@@ -57,7 +56,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Fijo',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: fijo,
@@ -73,7 +71,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Corrido1',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: corrido,
@@ -91,7 +88,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             Flexible(
               child: SimpleTxt(
                   texto: 'Corrido2',
-                  
                   icon: Icons.attach_money,
                   keyboardType: TextInputType.number,
                   controlador: corrido2,
@@ -117,7 +113,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                   (fijo.text == '0' &&
                       corrido.text == '0' &&
                       corrido2.text == '0')) {
-                showToast('Jugada inválida');
+                showToast(context, 'Jugada inválida');
                 return;
               }
 
@@ -136,12 +132,12 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                   (value['corrido2'] ?? 0) + ncorrido2 > getLimit.corrido;
 
               if (excedeFijo) {
-                showToast(
+                showToast(context,
                     'El límite para el fijo está establecido en ${getLimit.fijo}. No puede ser excedido');
                 return;
               }
               if (excedeCorrido || excedeCorrido2) {
-                showToast(
+                showToast(context,
                     'El límite para el corrido está establecido en ${getLimit.corrido}. No puede ser excedido');
                 return;
               }

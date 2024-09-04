@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/encabezado.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
 
 class NewUserPage extends StatefulWidget {
   const NewUserPage({super.key, required this.userAsOwner});
@@ -48,7 +48,6 @@ class _NewUserPageState extends State<NewUserPage> {
                   texto: 'Nombre de usuario:*',
                   keyboardType: TextInputType.name,
                   controlador: nameController,
-                  
                   icon: Icons.person_outline,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 10),
@@ -56,7 +55,6 @@ class _NewUserPageState extends State<NewUserPage> {
                   texto: 'Contraseña:*',
                   keyboardType: TextInputType.name,
                   controlador: passController,
-                  
                   icon: Icons.password_outlined,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 30),
@@ -75,7 +73,8 @@ class _NewUserPageState extends State<NewUserPage> {
 
                       if (nameController.text.isEmpty ||
                           passController.text.isEmpty) {
-                        return showToast('Debe llenar los campos obligatorios');
+                        return showToast(
+                            context, 'Debe llenar los campos obligatorios');
                       }
 
                       showInfoDialog(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;
 

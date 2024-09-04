@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Lista/number_textbox.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
-import 'package:frontend_loreal/design/common/txt_small.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/Lista/number_textbox.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
+import 'package:sticker_maker/design/common/txt_small.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista/rango_numero_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:sticker_maker/models/Lista/rango_numero_model.dart';
+import 'package:sticker_maker/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -43,14 +43,13 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
 
   @override
   void initState() {
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final toJoinList = ref.watch(toJoinListR);
       if (toJoinList.currentList['ListaGeneralEnum.principales']!.isNotEmpty) {
         List fcppc = toJoinList.currentList['ListaGeneralEnum.principales']![
             'MainListEnum.fijoCorrido'];
         for (var element in fcppc) {
-          if( !widget.listaFijoCorrido.contains(element) ){
+          if (!widget.listaFijoCorrido.contains(element)) {
             widget.listaFijoCorrido.add(
               FijoCorridoModel.fromTextEditingController(
                 0,
@@ -115,7 +114,9 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
                                 final payCrtl = ref.read(paymentCrtl.notifier);
 
                                 int bruto = e.fijo! + e.corrido!;
-                                int limpioListero = (bruto * (getLimit.porcientoBolaListero / 100)).toInt();
+                                int limpioListero = (bruto *
+                                        (getLimit.porcientoBolaListero / 100))
+                                    .toInt();
 
                                 payCrtl.restaTotalBruto80 = bruto;
                                 payCrtl.restaLimpioListero = limpioListero;
@@ -229,7 +230,7 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
                             fcValorCorrido.text.isEmpty) ||
                         (fcValorFijo.text == '0' &&
                             fcValorCorrido.text == '0')) {
-                      showToast('Revise los campos por favor');
+                      showToast(context, 'Revise los campos por favor');
                       return;
                     }
 
@@ -247,7 +248,7 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
                                 corridoLimite);
 
                     if (excedeFijo) {
-                      showToast(
+                      showToast(context,
                           'Los límites están establecido en $fijoLimite y $corridoLimite. No pueden ser excedido');
                       return;
                     }

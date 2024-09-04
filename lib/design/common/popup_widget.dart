@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frontend_loreal/config/controllers/list_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/controllers/list_controller.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
-import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
-import 'package:frontend_loreal/config/enums/poput_tipo.dart';
-import 'package:frontend_loreal/config/utils/file_manager.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/enums/lista_general_enum.dart';
+import 'package:sticker_maker/config/enums/poput_tipo.dart';
+import 'package:sticker_maker/config/utils/file_manager.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -76,7 +76,7 @@ class PopupWidget extends ConsumerWidget {
             final jwt = _jwt(toJoinList.currentList);
 
             saveListOffline(todayGlobal, jornalGlobal, jwt,
-                totalBruto.toString(), totalLimpio.toString(), ref);
+                totalBruto.toString(), totalLimpio.toString(), ref, context);
 
             return;
           },
@@ -107,7 +107,7 @@ class PopupWidget extends ConsumerWidget {
 
         final toJoinListM = ref.read(toJoinListR.notifier);
         if (toJoinListM.isEmpty() || totalBruto == 0) {
-          showToast('Lista vacía, no hay información para procesar');
+          showToast(context, 'Lista vacía, no hay información para procesar');
           return;
         }
 
@@ -152,14 +152,15 @@ class PopupWidget extends ConsumerWidget {
   }
 
   saveListOffline(String date, String jornal, String signature, String bruto,
-      String limpio, WidgetRef ref) {
+      String limpio, WidgetRef ref, BuildContext context) {
     final toJoinListM = ref.read(toJoinListR.notifier);
     final listasBloc = ListasBloc();
     final payCrtl = ref.read(paymentCrtl.notifier);
 
     listasBloc.agregarLista(date, jornal, signature, bruto, limpio);
 
-    showToast('Lista guardada correctamente en el almacenamiento del celular',
+    showToast(context,
+        'Lista guardada correctamente en el almacenamiento del celular',
         type: true);
 
     fileManagerWriteGlobal(toBlockIfOutOfLimit);

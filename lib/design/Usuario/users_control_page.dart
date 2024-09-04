@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/no_data.dart';
+import 'package:sticker_maker/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
+import 'package:sticker_maker/models/Usuario/user_show_model.dart';
 
 String prioriRole = '';
 final userCtrl = UserControllers();
+
 class UserControlPage extends ConsumerStatefulWidget {
   const UserControlPage(
       {super.key,
@@ -42,7 +43,6 @@ class _UserControlPageState extends ConsumerState<UserControlPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: showAppBar('Control de usuarios', actions: [
         IconButton(
@@ -110,19 +110,18 @@ class _UserControlPageState extends ConsumerState<UserControlPage> {
   }
 
   ElevatedButton btnEnable(String id, bool enable) {
-
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          backgroundColor:
-              (toEditState.value) ? Colors.red[200] : Colors.blue[200]),
-      onPressed: () async {
-        await userCtrl.editOneEnable(id, enable);
-        LocalStorage().statusBlockSave(!toEditState.value);
-        setState(() {
-          toEditState.value = !toEditState.value;
-        });
-      },
-      child: textoDosis((toEditState.value) ? 'Bloquear' : 'Permitir', 18));
+        style: ElevatedButton.styleFrom(
+            backgroundColor:
+                (toEditState.value) ? Colors.red[200] : Colors.blue[200]),
+        onPressed: () async {
+          await userCtrl.editOneEnable(id, enable);
+          LocalStorage().statusBlockSave(!toEditState.value);
+          setState(() {
+            toEditState.value = !toEditState.value;
+          });
+        },
+        child: textoDosis((toEditState.value) ? 'Bloquear' : 'Permitir', 18));
   }
 }
 
@@ -138,9 +137,6 @@ class ShowList extends ConsumerStatefulWidget {
 class _ShowListState extends ConsumerState<ShowList> {
   @override
   Widget build(BuildContext context) {
-
-    
-
     return Scaffold(
       body: ValueListenableBuilder<bool>(
           valueListenable: syncUserControl,
@@ -218,21 +214,20 @@ class _ShowListState extends ConsumerState<ShowList> {
   }
 
   IconButton btnResetPassword(BuildContext context, String id) {
-    
     return IconButton(
         icon: const Icon(
           Icons.lock_reset_outlined,
           color: Colors.red,
         ),
         onPressed: () => showInfoDialog(
-            context,
-            'Reestablecer contraseña',
-            Text(
-                'Estás seguro que deseas reestablecer la contraseña de acceso al sistema este usuario?',
-                style: subtituloListTile), (() {
-          userCtrl.resetPass(id);
-          Navigator.pop(context);
-        })));
+                context,
+                'Reestablecer contraseña',
+                Text(
+                    'Estás seguro que deseas reestablecer la contraseña de acceso al sistema este usuario?',
+                    style: subtituloListTile), (() {
+              userCtrl.resetPass(id);
+              Navigator.pop(context);
+            })));
   }
 
   IconButton btnHisPayments(
@@ -257,7 +252,6 @@ class _ShowListState extends ConsumerState<ShowList> {
   }
 
   Switch btnEnable(String id, bool enable) {
-    
     bool state = enable;
     return Switch(
       value: state,

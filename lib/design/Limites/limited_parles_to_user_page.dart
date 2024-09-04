@@ -1,17 +1,18 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:sticker_maker/config/controllers/limits_controller.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend_loreal/models/Limites/limited_parle.dart';
+import 'package:sticker_maker/models/Limites/limited_parle.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 final limitsControllers = LimitsControllers();
+
 class LimitedParlesToUser extends StatefulWidget {
   const LimitedParlesToUser({super.key, required this.userID});
 
@@ -51,11 +52,12 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
           icon: const Icon(Icons.save_outlined),
           onPressed: () {
             if (parlesLimitado.isNotEmpty) {
-              limitsControllers.saveDataLimitsParleToUser(widget.userID, parlesLimitado);
+              limitsControllers.saveDataLimitsParleToUser(
+                  widget.userID, parlesLimitado);
               return;
             }
 
-            showToast('Añada algún número para limitar');
+            showToast(context, 'Añada algún número para limitar');
           },
         )
       ]),
@@ -146,7 +148,8 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
                 style: const TextStyle(fontFamily: 'Dosis'),
                 decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  suffixIcon: Icon(Icons.numbers_outlined, color: (!isDark) ? Colors.black : Colors.white),
+                  suffixIcon: Icon(Icons.numbers_outlined,
+                      color: (!isDark) ? Colors.black : Colors.white),
                   focusedBorder: InputBorder.none,
                   border: InputBorder.none,
                 ),
@@ -158,28 +161,28 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: Colors.blue[300],
-              borderRadius: BorderRadius.circular(10)
-            ),
+                color: Colors.blue[300],
+                borderRadius: BorderRadius.circular(10)),
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.transparent)
-                ),
+                  side: const BorderSide(color: Colors.transparent)),
               onPressed: number.text.isNotEmpty
                   ? () => setState(() {
                         if (number.text.length < 4) {
-                          showToast('Revise los campos por favor');
+                          showToast(context, 'Revise los campos por favor');
                           return;
                         }
 
-                        final candado = number.text.split('-').map((e) => e.intParsed).toList();
+                        final candado = number.text
+                            .split('-')
+                            .map((e) => e.intParsed)
+                            .toList();
                         final comb = combinaciones(candado);
 
                         for (var element in comb) {
                           parlesLimitado.addAll({
-                            jornada: _insertar(
-                                jornada: jornada,
-                                numero: element)
+                            jornada:
+                                _insertar(jornada: jornada, numero: element)
                           });
                         }
 
@@ -231,7 +234,8 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
   }
 
   ValueListenableBuilder diaNocheWidget(String jornada) {
-    ValueNotifier<List<List<List<int>>>> toChange = ValueNotifier(_insertarColumnas(jornada));
+    ValueNotifier<List<List<List<int>>>> toChange =
+        ValueNotifier(_insertarColumnas(jornada));
 
     return ValueListenableBuilder(
       valueListenable: toChange,
@@ -240,33 +244,31 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
           child: ListView.builder(
             itemCount: value.length,
             itemBuilder: (context, index) {
-        
               final subList = value[index];
 
               return GestureDetector(
-                onTap: () {
-                  int index = parlesLimitado[jornada]!.indexOf(subList[0]);
-                  parlesLimitado[jornada]!.removeAt(index);
-                  value.removeAt(index);
+                  onTap: () {
+                    int index = parlesLimitado[jornada]!.indexOf(subList[0]);
+                    parlesLimitado[jornada]!.removeAt(index);
+                    value.removeAt(index);
 
-                  toChange.value = List.from(value);
-
-                },
-                child: containerRayaDebajo(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ...subList[0].map(
-                          (numero) => NumeroRedondoWidget(
+                    toChange.value = List.from(value);
+                  },
+                  child: containerRayaDebajo(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ...subList[0].map(
+                            (numero) => NumeroRedondoWidget(
                               numero: numero.toString().rellenarCon0(2),
                             ),
                           ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ));
+                  ));
             },
           ),
         );
@@ -313,17 +315,15 @@ class _LimitedParlesToUserState extends State<LimitedParlesToUser> {
     return map;
   }
 
-  List combinaciones( List<int> candado ){
-
+  List combinaciones(List<int> candado) {
     List resultado = [];
 
-    for( int i = 0; i < candado.length - 1; i++ ){
-      for ( int j = i + 1; j < candado.length; j++ ){
+    for (int i = 0; i < candado.length - 1; i++) {
+      for (int j = i + 1; j < candado.length; j++) {
         resultado.add([candado[i], candado[j]]);
-      } 
+      }
     }
 
     return resultado;
-
   }
 }

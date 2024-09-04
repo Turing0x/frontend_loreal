@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/no_data.dart';
+import 'package:sticker_maker/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
+import 'package:sticker_maker/models/Usuario/user_show_model.dart';
 
 String prioriRole = '';
 
@@ -104,7 +104,6 @@ class ShowList extends ConsumerStatefulWidget {
 class _ShowListState extends ConsumerState<ShowList> {
   @override
   Widget build(BuildContext context) {
-
     final userCtrl = UserControllers();
 
     return Scaffold(
@@ -133,7 +132,7 @@ class _ShowListState extends ConsumerState<ShowList> {
                             fontWeight: FontWeight.bold),
                         subtitle: textoDosis(users[index].role['name'], 20),
                         trailing: btnEnable(context, users[index].id,
-                          users[index].username, users[index].enable),
+                            users[index].username, users[index].enable),
                         onTap: () {
                           if (users[index].role['code'] != 'listero') {
                             setState(() {
@@ -171,7 +170,7 @@ class _ShowListState extends ConsumerState<ShowList> {
 
   Switch btnEnable(
       BuildContext context, String id, String username, bool enable) {
-        final userCtrl = UserControllers();
+    final userCtrl = UserControllers();
     bool state = enable;
     return Switch(
       value: state,

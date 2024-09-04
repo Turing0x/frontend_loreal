@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
 
 class SimpleTxt extends StatefulWidget {
   final TextEditingController controlador;
@@ -48,7 +48,7 @@ class _SimpleTxtState extends State<SimpleTxt> {
         margin: const EdgeInsets.only(left: 10),
         padding: const EdgeInsets.only(left: 20),
         decoration: BoxDecoration(
-            color: (isDark) ? Colors.black : Colors.grey[200], 
+            color: (isDark) ? Colors.black : Colors.grey[200],
             borderRadius: BorderRadius.circular(10)),
         child: FocusScope(
           child: Focus(
@@ -67,7 +67,7 @@ class _SimpleTxtState extends State<SimpleTxt> {
               decoration: InputDecoration(
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   suffixIcon: Icon(widget.icon,
-                          color: _changeColor ? Colors.blue : Colors.black),
+                      color: _changeColor ? Colors.blue : Colors.black),
                   focusedBorder: InputBorder.none,
                   counterText: '',
                   border: InputBorder.none,

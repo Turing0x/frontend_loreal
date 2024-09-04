@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
-import 'package:frontend_loreal/config/methods/methods.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/methods/methods.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
 class ExpandedWidget extends StatelessWidget {
   const ExpandedWidget({
@@ -21,7 +21,6 @@ class ExpandedWidget extends StatelessWidget {
     return ExpandedTile(
       key: UniqueKey(),
       theme: const ExpandedTileThemeData(
-        headerRadius: 12,
         headerPadding: EdgeInsets.all(10),
         contentPadding: EdgeInsets.symmetric(horizontal: 40),
         contentBackgroundColor: Colors.transparent,

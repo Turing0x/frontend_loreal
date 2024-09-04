@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/to_edit_list.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/to_edit_list.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista_Candado/candado_model.dart';
+import 'package:sticker_maker/models/Lista_Candado/candado_model.dart';
 
 import '../../../config/enums/lista_general_enum.dart';
 import '../../../config/utils/glogal_map.dart';
@@ -53,26 +53,26 @@ class _CandadoListaWidgetState extends ConsumerState<CandadoListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
-            onLongPress: () {
-              if (widget.canEdit) {
-                final toJoinListM = ref.read(toJoinListR.notifier);
-                final payCrtl = ref.watch(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
+          onLongPress: () {
+            if (widget.canEdit) {
+              final toJoinListM = ref.read(toJoinListR.notifier);
+              final payCrtl = ref.watch(paymentCrtl.notifier);
+              final getLimit = ref.watch(globalLimits);
 
-                listadoCandado.values.first.removeWhere((element)
-                  => element.toString() == widget.candado.toString());
+              listadoCandado.values.first.removeWhere(
+                  (element) => element.toString() == widget.candado.toString());
 
-                toJoinListM.addCurrentList(
+              toJoinListM.addCurrentList(
                   key: ListaGeneralEnum.candado, data: listadoCandado);
 
-                payCrtl.restaTotalBruto70 = widget.candado.fijo;
-                payCrtl.restaLimpioListero =
-                    (widget.candado.fijo * (getLimit.porcientoParleListero / 100))
-                        .toInt();
+              payCrtl.restaTotalBruto70 = widget.candado.fijo;
+              payCrtl.restaLimpioListero =
+                  (widget.candado.fijo * (getLimit.porcientoParleListero / 100))
+                      .toInt();
 
-                showToast('La jugada fue eliminada exitosamente');
-              }
-            },
+              showToast(context, 'La jugada fue eliminada exitosamente');
+            }
+          },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.candado);
@@ -84,40 +84,43 @@ class _CandadoListaWidgetState extends ConsumerState<CandadoListaWidget> {
           },
           child: GestureDetector(
             onTap: () {
-
               int dineroForEachParle = widget.candado.fijo ~/
-                ((toPrint.length * (toPrint.length - 1)) / 2);
+                  ((toPrint.length * (toPrint.length - 1)) / 2);
 
               List allCombinations = combinaciones(toPrint);
 
-              showInfoDialog(context, 'Detalles del candado', Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-
-                  const SizedBox(height: 20),
-
-                  boldLabel('Dinero por parle: ', dineroForEachParle.toString(), 20),
-                  boldLabel('Cantidad de parles: ', allCombinations.length.toString(), 20),
-                  const SizedBox(height: 10),
-
-                  Container(
-                    alignment: Alignment.center,
-                    height: 200,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children:
-                          allCombinations.map((e) => 
-                            textoDosis(e.toString()
-                              .replaceAll('[', '')
-                              .replaceAll(']', ''), 20) ).toList(),
+              showInfoDialog(
+                  context,
+                  'Detalles del candado',
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 20),
+                      boldLabel('Dinero por parle: ',
+                          dineroForEachParle.toString(), 20),
+                      boldLabel('Cantidad de parles: ',
+                          allCombinations.length.toString(), 20),
+                      const SizedBox(height: 10),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 200,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: allCombinations
+                                .map((e) => textoDosis(
+                                    e
+                                        .toString()
+                                        .replaceAll('[', '')
+                                        .replaceAll(']', ''),
+                                    20))
+                                .toList(),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-
-                ],
-              ), () { });
-              
+                  () {});
             },
             child: Padding(
                 padding: const EdgeInsets.only(right: 15),
@@ -152,8 +155,8 @@ class _CandadoListaWidgetState extends ConsumerState<CandadoListaWidget> {
                         (isInList)
                             ? Container(
                                 margin: const EdgeInsets.only(left: 10),
-                                child:
-                                    const Icon(Icons.check, color: Colors.black),
+                                child: const Icon(Icons.check,
+                                    color: Colors.black),
                               )
                             : Container()
                       ],

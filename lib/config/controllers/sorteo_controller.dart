@@ -1,15 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/models/Sorteo/sorteos_model.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/models/Sorteo/sorteos_model.dart';
 import 'dart:convert';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
 
 class SorteosControllers {
-
   late Dio _dio;
 
   SorteosControllers() {
@@ -33,7 +31,6 @@ class SorteosControllers {
 
   Future<List<Sorteo>> getDataSorteo() async {
     try {
-
       await _initializeDio();
       Response response = await _dio.get('/api/sorteos');
       final List<Sorteo> sorteosData = [];
@@ -58,12 +55,10 @@ class SorteosControllers {
       final queryData = {'jornal': jornal, 'date': date};
 
       await _initializeDio();
-      Response response = await _dio.get('/api/sorteos',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/sorteos', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return '';
       }
       final data = response.data['data'];
@@ -76,18 +71,14 @@ class SorteosControllers {
 
   Future<String> getTheLast() async {
     try {
-
       await _initializeDio();
       Response response = await _dio.get('/api/sorteos/last');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return '';
       }
 
       return response.data['data']['lot'];
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return '';
     }
   }
@@ -98,7 +89,7 @@ class SorteosControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/sorteos',
-        data: jsonEncode({'lot': lot, 'jornal': jornal, 'date': date}));
+          data: jsonEncode({'lot': lot, 'jornal': jornal, 'date': date}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -107,28 +98,23 @@ class SorteosControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
 
   Future<bool> editDataSorteo(String id, String lot) async {
     try {
-
       await _initializeDio();
-      Response response = await _dio.put('/api/sorteos/$id',
-        data: jsonEncode({ 'lot': lot }));
+      Response response =
+          await _dio.put('/api/sorteos/$id', data: jsonEncode({'lot': lot}));
 
       if (response.data['success']) {
-        showToast(response.data['api_message'], type: true);
         return true;
       }
 
-      showToast(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
-      showToast(e.toString());
+    } on Exception catch (_) {
       return false;
     }
   }
@@ -147,11 +133,9 @@ class SorteosControllers {
 
       EasyLoading.showError(response.data['api_message']);
       return false;
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       EasyLoading.showError('Algo grave ha ocurrido');
-      showToast(e.toString());
       return false;
     }
   }
-
 }

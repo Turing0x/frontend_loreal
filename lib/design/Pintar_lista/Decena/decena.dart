@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils/to_edit_list.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils/glogal_map.dart';
+import 'package:sticker_maker/config/utils/to_edit_list.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista_Decena/decena_model.dart';
+import 'package:sticker_maker/models/Lista_Decena/decena_model.dart';
 
 import '../../../config/enums/lista_general_enum.dart';
 
@@ -51,26 +51,25 @@ class _DecenaListaWidgetState extends ConsumerState<DecenaListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
-            onLongPress: () {
-              if (widget.canEdit) {
-                final toJoinListM = ref.read(toJoinListR.notifier);
-                final payCrtl = ref.watch(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
+          onLongPress: () {
+            if (widget.canEdit) {
+              final toJoinListM = ref.read(toJoinListR.notifier);
+              final payCrtl = ref.watch(paymentCrtl.notifier);
+              final getLimit = ref.watch(globalLimits);
 
-                listadoDecena.values.first.removeWhere((element)
-                  => element['uuid'] == widget.numplay.uuid);
+              listadoDecena.values.first.removeWhere(
+                  (element) => element['uuid'] == widget.numplay.uuid);
 
-                toJoinListM.addCurrentList(
+              toJoinListM.addCurrentList(
                   key: ListaGeneralEnum.decena, data: listadoDecena);
 
-                payCrtl.restaTotalBruto80 = sum;
-                payCrtl.restaLimpioListero =
-                    (sum * (getLimit.porcientoBolaListero / 100))
-                        .toInt();
+              payCrtl.restaTotalBruto80 = sum;
+              payCrtl.restaLimpioListero =
+                  (sum * (getLimit.porcientoBolaListero / 100)).toInt();
 
-                showToast('La jugada fue eliminada exitosamente');
-              }
-            },
+              showToast(context, 'La jugada fue eliminada exitosamente');
+            }
+          },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.numplay);

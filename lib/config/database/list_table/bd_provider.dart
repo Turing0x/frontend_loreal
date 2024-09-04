@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
+import 'package:sticker_maker/models/Lista/list_offline_model.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 // ignore: depend_on_referenced_packages

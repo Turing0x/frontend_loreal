@@ -1,34 +1,31 @@
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import '../../utils_exports.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
 int vecesMal = 0;
 String incomingUsername = '';
 
 class AuthServices {
-
-  final _dio = Dio(
-    BaseOptions(
+  final _dio = Dio(BaseOptions(
       baseUrl: Uri.https(Environments().SERVER_URL).toString(),
-      headers: { 'Content-Type': 'application/json' }
-    )
-  );
+      headers: {'Content-Type': 'application/json'}));
 
-  Future<String> login(String username, String pass) async {
+  Future<String> login(
+      String username, String pass, BuildContext context) async {
     authStatus.value = true;
     try {
-
       final localStorage = LocalStorage();
 
       Response response = await _dio.post('/api/users/signin',
-        data: jsonEncode({'username': username, 'password': pass}));
+          data: jsonEncode({'username': username, 'password': pass}));
 
       authStatus.value = false;
 
@@ -41,21 +38,21 @@ class AuthServices {
         localStorage.tokenSave(response.data['data'][0]);
         localStorage.roleSave(role);
 
-        if( role != 'banco' ){
+        if (role != 'banco') {
           localStorage.userOwnerSave(response.data['data'][3]['owner']);
         }
 
-        showToast(response.data['api_message'], type: true);
+        showToast(context, response.data['api_message'], type: true);
         return role;
       }
 
-      showToast(response.data['api_message']);
+      showToast(context, response.data['api_message']);
       _comprobarSiBorraData(username);
 
       return '';
     } on Exception catch (e) {
       authStatus.value = false;
-      showToast(e.toString());
+      showToast(context, e.toString());
       _comprobarSiBorraData(username);
       return '';
     }
@@ -72,7 +69,6 @@ class AuthServices {
     if (vecesMal == 3) {
       await _borrarDatos(username.trim());
       vecesMal = 0;
-      showToast('Se equivocó demasiadas veces. Se tomaron medidas al respecto');
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:sticker_maker/config/extensions/string_extensions.dart';
 import 'package:flutter/services.dart';
 
 class NumericalRangeFormatter extends TextInputFormatter {

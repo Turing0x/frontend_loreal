@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
 
 class NumeroRedondoWidget extends StatelessWidget {
   const NumeroRedondoWidget({
@@ -44,7 +44,9 @@ class NumeroRedondoWidget extends StatelessWidget {
           shape: BoxShape.circle,
           color:
               tieneBorde(mostrarBorde: mostrarBorde, numero: int.parse(numero))
-                  ? (!isDark) ? Colors.white : Colors.black
+                  ? (!isDark)
+                      ? Colors.white
+                      : Colors.black
                   : Colors.transparent,
         ),
         child: Center(

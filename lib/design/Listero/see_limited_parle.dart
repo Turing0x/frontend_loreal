@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
-import 'package:frontend_loreal/models/Limites/limited_parle.dart';
+import 'package:sticker_maker/config/controllers/limits_controller.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/no_data.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
+import 'package:sticker_maker/design/common/waiting_page.dart';
+import 'package:sticker_maker/models/Limites/limited_parle.dart';
 
 class SeeLimitedParle extends StatefulWidget {
   const SeeLimitedParle({super.key, required this.userID});
@@ -105,32 +105,27 @@ class _SeeLimitedParleState extends State<SeeLimitedParle> {
   }
 
   Expanded diaNocheWidget(String jornada) {
-
     final list = _insertarColumnas(jornada);
     return Expanded(
-      child: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-
-          final subList = list[index];
-          return Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ...subList
-                    .map(
-                      (numero) => NumeroRedondoWidget(
-                        numero: numero.toString(),
-                      ),
-                    )
-                    
-              ],
-            ),
-          );
-        },
-      )
-    );
+        child: ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        final subList = list[index];
+        return Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ...subList.map(
+                (numero) => NumeroRedondoWidget(
+                  numero: numero.toString(),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    ));
   }
 
   List<List<int>> _insertarColumnas(String jornada) {

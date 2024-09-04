@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Cargados/provider/Bolas/get_bola_provider.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/Cargados/provider/Bolas/get_bola_provider.dart';
+import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:sticker_maker/design/common/waiting_page.dart';
+import 'package:sticker_maker/design/common/num_redondo.dart';
+import 'package:sticker_maker/design/common/no_data.dart';
+import 'package:sticker_maker/models/Cargados/cargados_model.dart';
 
 class BolaCargadaPage extends ConsumerWidget {
   const BolaCargadaPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Scaffold(
         appBar: showAppBar('Bolas cargadas'),
         body: const Column(
@@ -57,9 +56,11 @@ class ShowList extends ConsumerWidget {
                     return GestureDetector(
                       child: Container(
                         padding: const EdgeInsets.only(left: 20),
-                        color: (isDark) ? Colors.transparent :(index % 2 != 0)
-                              ? Colors.grey[200]
-                              : Colors.grey[50],
+                        color: (isDark)
+                            ? Colors.transparent
+                            : (index % 2 != 0)
+                                ? Colors.grey[200]
+                                : Colors.grey[50],
                         alignment: Alignment.centerLeft,
                         width: double.infinity,
                         height: 80,
@@ -73,8 +74,7 @@ class ShowList extends ConsumerWidget {
                                   height: 50,
                                   fontSize: 25,
                                 ),
-                                textoDosis(
-                                    ' -> ${list[index].fijo}', 25,
+                                textoDosis(' -> ${list[index].fijo}', 25,
                                     fontWeight: FontWeight.bold)
                               ]),
                         ),

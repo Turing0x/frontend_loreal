@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/simple_txt.dart';
+import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/common/simple_txt.dart';
 
 class OfflinePass extends StatefulWidget {
   const OfflinePass({super.key});
@@ -36,7 +36,6 @@ class _OfflinePassState extends State<OfflinePass> {
             textoDosis('Trabajar sin conexión a internet', 20,
                 fontWeight: FontWeight.bold, textAlign: TextAlign.center),
             SimpleTxt(
-                
                 icon: Icons.password_outlined,
                 texto: 'Clave de acceso',
                 obscureText: true,
@@ -57,16 +56,16 @@ class _OfflinePassState extends State<OfflinePass> {
                   Icons.thumb_up_alt_outlined,
                   color: Colors.white,
                 ),
-                onPressed: () async {
+                onPressed: () {
                   Future<String?> offlinePass =
                       LocalStorage.getpassListerOffline();
                   offlinePass.then((value) {
                     if (passController.text != value) {
-                      showToast('Contraseña incorrecta');
+                      showToast(context, 'Contraseña incorrecta');
                       return;
                     }
 
-                    showToast('La clave es correcta', type: true);
+                    showToast(context, 'La clave es correcta', type: true);
                     goPage('main_make_list_offline');
                   });
                 },

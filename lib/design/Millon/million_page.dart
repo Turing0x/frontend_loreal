@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/sorteo_controller.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/riverpod/get_all_million_provider.dart';
-import 'package:frontend_loreal/config/riverpod/observar_million_provider.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date_bloc.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:sticker_maker/config/controllers/sorteo_controller.dart';
+import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:sticker_maker/config/riverpod/get_all_million_provider.dart';
+import 'package:sticker_maker/config/riverpod/observar_million_provider.dart';
+import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date_bloc.dart';
+import 'package:sticker_maker/design/common/no_data.dart';
+import 'package:sticker_maker/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 String lotThisDay = '';
@@ -53,8 +53,8 @@ class _MillionGamePageState extends ConsumerState<MillionGamePage> {
         valueListenable: cambioMillionGame,
         builder: (_, __, ___) {
           return FutureBuilder(
-              future:
-                  sorteosControllers.getSorteoByJD(janddate.currentJornada, janddate.currentDate),
+              future: sorteosControllers.getSorteoByJD(
+                  janddate.currentJornada, janddate.currentDate),
               builder: (_, AsyncSnapshot<String> snapshot) {
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return boldLabel('Sorteo del momento -> ', 'Sin dato', 23);
@@ -135,7 +135,6 @@ class ShowList extends StatelessWidget {
                                       width: 100,
                                       height: 25,
                                       decoration: BoxDecoration(
-                                          
                                           border:
                                               Border.all(color: Colors.black),
                                           borderRadius: const BorderRadius.all(
