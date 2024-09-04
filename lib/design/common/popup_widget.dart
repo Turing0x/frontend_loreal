@@ -196,8 +196,7 @@ class PopupWidget extends ConsumerWidget {
                   icon: const Icon(Icons.copy, color: Colors.black),
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: obtenerKey));
-                    showToast(context, 'Firma copiada al portapapeles',
-                        type: true);
+                    showToast('Firma copiada al portapapeles', type: true);
                   })
             ],
           ),

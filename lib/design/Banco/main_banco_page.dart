@@ -79,17 +79,51 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
   Widget build(BuildContext context) {
     final seechUsername = ref.watch(chUser);
 
-    return !isAuthenticatedBiometrics
-        ? Container()
-        : Scaffold(
-            appBar: showAppBar('Página principal', actions: [
-              IconButton(
-                icon: const Icon(
-                  Icons.settings_outlined,
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, 'main_settigns_banco'),
-              )
+    return Scaffold(
+        appBar: showAppBar('Página principal', actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.settings_outlined,
+            ),
+            onPressed: () =>
+                Navigator.pushNamed(context, 'main_settigns_banco'),
+          )
+        ]),
+        floatingActionButton: FloatingActionButton.extended(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          elevation: 2,
+          onPressed: () => Navigator.pushNamed(context, 'sorteos_page'),
+          label: const Row(children: [
+            Icon(Icons.sports_outlined, color: Colors.white),
+            SizedBox(width: 10),
+            Text(
+              'Añadir sorteo',
+              style: TextStyle(color: Colors.white),
+            )
+          ]),
+        ),
+        body: SingleChildScrollView(
+            child: Column(
+          children: [
+            const SizedBox(height: 10),
+            dinamicGroupBox('Cargados y Bote', [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  customBolaBtn(context,
+                      onTap: () =>
+                          Navigator.pushNamed(context, 'bola_cargada_page'),
+                      icon: Icons.sports_baseball_outlined,
+                      text: 'Bolas'),
+                  customBolaBtn(context,
+                      onTap: () =>
+                          Navigator.pushNamed(context, 'parle_cargada_page'),
+                      icon: Icons.format_list_numbered_outlined,
+                      text: 'Parlés')
+                ],
+              ),
+              const SizedBox(height: 15),
             ]),
             floatingActionButton: FloatingActionButton.extended(
               shape: RoundedRectangleBorder(

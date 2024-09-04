@@ -473,7 +473,15 @@ packages:
       sha256: c2e2d632dd9b8a2b7751117abcfc2b4888ecfe181bd9fca7170d9ef02e595fe2
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.4.1"
+  frontend_server_client:
+    dependency: transitive
+    description:
+      name: frontend_server_client
+      sha256: f64a0333a82f30b0cca061bc3d143813a486dc086b574bfb233b7c1372427694
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   glob:
     dependency: transitive
     description:
@@ -666,6 +674,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.15.0"
+  mime:
+    dependency: transitive
+    description:
+      name: mime
+      sha256: "2e123074287cc9fd6c09de8336dae606d1ddb88d9ac47358826db698c176a1f2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.15.0"
   number_text_input_formatter:
     dependency: "direct main"
     description:
@@ -687,62 +703,6 @@ packages:
     description:
       name: open_file_android
       sha256: "43f9ddb0e2eb76e560f44c83ea1959962699526b6f59ec88f87eca009271c56f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
-  open_file_ios:
-    dependency: transitive
-    description:
-      name: open_file_ios
-      sha256: "9f019f10045dc88c0c01acdac9ee038cbaa0dc898e756aa336d6b015cdb8ddb9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
-  open_file_linux:
-    dependency: transitive
-    description:
-      name: open_file_linux
-      sha256: "2c7c8e6a9ce430b2fae8cbc5551466369d657402c1527eef49be5c9cc9c92944"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
-  open_file_mac:
-    dependency: transitive
-    description:
-      name: open_file_mac
-      sha256: f878b6863af99e6abae4cde8c4c1fe2e58e1e7f3f0c4c5e4c65fb2e697cbd28d
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
-  open_file_platform_interface:
-    dependency: transitive
-    description:
-      name: open_file_platform_interface
-      sha256: e410d18264a0f3166f0c7f5460e931920a14f680ec38e2a25c8e0a8a901da838
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
-  open_file_web:
-    dependency: transitive
-    description:
-      name: open_file_web
-      sha256: "34d1da10b30911066c939f11b79f420ecb85e0c3372eefa7c1adb37693dc930e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
-  open_file_windows:
-    dependency: transitive
-    description:
-      name: open_file_windows
-      sha256: a13e754c131eabf3a8e5dce0adb2fff4e3827fe3acd71219da3a57f65a22920c
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
-  package_config:
-    dependency: transitive
-    description:
-      name: package_config
-      sha256: "1c5b77ccc91e4823a5af61ee74e6b972db1ef98c2ff5a18d3161c982a55448bd"
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
@@ -937,7 +897,7 @@ packages:
       sha256: "5a1d2586170e172b8a8c8470bbbffd5eb0cd38a66c0d77155ea138d3af3a4445"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "3.0.1"
   riverpod:
     dependency: transitive
     description:
@@ -974,10 +934,10 @@ packages:
     dependency: transitive
     description:
       name: rxdart
-      sha256: "5c3004a4a8dbb94bd4bf5412a4def4acdaa12e12f269737a5751369e12d1a962"
+      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.28.0"
+    version: "0.27.7"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1151,6 +1111,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.2"
+  timing:
+    dependency: transitive
+    description:
+      name: timing
+      sha256: "70a3b636575d4163c477e6de42f247a23b315ae20e86442bebe32d3cabf61c32"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   typed_data:
     dependency: transitive
     description:
