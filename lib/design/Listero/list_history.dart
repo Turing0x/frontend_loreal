@@ -173,7 +173,8 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
 
     for (var each in list.state) {
       if (each is FijoCorridoModel) {
-        toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon0(2),
+            (value) {
           return {
             'fijo': value['fijo']! - (each.fijo!),
             'corrido': value['corrido']! - (each.corrido!),
@@ -192,7 +193,8 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
       }
 
       if (each is PosicionModel) {
-        toBlockIfOutOfLimitFCPC.update(each.numplay.toString(), (value) {
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon0(2),
+            (value) {
           return {
             'fijo': value['fijo']! - each.fijo,
             'corrido': value['corrido']! - each.corrido,
