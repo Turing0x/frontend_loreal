@@ -10,7 +10,7 @@ import 'package:sticker_maker/design/Lista/posicion.dart';
 import 'package:sticker_maker/design/Lista/terminales.dart';
 import 'package:sticker_maker/design/common/popup_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista/join_list.dart';
+import 'package:sticker_maker/models/Lista/join_list.dart';
 
 class MainMakeList extends ConsumerStatefulWidget {
   const MainMakeList({super.key, required this.username});

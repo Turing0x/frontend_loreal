@@ -1,9 +1,7 @@
-
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sticker_maker/config/controllers/users_controller.dart';
+import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:sticker_maker/config/server/http/methods.dart';
+import 'package:sticker_maker/design/common/txt_para_info.dart';
 
 import 'package:flutter/material.dart';
 

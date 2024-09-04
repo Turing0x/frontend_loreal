@@ -8,7 +8,7 @@ import 'package:sticker_maker/config/utils_exports.dart';
 import 'package:sticker_maker/design/common/encabezado.dart';
 import 'package:sticker_maker/design/common/no_data.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
+import 'package:sticker_maker/models/Lista/list_offline_model.dart';
 
 final listControllers = ListControllers();
 
