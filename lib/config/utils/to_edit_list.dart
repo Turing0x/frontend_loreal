@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
 
 void managerOfElementsOnList(WidgetRef ref, dynamic element) {
   final theBottom = ref.read(showButtomtoEditAList.notifier);

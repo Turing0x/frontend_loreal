@@ -2,23 +2,23 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/limits_controller.dart';
-import 'package:sticker_maker/config/controllers/payments_controller.dart';
-import 'package:sticker_maker/config/controllers/time_controller.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
-import 'package:sticker_maker/config/methods/update_methods.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
-import 'package:sticker_maker/config/server/http/local_storage.dart';
-import 'package:sticker_maker/config/server/http/methods.dart';
-import 'package:sticker_maker/config/utils/file_manager.dart';
+import 'package:frontend_loreal/config/controllers/limits_controller.dart';
+import 'package:frontend_loreal/config/controllers/payments_controller.dart';
+import 'package:frontend_loreal/config/controllers/time_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:frontend_loreal/config/methods/update_methods.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/server/http/methods.dart';
+import 'package:frontend_loreal/config/utils/file_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:sticker_maker/config/utils/glogal_map.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/common/opt_list_tile.dart';
-import 'package:sticker_maker/models/Horario/time_model.dart';
-import 'package:sticker_maker/models/Limites/limits_model.dart';
-import 'package:sticker_maker/models/Pagos/payments_model.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/common/opt_list_tile.dart';
+import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:frontend_loreal/models/Limites/limits_model.dart';
+import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 import 'package:intl/intl.dart';
 
 class MainListeroPage extends ConsumerStatefulWidget {

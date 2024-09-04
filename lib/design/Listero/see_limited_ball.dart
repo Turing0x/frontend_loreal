@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/limits_controller.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/common/no_data.dart';
-import 'package:sticker_maker/design/common/num_redondo.dart';
-import 'package:sticker_maker/design/common/waiting_page.dart';
-import 'package:sticker_maker/models/Limites/limited_ball.dart';
+import 'package:frontend_loreal/config/controllers/limits_controller.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:frontend_loreal/models/Limites/limited_ball.dart';
 
 class SeeLimitedBall extends StatefulWidget {
   const SeeLimitedBall({super.key, required this.userID});

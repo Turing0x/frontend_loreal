@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
-import 'package:sticker_maker/config/controllers/sorteo_controller.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
-import 'package:sticker_maker/config/riverpod/sorteos_stream.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:sticker_maker/design/Sorteo/sorteo_pick3.dart';
-import 'package:sticker_maker/design/Sorteo/sorteo_pick4.dart';
-import 'package:sticker_maker/design/common/no_data.dart';
-import 'package:sticker_maker/design/common/waiting_page.dart';
+import 'package:frontend_loreal/config/controllers/sorteo_controller.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:frontend_loreal/config/riverpod/sorteos_stream.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:frontend_loreal/design/Sorteo/sorteo_pick3.dart';
+import 'package:frontend_loreal/design/Sorteo/sorteo_pick4.dart';
+import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sticker_maker/design/common/encabezado.dart';
-import 'package:sticker_maker/design/common/txt_para_info.dart';
+import 'package:frontend_loreal/design/common/encabezado.dart';
+import 'package:frontend_loreal/design/common/txt_para_info.dart';
 
 import 'package:flutter/services.dart';
-import 'package:sticker_maker/models/Sorteo/sorteos_model.dart';
+import 'package:frontend_loreal/models/Sorteo/sorteos_model.dart';
 
 class SorteosPage extends ConsumerStatefulWidget {
   const SorteosPage({super.key});

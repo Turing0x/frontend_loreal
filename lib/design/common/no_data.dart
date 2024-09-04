@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
 
 Widget noData(BuildContext context) {
   final size = MediaQuery.of(context).size;

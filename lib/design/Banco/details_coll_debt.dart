@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/database/collections_debt/type_coll_debt/type_provider.dart';
-import 'package:sticker_maker/config/extensions/string_extensions.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/common/no_data.dart';
-import 'package:sticker_maker/design/common/waiting_page.dart';
+import 'package:frontend_loreal/config/database/collections_debt/type_coll_debt/type_provider.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:frontend_loreal/design/common/waiting_page.dart';
 
 int total = 0;
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/Cargados/provider/Bolas/get_bola_provider.dart';
-import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:sticker_maker/design/common/waiting_page.dart';
-import 'package:sticker_maker/design/common/num_redondo.dart';
-import 'package:sticker_maker/design/common/no_data.dart';
-import 'package:sticker_maker/models/Cargados/cargados_model.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/Cargados/provider/Bolas/get_bola_provider.dart';
+import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
 
 class BolaCargadaPage extends ConsumerWidget {
   const BolaCargadaPage({super.key});

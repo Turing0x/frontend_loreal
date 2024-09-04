@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:sticker_maker/config/database/collections_debt/type_coll_debt/type_debt_model.dart';
+import 'package:frontend_loreal/config/database/collections_debt/type_coll_debt/type_debt_model.dart';
 
 import 'type_provider.dart';
 

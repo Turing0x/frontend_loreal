@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/time_controller.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/common/encabezado.dart';
-import 'package:sticker_maker/models/Horario/time_model.dart';
+import 'package:frontend_loreal/config/controllers/time_controller.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/common/encabezado.dart';
+import 'package:frontend_loreal/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
 final timeControllers = TimeControllers();

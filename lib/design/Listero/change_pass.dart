@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/users_controller.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/common/simple_txt.dart';
+import 'package:frontend_loreal/config/controllers/users_controller.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/common/simple_txt.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ChangeAccessPass extends StatefulWidget {

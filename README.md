@@ -1,4 +1,4 @@
-# sticker_maker
+# frontend_loreal
 
 A new Flutter project.
 

@@ -1,4 +1,4 @@
-package com.example.sticker_maker
+package com.example.frontend_loreal
 
 import io.flutter.embedding.android.FlutterActivity
 import androidx.annotation.NonNull

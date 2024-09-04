@@ -1,16 +1,16 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/limits_controller.dart';
-import 'package:sticker_maker/config/controllers/payments_controller.dart';
-import 'package:sticker_maker/config/controllers/time_controller.dart';
-import 'package:sticker_maker/config/server/http/local_storage.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/common/encabezado.dart';
-import 'package:sticker_maker/design/common/txt_para_info.dart';
-import 'package:sticker_maker/models/Horario/time_model.dart';
-import 'package:sticker_maker/models/Limites/limits_model.dart';
-import 'package:sticker_maker/models/Pagos/payments_model.dart';
+import 'package:frontend_loreal/config/controllers/limits_controller.dart';
+import 'package:frontend_loreal/config/controllers/payments_controller.dart';
+import 'package:frontend_loreal/config/controllers/time_controller.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/common/encabezado.dart';
+import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:frontend_loreal/models/Limites/limits_model.dart';
+import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 
 class SeePaymentsPage extends StatefulWidget {
   const SeePaymentsPage({super.key});

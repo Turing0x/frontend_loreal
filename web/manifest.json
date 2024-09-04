@@ -1,6 +1,6 @@
 {
-    "name": "sticker_maker",
-    "short_name": "sticker_maker",
+    "name": "frontend_loreal",
+    "short_name": "frontend_loreal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

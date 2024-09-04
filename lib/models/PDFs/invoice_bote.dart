@@ -1,4 +1,4 @@
-import 'package:sticker_maker/models/Bote/bote_model.dart';
+import 'package:frontend_loreal/models/Bote/bote_model.dart';
 
 class InvoiceBote {
   final InvoiceInfoBote infoBote;

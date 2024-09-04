@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 
 class JAndDateProvider extends StateNotifier<JAndDateModel> {
   JAndDateProvider()

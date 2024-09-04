@@ -1,13 +1,13 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/limits_controller.dart';
-import 'package:sticker_maker/config/extensions/string_extensions.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/common/num_redondo.dart';
+import 'package:frontend_loreal/config/controllers/limits_controller.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/common/num_redondo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:sticker_maker/models/Limites/limited_parle.dart';
+import 'package:frontend_loreal/models/Limites/limited_parle.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 
 final limitsControllers = LimitsControllers();

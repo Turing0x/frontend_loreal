@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
-import 'package:sticker_maker/config/server/http/auth.dart';
-import 'package:sticker_maker/config/server/http/local_storage.dart';
-import 'package:sticker_maker/config/utils/biometrics.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/server/http/auth.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/utils/biometrics.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:local_auth/local_auth.dart';
 
 class OtherSignInPage extends ConsumerStatefulWidget {

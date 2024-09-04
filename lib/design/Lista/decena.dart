@@ -1,17 +1,17 @@
-import 'package:sticker_maker/config/enums/lista_general_enum.dart';
-import 'package:sticker_maker/config/riverpod/limits_provider.dart';
-import 'package:sticker_maker/config/utils/glogal_map.dart';
-import 'package:sticker_maker/config/extensions/string_extensions.dart';
-import 'package:sticker_maker/design/common/encabezado.dart';
-import 'package:sticker_maker/design/common/simple_txt.dart';
+import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
+import 'package:frontend_loreal/config/riverpod/limits_provider.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:frontend_loreal/design/common/encabezado.dart';
+import 'package:frontend_loreal/design/common/simple_txt.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sticker_maker/models/Lista/join_list.dart';
+import 'package:frontend_loreal/models/Lista/join_list.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
 
 class DecenasWidget extends ConsumerStatefulWidget {
   const DecenasWidget({super.key});

@@ -1,9 +1,9 @@
-import 'package:sticker_maker/config/enums/lista_general_enum.dart';
-import 'package:sticker_maker/config/enums/main_list_enum.dart';
-import 'package:sticker_maker/config/extensions/lista_general_extensions.dart';
-import 'package:sticker_maker/models/Lista_Main/centenas/centenas_model.dart';
-import 'package:sticker_maker/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
-import 'package:sticker_maker/models/Lista_Main/parles/parles_model.dart';
+import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
+import 'package:frontend_loreal/config/enums/main_list_enum.dart';
+import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
+import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
 
 List<dynamic> convertirPayloadListaPrincipal(Map<String, dynamic> map) {
   List<dynamic> listaPrincipal = [

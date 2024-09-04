@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
 
 class TxtInfo extends StatefulWidget {
   final TextEditingController controlador;

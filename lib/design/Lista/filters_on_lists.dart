@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/list_controller.dart';
-import 'package:sticker_maker/config/extensions/string_extensions.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
-import 'package:sticker_maker/config/riverpod/filters_provider.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:sticker_maker/design/Fecha_Jornada/jornal_and_date_bloc.dart';
-import 'package:sticker_maker/design/common/encabezado.dart';
-import 'package:sticker_maker/design/common/no_data.dart';
-import 'package:sticker_maker/design/common/txt_para_info.dart';
-import 'package:sticker_maker/design/common/waiting_page.dart';
+import 'package:frontend_loreal/config/controllers/list_controller.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/riverpod/filters_provider.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date_bloc.dart';
+import 'package:frontend_loreal/design/common/encabezado.dart';
+import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FiltersOnAllLists extends ConsumerStatefulWidget {

@@ -1,28 +1,28 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/controllers/payments_controller.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/Pintar_lista/Candado/candado.dart';
-import 'package:sticker_maker/design/Pintar_lista/Decena/decena.dart';
-import 'package:sticker_maker/design/Pintar_lista/MainList/centenas.dart';
-import 'package:sticker_maker/design/Pintar_lista/MainList/fijos_corridos.dart';
-import 'package:sticker_maker/design/Pintar_lista/MainList/parles.dart';
-import 'package:sticker_maker/design/Pintar_lista/Millon/million.dart';
-import 'package:sticker_maker/design/Pintar_lista/Posicion/posicion.dart';
-import 'package:sticker_maker/design/Pintar_lista/Terminal/terminal.dart';
-import 'package:sticker_maker/design/Pintar_lista/methods.dart';
-import 'package:sticker_maker/models/Lista/list_model.dart';
-import 'package:sticker_maker/models/Lista_Calcs/calcs_model.dart';
-import 'package:sticker_maker/models/Lista_Candado/candado_model.dart';
-import 'package:sticker_maker/models/Lista_Decena/decena_model.dart';
-import 'package:sticker_maker/models/Lista_Main/centenas/centenas_model.dart';
-import 'package:sticker_maker/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
-import 'package:sticker_maker/models/Lista_Main/parles/parles_model.dart';
-import 'package:sticker_maker/models/Lista_Millon/million_model.dart';
-import 'package:sticker_maker/models/Lista_Posicion/posicion_model.dart';
-import 'package:sticker_maker/models/Lista_Terminal/terminal_model.dart';
-import 'package:sticker_maker/models/Pagos/payments_model.dart';
+import 'package:frontend_loreal/config/controllers/payments_controller.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/Pintar_lista/Candado/candado.dart';
+import 'package:frontend_loreal/design/Pintar_lista/Decena/decena.dart';
+import 'package:frontend_loreal/design/Pintar_lista/MainList/centenas.dart';
+import 'package:frontend_loreal/design/Pintar_lista/MainList/fijos_corridos.dart';
+import 'package:frontend_loreal/design/Pintar_lista/MainList/parles.dart';
+import 'package:frontend_loreal/design/Pintar_lista/Millon/million.dart';
+import 'package:frontend_loreal/design/Pintar_lista/Posicion/posicion.dart';
+import 'package:frontend_loreal/design/Pintar_lista/Terminal/terminal.dart';
+import 'package:frontend_loreal/design/Pintar_lista/methods.dart';
+import 'package:frontend_loreal/models/Lista/list_model.dart';
+import 'package:frontend_loreal/models/Lista_Calcs/calcs_model.dart';
+import 'package:frontend_loreal/models/Lista_Candado/candado_model.dart';
+import 'package:frontend_loreal/models/Lista_Decena/decena_model.dart';
+import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
+import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
+import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
+import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
+import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 
 class ListReviewPage extends StatefulWidget {
   const ListReviewPage(

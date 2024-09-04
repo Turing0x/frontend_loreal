@@ -1,6 +1,6 @@
-import 'package:sticker_maker/config/enums/lista_general_enum.dart';
-import 'package:sticker_maker/config/extensions/lista_general_extensions.dart';
-import 'package:sticker_maker/models/Lista_Calcs/calcs_model.dart';
+import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
+import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
+import 'package:frontend_loreal/models/Lista_Calcs/calcs_model.dart';
 
 List<dynamic> convertirPayloadCalcs(Map<String, dynamic> map) {
   final mapaActual =

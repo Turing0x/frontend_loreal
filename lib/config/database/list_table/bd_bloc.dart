@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:sticker_maker/models/Lista/list_offline_model.dart';
+import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
 
 import 'bd_provider.dart';
 

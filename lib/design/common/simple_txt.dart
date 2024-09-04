@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
 
 class SimpleTxt extends StatefulWidget {
   final TextEditingController controlador;

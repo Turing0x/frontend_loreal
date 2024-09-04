@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sticker_maker/config/server/http/local_storage.dart';
-import 'package:sticker_maker/models/pdf_data_model.dart';
-import 'package:sticker_maker/config/environments/env.environments.dart';
-import 'package:sticker_maker/config/extensions/lista_general_extensions.dart';
-import 'package:sticker_maker/models/Usuario/user_show_model.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/models/pdf_data_model.dart';
+import 'package:frontend_loreal/config/environments/env.environments.dart';
+import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
+import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 
 class PdfControllers {
   late Dio _dio;

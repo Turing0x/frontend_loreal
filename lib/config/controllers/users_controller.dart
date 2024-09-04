@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/environments/env.environments.dart';
+import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:sticker_maker/config/server/http/local_storage.dart';
-import 'package:sticker_maker/config/server/http/methods.dart';
-import 'package:sticker_maker/models/Usuario/user_show_model.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/config/server/http/methods.dart';
+import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 
 import 'package:dio/dio.dart';
 

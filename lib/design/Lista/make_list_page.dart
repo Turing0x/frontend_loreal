@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sticker_maker/config/enums/lista_general_enum.dart';
-import 'package:sticker_maker/config/enums/main_list_enum.dart';
-import 'package:sticker_maker/config/riverpod/declarations.dart';
-import 'package:sticker_maker/config/utils/glogal_map.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:sticker_maker/design/Lista/fijos_corridos_container.dart';
-import 'package:sticker_maker/design/Lista/parles_container.dart';
+import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
+import 'package:frontend_loreal/config/enums/main_list_enum.dart';
+import 'package:frontend_loreal/config/riverpod/declarations.dart';
+import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:frontend_loreal/design/Lista/fijos_corridos_container.dart';
+import 'package:frontend_loreal/design/Lista/parles_container.dart';
 
 import 'centenas_container.dart';
 

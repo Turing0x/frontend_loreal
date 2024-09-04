@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:sticker_maker/assets/themes/light_theme.dart';
+import 'package:frontend_loreal/assets/themes/light_theme.dart';
 
 import 'config/router/on_generate_route.dart';
 import 'config/router/routes.dart';

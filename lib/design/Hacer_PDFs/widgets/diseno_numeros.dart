@@ -1,5 +1,5 @@
-import 'package:sticker_maker/config/extensions/string_extensions.dart';
-import 'package:sticker_maker/design/Hacer_PDFs/widgets/texto_dosis.dart';
+import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:frontend_loreal/design/Hacer_PDFs/widgets/texto_dosis.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

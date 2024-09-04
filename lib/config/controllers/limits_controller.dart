@@ -2,12 +2,12 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:sticker_maker/config/environments/env.environments.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
-import 'package:sticker_maker/config/server/http/local_storage.dart';
-import 'package:sticker_maker/models/Limites/limited_ball.dart';
-import 'package:sticker_maker/models/Limites/limited_parle.dart';
-import 'package:sticker_maker/models/Limites/limits_model.dart';
+import 'package:frontend_loreal/config/environments/env.environments.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:frontend_loreal/models/Limites/limited_ball.dart';
+import 'package:frontend_loreal/models/Limites/limited_parle.dart';
+import 'package:frontend_loreal/models/Limites/limits_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LimitsControllers {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
 
 Column encabezado(BuildContext context, String texto, bool activarBtn,
     Function()? onPressed, bool activarObli,

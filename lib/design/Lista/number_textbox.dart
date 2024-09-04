@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sticker_maker/config/utils_exports.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
 
 class NumberTextbox extends StatelessWidget {
   const NumberTextbox({
