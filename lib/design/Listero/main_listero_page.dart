@@ -71,7 +71,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
       toBlockIfOutOfLimitFCPC.clear();
       toBlockIfOutOfLimitTerminal.clear();
       toBlockIfOutOfLimitDecena.clear();
-      
+
       payCrtl.limpioAllCalcs();
     });
 
@@ -104,7 +104,9 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
     });
 
     timeControllers.getDataTime().then((value) {
-      if (value.isNotEmpty){ getServerTimes(value); }
+      if (value.isNotEmpty) {
+        getServerTimes(value);
+      }
     });
 
     super.initState();
@@ -123,6 +125,8 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
     final minutos = twoDigits(duration.inMinutes.remainder(60));
     final segundos = twoDigits(duration.inSeconds.remainder(60));
 
+    bool offline = (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'));
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -136,14 +140,18 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
             children: [
               boxTimerSesion(
                   yuoAreIn, timeForThat, '$horas:$minutos:$segundos'),
-              optListTile(
-                  Icons.line_style_outlined, 'Formalizar nueva lista', '', () {
-                (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'))
-                    ? showToast(
-                        'Acción bloqueda en este horario. \nInténtelo más tarde')
-                    : Navigator.pushNamed(context, 'main_make_list',
-                        arguments: [username]);
-              }, true),
+              Visibility(
+                visible: !offline,
+                child: optListTile(
+                    Icons.line_style_outlined, 'Formalizar nueva lista', '',
+                    () {
+                  (offline)
+                      ? showToast(
+                          'Acción bloqueda en este horario. \nInténtelo más tarde')
+                      : Navigator.pushNamed(context, 'main_make_list',
+                          arguments: [username]);
+                }, true),
+              ),
               optListTile(
                   Icons.line_axis_outlined,
                   'Parámetros actuales',
@@ -174,14 +182,19 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
                                 yuoAreIn.contains('fuera'))
                           ]),
                   true),
-              optListTile(Icons.pending_actions_outlined, 'Listas pendientes',
-                  'Listas pendientes a ser enviadas al servidor', () {
-                (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'))
-                    ? showToast(
-                        'Acción bloqueda en este horario. \nInténtelo más tarde')
-                    : Navigator.pushNamed(context, 'pending_lists',
-                        arguments: [username]);
-              }, true),
+              Visibility(
+                visible: !offline,
+                child: optListTile(
+                    Icons.pending_actions_outlined,
+                    'Listas pendientes',
+                    'Listas pendientes a ser enviadas al servidor', () {
+                  offline
+                      ? showToast(
+                          'Acción bloqueda en este horario. \nInténtelo más tarde')
+                      : Navigator.pushNamed(context, 'pending_lists',
+                          arguments: [username]);
+                }, true),
+              ),
               optListTile(
                   Icons.sd_storage_outlined,
                   'Almacenamiento interno',
@@ -239,17 +252,17 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
     Duration night_difference_start = nowStringify.difference(night_start);
     Duration night_difference_end = nowStringify.difference(night_end);
 
-    bool to_start_day = ((!day_difference_start.isNegative &&
-            !day_difference_end.isNegative) ||
-        (day_difference_start.isNegative && day_difference_end.isNegative));
+    bool to_start_day =
+        ((!day_difference_start.isNegative && !day_difference_end.isNegative) ||
+            (day_difference_start.isNegative && day_difference_end.isNegative));
 
     bool on_day_session =
         (!day_difference_start.isNegative && day_difference_end.isNegative);
 
     bool to_start_nigth =
         (!day_difference_end.isNegative && night_difference_start.isNegative);
-    bool on_night_session = (!night_difference_start.isNegative &&
-        night_difference_end.isNegative);
+    bool on_night_session =
+        (!night_difference_start.isNegative && night_difference_end.isNegative);
 
     if (on_day_session) {
       setState(() {
@@ -292,7 +305,6 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
           day_difference_start.inMinutes.remainder(60).abs(),
           day_difference_start.inSeconds.remainder(60).abs());
     }
-
   }
 
   getHisLimits(String userID) {
@@ -316,7 +328,8 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
   getHisPayments(String userID) {
     final setLimits = ref.watch(globalLimits);
     final paymentsControllers = PaymentsControllers();
-    Future<List<Payments>> forPayments = paymentsControllers.getPaymentsOfUser(userID);
+    Future<List<Payments>> forPayments =
+        paymentsControllers.getPaymentsOfUser(userID);
     forPayments.then((value) {
       if (value.isNotEmpty) {
         setLimits.porcientoBolaListero = value[0].bolaListero;

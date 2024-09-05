@@ -5,7 +5,6 @@ import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/models/Lista_Calcs/other_model.dart';
 
 class CalcsControllers {
-
   late Dio _dio;
 
   CalcsControllers() {
@@ -33,8 +32,8 @@ class CalcsControllers {
       final queryData = {'lot': lot, 'signature': signature};
 
       await _initializeDio();
-      Response response = await _dio.get('/api/calcs',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/calcs', queryParameters: queryData);
 
       if (!response.data['success']) {
         showToast(
@@ -52,5 +51,4 @@ class CalcsControllers {
       return [];
     }
   }
-
 }

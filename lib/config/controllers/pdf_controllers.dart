@@ -7,7 +7,6 @@ import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart'
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 
 class PdfControllers {
-
   late Dio _dio;
 
   PdfControllers() {
@@ -29,7 +28,8 @@ class PdfControllers {
     );
   }
 
-  Future<List<PdfData>> getDataToPDF(String username, String date, String jornal,
+  Future<List<PdfData>> getDataToPDF(
+      String username, String date, String jornal,
       {String makeResumen = '',
       String startDate = '',
       String endDate = ''}) async {
@@ -43,8 +43,8 @@ class PdfControllers {
       };
 
       await _initializeDio();
-      Response response = await _dio.get('/api/vales/$username',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/vales/$username', queryParameters: queryData);
 
       if (!response.data['success']) {
         return [];
@@ -76,8 +76,8 @@ class PdfControllers {
       };
 
       await _initializeDio();
-      Response response = await _dio.get('/api/vales/all',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/vales/all', queryParameters: queryData);
 
       if (!response.data['success']) {
         EasyLoading.showError('Ha ocurrido algo grave');
@@ -96,5 +96,4 @@ class PdfControllers {
       return [];
     }
   }
-
 }

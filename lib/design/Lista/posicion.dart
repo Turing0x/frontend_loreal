@@ -40,7 +40,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             const SizedBox(height: 20),
             TxtInfo(
                 texto: 'Número a jugar: ',
-                
                 icon: Icons.numbers_outlined,
                 keyboardType: TextInputType.number,
                 autofocus: true,
@@ -57,7 +56,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Fijo',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: fijo,
@@ -73,7 +71,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 Flexible(
                   child: SimpleTxt(
                       texto: 'Corrido1',
-                      
                       icon: Icons.attach_money,
                       keyboardType: TextInputType.number,
                       controlador: corrido,
@@ -91,7 +88,6 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
             Flexible(
               child: SimpleTxt(
                   texto: 'Corrido2',
-                  
                   icon: Icons.attach_money,
                   keyboardType: TextInputType.number,
                   controlador: corrido2,
@@ -121,7 +117,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 return;
               }
 
-              int nposicion = posicion.text.intTryParsed ?? 0;
+              String nposicion = posicion.text;
               int nfijo = fijo.text.intTryParsed ?? 0;
               int ncorrido = corrido.text.intTryParsed ?? 0;
               int ncorrido2 = corrido2.text.intTryParsed ?? 0;

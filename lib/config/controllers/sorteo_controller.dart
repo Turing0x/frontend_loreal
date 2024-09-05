@@ -9,7 +9,6 @@ import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 
 class SorteosControllers {
-
   late Dio _dio;
 
   SorteosControllers() {
@@ -33,7 +32,6 @@ class SorteosControllers {
 
   Future<List<Sorteo>> getDataSorteo() async {
     try {
-
       await _initializeDio();
       Response response = await _dio.get('/api/sorteos');
       final List<Sorteo> sorteosData = [];
@@ -58,8 +56,8 @@ class SorteosControllers {
       final queryData = {'jornal': jornal, 'date': date};
 
       await _initializeDio();
-      Response response = await _dio.get('/api/sorteos',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/sorteos', queryParameters: queryData);
 
       if (!response.data['success']) {
         showToast(
@@ -76,7 +74,6 @@ class SorteosControllers {
 
   Future<String> getTheLast() async {
     try {
-
       await _initializeDio();
       Response response = await _dio.get('/api/sorteos/last');
       if (!response.data['success']) {
@@ -98,7 +95,7 @@ class SorteosControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/sorteos',
-        data: jsonEncode({'lot': lot, 'jornal': jornal, 'date': date}));
+          data: jsonEncode({'lot': lot, 'jornal': jornal, 'date': date}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -115,10 +112,9 @@ class SorteosControllers {
 
   Future<bool> editDataSorteo(String id, String lot) async {
     try {
-
       await _initializeDio();
-      Response response = await _dio.put('/api/sorteos/$id',
-        data: jsonEncode({ 'lot': lot }));
+      Response response =
+          await _dio.put('/api/sorteos/$id', data: jsonEncode({'lot': lot}));
 
       if (response.data['success']) {
         showToast(response.data['api_message'], type: true);
@@ -153,5 +149,4 @@ class SorteosControllers {
       return false;
     }
   }
-
 }

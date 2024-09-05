@@ -8,7 +8,6 @@ import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 import 'dart:convert';
 
 class PaymentsControllers {
-
   late Dio _dio;
 
   PaymentsControllers() {
@@ -56,7 +55,6 @@ class PaymentsControllers {
 
   Future<List<Payments>> getPaymentsOfUser(String id) async {
     try {
-
       await _initializeDio();
       Response response = await _dio.get('/api/payments/$id');
       if (!response.data['success']) {
@@ -94,20 +92,20 @@ class PaymentsControllers {
 
       await _initializeDio();
       Response response = await _dio.post('/api/payments',
-        data: jsonEncode({
-          'pagos_jugada_Corrido': pagos_jugada_Corrido,
-          'pagos_jugada_Centena': pagos_jugada_Centena,
-          'pagos_jugada_Parle': pagos_jugada_Parle,
-          'pagos_jugada_Fijo': pagos_jugada_Fijo,
-          'pagos_millon_Fijo': pagos_millon_Fijo,
-          'pagos_millon_Corrido': pagos_millon_Corrido,
-          'limitados_Corrido': limitados_Corrido,
-          'limitados_Parle': limitados_Parle,
-          'limitados_Fijo': limitados_Fijo,
-          'parle_listero': parle_listero,
-          'bola_listero': bola_listero,
-          'time': time
-        }));
+          data: jsonEncode({
+            'pagos_jugada_Corrido': pagos_jugada_Corrido,
+            'pagos_jugada_Centena': pagos_jugada_Centena,
+            'pagos_jugada_Parle': pagos_jugada_Parle,
+            'pagos_jugada_Fijo': pagos_jugada_Fijo,
+            'pagos_millon_Fijo': pagos_millon_Fijo,
+            'pagos_millon_Corrido': pagos_millon_Corrido,
+            'limitados_Corrido': limitados_Corrido,
+            'limitados_Parle': limitados_Parle,
+            'limitados_Fijo': limitados_Fijo,
+            'parle_listero': parle_listero,
+            'bola_listero': bola_listero,
+            'time': time
+          }));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -155,7 +153,7 @@ class PaymentsControllers {
 
       await _initializeDio();
       Response response = await _dio.put('/api/users/$userID',
-        data: jsonEncode({'payments': pay_obj}));
+          data: jsonEncode({'payments': pay_obj}));
 
       if (response.data['success']) {
         EasyLoading.showSuccess(response.data['api_message']);
@@ -168,5 +166,4 @@ class PaymentsControllers {
       EasyLoading.showError(e.toString());
     }
   }
-
 }

@@ -54,25 +54,25 @@ class _FijosCorridosListaWidgetState
     return Row(children: [
       Expanded(
           child: GestureDetector(
-            onLongPress: () {
-              final toJoinListM = ref.read(toJoinListR.notifier);
-              final payCrtl = ref.watch(paymentCrtl.notifier);
-              final getLimit = ref.watch(globalLimits);
+        onLongPress: () {
+          final toJoinListM = ref.read(toJoinListR.notifier);
+          final payCrtl = ref.watch(paymentCrtl.notifier);
+          final getLimit = ref.watch(globalLimits);
 
-              listado[MainListEnum.fijoCorrido.toString()]!
-                .removeWhere((element) => element.uuid == widget.fijoCorrido.uuid);
+          listado[MainListEnum.fijoCorrido.toString()]!.removeWhere(
+              (element) => element.uuid == widget.fijoCorrido.uuid);
 
-              toJoinListM.addCurrentList(
-                key: ListaGeneralEnum.principales, data: listado);
-              
-              int limpioListero =
-                  (sum * (getLimit.porcientoBolaListero / 100)).toInt();
+          toJoinListM.addCurrentList(
+              key: ListaGeneralEnum.principales, data: listado);
 
-              payCrtl.restaTotalBruto80 = sum;
-              payCrtl.restaLimpioListero = limpioListero;
+          int limpioListero =
+              (sum * (getLimit.porcientoBolaListero / 100)).toInt();
 
-              showToast('La jugada fue eliminada exitosamente');
-            },
+          payCrtl.restaTotalBruto80 = sum;
+          payCrtl.restaLimpioListero = limpioListero;
+
+          showToast('La jugada fue eliminada exitosamente');
+        },
         onDoubleTap: () {
           if (widget.canEdit) {
             managerOfElementsOnList(ref, widget.fijoCorrido);
@@ -81,14 +81,13 @@ class _FijosCorridosListaWidgetState
             });
             return;
           }
-
         },
         child: Padding(
             padding: const EdgeInsets.only(right: 15),
             child: ListTile(
                 title: boldLabel(
                     'Número: ',
-                    widget.fijoCorrido.numplay.toString().rellenarCon0(2),
+                    widget.fijoCorrido.numplay.toString().rellenarCon00(2),
                     size),
                 subtitle: Row(mainAxisSize: MainAxisSize.min, children: [
                   textoDosis('Fijo: ', 20),

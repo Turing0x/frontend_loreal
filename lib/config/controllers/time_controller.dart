@@ -10,7 +10,6 @@ import 'package:frontend_loreal/config/environments/env.environments.dart';
 import '../server/http/local_storage.dart';
 
 class TimeControllers {
-
   late Dio _dio;
 
   TimeControllers() {
@@ -34,7 +33,6 @@ class TimeControllers {
 
   Future<List<Time>> getDataTime() async {
     try {
-      
       await _initializeDio();
       Response response = await _dio.get('/api/time');
       if (!response.data['success']) {
@@ -59,13 +57,13 @@ class TimeControllers {
       EasyLoading.show(status: 'Configurando horarios...');
 
       await _initializeDio();
-      Response response = await _dio.post('/api/time', 
-        data: jsonEncode({ 
-          'dayStart': day_start,
-          'dayEnd': day_end,
-          'nightStart': night_start,
-          'nightEnd': night_end 
-        }));
+      Response response = await _dio.post('/api/time',
+          data: jsonEncode({
+            'dayStart': day_start,
+            'dayEnd': day_end,
+            'nightStart': night_start,
+            'nightEnd': night_end
+          }));
 
       String api_message = response.data['api_message'];
       if (response.data['success']) {
@@ -79,5 +77,4 @@ class TimeControllers {
       showToast(e.toString());
     }
   }
-
 }

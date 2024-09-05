@@ -5,7 +5,6 @@ import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/models/Millon/million_model.dart';
 
 class MillionControllers {
-
   late Dio _dio;
 
   MillionControllers() {
@@ -31,8 +30,8 @@ class MillionControllers {
     try {
       final queryData = {'jornal': jornal, 'date': date};
       await _initializeDio();
-      Response response = await _dio.get('/api/million',
-        queryParameters: queryData);
+      Response response =
+          await _dio.get('/api/million', queryParameters: queryData);
 
       if (!response.data['success']) {
         showToast('Ha ocurrido algo grave');
@@ -50,7 +49,5 @@ class MillionControllers {
     } catch (e) {
       return [];
     }
-
   }
-
 }
