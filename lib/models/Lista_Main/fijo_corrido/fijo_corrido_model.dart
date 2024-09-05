@@ -6,7 +6,7 @@ part 'fijo_corrido_model.g.dart';
 @JsonSerializable()
 class FijoCorridoModel {
   final String uuid;
-  final int numplay;
+  final String numplay;
   final int? fijo;
   final int? corrido;
   final int? dinero;
@@ -21,10 +21,10 @@ class FijoCorridoModel {
 
   FijoCorridoModel.fromTextEditingController(this.dinero,
       {required this.uuid,
-      required String numplay,
+      required String numplayy,
       required String fijo,
       required String corrido})
-      : numplay = numplay.intTryParsed ?? 0,
+      : numplay = numplayy,
         fijo = fijo.intTryParsed ?? 0,
         corrido = corrido.intTryParsed ?? 0;
 

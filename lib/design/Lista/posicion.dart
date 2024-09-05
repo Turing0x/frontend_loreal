@@ -117,7 +117,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                 return;
               }
 
-              int nposicion = posicion.text.intTryParsed ?? 0;
+              String nposicion = posicion.text;
               int nfijo = fijo.text.intTryParsed ?? 0;
               int ncorrido = corrido.text.intTryParsed ?? 0;
               int ncorrido2 = corrido2.text.intTryParsed ?? 0;

@@ -193,7 +193,7 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
       }
 
       if (each is PosicionModel) {
-        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon0(2),
+        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon00(2),
             (value) {
           return {
             'fijo': value['fijo']! - each.fijo,

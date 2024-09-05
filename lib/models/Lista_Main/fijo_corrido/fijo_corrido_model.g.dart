@@ -9,7 +9,7 @@ part of 'fijo_corrido_model.dart';
 FijoCorridoModel _$FijoCorridoModelFromJson(Map<String, dynamic> json) =>
     FijoCorridoModel(
       uuid: json['uuid'] as String,
-      numplay: json['numplay'] as int,
+      numplay: json['numplay'] as String,
       fijo: json['fijo'] as int?,
       corrido: json['corrido'] as int?,
       dinero: json['dinero'] as int?,

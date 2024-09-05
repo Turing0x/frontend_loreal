@@ -1,7 +1,7 @@
 import 'package:sticker_maker/models/Lista_Posicion/posicion_model.dart';
 
-List<dynamic> convertirPayloadPosicion(
-    String uuid, int numplay, int fijo, int corrido, int corrido2, int dinero) {
+List<dynamic> convertirPayloadPosicion(String uuid, String numplay, int fijo,
+    int corrido, int corrido2, int dinero) {
   try {
     final posicion = PosicionModel(
       uuid: uuid,

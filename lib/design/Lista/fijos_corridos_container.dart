@@ -54,7 +54,7 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
               FijoCorridoModel.fromTextEditingController(
                 0,
                 uuid: element.uuid,
-                numplay: element.numplay.toString(),
+                numplayy: element.numplay.toString(),
                 fijo: element.fijo.toString(),
                 corrido: element.corrido.toString(),
               ),
@@ -281,7 +281,7 @@ class _FijosCorridosWidgetState extends ConsumerState<FijosCorridosWidget> {
                       FijoCorridoModel.fromTextEditingController(
                         0,
                         uuid: uuid.v4(),
-                        numplay: fcNum.text,
+                        numplayy: fcNum.text,
                         fijo: dineroFijo.toString(),
                         corrido: dineroCorrido.toString(),
                       ),
