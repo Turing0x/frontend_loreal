@@ -146,7 +146,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
                     Icons.line_style_outlined, 'Formalizar nueva lista', '',
                     () {
                   (offline)
-                      ? showToast(
+                      ? showToast(context,
                           'Acción bloqueda en este horario. \nInténtelo más tarde')
                       : Navigator.pushNamed(context, 'main_make_list',
                           arguments: [username]);
@@ -189,7 +189,7 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
                     'Listas pendientes',
                     'Listas pendientes a ser enviadas al servidor', () {
                   offline
-                      ? showToast(
+                      ? showToast(context,
                           'Acción bloqueda en este horario. \nInténtelo más tarde')
                       : Navigator.pushNamed(context, 'pending_lists',
                           arguments: [username]);

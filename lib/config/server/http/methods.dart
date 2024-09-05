@@ -13,7 +13,7 @@ Future<String> rutaInicial() async {
     await storage.deleteAll();
     prefs.setBool('first_run', false);
 
-    return determinePath();
+    return "signIn_page";
   } else {
     final role = await LocalStorage.getRole();
     final lastTime = await LocalStorage.getTimeSign();
@@ -24,7 +24,7 @@ Future<String> rutaInicial() async {
       return _rutaInicial(role);
     }
 
-    return determinePath();
+    return 'signIn_page';
   }
 }
 
@@ -45,7 +45,7 @@ cerrarSesion(BuildContext context) async {
   isAuthenticatedBiometrics = false;
 
   contex.pushNamedAndRemoveUntil(
-      determinePath(), (Route<dynamic> route) => false);
+      "signIn_page", (Route<dynamic> route) => false);
 }
 
 String _rutaInicial(String role) {
@@ -68,9 +68,4 @@ bool excede100Minutos(DateTime fecha) {
   }
 
   return false;
-}
-
-String determinePath() {
-  return 'other_signIn_page';
-  // return 'signIn_page';
 }
