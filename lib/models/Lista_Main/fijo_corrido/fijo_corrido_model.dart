@@ -24,7 +24,7 @@ class FijoCorridoModel {
       required String numplayy,
       required String fijo,
       required String corrido})
-      : numplay = numplayy,
+      : numplay = numplayy.toString(),
         fijo = fijo.intTryParsed ?? 0,
         corrido = corrido.intTryParsed ?? 0;
 

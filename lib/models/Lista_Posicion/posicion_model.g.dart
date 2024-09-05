@@ -9,7 +9,7 @@ part of 'posicion_model.dart';
 PosicionModel _$PosicionModelFromJson(Map<String, dynamic> json) =>
     PosicionModel(
       uuid: json['uuid'],
-      numplay: json['numplay'] as String,
+      numplay: json['numplay'].toString(),
       corrido: json['corrido'] as int,
       corrido2: json['corrido2'] as int,
       fijo: json['fijo'] as int,
