@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
 import 'package:frontend_loreal/config/server/http/auth.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
 import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/simple_txt.dart';
 
 class SignInPage extends ConsumerStatefulWidget {
   const SignInPage({super.key});
@@ -33,20 +30,13 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       }
     });
 
-    // AdaptiveTheme.getThemeMode().then((value){
-    //   if(value!.isDark){
-    //     setState(() {
-    //       isDark = true;
-    //     });
-    //   }
-    // });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final btnManager = ref.watch(btnManagerR);
 
     Map<String, void Function()> routesByRole = {
       'banco': () =>
@@ -60,146 +50,198 @@ class _SignInPageState extends ConsumerState<SignInPage> {
     };
 
     return Scaffold(
+      backgroundColor: const Color(0xFF6D60F8),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              (isDark)
-                  ? const SizedBox(height: 100)
-                  : Container(
-                      height: 250,
-                      margin: EdgeInsets.only(
-                          left: size.width * .09,
-                          right: size.width * .09,
-                          top: size.width * .15),
-                      child: SvgPicture.asset(
-                          'lib/assets/undraw_unlock_re_a558.svg'),
-                    ),
-              Container(
-                  margin: EdgeInsets.only(
-                      left: 45, right: 45, top: size.height * 0.05),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      textoDosis('Loreal', 55, fontWeight: FontWeight.w600),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: textoDosis('v1', 20),
-                      )
-                    ],
-                  )),
-              textoDosis('Ingrese sus datos de acceso al sistema', 20),
-              const SizedBox(height: 30),
-              SimpleTxt(
-                  icon: Icons.person_outline,
-                  texto: 'Nombre de usuario',
-                  keyboardType: TextInputType.text,
-                  controlador: nameController,
-                  onChange: (valor) => setState(() {})),
-              SimpleTxt(
-                  icon: Icons.password_outlined,
-                  texto: 'Clave de acceso',
-                  obscureText: showPass,
-                  keyboardType: TextInputType.text,
-                  controlador: passController,
-                  onChange: (valor) => setState(() {})),
-              Padding(
-                padding: const EdgeInsets.only(right: 30),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: OutlinedButton(
-                      onPressed: () => setState(() {
-                            showPass = !showPass;
-                          }),
-                      child: textoDosis(
-                          (showPass)
-                              ? 'Mostrar contraseña'
-                              : 'Ocultar contraseña',
-                          18)),
+            child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 30),
+              width: size.width * .5,
+              child: Image.asset('lib/assets/image_login.webp'),
+            ),
+            Container(
+              padding: const EdgeInsets.all(40),
+              height: size.height * .7,
+              width: size.width,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40),
+                  topRight: Radius.circular(40),
                 ),
               ),
-              const SizedBox(height: 20),
-              _contBotones(routesByRole),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-              Visibility(
-                  visible: !btnOffline,
-                  child: Align(
-                    alignment: Alignment.bottomRight,
+              child: Column(children: [
+                CustomTextField(
+                    obscureText: false,
+                    size: size,
+                    nameController: nameController,
+                    title: 'Nombre de usuario',
+                    hintText: 'John Doe'),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  size: size,
+                  obscureText: true,
+                  nameController: passController,
+                  title: 'Contraseña de su cuenta',
+                  hintText: '123ABC',
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: textoDosis('Olvidaste la contraseña?', 14,
+                      color: const Color(0xFF7F7F7F)),
+                ),
+                AbsorbPointer(
+                  absorbing: btnManager,
+                  child: GestureDetector(
+                    onTap: () => _onPressed(routesByRole),
                     child: Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: ElevatedButton.icon(
-                          icon: const Icon(Icons.link_off_outlined),
-                          label: textoDosis('Offline', 20),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: (btnOffline)
-                                ? Colors.grey[300]
-                                : Colors.red[300],
-                            elevation: 2,
-                          ),
-                          onPressed: () =>
-                              Navigator.pushNamed(context, 'offline_pass')),
-                    ),
-                  ))
-            ],
-          ),
-        ),
+                        margin: const EdgeInsets.only(top: 30, bottom: 30),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: (!btnManager)
+                                ? const Color(0xFFFFCA3C)
+                                : Colors.grey[400],
+                            boxShadow: const [
+                              BoxShadow(color: Colors.black54, blurRadius: 1)
+                            ]),
+                        height: 50,
+                        width: size.width,
+                        child: textoDosis(
+                            (!btnManager)
+                                ? 'Iniciar Sesión'
+                                : 'Intentando entrar...',
+                            20)),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BtnImage(name: 'google'),
+                      BtnImage(name: 'apple'),
+                      BtnImage(name: 'facebook'),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 60),
+                textoDosis('Aún no tienes una cuenta?', 16,
+                    color: const Color(0xFF7F7F7F)),
+              ]),
+            )
+          ],
+        )),
       ),
     );
   }
 
-  Row _contBotones(Map<String, void Function()> routesByRole) {
+  void _onPressed(Map<String, void Function()> routesByRole) {
     final authService = AuthServices();
-    final btnManager = ref.watch(btnManagerR);
     final btnManagerM = ref.read(btnManagerR.notifier);
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    btnManagerM.state = true;
+    FocusScope.of(context).unfocus();
+    final chUsername = ref.read(chUser.notifier);
+    final setGlobalRole = ref.read(globalRole.notifier);
+
+    if (nameController.text.isEmpty || passController.text.isEmpty) {
+      btnManagerM.state = false;
+      return showToast(context, 'Rellene los campos vacíos para poder acceder');
+    }
+
+    final typeRole = authService.login(
+        nameController.text.trim(), passController.text.trim(), context);
+
+    typeRole.then((value) {
+      if (value != '') {
+        routesByRole[value]!.call();
+      }
+      chUsername.state = nameController.text.trim();
+      setGlobalRole.state = value;
+      btnManagerM.state = false;
+    }).catchError((error) {
+      showToast(context, 'Revise su conexión a Internet por favor');
+      btnManagerM.state = false;
+      return error;
+    });
+  }
+}
+
+class BtnImage extends StatelessWidget {
+  const BtnImage({
+    super.key,
+    required this.name,
+  });
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 50,
+      padding: const EdgeInsets.all(8),
+      height: 50,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF2F0EF),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Image.asset(
+        'lib/assets/$name.png',
+      ),
+    );
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    super.key,
+    required this.size,
+    required this.nameController,
+    required this.title,
+    required this.hintText,
+    required this.obscureText,
+  });
+
+  final Size size;
+  final TextEditingController nameController;
+  final String title;
+  final String hintText;
+  final bool obscureText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        textoDosis('Vamos allá!!!', 18),
-        const SizedBox(width: 10),
-        AbsorbPointer(
-          absorbing: btnManager,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  (!btnManager) ? Colors.blue[300] : Colors.grey[400],
-              elevation: 2,
-            ),
-            onPressed: () {
-              btnManagerM.state = true;
-              FocusScope.of(context).unfocus();
-              final chUsername = ref.read(chUser.notifier);
-              final setGlobalRole = ref.read(globalRole.notifier);
-
-              if (nameController.text.isEmpty || passController.text.isEmpty) {
-                btnManagerM.state = false;
-                return showToast(
-                    context, 'Debe completar la información de registro');
-              }
-
-              final typeRole = authService.login(nameController.text.trim(),
-                  passController.text.trim(), context);
-
-              typeRole.then((value) {
-                if (value != '') {
-                  routesByRole[value]!.call();
-                }
-                chUsername.state = nameController.text.trim();
-                setGlobalRole.state = value;
-                btnManagerM.state = false;
-              }).catchError((error) {
-                showToast(context,
-                    'Ha ocurrido un error al conectar con el servidor. Por favor, revise su conexión a internet');
-                btnManagerM.state = false;
-                return error;
-              });
-            },
-            child: textoDosis((!btnManager) ? 'Acceder' : 'Autenticando...', 20,
-                color: Colors.white),
-          ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: textoDosis(title, 18, color: const Color(0xFF7F7F7F)),
         ),
+        Container(
+          width: size.width,
+          margin: const EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: const Color(0xFFF7F7F7),
+          ),
+          child: TextField(
+            controller: nameController,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintText,
+              hintStyle: const TextStyle(
+                color: Color(0xFF7F7F7F),
+                fontSize: 15,
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
