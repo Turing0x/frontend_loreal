@@ -66,7 +66,7 @@ void _agregarPayloadPosicion(
 
   map['ListaGeneralEnum.posicion']['posicion'].forEach((each) {
     final getuuid = each['uuid'];
-    final getnumplay = each['numplay'];
+    final getnumplay = each['numplay'].toString();
     final getfijo = each['fijo'];
     final getcorrido = each['corrido'];
     final getcorrido2 = each['corrido2'];

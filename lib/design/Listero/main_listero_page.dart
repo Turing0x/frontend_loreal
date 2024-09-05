@@ -125,6 +125,8 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
     final minutos = twoDigits(duration.inMinutes.remainder(60));
     final segundos = twoDigits(duration.inSeconds.remainder(60));
 
+    bool offline = (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'));
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -138,14 +140,18 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
             children: [
               boxTimerSesion(
                   yuoAreIn, timeForThat, '$horas:$minutos:$segundos'),
-              optListTile(
-                  Icons.line_style_outlined, 'Formalizar nueva lista', '', () {
-                (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'))
-                    ? showToast(context,
-                        'Acción bloqueda en este horario. \nInténtelo más tarde')
-                    : Navigator.pushNamed(context, 'main_make_list',
-                        arguments: [username]);
-              }, true),
+              Visibility(
+                visible: !offline,
+                child: optListTile(
+                    Icons.line_style_outlined, 'Formalizar nueva lista', '',
+                    () {
+                  (offline)
+                      ? showToast(
+                          'Acción bloqueda en este horario. \nInténtelo más tarde')
+                      : Navigator.pushNamed(context, 'main_make_list',
+                          arguments: [username]);
+                }, true),
+              ),
               optListTile(
                   Icons.line_axis_outlined,
                   'Parámetros actuales',
@@ -176,14 +182,19 @@ class _MainListeroPageState extends ConsumerState<MainListeroPage>
                                 yuoAreIn.contains('fuera'))
                           ]),
                   true),
-              optListTile(Icons.pending_actions_outlined, 'Listas pendientes',
-                  'Listas pendientes a ser enviadas al servidor', () {
-                (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'))
-                    ? showToast(context,
-                        'Acción bloqueda en este horario. \nInténtelo más tarde')
-                    : Navigator.pushNamed(context, 'pending_lists',
-                        arguments: [username]);
-              }, true),
+              Visibility(
+                visible: !offline,
+                child: optListTile(
+                    Icons.pending_actions_outlined,
+                    'Listas pendientes',
+                    'Listas pendientes a ser enviadas al servidor', () {
+                  offline
+                      ? showToast(
+                          'Acción bloqueda en este horario. \nInténtelo más tarde')
+                      : Navigator.pushNamed(context, 'pending_lists',
+                          arguments: [username]);
+                }, true),
+              ),
               optListTile(
                   Icons.sd_storage_outlined,
                   'Almacenamiento interno',

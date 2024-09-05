@@ -70,7 +70,6 @@ class _FijosCorridosListaWidgetState
 
           payCrtl.restaTotalBruto80 = sum;
           payCrtl.restaLimpioListero = limpioListero;
-
           showToast(context, 'La jugada fue eliminada exitosamente');
         },
         onDoubleTap: () {
@@ -87,7 +86,7 @@ class _FijosCorridosListaWidgetState
             child: ListTile(
                 title: boldLabel(
                     'Número: ',
-                    widget.fijoCorrido.numplay.toString().rellenarCon0(2),
+                    widget.fijoCorrido.numplay.toString().rellenarCon00(2),
                     size),
                 subtitle: Row(mainAxisSize: MainAxisSize.min, children: [
                   textoDosis('Fijo: ', 20),

@@ -4,9 +4,8 @@ part 'posicion_model.g.dart';
 
 @JsonSerializable()
 class PosicionModel {
-
   final String uuid;
-  final int numplay;
+  final String numplay;
   final int fijo;
   final int corrido;
   final int corrido2;
@@ -25,7 +24,7 @@ class PosicionModel {
   String toString() {
     return {
       'uuid': uuid,
-      'numplay': numplay,
+      'numplay': numplay.toString(),
       'corrido': corrido,
       'corrido2': corrido2,
       'fijo': fijo,
@@ -33,13 +32,13 @@ class PosicionModel {
     }.toString();
   }
 
-factory PosicionModel.fromJson(Map<String, dynamic> json) =>
+  factory PosicionModel.fromJson(Map<String, dynamic> json) =>
       _$PosicionModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$PosicionModelToJson(this);
 }
 
-class Posicion{
+class Posicion {
   final List<PosicionModel> list;
 
   Posicion({
@@ -49,6 +48,5 @@ class Posicion{
   Posicion.fromList(List<dynamic> json)
       : list = json.map((e) => PosicionModel.fromJson(e)).toList();
 
-  List<Map<String, dynamic>> toList() =>
-      list.map((e) => e.toJson()).toList();
+  List<Map<String, dynamic>> toList() => list.map((e) => e.toJson()).toList();
 }
