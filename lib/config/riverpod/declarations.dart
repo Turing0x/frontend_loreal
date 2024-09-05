@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:frontend_loreal/config/controllers/cargados_controllers.dart';
-import 'package:frontend_loreal/config/riverpod/date_range_bloc.dart';
-import 'package:frontend_loreal/config/riverpod/filters_provider.dart';
-import 'package:frontend_loreal/config/riverpod/limits_provider.dart';
-import 'package:frontend_loreal/config/riverpod/payments_provider.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date_bloc.dart';
-import 'package:frontend_loreal/design/Lista/candado.dart';
-import 'package:frontend_loreal/design/Lista/to_block.dart';
-import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
-import 'package:frontend_loreal/models/Lista/join_list.dart';
-import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
+import 'package:safe_chat/config/controllers/cargados_controllers.dart';
+import 'package:safe_chat/config/riverpod/date_range_bloc.dart';
+import 'package:safe_chat/config/riverpod/filters_provider.dart';
+import 'package:safe_chat/config/riverpod/limits_provider.dart';
+import 'package:safe_chat/config/riverpod/payments_provider.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date_bloc.dart';
+import 'package:safe_chat/design/Lista/candado.dart';
+import 'package:safe_chat/design/Lista/to_block.dart';
+import 'package:safe_chat/models/Cargados/cargados_model.dart';
+import 'package:safe_chat/models/Lista/join_list.dart';
+import 'package:safe_chat/models/PDFs/invoice_colector.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

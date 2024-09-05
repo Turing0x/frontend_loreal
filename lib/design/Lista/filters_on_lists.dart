@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/list_controller.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/riverpod/filters_provider.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date_bloc.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:safe_chat/config/controllers/list_controller.dart';
+import 'package:safe_chat/config/extensions/string_extensions.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/riverpod/filters_provider.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date_bloc.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/design/common/no_data.dart';
+import 'package:safe_chat/design/common/txt_para_info.dart';
+import 'package:safe_chat/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FiltersOnAllLists extends ConsumerStatefulWidget {

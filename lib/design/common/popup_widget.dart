@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frontend_loreal/config/controllers/list_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/controllers/list_controller.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
-import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
-import 'package:frontend_loreal/config/enums/poput_tipo.dart';
-import 'package:frontend_loreal/config/utils/file_manager.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:safe_chat/config/enums/lista_general_enum.dart';
+import 'package:safe_chat/config/enums/poput_tipo.dart';
+import 'package:safe_chat/config/utils/file_manager.dart';
+import 'package:safe_chat/config/utils/glogal_map.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

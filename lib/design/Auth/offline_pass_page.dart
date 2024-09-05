@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/simple_txt.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/simple_txt.dart';
 
 class OfflinePass extends StatefulWidget {
   const OfflinePass({super.key});

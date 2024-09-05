@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
+import 'package:safe_chat/models/Lista_Millon/million_model.dart';
 
 List<dynamic> convertirPayloadMillon(
     String uuid, String numplay, int fijo, int corrido, int dinero) {

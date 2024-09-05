@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/design/common/pdf_widget.dart';
+import 'package:safe_chat/design/common/pdf_widget.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

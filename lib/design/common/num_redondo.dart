@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
 class NumeroRedondoWidget extends StatelessWidget {
   const NumeroRedondoWidget({

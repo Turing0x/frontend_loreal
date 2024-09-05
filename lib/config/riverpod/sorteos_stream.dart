@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:frontend_loreal/config/controllers/sorteo_controller.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/models/Sorteo/sorteos_model.dart';
+import 'package:safe_chat/config/controllers/sorteo_controller.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/models/Sorteo/sorteos_model.dart';
 
 class SorteosStream {
   static final SorteosStream _singleton = SorteosStream._internal();

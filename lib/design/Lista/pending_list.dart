@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frontend_loreal/config/controllers/list_controller.dart';
-import 'package:frontend_loreal/config/database/list_table/bd_provider.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:safe_chat/config/controllers/list_controller.dart';
+import 'package:safe_chat/config/database/list_table/bd_provider.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/design/common/no_data.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:frontend_loreal/models/Lista/list_offline_model.dart';
+import 'package:safe_chat/models/Lista/list_offline_model.dart';
 
 final listControllers = ListControllers();
 

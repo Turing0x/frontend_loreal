@@ -1,17 +1,17 @@
-import 'package:frontend_loreal/config/database/collections_debt/coll_debt/debt_bloc.dart';
-import 'package:frontend_loreal/config/database/collections_debt/coll_debt/debt_provider.dart';
-import 'package:frontend_loreal/config/database/collections_debt/type_coll_debt/type_bloc.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:safe_chat/config/database/collections_debt/coll_debt/debt_bloc.dart';
+import 'package:safe_chat/config/database/collections_debt/coll_debt/debt_provider.dart';
+import 'package:safe_chat/config/database/collections_debt/type_coll_debt/type_bloc.dart';
+import 'package:safe_chat/config/extensions/string_extensions.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/design/common/no_data.dart';
+import 'package:safe_chat/design/common/txt_para_info.dart';
+import 'package:safe_chat/design/common/waiting_page.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:frontend_loreal/config/database/collections_debt/coll_debt/coll_debt_model.dart';
+import 'package:safe_chat/config/database/collections_debt/coll_debt/coll_debt_model.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
 class ColectorsDebtPage extends StatefulWidget {
   const ColectorsDebtPage({super.key});

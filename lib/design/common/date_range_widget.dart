@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 import 'package:intl/intl.dart';
 
 class InitialDateSelect extends ConsumerStatefulWidget {

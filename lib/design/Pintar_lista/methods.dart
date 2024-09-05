@@ -1,12 +1,12 @@
-import 'package:frontend_loreal/config/methods/decode_json_to_map.dart';
+import 'package:safe_chat/config/methods/decode_json_to_map.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Calcs/conv_calcs.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Candado/conv_candado.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Decena/conv_decena.dart';
-import 'package:frontend_loreal/design/Pintar_lista/MainList/conv_main_list.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Millon/conv_millon.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Posicion/conv_posicion.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Terminal/conv_terminales.dart';
+import 'package:safe_chat/design/Pintar_lista/Calcs/conv_calcs.dart';
+import 'package:safe_chat/design/Pintar_lista/Candado/conv_candado.dart';
+import 'package:safe_chat/design/Pintar_lista/Decena/conv_decena.dart';
+import 'package:safe_chat/design/Pintar_lista/MainList/conv_main_list.dart';
+import 'package:safe_chat/design/Pintar_lista/Millon/conv_millon.dart';
+import 'package:safe_chat/design/Pintar_lista/Posicion/conv_posicion.dart';
+import 'package:safe_chat/design/Pintar_lista/Terminal/conv_terminales.dart';
 
 List<dynamic> boliList(String signature) {
   final listaDevolver = <dynamic>[];

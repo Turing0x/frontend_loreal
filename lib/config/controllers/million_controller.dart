@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/models/Millon/million_model.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/environments/env.environments.dart';
+import 'package:safe_chat/models/Millon/million_model.dart';
 
 class MillionControllers {
   late Dio _dio;

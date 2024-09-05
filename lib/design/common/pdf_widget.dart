@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:safe_chat/config/extensions/string_extensions.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

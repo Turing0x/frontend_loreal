@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
 import 'package:open_file/open_file.dart';
 
 class SeeListsOnFolder extends StatefulWidget {

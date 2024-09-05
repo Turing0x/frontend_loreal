@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/time_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:safe_chat/config/controllers/time_controller.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
 final timeControllers = TimeControllers();

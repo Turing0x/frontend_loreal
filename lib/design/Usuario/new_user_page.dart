@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:safe_chat/config/controllers/users_controller.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/design/common/txt_para_info.dart';
 
 class NewUserPage extends StatefulWidget {
   const NewUserPage({super.key, required this.userAsOwner});

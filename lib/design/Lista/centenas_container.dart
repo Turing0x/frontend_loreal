@@ -1,17 +1,17 @@
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/design/Lista/number_textbox.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
-import 'package:frontend_loreal/design/common/txt_small.dart';
+import 'package:safe_chat/config/utils/glogal_map.dart';
+import 'package:safe_chat/design/Lista/number_textbox.dart';
+import 'package:safe_chat/design/common/num_redondo.dart';
+import 'package:safe_chat/design/common/txt_small.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista/rango_numero_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:safe_chat/models/Lista/rango_numero_model.dart';
+import 'package:safe_chat/models/Lista_Main/centenas/centenas_model.dart';
 import 'package:number_text_input_formatter/number_text_input_formatter.dart';
 import 'package:uuid/uuid.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
+import 'package:safe_chat/config/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
 class CentenasWidget extends ConsumerStatefulWidget {
   const CentenasWidget({

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';
+import 'package:safe_chat/config/extensions/lista_general_extensions.dart';
 import '../../config/enums/lista_general_enum.dart';
 
 class JoinListProvider extends StateNotifier<JoinListModel> {

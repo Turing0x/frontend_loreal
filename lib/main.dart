@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:frontend_loreal/assets/themes/light_theme.dart';
+import 'package:safe_chat/assets/themes/light_theme.dart';
 
 import 'config/router/on_generate_route.dart';
 import 'config/router/routes.dart';
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: const [
           Locale('en'),
         ],
-        title: 'Loreal',
+        title: 'Safe Chat',
         initialRoute: rutaInicial,
         routes: appRoutes,
         onGenerateRoute: onGenerateRoute);

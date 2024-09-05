@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/environments/env.environments.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
 
 class SignatureControllers {
   late Dio _dio;

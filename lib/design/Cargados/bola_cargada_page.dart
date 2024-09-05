@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Cargados/provider/Bolas/get_bola_provider.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/Cargados/provider/Bolas/get_bola_provider.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:safe_chat/design/common/waiting_page.dart';
+import 'package:safe_chat/design/common/num_redondo.dart';
+import 'package:safe_chat/design/common/no_data.dart';
+import 'package:safe_chat/models/Cargados/cargados_model.dart';
 
 class BolaCargadaPage extends ConsumerWidget {
   const BolaCargadaPage({super.key});

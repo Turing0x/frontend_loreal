@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
+import 'package:safe_chat/models/Lista_Terminal/terminal_model.dart';
 
 List<dynamic> convertirPayloadTerminales(
     String uuid, int numplay, int fijo, int corrido, int dinero) {

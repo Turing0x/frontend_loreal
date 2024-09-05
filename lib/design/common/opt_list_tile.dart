@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
 ListTile optListTile(IconData leading, String title, String subtitle,
     Function()? onTap, bool flecha,

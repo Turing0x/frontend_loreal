@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/time_controller.dart';
-import 'package:frontend_loreal/config/methods/update_methods.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/opt_list_tile.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:safe_chat/config/controllers/time_controller.dart';
+import 'package:safe_chat/config/methods/update_methods.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/server/http/methods.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/opt_list_tile.dart';
+import 'package:safe_chat/models/Horario/time_model.dart';
 import 'package:intl/intl.dart';
 
 class MainColectorPage extends StatefulWidget {

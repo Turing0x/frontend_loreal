@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+import 'package:safe_chat/config/controllers/limits_controller.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/models/Cargados/cargados_model.dart';
 
 import '../../config/globals/variables.dart';
 

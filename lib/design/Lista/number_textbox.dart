@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
 class NumberTextbox extends StatelessWidget {
   const NumberTextbox({

@@ -1,6 +1,6 @@
 {
-    "name": "frontend_loreal",
-    "short_name": "frontend_loreal",
+    "name": "safe_chat",
+    "short_name": "safe_chat",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

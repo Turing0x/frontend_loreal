@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/dom.dart' as dom;

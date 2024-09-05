@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils/to_edit_list.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/num_redondo.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils/glogal_map.dart';
+import 'package:safe_chat/config/utils/to_edit_list.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/num_redondo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
+import 'package:safe_chat/models/Lista_Millon/million_model.dart';
 
 import '../../../config/enums/lista_general_enum.dart';
 

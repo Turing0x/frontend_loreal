@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/database/collections_debt/type_coll_debt/type_provider.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:safe_chat/config/database/collections_debt/type_coll_debt/type_provider.dart';
+import 'package:safe_chat/config/extensions/string_extensions.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/no_data.dart';
+import 'package:safe_chat/design/common/waiting_page.dart';
 
 int total = 0;
 

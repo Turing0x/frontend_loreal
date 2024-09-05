@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/sorteo_controller.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/riverpod/get_all_million_provider.dart';
-import 'package:frontend_loreal/config/riverpod/observar_million_provider.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date_bloc.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:safe_chat/config/controllers/sorteo_controller.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/riverpod/get_all_million_provider.dart';
+import 'package:safe_chat/config/riverpod/observar_million_provider.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date_bloc.dart';
+import 'package:safe_chat/design/common/no_data.dart';
+import 'package:safe_chat/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 String lotThisDay = '';

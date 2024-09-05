@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/design/Cargados/provider/Parles/get_parles_provider.dart';
+import 'package:safe_chat/design/Cargados/provider/Parles/get_parles_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'observar_parle_provider.g.dart';

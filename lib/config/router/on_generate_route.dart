@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/design/Banco/details_coll_debt.dart';
-import 'package:frontend_loreal/design/Banco/winner_for_listero.dart';
+import 'package:safe_chat/design/Banco/details_coll_debt.dart';
+import 'package:safe_chat/design/Banco/winner_for_listero.dart';
 
 import '../../design/Almacenamiento/see_all_list_on_folder.dart';
 import '../../design/Banco/make_resumen.dart';

@@ -1,12 +1,12 @@
 // ignore_for_file: avoid_print, unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/list_controller.dart';
-import 'package:frontend_loreal/config/methods/decode_json_to_map.dart';
-import 'package:frontend_loreal/config/riverpod/data_offline_list.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
+import 'package:safe_chat/config/controllers/list_controller.dart';
+import 'package:safe_chat/config/methods/decode_json_to_map.dart';
+import 'package:safe_chat/config/riverpod/data_offline_list.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/design/common/no_data.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

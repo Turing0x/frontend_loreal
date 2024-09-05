@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/utils/glogal_map.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<File> fileManagerWriteGlobal(final mapAsString) async {

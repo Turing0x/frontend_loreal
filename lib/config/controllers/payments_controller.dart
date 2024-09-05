@@ -1,9 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/models/Pagos/payments_model.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/environments/env.environments.dart';
+import 'package:safe_chat/models/Pagos/payments_model.dart';
 import 'dart:convert';
 
 class PaymentsControllers {

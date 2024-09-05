@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/utils/glogal_map.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<String> rutaInicial() async {

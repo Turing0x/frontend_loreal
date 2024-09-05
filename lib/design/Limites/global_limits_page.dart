@@ -1,10 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/limits_controller.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
-import 'package:frontend_loreal/models/Limites/limits_model.dart';
+import 'package:safe_chat/config/controllers/limits_controller.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/design/common/txt_para_info.dart';
+import 'package:safe_chat/models/Limites/limits_model.dart';
 
 final limitsControllers = LimitsControllers();
 

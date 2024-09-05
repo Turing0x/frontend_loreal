@@ -1,7 +1,7 @@
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/server/http/methods.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:safe_chat/config/controllers/users_controller.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/server/http/methods.dart';
+import 'package:safe_chat/design/common/txt_para_info.dart';
 
 import 'package:flutter/material.dart';
 

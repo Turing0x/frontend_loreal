@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/models/Bote/bote_model.dart';
+import 'package:safe_chat/config/environments/env.environments.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/models/Bote/bote_model.dart';
 
 class BoteControllers {
   late Dio _dio;

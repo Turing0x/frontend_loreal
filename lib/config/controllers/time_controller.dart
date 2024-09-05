@@ -2,9 +2,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:frontend_loreal/models/Horario/time_model.dart';
+import 'package:safe_chat/models/Horario/time_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
+import 'package:safe_chat/config/environments/env.environments.dart';
 
 import '../server/http/local_storage.dart';
 

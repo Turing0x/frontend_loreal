@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Cargados/provider/Parles/get_parles_provider.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/Cargados/provider/Parles/get_parles_provider.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:safe_chat/design/common/no_data.dart';
+import 'package:safe_chat/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ParleCargadoPage extends ConsumerWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
+import 'package:safe_chat/config/globals/variables.dart';
 
 class DateRnageProvider extends StateNotifier<DateRangeModel> {
   DateRnageProvider()

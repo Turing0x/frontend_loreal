@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils/file_manager.dart';
-import 'package:frontend_loreal/config/utils/glogal_map.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Lista/candado.dart';
-import 'package:frontend_loreal/design/Lista/decena.dart';
-import 'package:frontend_loreal/design/Lista/full_million.dart';
-import 'package:frontend_loreal/design/Lista/posicion.dart';
-import 'package:frontend_loreal/design/Lista/terminales.dart';
-import 'package:frontend_loreal/design/common/popup_widget.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils/file_manager.dart';
+import 'package:safe_chat/config/utils/glogal_map.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/Lista/candado.dart';
+import 'package:safe_chat/design/Lista/decena.dart';
+import 'package:safe_chat/design/Lista/full_million.dart';
+import 'package:safe_chat/design/Lista/posicion.dart';
+import 'package:safe_chat/design/Lista/terminales.dart';
+import 'package:safe_chat/design/common/popup_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/models/Lista/join_list.dart';
+import 'package:safe_chat/models/Lista/join_list.dart';
 
 class MainMakeList extends ConsumerStatefulWidget {
   const MainMakeList({super.key, required this.username});

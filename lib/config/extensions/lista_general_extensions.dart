@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
+import 'package:safe_chat/config/enums/lista_general_enum.dart';
 
 extension ListaGeneralExtension on ListaGeneralEnum {
   String get asString => toString();

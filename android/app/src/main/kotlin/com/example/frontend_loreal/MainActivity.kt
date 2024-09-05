@@ -1,4 +1,4 @@
-package com.example.frontend_loreal
+package com.example.safe_chat
 
 import io.flutter.embedding.android.FlutterActivity
 import androidx.annotation.NonNull

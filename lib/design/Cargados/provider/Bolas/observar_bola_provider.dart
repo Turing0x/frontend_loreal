@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/design/Cargados/provider/Bolas/get_bola_provider.dart';
+import 'package:safe_chat/design/Cargados/provider/Bolas/get_bola_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'observar_bola_provider.g.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+import 'package:safe_chat/config/environments/env.environments.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
+import 'package:safe_chat/models/Cargados/cargados_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

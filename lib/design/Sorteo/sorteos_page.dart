@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
-import 'package:frontend_loreal/config/controllers/sorteo_controller.dart';
-import 'package:frontend_loreal/config/globals/variables.dart';
-import 'package:frontend_loreal/config/riverpod/sorteos_stream.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Fecha_Jornada/jornal_and_date.dart';
-import 'package:frontend_loreal/design/Sorteo/sorteo_pick3.dart';
-import 'package:frontend_loreal/design/Sorteo/sorteo_pick4.dart';
-import 'package:frontend_loreal/design/common/no_data.dart';
-import 'package:frontend_loreal/design/common/waiting_page.dart';
+import 'package:safe_chat/config/controllers/sorteo_controller.dart';
+import 'package:safe_chat/config/globals/variables.dart';
+import 'package:safe_chat/config/riverpod/sorteos_stream.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/Fecha_Jornada/jornal_and_date.dart';
+import 'package:safe_chat/design/Sorteo/sorteo_pick3.dart';
+import 'package:safe_chat/design/Sorteo/sorteo_pick4.dart';
+import 'package:safe_chat/design/common/no_data.dart';
+import 'package:safe_chat/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:frontend_loreal/design/common/encabezado.dart';
-import 'package:frontend_loreal/design/common/txt_para_info.dart';
+import 'package:safe_chat/design/common/encabezado.dart';
+import 'package:safe_chat/design/common/txt_para_info.dart';
 
 import 'package:flutter/services.dart';
-import 'package:frontend_loreal/models/Sorteo/sorteos_model.dart';
+import 'package:safe_chat/models/Sorteo/sorteos_model.dart';
 
 class SorteosPage extends ConsumerStatefulWidget {
   const SorteosPage({super.key});

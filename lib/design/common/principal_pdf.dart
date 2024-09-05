@@ -1,13 +1,13 @@
-import 'package:frontend_loreal/design/Hacer_PDFs/widgets/texto_dosis.dart';
-import 'package:frontend_loreal/design/common/pdf_widget.dart';
-import 'package:frontend_loreal/models/Lista_Candado/candado_model.dart';
-import 'package:frontend_loreal/models/Lista_Decena/decena_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
-import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
-import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
-import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
+import 'package:safe_chat/design/Hacer_PDFs/widgets/texto_dosis.dart';
+import 'package:safe_chat/design/common/pdf_widget.dart';
+import 'package:safe_chat/models/Lista_Candado/candado_model.dart';
+import 'package:safe_chat/models/Lista_Decena/decena_model.dart';
+import 'package:safe_chat/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:safe_chat/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:safe_chat/models/Lista_Main/parles/parles_model.dart';
+import 'package:safe_chat/models/Lista_Millon/million_model.dart';
+import 'package:safe_chat/models/Lista_Posicion/posicion_model.dart';
+import 'package:safe_chat/models/Lista_Terminal/terminal_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 

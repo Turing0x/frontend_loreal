@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/controllers/users_controller.dart';
-import 'package:frontend_loreal/config/environments/env.environments.dart';
-import 'package:frontend_loreal/config/riverpod/declarations.dart';
-import 'package:frontend_loreal/config/server/http/local_storage.dart';
+import 'package:safe_chat/config/controllers/users_controller.dart';
+import 'package:safe_chat/config/environments/env.environments.dart';
+import 'package:safe_chat/config/riverpod/declarations.dart';
+import 'package:safe_chat/config/server/http/local_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
 int vecesMal = 0;
 String incomingUsername = '';

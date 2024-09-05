@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:frontend_loreal/design/Hacer_PDFs/widgets/bold_text.dart';
-import 'package:frontend_loreal/design/Hacer_PDFs/widgets/texto_dosis.dart';
-import 'package:frontend_loreal/config/extensions/string_extensions.dart';
-import 'package:frontend_loreal/models/PDFs/invoice_colector.dart';
+import 'package:safe_chat/design/Hacer_PDFs/widgets/bold_text.dart';
+import 'package:safe_chat/design/Hacer_PDFs/widgets/texto_dosis.dart';
+import 'package:safe_chat/config/extensions/string_extensions.dart';
+import 'package:safe_chat/models/PDFs/invoice_colector.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;

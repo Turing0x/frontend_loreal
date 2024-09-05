@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/models/Bote/bote_model.dart';
+import 'package:safe_chat/models/Bote/bote_model.dart';
 
 class InvoiceBote {
   final InvoiceInfoBote infoBote;

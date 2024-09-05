@@ -1,5 +1,5 @@
-import 'package:frontend_loreal/config/controllers/cargados_controllers.dart';
-import 'package:frontend_loreal/models/Cargados/cargados_model.dart';
+import 'package:safe_chat/config/controllers/cargados_controllers.dart';
+import 'package:safe_chat/models/Cargados/cargados_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'get_parles_provider.g.dart';

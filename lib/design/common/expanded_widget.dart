@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expanded_tile/flutter_expanded_tile.dart';
-import 'package:frontend_loreal/config/methods/methods.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
+import 'package:safe_chat/config/methods/methods.dart';
+import 'package:safe_chat/config/utils_exports.dart';
 
 class ExpandedWidget extends StatelessWidget {
   const ExpandedWidget({

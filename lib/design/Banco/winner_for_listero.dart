@@ -1,24 +1,24 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Candado/candado.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Decena/decena.dart';
-import 'package:frontend_loreal/design/Pintar_lista/MainList/centenas.dart';
-import 'package:frontend_loreal/design/Pintar_lista/MainList/fijos_corridos.dart';
-import 'package:frontend_loreal/design/Pintar_lista/MainList/parles.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Millon/million.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Posicion/posicion.dart';
-import 'package:frontend_loreal/design/Pintar_lista/Terminal/terminal.dart';
-import 'package:frontend_loreal/models/Lista/only_winner.dart';
-import 'package:frontend_loreal/models/Lista_Candado/candado_model.dart';
-import 'package:frontend_loreal/models/Lista_Decena/decena_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/centenas/centenas_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
-import 'package:frontend_loreal/models/Lista_Main/parles/parles_model.dart';
-import 'package:frontend_loreal/models/Lista_Millon/million_model.dart';
-import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
-import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
+import 'package:safe_chat/config/utils_exports.dart';
+import 'package:safe_chat/design/Pintar_lista/Candado/candado.dart';
+import 'package:safe_chat/design/Pintar_lista/Decena/decena.dart';
+import 'package:safe_chat/design/Pintar_lista/MainList/centenas.dart';
+import 'package:safe_chat/design/Pintar_lista/MainList/fijos_corridos.dart';
+import 'package:safe_chat/design/Pintar_lista/MainList/parles.dart';
+import 'package:safe_chat/design/Pintar_lista/Millon/million.dart';
+import 'package:safe_chat/design/Pintar_lista/Posicion/posicion.dart';
+import 'package:safe_chat/design/Pintar_lista/Terminal/terminal.dart';
+import 'package:safe_chat/models/Lista/only_winner.dart';
+import 'package:safe_chat/models/Lista_Candado/candado_model.dart';
+import 'package:safe_chat/models/Lista_Decena/decena_model.dart';
+import 'package:safe_chat/models/Lista_Main/centenas/centenas_model.dart';
+import 'package:safe_chat/models/Lista_Main/fijo_corrido/fijo_corrido_model.dart';
+import 'package:safe_chat/models/Lista_Main/parles/parles_model.dart';
+import 'package:safe_chat/models/Lista_Millon/million_model.dart';
+import 'package:safe_chat/models/Lista_Posicion/posicion_model.dart';
+import 'package:safe_chat/models/Lista_Terminal/terminal_model.dart';
 
 class WinForListeroPage extends StatefulWidget {
   const WinForListeroPage(

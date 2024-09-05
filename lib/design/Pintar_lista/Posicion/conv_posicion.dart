@@ -1,4 +1,4 @@
-import 'package:frontend_loreal/models/Lista_Posicion/posicion_model.dart';
+import 'package:safe_chat/models/Lista_Posicion/posicion_model.dart';
 
 List<dynamic> convertirPayloadPosicion(String uuid, String numplay, int fijo,
     int corrido, int corrido2, int dinero) {

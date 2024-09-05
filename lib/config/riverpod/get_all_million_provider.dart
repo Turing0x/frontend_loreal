@@ -1,5 +1,5 @@
-import 'package:frontend_loreal/config/controllers/million_controller.dart';
-import 'package:frontend_loreal/models/Millon/million_model.dart';
+import 'package:safe_chat/config/controllers/million_controller.dart';
+import 'package:safe_chat/models/Millon/million_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'get_all_million_provider.g.dart';
 

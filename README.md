@@ -1,4 +1,4 @@
-# frontend_loreal
+# safe_chat
 
 A new Flutter project.
 
