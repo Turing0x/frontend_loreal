@@ -44,7 +44,7 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
         List fcppc = toJoinList.currentList['ListaGeneralEnum.principales']![
             'MainListEnum.parles'];
         for (var element in fcppc) {
-          if( !widget.listaParles.contains(element) ){
+          if (!widget.listaParles.contains(element)) {
             widget.listaParles.add(
               ParlesModel.fromTextEditingController(
                 0,
@@ -108,7 +108,9 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
                                 final payCrtl = ref.read(paymentCrtl.notifier);
 
                                 int bruto = parles.fijo;
-                                int limpioListero = (bruto * (getLimit.porcientoParleListero / 100)).toInt();
+                                int limpioListero = (bruto *
+                                        (getLimit.porcientoParleListero / 100))
+                                    .toInt();
 
                                 payCrtl.restaTotalBruto70 = bruto;
                                 payCrtl.restaLimpioListero = limpioListero;
@@ -147,14 +149,12 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        ...parles.numplay
-                                            .map(
-                                                (numero) => NumeroRedondoWidget(
-                                                      numero: numero.toString(),
-                                                      mostrarBorde: false,
-                                                      isParles: true,
-                                                    ))
-                                            ,
+                                        ...parles.numplay.map(
+                                            (numero) => NumeroRedondoWidget(
+                                                  numero: numero.toString(),
+                                                  mostrarBorde: false,
+                                                  isParles: true,
+                                                )),
                                       ],
                                     ),
                                     NumeroRedondoWidget(
@@ -234,15 +234,17 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
                     pNum1.text.length < 2 ||
                     pMoney.text.isEmpty ||
                     pMoney.text == '0') {
-                  showToast('Revise los campos por favor');
+                  showToast(context, 'Revise los campos por favor');
                   return;
                 }
 
                 String a = pNum.text;
                 String b = pNum1.text;
 
-                String joined = '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
-                String joined1 = '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
+                String joined =
+                    '${a.toString().rellenarCon00(2)}${b.toString().rellenarCon00(2)}';
+                String joined1 =
+                    '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
 
                 int dineroApuesta = (pMoney.text.intTryParsed ?? 0);
                 bool excedeApuesta =
@@ -252,7 +254,7 @@ class _ParlesWidgetState extends ConsumerState<ParlesWidget> {
                             int.parse(widget.parle))));
 
                 if (excedeApuesta) {
-                  showToast(
+                  showToast(context,
                       'El límite para el parlé está establecido en ${widget.parle}. No puede ser excedido');
                   return;
                 }

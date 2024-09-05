@@ -32,6 +32,7 @@ import 'package:open_file/open_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final listControllers = ListControllers();
+
 class ListDetails extends ConsumerStatefulWidget {
   const ListDetails({
     super.key,
@@ -55,12 +56,10 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
 
   List<BoliList> infoList = [];
 
-  void makePDF() async{
+  void makePDF() async {
     DateTime now = DateTime.now();
-    String formatFechaActual =
-        DateFormat('dd/MM/yyyy hh:mm a').format(now);
-    final SharedPreferences prefs =
-        await SharedPreferences.getInstance();
+    String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (infoList.isEmpty) {
       return;
@@ -79,43 +78,39 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
         infoList: [
           InvoiceItemList(
               lista: list,
-              bruto: double.parse(
-                  calcs['bruto'].toStringAsFixed(2).toString()),
-              limpio: double.parse(
-                  calcs['limpio'].toStringAsFixed(2).toString()),
-              premio: double.parse(
-                  calcs['premio'].toStringAsFixed(2).toString()),
-              pierde: double.parse(
-                  calcs['perdido'].toStringAsFixed(2).toString()),
-              gana: double.parse(
-                  calcs['ganado'].toStringAsFixed(2).toString()))
+              bruto: double.parse(calcs['bruto'].toStringAsFixed(2).toString()),
+              limpio:
+                  double.parse(calcs['limpio'].toStringAsFixed(2).toString()),
+              premio:
+                  double.parse(calcs['premio'].toStringAsFixed(2).toString()),
+              pierde:
+                  double.parse(calcs['perdido'].toStringAsFixed(2).toString()),
+              gana: double.parse(calcs['ganado'].toStringAsFixed(2).toString()))
         ]);
 
-    Map<String, dynamic> itsDone =
-        await PdfInvoiceApiListero.generate(invoice);
+    Map<String, dynamic> itsDone = await PdfInvoiceApiListero.generate(invoice);
 
     final openPdf = prefs.getBool('openPdf');
     if (openPdf ?? false) {
       OpenFile.open(itsDone['path']);
     }
 
-    showToast('Lista exportada exitosamente', type: true);
+    showToast(context, 'Lista exportada exitosamente', type: true);
   }
 
-  void deleteList() async{
+  void deleteList() async {
     // ignore: use_build_context_synchronously
     showInfoDialog(
         context,
         'Eliminación de listas',
         FittedBox(
-            child: textoDosis(
-                'Está seguro que desea eliminar esta lista?', 20)),
+            child:
+                textoDosis('Está seguro que desea eliminar esta lista?', 20)),
         () {
       final wasDelete = listControllers.deleteOneList(id);
       wasDelete.then((value) {
         if (value) {
-          Navigator.pushReplacementNamed(
-              context, 'main_banquero_page');
+          Navigator.pushReplacementNamed(context, 'main_banquero_page');
         }
       });
     });
@@ -123,21 +118,19 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
 
   @override
   void initState() {
-
-    LocalStorage.getRole().then((value){
+    LocalStorage.getRole().then((value) {
       if (value == 'banco' && widget.lotIncoming == '') {
         setState(() {
           change = true;
         });
       }
     });
-    
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: showAppBar('Detalles de la lista', actions: [
         IconButton(
@@ -147,27 +140,21 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
           ),
           onPressed: () => makePDF(),
         ),
-
-        ( change )
-        ? IconButton(
-            icon: const Icon(
-              Icons.delete_forever_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () => deleteList()
-          )
-        : IconButton(
-            icon: const Icon(
-              Icons.details_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () => 
-              Navigator.pushNamed(context, 
-                'list_review_page', arguments: [
-                  infoList.first, widget.lotIncoming
-                ])
-          )
-        
+        (change)
+            ? IconButton(
+                icon: const Icon(
+                  Icons.delete_forever_outlined,
+                  color: Colors.white,
+                ),
+                onPressed: () => deleteList())
+            : IconButton(
+                icon: const Icon(
+                  Icons.details_outlined,
+                  color: Colors.white,
+                ),
+                onPressed: () => Navigator.pushNamed(
+                    context, 'list_review_page',
+                    arguments: [infoList.first, widget.lotIncoming]))
       ]),
       body: SingleChildScrollView(
         child: Column(
@@ -254,12 +241,12 @@ class _ListDetailsState extends ConsumerState<ListDetails> {
                     child: ListView.builder(
                         itemCount: list.length,
                         itemBuilder: (context, index) {
-                          final color = (isDark) 
-                                ? Colors.black26
-                                : (index % 2 != 0)
+                          final color = (isDark)
+                              ? Colors.black26
+                              : (index % 2 != 0)
                                   ? Colors.grey[200]
                                   : Colors.grey[50];
-                                  
+
                           return Container(
                             color: color,
                             margin: const EdgeInsets.symmetric(vertical: 5),

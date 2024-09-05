@@ -19,13 +19,13 @@ void managerOfElementsOnList(WidgetRef ref, dynamic element) {
     return;
   }
 
-  final isInList = theMoney1.state.any((each) => 
-    each.uuid == element.uuid);
-  
-  if(isInList){
-    theMoney.state.removeWhere((each) => 
-      each.uuid == element.uuid);
-  }else { theMoney.state.add(element); }
+  final isInList = theMoney1.state.any((each) => each.uuid == element.uuid);
+
+  if (isInList) {
+    theMoney.state.removeWhere((each) => each.uuid == element.uuid);
+  } else {
+    theMoney.state.add(element);
+  }
 
   theList.state.add(element.uuid);
   theBottom.state = true;

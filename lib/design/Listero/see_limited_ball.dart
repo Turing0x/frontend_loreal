@@ -92,23 +92,19 @@ class _SeeLimitedBallState extends State<SeeLimitedBall> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ..._insertarColumnas(jornada)
-            .map((subList) => Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ...subList
-                          .map(
-                            (numero) => NumeroRedondoWidget(
-                              numero: numero.toString(),
-                            ),
-                          )
-                          
-                    ],
-                  ),
-                ))
-            ,
+        ..._insertarColumnas(jornada).map((subList) => Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ...subList.map(
+                    (numero) => NumeroRedondoWidget(
+                      numero: numero.toString(),
+                    ),
+                  )
+                ],
+              ),
+            )),
       ],
     );
   }

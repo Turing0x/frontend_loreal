@@ -1,4 +1,3 @@
-
 import 'package:frontend_loreal/models/Bote/bote_model.dart';
 
 class InvoiceBote {

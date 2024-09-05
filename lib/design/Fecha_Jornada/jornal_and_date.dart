@@ -64,7 +64,6 @@ class _JornadAndDateState extends ConsumerState<JornadAndDate> {
                       width: 150,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          
                           borderRadius: BorderRadius.circular(10)),
                       child: textoDosis(janddate.currentDate, 20)),
                 ),

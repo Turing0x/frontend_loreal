@@ -105,32 +105,27 @@ class _SeeLimitedParleState extends State<SeeLimitedParle> {
   }
 
   Expanded diaNocheWidget(String jornada) {
-
     final list = _insertarColumnas(jornada);
     return Expanded(
-      child: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-
-          final subList = list[index];
-          return Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ...subList
-                    .map(
-                      (numero) => NumeroRedondoWidget(
-                        numero: numero.toString(),
-                      ),
-                    )
-                    
-              ],
-            ),
-          );
-        },
-      )
-    );
+        child: ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        final subList = list[index];
+        return Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ...subList.map(
+                (numero) => NumeroRedondoWidget(
+                  numero: numero.toString(),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    ));
   }
 
   List<List<int>> _insertarColumnas(String jornada) {

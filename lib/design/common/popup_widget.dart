@@ -76,7 +76,7 @@ class PopupWidget extends ConsumerWidget {
             final jwt = _jwt(toJoinList.currentList);
 
             saveListOffline(todayGlobal, jornalGlobal, jwt,
-                totalBruto.toString(), totalLimpio.toString(), ref);
+                totalBruto.toString(), totalLimpio.toString(), ref, context);
 
             return;
           },
@@ -107,7 +107,7 @@ class PopupWidget extends ConsumerWidget {
 
         final toJoinListM = ref.read(toJoinListR.notifier);
         if (toJoinListM.isEmpty() || totalBruto == 0) {
-          showToast('Lista vacía, no hay información para procesar');
+          showToast(context, 'Lista vacía, no hay información para procesar');
           return;
         }
 
@@ -152,14 +152,15 @@ class PopupWidget extends ConsumerWidget {
   }
 
   saveListOffline(String date, String jornal, String signature, String bruto,
-      String limpio, WidgetRef ref) {
+      String limpio, WidgetRef ref, BuildContext context) {
     final toJoinListM = ref.read(toJoinListR.notifier);
     final listasBloc = ListasBloc();
     final payCrtl = ref.read(paymentCrtl.notifier);
 
     listasBloc.agregarLista(date, jornal, signature, bruto, limpio);
 
-    showToast('Lista guardada correctamente en el almacenamiento del celular',
+    showToast(context,
+        'Lista guardada correctamente en el almacenamiento del celular',
         type: true);
 
     fileManagerWriteGlobal(toBlockIfOutOfLimit);
@@ -195,7 +196,6 @@ class PopupWidget extends ConsumerWidget {
                   icon: const Icon(Icons.copy, color: Colors.black),
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: obtenerKey));
-                    showToast('Firma copiada al portapapeles', type: true);
                   })
             ],
           ),

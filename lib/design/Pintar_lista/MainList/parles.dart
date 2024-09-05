@@ -50,26 +50,26 @@ class _ParlesListaWidgetState extends ConsumerState<ParlesListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
-            onLongPress: () {
-              if (widget.canEdit) {
-                final toJoinListM = ref.read(toJoinListR.notifier);
-                final payCrtl = ref.watch(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
+          onLongPress: () {
+            if (widget.canEdit) {
+              final toJoinListM = ref.read(toJoinListR.notifier);
+              final payCrtl = ref.watch(paymentCrtl.notifier);
+              final getLimit = ref.watch(globalLimits);
 
-                listado[MainListEnum.parles.toString()]!
+              listado[MainListEnum.parles.toString()]!
                   .removeWhere((element) => element.uuid == widget.parles.uuid);
 
-                toJoinListM.addCurrentList(
+              toJoinListM.addCurrentList(
                   key: ListaGeneralEnum.principales, data: listado);
 
-                payCrtl.restaTotalBruto70 = widget.parles.fijo;
-                payCrtl.restaLimpioListero =
-                    (widget.parles.fijo * (getLimit.porcientoParleListero / 100))
-                        .toInt();
+              payCrtl.restaTotalBruto70 = widget.parles.fijo;
+              payCrtl.restaLimpioListero =
+                  (widget.parles.fijo * (getLimit.porcientoParleListero / 100))
+                      .toInt();
 
-                showToast('La jugada fue eliminada exitosamente');
-              }
-            },
+              showToast(context, 'La jugada fue eliminada exitosamente');
+            }
+          },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.parles);
@@ -89,10 +89,10 @@ class _ParlesListaWidgetState extends ConsumerState<ParlesListaWidget> {
                           child: textoDosis('Parlé: ', size,
                               fontWeight: FontWeight.bold)),
                       ...widget.parles.numplay.join(' -').split(' ').map(
-                        (e) => Flexible(
-                            child: textoDosis(
-                                twoDigits(e.toString()), size)),
-                      ),
+                            (e) => Flexible(
+                                child:
+                                    textoDosis(twoDigits(e.toString()), size)),
+                          ),
                     ],
                   ),
                   subtitle: Row(mainAxisSize: MainAxisSize.min, children: [

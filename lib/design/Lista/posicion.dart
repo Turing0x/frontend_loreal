@@ -113,7 +113,7 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                   (fijo.text == '0' &&
                       corrido.text == '0' &&
                       corrido2.text == '0')) {
-                showToast('Jugada inválida');
+                showToast(context, 'Jugada inválida');
                 return;
               }
 
@@ -132,12 +132,12 @@ class _PosicionWidgetState extends ConsumerState<PosicionWidget> {
                   (value['corrido2'] ?? 0) + ncorrido2 > getLimit.corrido;
 
               if (excedeFijo) {
-                showToast(
+                showToast(context,
                     'El límite para el fijo está establecido en ${getLimit.fijo}. No puede ser excedido');
                 return;
               }
               if (excedeCorrido || excedeCorrido2) {
-                showToast(
+                showToast(context,
                     'El límite para el corrido está establecido en ${getLimit.corrido}. No puede ser excedido');
                 return;
               }

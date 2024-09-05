@@ -1,4 +1,3 @@
-
 import 'package:frontend_loreal/models/Lista_Terminal/terminal_model.dart';
 
 List<dynamic> convertirPayloadTerminales(

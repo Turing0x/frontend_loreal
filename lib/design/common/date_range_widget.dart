@@ -10,7 +10,8 @@ class InitialDateSelect extends ConsumerStatefulWidget {
   final bool showDate;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _InitialDateSelectState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _InitialDateSelectState();
 }
 
 class _InitialDateSelectState extends ConsumerState<InitialDateSelect> {
@@ -31,8 +32,8 @@ class _InitialDateSelectState extends ConsumerState<InitialDateSelect> {
                     height: 40,
                     width: 150,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     child: textoDosis(janddate.initialDate, 20)),
               ),
               Flexible(
@@ -44,7 +45,7 @@ class _InitialDateSelectState extends ConsumerState<InitialDateSelect> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime(DateTime.now().year - 1),
                           lastDate: DateTime(DateTime.now().year + 1));
-        
+
                       if (pickedDate != null) {
                         String formattedDate =
                             DateFormat.MMMd().format(pickedDate);
@@ -87,9 +88,8 @@ class _EndDateSelectState extends ConsumerState<EndDateSelect> {
                     height: 40,
                     width: 150,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        
-                        borderRadius: BorderRadius.circular(10)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     child: textoDosis(janddate.endDate, 20)),
               ),
               Flexible(
@@ -101,7 +101,7 @@ class _EndDateSelectState extends ConsumerState<EndDateSelect> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime(DateTime.now().year - 1),
                           lastDate: DateTime(DateTime.now().year + 1));
-        
+
                       if (pickedDate != null) {
                         String formattedDate =
                             DateFormat.MMMd().format(pickedDate);

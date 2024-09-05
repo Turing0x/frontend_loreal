@@ -86,15 +86,13 @@ pw.Widget _parlesView(ParlesModel model) {
       pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.center,
         children: [
-          ...model.numplay
-              .map((numero) => numeroRedondo(
-                    numero: numero.toString(),
-                    mostrarBorde: false,
-                    margin: 2,
-                    isParles: true,
-                    fontWeight: pw.FontWeight.bold,
-                  ))
-              ,
+          ...model.numplay.map((numero) => numeroRedondo(
+                numero: numero.toString(),
+                mostrarBorde: false,
+                margin: 2,
+                isParles: true,
+                fontWeight: pw.FontWeight.bold,
+              )),
         ],
       ),
       pw.SizedBox(width: 10),
@@ -234,11 +232,10 @@ pw.Widget _candadoView(CandadoModel model) {
     children: [
       pw.SizedBox(width: 10),
       pw.SizedBox(
-        width: 150,
-        child: textoDosisPDF(
-          toPrint.toString().replaceAll('[', '').replaceAll(']', ''), 18,
-          maxLines: 10)
-        ),
+          width: 150,
+          child: textoDosisPDF(
+              toPrint.toString().replaceAll('[', '').replaceAll(']', ''), 18,
+              maxLines: 10)),
       pw.SizedBox(width: 10),
       numeroRedondo(
         numero: model.fijo.toString(),

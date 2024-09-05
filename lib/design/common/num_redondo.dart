@@ -44,7 +44,9 @@ class NumeroRedondoWidget extends StatelessWidget {
           shape: BoxShape.circle,
           color:
               tieneBorde(mostrarBorde: mostrarBorde, numero: int.parse(numero))
-                  ? (!isDark) ? Colors.white : Colors.black
+                  ? (!isDark)
+                      ? Colors.white
+                      : Colors.black
                   : Colors.transparent,
         ),
         child: Center(

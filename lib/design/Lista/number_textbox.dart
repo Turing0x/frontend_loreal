@@ -39,9 +39,7 @@ class NumberTextbox extends StatelessWidget {
             height: 30,
             child: ElevatedButton(
               onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
               child: Align(
                   alignment: Alignment.center,
                   child: textoDosis('+', 20, color: Colors.white)),

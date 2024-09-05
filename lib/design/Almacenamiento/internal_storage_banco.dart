@@ -39,12 +39,12 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
 
                     filePath.deleteSync(recursive: true);
 
-                    showToast('Todo los documentos fueron eliminados',
+                    showToast(context, 'Todo los documentos fueron eliminados',
                         type: true);
                     navigator.pop();
                     cambioListas.value = !cambioListas.value;
                   } catch (e) {
-                    showToast('No se pudo eliminar el documento');
+                    showToast(context, 'No se pudo eliminar el documento');
                   }
                 }))
       ]),
@@ -278,10 +278,10 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
           final file = File(path);
           try {
             file.deleteSync();
-            showToast('Documento eliminado exitosamente', type: true);
+            showToast(context, 'Documento eliminado exitosamente', type: true);
             cambioListas.value = !cambioListas.value;
           } catch (e) {
-            showToast('No se pudo eliminar el documento');
+            showToast(context, 'No se pudo eliminar el documento');
           }
         });
   }
@@ -304,11 +304,12 @@ class _InternalStoragePageState extends State<InternalStoragePage> {
               final folder = Directory(path);
               try {
                 folder.deleteSync(recursive: true);
-                showToast('Documento eliminado exitosamente', type: true);
+                showToast(context, 'Documento eliminado exitosamente',
+                    type: true);
                 cambioListas.value = !cambioListas.value;
                 Navigator.pop(context);
               } catch (e) {
-                showToast('No se pudo eliminar el documento');
+                showToast(context, 'No se pudo eliminar el documento');
               }
             }));
   }

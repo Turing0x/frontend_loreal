@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:frontend_loreal/config/controllers/users_controller.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/config/riverpod/declarations.dart';
@@ -7,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import '../../utils_exports.dart';
+import 'package:frontend_loreal/config/utils_exports.dart';
 
 int vecesMal = 0;
 String incomingUsername = '';
@@ -17,7 +18,8 @@ class AuthServices {
       baseUrl: Uri.https(Environments().SERVER_URL).toString(),
       headers: {'Content-Type': 'application/json'}));
 
-  Future<String> login(String username, String pass) async {
+  Future<String> login(
+      String username, String pass, BuildContext context) async {
     authStatus.value = true;
     try {
       final localStorage = LocalStorage();
@@ -40,17 +42,17 @@ class AuthServices {
           localStorage.userOwnerSave(response.data['data'][3]['owner']);
         }
 
-        showToast(response.data['api_message'], type: true);
+        showToast(context, response.data['api_message'], type: true);
         return role;
       }
 
-      showToast(response.data['api_message']);
+      showToast(context, response.data['api_message']);
       _comprobarSiBorraData(username);
 
       return '';
     } on Exception catch (e) {
       authStatus.value = false;
-      showToast(e.toString());
+      showToast(context, e.toString());
       _comprobarSiBorraData(username);
       return '';
     }
@@ -67,7 +69,6 @@ class AuthServices {
     if (vecesMal == 3) {
       await _borrarDatos(username.trim());
       vecesMal = 0;
-      showToast('Se equivocó demasiadas veces. Se tomaron medidas al respecto');
     }
   }
 

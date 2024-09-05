@@ -14,7 +14,6 @@ class BolaCargadaPage extends ConsumerWidget {
   const BolaCargadaPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Scaffold(
         appBar: showAppBar('Bolas cargadas'),
         body: const Column(
@@ -57,9 +56,11 @@ class ShowList extends ConsumerWidget {
                     return GestureDetector(
                       child: Container(
                         padding: const EdgeInsets.only(left: 20),
-                        color: (isDark) ? Colors.transparent :(index % 2 != 0)
-                              ? Colors.grey[200]
-                              : Colors.grey[50],
+                        color: (isDark)
+                            ? Colors.transparent
+                            : (index % 2 != 0)
+                                ? Colors.grey[200]
+                                : Colors.grey[50],
                         alignment: Alignment.centerLeft,
                         width: double.infinity,
                         height: 80,
@@ -73,8 +74,7 @@ class ShowList extends ConsumerWidget {
                                   height: 50,
                                   fontSize: 25,
                                 ),
-                                textoDosis(
-                                    ' -> ${list[index].fijo}', 25,
+                                textoDosis(' -> ${list[index].fijo}', 25,
                                     fontWeight: FontWeight.bold)
                               ]),
                         ),

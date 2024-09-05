@@ -48,7 +48,6 @@ class _MainColectorPageState extends State<MainColectorPage>
 
   @override
   void initState() {
-
     final timeControllers = TimeControllers();
     final getID = LocalStorage.getUserId();
     getID.then((value) {
@@ -134,7 +133,7 @@ class _MainColectorPageState extends State<MainColectorPage>
                 'Control sobre mis usuarios vinculados en el sistema',
                 () => {
                       (yuoAreIn.contains('red') || yuoAreIn.contains('fuera'))
-                          ? showToast(
+                          ? showToast(context,
                               'Acción bloqueda en este horario. \nInténtelo más tarde')
                           : Navigator.pushNamed(
                               context, 'user_control_page_colector',

@@ -38,18 +38,17 @@ class _SorteosPageState extends ConsumerState<SorteosPage> {
         child: Column(
           children: [
             TxtInfo(
-              right: 20,
-              texto: 'Sorteo: ',
-              keyboardType: TextInputType.number,
-              controlador: sorteo,
-              
-              icon: Icons.numbers_outlined,
-              inputFormatters: [
-                MaskedInputFormatter('### ## ##',
-                    allowedCharMatcher: RegExp(r'[0-9]')),
-                LengthLimitingTextInputFormatter(9),
-              ],
-              onChange: (valor) => (() {})),
+                right: 20,
+                texto: 'Sorteo: ',
+                keyboardType: TextInputType.number,
+                controlador: sorteo,
+                icon: Icons.numbers_outlined,
+                inputFormatters: [
+                  MaskedInputFormatter('### ## ##',
+                      allowedCharMatcher: RegExp(r'[0-9]')),
+                  LengthLimitingTextInputFormatter(9),
+                ],
+                onChange: (valor) => (() {})),
             const JornadAndDate(),
             Container(
               margin: const EdgeInsets.only(top: 20),
@@ -63,7 +62,7 @@ class _SorteosPageState extends ConsumerState<SorteosPage> {
                   child: textoDosis('Enviar sorteo', 20, color: Colors.white),
                   onPressed: () {
                     if (sorteo.text.isEmpty) {
-                      showToast(
+                      showToast(context,
                           'Faltan datos para realizar esta acción. Rectifique por favor');
                       return;
                     }
@@ -153,7 +152,7 @@ class _SorteosPageState extends ConsumerState<SorteosPage> {
           label: const Text('Es correcto'),
           onPressed: () {
             if (pick3 == 'Sin datos' || pick4 == 'Sin datos') {
-              showToast('Faltan datos para realizar esta acción');
+              showToast(context, 'Faltan datos para realizar esta acción');
               return;
             }
 
@@ -199,9 +198,11 @@ class ShowList extends StatelessWidget {
                       return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           height: 80,
-                          color: (isDark) ? Colors.black :(index % 2 != 0)
-                              ? Colors.grey[200]
-                              : Colors.grey[50],
+                          color: (isDark)
+                              ? Colors.black
+                              : (index % 2 != 0)
+                                  ? Colors.grey[200]
+                                  : Colors.grey[50],
                           alignment: Alignment.center,
                           child: ListTile(
                               horizontalTitleGap: 30,
@@ -317,7 +318,6 @@ class TxtEditar extends StatelessWidget {
         texto: 'Editar: ',
         keyboardType: TextInputType.number,
         controlador: forEdit,
-        
         icon: Icons.numbers_outlined,
         inputFormatters: [
           MaskedInputFormatter('### ## ##',

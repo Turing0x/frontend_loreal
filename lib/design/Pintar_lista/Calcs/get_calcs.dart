@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/models/Lista_Calcs/other_model.dart';
 
 class CalcsControllers {
@@ -36,8 +35,6 @@ class CalcsControllers {
           await _dio.get('/api/calcs', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 

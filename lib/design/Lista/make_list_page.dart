@@ -29,7 +29,6 @@ class MakeList extends ConsumerStatefulWidget {
 }
 
 class _MakeListState extends ConsumerState<MakeList> {
-  
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -37,13 +36,15 @@ class _MakeListState extends ConsumerState<MakeList> {
         final shouldPop = await showDialog<bool>(
           context: context,
           builder: (context) {
-
             bool emtyList = listado.values.every((element) => element.isEmpty);
-            
+
             return AlertDialog(
-              title: ( emtyList ) 
-                ? textoDosis('No ingresó jugadas a la lista. Desea salir igualmente?', 18, maxLines: 2) 
-                : textoDosis('La lista será guardada.', 18),
+              title: (emtyList)
+                  ? textoDosis(
+                      'No ingresó jugadas a la lista. Desea salir igualmente?',
+                      18,
+                      maxLines: 2)
+                  : textoDosis('La lista será guardada.', 18),
               actionsAlignment: MainAxisAlignment.spaceBetween,
               actions: [
                 TextButton(
@@ -54,8 +55,7 @@ class _MakeListState extends ConsumerState<MakeList> {
                 ),
                 TextButton(
                   onPressed: () {
-
-                    if ( !emtyList ){
+                    if (!emtyList) {
                       final toJoinListM = ref.read(toJoinListR.notifier);
 
                       toJoinListM.addCurrentList(
@@ -63,13 +63,12 @@ class _MakeListState extends ConsumerState<MakeList> {
 
                       Navigator.pop(context, true);
                     }
-                    
-                    Navigator.pop(context, true);
 
+                    Navigator.pop(context, true);
                   },
-                  child: ( emtyList ) 
-                    ? const Text('Sí, deseo salir!')
-                    : const Text('Entiendo'),
+                  child: (emtyList)
+                      ? const Text('Sí, deseo salir!')
+                      : const Text('Entiendo'),
                 ),
               ],
             );

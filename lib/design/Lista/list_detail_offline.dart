@@ -107,7 +107,7 @@ class _ListDetailsOfflineState extends ConsumerState<ListDetailsOffline> {
         ]);
 
     PdfInvoiceApiListero.generate(invoice);
-    showToast('Lista exportada exitosamente', type: true);
+    showToast(context, 'Lista exportada exitosamente', type: true);
   }
 
   Widget showList() {

@@ -12,7 +12,6 @@ import 'package:frontend_loreal/design/common/txt_para_info.dart';
 import 'package:frontend_loreal/design/common/waiting_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class FiltersOnAllLists extends ConsumerStatefulWidget {
   const FiltersOnAllLists({super.key});
 
@@ -179,7 +178,6 @@ class _FiltersOnAllListsState extends ConsumerState<FiltersOnAllLists> {
         left: 10,
         right: 10,
         texto: 'Cantidad:',
-        
         icon: Icons.numbers_outlined,
         keyboardType: TextInputType.number,
         controlador: cantElements,
@@ -188,10 +186,10 @@ class _FiltersOnAllListsState extends ConsumerState<FiltersOnAllLists> {
 
   FutureBuilder<Map<String, dynamic>> showList(
       JAndDateModel janddate, Filters toFilter) {
-        final listControllers = ListControllers();
+    final listControllers = ListControllers();
     return FutureBuilder(
-      future: listControllers.getAllListByJD(janddate.currentJornada, janddate.currentDate,
-          toFilter.pagination.toString()),
+      future: listControllers.getAllListByJD(janddate.currentJornada,
+          janddate.currentDate, toFilter.pagination.toString()),
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return waitingWidget(context);

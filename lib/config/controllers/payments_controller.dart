@@ -2,7 +2,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/models/Pagos/payments_model.dart';
 import 'dart:convert';
@@ -58,8 +57,6 @@ class PaymentsControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/payments/$id');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 

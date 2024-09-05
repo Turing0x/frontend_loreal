@@ -53,8 +53,8 @@ class _MillionGamePageState extends ConsumerState<MillionGamePage> {
         valueListenable: cambioMillionGame,
         builder: (_, __, ___) {
           return FutureBuilder(
-              future:
-                  sorteosControllers.getSorteoByJD(janddate.currentJornada, janddate.currentDate),
+              future: sorteosControllers.getSorteoByJD(
+                  janddate.currentJornada, janddate.currentDate),
               builder: (_, AsyncSnapshot<String> snapshot) {
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return boldLabel('Sorteo del momento -> ', 'Sin dato', 23);
@@ -135,7 +135,6 @@ class ShowList extends StatelessWidget {
                                       width: 100,
                                       height: 25,
                                       decoration: BoxDecoration(
-                                          
                                           border:
                                               Border.all(color: Colors.black),
                                           borderRadius: const BorderRadius.all(

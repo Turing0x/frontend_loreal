@@ -274,7 +274,7 @@ class _ShowListState extends State<ShowList> {
         if (!statusFinal) {
           var userFound =
               hasBeenDone.singleWhere((data) => data['user'] == user);
-          showToast(userFound['path']);
+          showToast(context, userFound['path']);
         }
       },
       child: Container(
@@ -312,7 +312,7 @@ class _ShowListState extends State<ShowList> {
             file.deleteSync();
             widget.allUsers.remove(user);
             recargarUserList.value = !recargarUserList.value;
-            showToast('Documento eliminado exitosamente', type: true);
+            showToast(context, 'Documento eliminado exitosamente', type: true);
           }),
     );
   }

@@ -104,7 +104,6 @@ class ShowList extends ConsumerStatefulWidget {
 class _ShowListState extends ConsumerState<ShowList> {
   @override
   Widget build(BuildContext context) {
-
     final userCtrl = UserControllers();
 
     return Scaffold(
@@ -133,7 +132,7 @@ class _ShowListState extends ConsumerState<ShowList> {
                             fontWeight: FontWeight.bold),
                         subtitle: textoDosis(users[index].role['name'], 20),
                         trailing: btnEnable(context, users[index].id,
-                          users[index].username, users[index].enable),
+                            users[index].username, users[index].enable),
                         onTap: () {
                           if (users[index].role['code'] != 'listero') {
                             setState(() {
@@ -171,7 +170,7 @@ class _ShowListState extends ConsumerState<ShowList> {
 
   Switch btnEnable(
       BuildContext context, String id, String username, bool enable) {
-        final userCtrl = UserControllers();
+    final userCtrl = UserControllers();
     bool state = enable;
     return Switch(
       value: state,

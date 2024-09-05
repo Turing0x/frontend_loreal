@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/config/globals/variables.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/models/Limites/limited_ball.dart';
 import 'package:frontend_loreal/models/Limites/limited_parle.dart';
 import 'package:frontend_loreal/models/Limites/limits_model.dart';
@@ -49,7 +48,6 @@ class LimitsControllers {
       final actual = Limits.fromJson(response.data['data'][0]);
       limitsData.add(actual);
 
-      EasyLoading.showToast('Información cargada');
       return limitsData;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -62,8 +60,6 @@ class LimitsControllers {
       await _initializeDio();
       Response response = await _dio.get('/api/limits/$id');
       if (!response.data['success']) {
-        showToast(
-            'Por favor, cierre la sesión actual y vuelva a iniciar para poder obetener nuevo datos');
         return [];
       }
 
@@ -170,7 +166,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -198,10 +193,8 @@ class LimitsControllers {
       final actual = LimitedBallModel.fromJson(response.data['data'][0]);
       data.add(actual);
 
-      EasyLoading.showToast('Información cargada');
       return data;
     } catch (e) {
-      EasyLoading.showToast('Información cargada');
       return [];
     }
   }
@@ -219,7 +212,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -249,7 +241,6 @@ class LimitsControllers {
           result.add(actual);
         }
       }
-      EasyLoading.showToast('Información cargada');
 
       return result;
     } catch (e) {
@@ -277,7 +268,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -298,7 +288,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -319,7 +308,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -341,7 +329,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -362,7 +349,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');
@@ -412,7 +398,6 @@ class LimitsControllers {
         return;
       }
 
-      EasyLoading.showToast('No se pudo configurar los límites');
       return;
     } catch (e) {
       EasyLoading.showError('Ha ocurrido un error');

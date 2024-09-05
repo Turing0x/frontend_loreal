@@ -5,6 +5,7 @@ import 'package:frontend_loreal/design/Almacenamiento/internal_storage_listero.d
 import 'package:frontend_loreal/design/Auth/offline_pass_page.dart';
 import 'package:frontend_loreal/design/Auth/sign_in_page.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_loreal/design/Auth/sign_in_page_changed.dart';
 import 'package:frontend_loreal/design/Banco/collectors_debt.dart';
 import 'package:frontend_loreal/design/Banco/main_banco_page.dart';
 import 'package:frontend_loreal/design/Banco/offline_list_control.dart';
@@ -38,11 +39,11 @@ import '../../design/Limites/global_limits_page.dart';
 import '../../design/Lista/for_now_page.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
-
   'config_off_page': (_) => const ConfigOfflinePass(),
   'change_pass_page': (_) => const ChangeAccessPass(),
   'main_listero_page': (_) => const MainListeroPage(),
   'signIn_page': (_) => const SignInPage(),
+  'other_signIn_page': (_) => const OtherSignInPage(),
 
 // ------------------------------------------------------------
 

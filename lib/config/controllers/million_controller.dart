@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:frontend_loreal/config/server/http/local_storage.dart';
-import 'package:frontend_loreal/config/utils_exports.dart';
 import 'package:frontend_loreal/config/environments/env.environments.dart';
 import 'package:frontend_loreal/models/Millon/million_model.dart';
 
@@ -34,7 +33,6 @@ class MillionControllers {
           await _dio.get('/api/million', queryParameters: queryData);
 
       if (!response.data['success']) {
-        showToast('Ha ocurrido algo grave');
         return [];
       }
 

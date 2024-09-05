@@ -48,7 +48,6 @@ class _NewUserPageState extends State<NewUserPage> {
                   texto: 'Nombre de usuario:*',
                   keyboardType: TextInputType.name,
                   controlador: nameController,
-                  
                   icon: Icons.person_outline,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 10),
@@ -56,7 +55,6 @@ class _NewUserPageState extends State<NewUserPage> {
                   texto: 'Contraseña:*',
                   keyboardType: TextInputType.name,
                   controlador: passController,
-                  
                   icon: Icons.password_outlined,
                   onChange: (valor) => (() {})),
               const SizedBox(height: 30),
@@ -75,7 +73,8 @@ class _NewUserPageState extends State<NewUserPage> {
 
                       if (nameController.text.isEmpty ||
                           passController.text.isEmpty) {
-                        return showToast('Debe llenar los campos obligatorios');
+                        return showToast(
+                            context, 'Debe llenar los campos obligatorios');
                       }
 
                       showInfoDialog(

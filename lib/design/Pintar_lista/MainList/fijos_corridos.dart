@@ -70,8 +70,7 @@ class _FijosCorridosListaWidgetState
 
           payCrtl.restaTotalBruto80 = sum;
           payCrtl.restaLimpioListero = limpioListero;
-
-          showToast('La jugada fue eliminada exitosamente');
+          showToast(context, 'La jugada fue eliminada exitosamente');
         },
         onDoubleTap: () {
           if (widget.canEdit) {

@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:frontend_loreal/models/Usuario/user_show_model.dart';
 
 final userCtrl = UserControllers();
+
 class BanksControlPage extends ConsumerStatefulWidget {
   const BanksControlPage({super.key});
 
@@ -48,7 +49,6 @@ class _BanksControlPageState extends ConsumerState<BanksControlPage> {
   }
 
   FutureBuilder<List<User>> showList() {
-
     return FutureBuilder(
       future: userCtrl.getAllBanks(),
       builder: (context, AsyncSnapshot<List<User>> snapshot) {

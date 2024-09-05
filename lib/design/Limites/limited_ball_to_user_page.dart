@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:frontend_loreal/models/Limites/limited_ball.dart';
 
 final limitsControllers = LimitsControllers();
+
 class LimitedBallToUser extends StatefulWidget {
   const LimitedBallToUser({super.key, required this.userID});
 
@@ -25,7 +26,8 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
 
   @override
   void initState() {
-    Future<List<LimitedBallModel>> limits = limitsControllers.getLimitsBallsOfUser(widget.userID);
+    Future<List<LimitedBallModel>> limits =
+        limitsControllers.getLimitsBallsOfUser(widget.userID);
     limits.then((value) {
       if (value.isNotEmpty) {
         setState(() {
@@ -49,13 +51,14 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
       appBar: showAppBar('Bola limitada', actions: [
         IconButton(
           icon: const Icon(Icons.save_outlined),
-          onPressed: () async{
+          onPressed: () async {
             if (bolaLimitada.isNotEmpty) {
-              await limitsControllers.saveDataLimitsBallsToUser(widget.userID, bolaLimitada);
+              await limitsControllers.saveDataLimitsBallsToUser(
+                  widget.userID, bolaLimitada);
               return;
             }
 
-            showToast('Añada algún número para limitar');
+            showToast(context, 'Añada algún número para limitar');
           },
         )
       ]),
@@ -124,8 +127,8 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
           child: Container(
             padding: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(10)),
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10)),
             child: TextField(
               keyboardType: TextInputType.number,
               controller: number,
@@ -149,13 +152,11 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: Colors.blue[300],
-              borderRadius: BorderRadius.circular(10)
-            ),
+                color: Colors.blue[300],
+                borderRadius: BorderRadius.circular(10)),
             child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: Colors.transparent)
-                ),
+                    side: const BorderSide(color: Colors.transparent)),
                 onPressed: number.text.isNotEmpty
                     ? () => setState(() {
                           bolaLimitada.addAll({
@@ -217,33 +218,28 @@ class _LimitedBallToUserState extends State<LimitedBallToUser> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ..._insertarColumnas(jornada)
-                .map((subList) => Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ...subList
-                              .map(
-                                (numero) => GestureDetector(
-                                  onTap: () {
-                                    List<int>? listByJornal =
-                                        bolaLimitada[jornada];
-                                    int index = listByJornal!.indexOf(numero);
-                                    listByJornal.removeAt(index);
+            ..._insertarColumnas(jornada).map((subList) => Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ...subList.map(
+                        (numero) => GestureDetector(
+                          onTap: () {
+                            List<int>? listByJornal = bolaLimitada[jornada];
+                            int index = listByJornal!.indexOf(numero);
+                            listByJornal.removeAt(index);
 
-                                    toChange.value = !toChange.value;
-                                  },
-                                  child: NumeroRedondoWidget(
-                                    numero: numero.toString(),
-                                  ),
-                                ),
-                              )
-                              
-                        ],
-                      ),
-                    ))
-                ,
+                            toChange.value = !toChange.value;
+                          },
+                          child: NumeroRedondoWidget(
+                            numero: numero.toString(),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
           ],
         );
       },

@@ -78,11 +78,12 @@ class _SignaturesStoragePageState extends State<SignaturesStoragePage> {
                         final file = File(list[index]);
                         try {
                           file.deleteSync();
-                          showToast('Documento eliminado exitosamente',
+                          showToast(context, 'Documento eliminado exitosamente',
                               type: true);
                           cambioListas.value = !cambioListas.value;
                         } catch (e) {
-                          showToast('No se pudo eliminar el documento');
+                          showToast(
+                              context, 'No se pudo eliminar el documento');
                         }
                       }),
                 );
@@ -123,10 +124,11 @@ class _SignaturesStoragePageState extends State<SignaturesStoragePage> {
 
             Clipboard.setData(ClipboardData(text: await file.readAsString()));
 
-            showToast('El contenido del archivo ha sido copiado correctamente',
+            showToast(context,
+                'El contenido del archivo ha sido copiado correctamente',
                 type: true);
           } catch (e) {
-            showToast('No se pudo copiar el contenido');
+            showToast(context, 'No se pudo copiar el contenido');
           }
         });
   }

@@ -51,7 +51,7 @@ class _TxtInfoState extends State<TxtInfo> {
               margin: const EdgeInsets.only(left: 10),
               padding: const EdgeInsets.only(left: 20),
               decoration: BoxDecoration(
-                  color: (isDark) ? Colors.black : Colors.grey[200], 
+                  color: (isDark) ? Colors.black : Colors.grey[200],
                   borderRadius: BorderRadius.circular(10)),
               child: FocusScope(
                 child: Focus(

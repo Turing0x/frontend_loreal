@@ -51,26 +51,25 @@ class _DecenaListaWidgetState extends ConsumerState<DecenaListaWidget> {
       children: [
         Expanded(
             child: GestureDetector(
-            onLongPress: () {
-              if (widget.canEdit) {
-                final toJoinListM = ref.read(toJoinListR.notifier);
-                final payCrtl = ref.watch(paymentCrtl.notifier);
-                final getLimit = ref.watch(globalLimits);
+          onLongPress: () {
+            if (widget.canEdit) {
+              final toJoinListM = ref.read(toJoinListR.notifier);
+              final payCrtl = ref.watch(paymentCrtl.notifier);
+              final getLimit = ref.watch(globalLimits);
 
-                listadoDecena.values.first.removeWhere((element)
-                  => element['uuid'] == widget.numplay.uuid);
+              listadoDecena.values.first.removeWhere(
+                  (element) => element['uuid'] == widget.numplay.uuid);
 
-                toJoinListM.addCurrentList(
+              toJoinListM.addCurrentList(
                   key: ListaGeneralEnum.decena, data: listadoDecena);
 
-                payCrtl.restaTotalBruto80 = sum;
-                payCrtl.restaLimpioListero =
-                    (sum * (getLimit.porcientoBolaListero / 100))
-                        .toInt();
+              payCrtl.restaTotalBruto80 = sum;
+              payCrtl.restaLimpioListero =
+                  (sum * (getLimit.porcientoBolaListero / 100)).toInt();
 
-                showToast('La jugada fue eliminada exitosamente');
-              }
-            },
+              showToast(context, 'La jugada fue eliminada exitosamente');
+            }
+          },
           onDoubleTap: () {
             if (widget.canEdit) {
               managerOfElementsOnList(ref, widget.numplay);

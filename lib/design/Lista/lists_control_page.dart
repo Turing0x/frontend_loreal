@@ -77,7 +77,6 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
               keyboardType: TextInputType.text,
               icon: Icons.person_pin_outlined,
               texto: 'Filtrar por usuario: ',
-              
               controlador: usernameCTRL,
               onChange: (valor) => {}),
           encabezado(context, 'Resultados de la búsqueda', false, () {}, false),
@@ -98,15 +97,15 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
     return IconButton(
       icon: const Icon(Icons.picture_as_pdf_outlined),
       onPressed: () async {
-
         try {
           if (!hasDataInList) {
-            showToast('No hay información de listas para hacer el PDF');
+            showToast(
+                context, 'No hay información de listas para hacer el PDF');
             return;
           }
 
           if (lotThisDay == '') {
-            showToast(
+            showToast(context,
                 'Aún no se ha puesto el sorteo para esta jornada, esta acción estará bloqueada hasta que sea puesto');
             return;
           }
@@ -125,37 +124,35 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
               widget.userName, janddate.currentDate, janddate.currentJornada);
 
           String result = '';
-          for(PdfData data in pdfData){
-
+          for (PdfData data in pdfData) {
             toPDF.add(InvoiceItemColector(
-              codigo: data.username,
-              exprense: data.payments.exprense,
-              limpio: double.parse(
-                  data.calcs.limpio.toStringAsFixed(1).toString()),
-              premio: double.parse(
-                  data.calcs.premio.toStringAsFixed(1).toString()),
-              pierde: double.parse(
-                  data.calcs.perdido.toStringAsFixed(1).toString()),
-              gana: double.parse(
-                  data.calcs.ganado.toStringAsFixed(1).toString())));
+                codigo: data.username,
+                exprense: data.payments.exprense,
+                limpio: double.parse(
+                    data.calcs.limpio.toStringAsFixed(1).toString()),
+                premio: double.parse(
+                    data.calcs.premio.toStringAsFixed(1).toString()),
+                pierde: double.parse(
+                    data.calcs.perdido.toStringAsFixed(1).toString()),
+                gana: double.parse(
+                    data.calcs.ganado.toStringAsFixed(1).toString())));
 
             final invoice = InvoiceColector(
-              infoColector: InvoiceInfoColector(
-                fechaActual: formatFechaActual,
-                fechaTirada: janddate.currentDate,
-                jornada: janddate.currentJornada,
-                coleccion: widget.userName,
-                lote: lotThisDay),
-              usersColector: toPDF);
+                infoColector: InvoiceInfoColector(
+                    fechaActual: formatFechaActual,
+                    fechaTirada: janddate.currentDate,
+                    jornada: janddate.currentJornada,
+                    coleccion: widget.userName,
+                    lote: lotThisDay),
+                usersColector: toPDF);
 
             (globalRoleToPDF == 'Banco')
-              ? result = await PdfInvoiceApiBanco.generate(invoice)
-              : (globalRoleToPDF == 'Colector General')
-                ? result =
-                  await PdfInvoiceApiColectorGeneral.generate(invoice)
-                : result =
-                  await PdfInvoiceApiColectorSimple.generate(invoice);
-
+                ? result = await PdfInvoiceApiBanco.generate(invoice)
+                : (globalRoleToPDF == 'Colector General')
+                    ? result =
+                        await PdfInvoiceApiColectorGeneral.generate(invoice)
+                    : result =
+                        await PdfInvoiceApiColectorSimple.generate(invoice);
           }
 
           final openPdf = prefs.getBool('openPdf');
@@ -179,11 +176,12 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
       onPressed: () async {
         try {
           EasyLoading.show(
-            status:
-              'Buscando información para crear todos los vales de los usuarios implicados...');
+              status:
+                  'Buscando información para crear todos los vales de los usuarios implicados...');
 
           if (!hasDataInList) {
-            showToast('No hay información de listas para hacer el PDF');
+            showToast(
+                context, 'No hay información de listas para hacer el PDF');
             return;
           }
 
@@ -193,10 +191,10 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
           for (User each in peoples) {
             if (each.role['code'] != 'listero') {
               makePdf(
-                each.username, janddate.currentDate, janddate.currentJornada);
+                  each.username, janddate.currentDate, janddate.currentJornada);
             } else {
               makeListsPdf(
-                each.username, janddate.currentDate, janddate.currentJornada);
+                  each.username, janddate.currentDate, janddate.currentJornada);
             }
           }
 
@@ -208,12 +206,14 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
     );
   }
 
-  Future<void> makePdf(String username, String currentDate, String currentJornada) async{
+  Future<void> makePdf(
+      String username, String currentDate, String currentJornada) async {
     DateTime now = DateTime.now();
     String formatFechaActual = DateFormat('dd/MM/yyyy hh:mm a').format(now);
     List<InvoiceItemColector> toPDF = [];
 
-    final pdfData = await pdfControllers.getDataToPDF(username, currentDate, currentJornada);
+    final pdfData = await pdfControllers.getDataToPDF(
+        username, currentDate, currentJornada);
 
     for (PdfData data in pdfData) {
       if (data.calcs.limpio != 0 ||
@@ -227,10 +227,10 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
                 double.parse(data.calcs.limpio.toStringAsFixed(1).toString()),
             premio:
                 double.parse(data.calcs.premio.toStringAsFixed(1).toString()),
-            pierde: double.parse(
-                data.calcs.perdido.toStringAsFixed(1).toString()),
-            gana: double.parse(
-                data.calcs.ganado.toStringAsFixed(1).toString())));
+            pierde:
+                double.parse(data.calcs.perdido.toStringAsFixed(1).toString()),
+            gana:
+                double.parse(data.calcs.ganado.toStringAsFixed(1).toString())));
 
         final invoice = InvoiceColector(
             infoColector: InvoiceInfoColector(
@@ -252,7 +252,6 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
 
   Future<void> makeListsPdf(
       String username, String currentDate, String currentJornada) async {
-    
     final listControllers = ListControllers();
 
     DateTime now = DateTime.now();
@@ -309,7 +308,6 @@ class ShowList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final userCtrl = UserControllers();
     return Scaffold(
       body: ValueListenableBuilder(
@@ -322,7 +320,6 @@ class ShowList extends StatelessWidget {
                   janddate.currentJornada,
                   janddate.currentDate),
               builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-                
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return waitingWidget(context);
                 }
@@ -420,7 +417,8 @@ class ShowList extends StatelessWidget {
                                     children: [
                                       SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -431,21 +429,21 @@ class ShowList extends StatelessWidget {
                                                     .toStringAsFixed(0)
                                                     .toString(),
                                                 18),
-                                                const SizedBox(width: 20),
+                                            const SizedBox(width: 20),
                                             boldLabel(
                                                 'L: ',
                                                 calcs['limpio']
                                                     .toStringAsFixed(0)
                                                     .toString(),
                                                 18),
-                                                const SizedBox(width: 20),
+                                            const SizedBox(width: 20),
                                             boldLabel(
                                                 'P: ',
                                                 calcs['premio']
                                                     .toStringAsFixed(0)
                                                     .toString(),
                                                 18),
-                                                const SizedBox(width: 20),
+                                            const SizedBox(width: 20),
                                             boldLabel(
                                                 'P: ',
                                                 (calcs['perdido'] <
@@ -455,7 +453,7 @@ class ShowList extends StatelessWidget {
                                                         .toStringAsFixed(0)
                                                         .toString(),
                                                 18),
-                                                const SizedBox(width: 20),
+                                            const SizedBox(width: 20),
                                             boldLabel(
                                                 'G: ',
                                                 (calcs['perdido'] >
@@ -473,11 +471,11 @@ class ShowList extends StatelessWidget {
                                     ],
                                   ),
                                   trailing: const Icon(Icons.arrow_right),
-                                  tileColor: (isDark) 
-                                    ? Colors.black26
-                                    : (index % 2 != 0)
-                                      ? Colors.grey[200]
-                                      : Colors.grey[50],
+                                  tileColor: (isDark)
+                                      ? Colors.black26
+                                      : (index % 2 != 0)
+                                          ? Colors.grey[200]
+                                          : Colors.grey[50],
                                   onTap: () {
                                     (user[index].role['code'] != 'listero')
                                         ? Navigator.pushNamed(

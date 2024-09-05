@@ -24,9 +24,8 @@ class JoinListProvider extends StateNotifier<JoinListModel> {
     }
   }
 
-  bool isEmpty() 
-    => state.currentList.values
-      .every((element) => element.isEmpty);
+  bool isEmpty() =>
+      state.currentList.values.every((element) => element.isEmpty);
 }
 
 class JoinListModel {

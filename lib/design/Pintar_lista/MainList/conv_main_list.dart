@@ -1,4 +1,3 @@
-
 import 'package:frontend_loreal/config/enums/lista_general_enum.dart';
 import 'package:frontend_loreal/config/enums/main_list_enum.dart';
 import 'package:frontend_loreal/config/extensions/lista_general_extensions.dart';

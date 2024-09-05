@@ -3,18 +3,15 @@ import 'package:frontend_loreal/config/globals/variables.dart';
 
 class DateRnageProvider extends StateNotifier<DateRangeModel> {
   DateRnageProvider()
-      : super(DateRangeModel(
-            initialDate: todayGlobal,
-            endDate: todayGlobal));
+      : super(DateRangeModel(initialDate: todayGlobal, endDate: todayGlobal));
 
   void setInitialDate(String date) {
     state = state.copyWith(initialDate: date);
   }
-  
+
   void setEndDate(String date) {
     state = state.copyWith(endDate: date);
   }
-
 }
 
 class DateRangeModel {

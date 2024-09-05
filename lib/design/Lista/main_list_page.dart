@@ -77,7 +77,7 @@ class _MainMakeListState extends ConsumerState<MainMakeList> {
 
     payCrtl.limpioAllCalcs();
 
-    showToast('Lista vaciada', type: true);
+    showToast(context, 'Lista vaciada', type: true);
   }
 
   Row rowArriba() {
