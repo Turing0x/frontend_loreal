@@ -19,7 +19,7 @@ Future<String> rutaInicial() async {
     final lastTime = await LocalStorage.getTimeSign();
 
     if (role != null &&
-        !excede100Minutos(
+        excede100Minutos(
             DateTime.parse(lastTime ?? '2020-01-01T00:00:00.000+00:00'))) {
       return _rutaInicial(role);
     }
@@ -63,11 +63,11 @@ bool excede100Minutos(DateTime fecha) {
   DateTime horaActual = DateTime.now();
   Duration diferencia = horaActual.difference(fecha);
 
-  if (diferencia.inMinutes > 95) {
-    return true;
+  if (diferencia.inMinutes > 55) {
+    return false;
   }
 
-  return false;
+  return true;
 }
 
 String determinePath() {
