@@ -19,28 +19,22 @@ class DBProviderCollectiosDebt {
   }
 
   initDB() async {
-
     String dbPath = await databasePath();
-    
+
     return await openDatabase(dbPath, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE CollectionsDebt('
           'id TEXT,'
-          'name TEXT,'
-          'listDebt TEXT,'
-          'percent TEXT,'
-          'debt TEXT )');
+          'name TEXT )');
     });
   }
 
-  Future<int> newCollDebt(String uuid, String name, String debt, String percent) async {
+  Future<int> newCollDebt(String uuid, String name) async {
     final db = await database;
 
     final debtColl = {
       'id': uuid,
       'name': name,
-      'debt': debt,
-      'percent': percent,
     };
 
     return await db.insert('CollectionsDebt', debtColl);
@@ -50,18 +44,20 @@ class DBProviderCollectiosDebt {
     final db = await database;
 
     final res = await db.update('CollectionsDebt', {'debt': calc},
-      where: 'id = ?', whereArgs: [id]);
+        where: 'id = ?', whereArgs: [id]);
 
     return res;
   }
 
-  Future<bool> verifyByName( String name ) async {
+  Future<bool> verifyByName(String name) async {
     final db = await database;
 
-    final res = await db.query('CollectionsDebt', where: 'name = ?', whereArgs: [name]);
+    final res =
+        await db.query('CollectionsDebt', where: 'name = ?', whereArgs: [name]);
 
-    List<CollectionDebtModel> debt =
-        res.isNotEmpty ? res.map((c) => CollectionDebtModel.fromJson(c)).toList() : [];
+    List<CollectionDebtModel> debt = res.isNotEmpty
+        ? res.map((c) => CollectionDebtModel.fromJson(c)).toList()
+        : [];
 
     return debt.isNotEmpty;
   }
@@ -69,10 +65,12 @@ class DBProviderCollectiosDebt {
   Future<List<CollectionDebtModel>> getDebt(String id) async {
     final db = await database;
 
-    final res = await db.query('CollectionsDebt', where: 'id = ?', whereArgs: [id]);
+    final res =
+        await db.query('CollectionsDebt', where: 'id = ?', whereArgs: [id]);
 
-    List<CollectionDebtModel> debt =
-        res.isNotEmpty ? res.map((c) => CollectionDebtModel.fromJson(c)).toList() : [];
+    List<CollectionDebtModel> debt = res.isNotEmpty
+        ? res.map((c) => CollectionDebtModel.fromJson(c)).toList()
+        : [];
 
     return debt;
   }
@@ -81,8 +79,9 @@ class DBProviderCollectiosDebt {
     final db = await database;
     final res = await db.query('CollectionsDebt');
 
-    List<CollectionDebtModel> colls =
-        res.isNotEmpty ? res.map((c) => CollectionDebtModel.fromJson(c)).toList() : [];
+    List<CollectionDebtModel> colls = res.isNotEmpty
+        ? res.map((c) => CollectionDebtModel.fromJson(c)).toList()
+        : [];
 
     return colls;
   }
@@ -90,7 +89,8 @@ class DBProviderCollectiosDebt {
   Future<int> collectionDelete(String id) async {
     final db = await database;
 
-    final res = await db.delete('CollectionsDebt', where: 'id = ?', whereArgs: [id]);
+    final res =
+        await db.delete('CollectionsDebt', where: 'id = ?', whereArgs: [id]);
 
     return res;
   }
@@ -100,9 +100,8 @@ class DBProviderCollectiosDebt {
     await deleteDatabase(dbPath);
   }
 
-  Future<String> databasePath() async{
+  Future<String> databasePath() async {
     Directory debtDirectorio = await getApplicationDocumentsDirectory();
     return join(debtDirectorio.path, 'CollectionsDebtDB.db');
   }
-
 }

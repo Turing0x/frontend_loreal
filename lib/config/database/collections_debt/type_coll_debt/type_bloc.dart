@@ -14,10 +14,17 @@ class TypeCollectionsDebtBloc {
         .getAllCollectionsDebtByOwner(owner));
   }
 
-  Future<int> addTypeCollDebt(String id, String owner, String typeDebt,
-      String debt, String jornal, String date) async {
+  Future<int> addTypeCollDebt(
+      String id,
+      String owner,
+      String limpio,
+      String premio,
+      String pierde,
+      String gana,
+      String jornal,
+      String date) async {
     int res = await DBProviderTypeCollectiosDebt.db
-        .addTypeCollDebt(id, owner, typeDebt, debt, jornal, date);
+        .addTypeCollDebt(id, owner, limpio, premio, pierde, gana, jornal, date);
     return res;
   }
 

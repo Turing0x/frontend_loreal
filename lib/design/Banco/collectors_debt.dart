@@ -1,8 +1,6 @@
 import 'package:sticker_maker/config/database/collections_debt/coll_debt/debt_bloc.dart';
 import 'package:sticker_maker/config/database/collections_debt/coll_debt/debt_provider.dart';
 import 'package:sticker_maker/config/database/collections_debt/type_coll_debt/type_bloc.dart';
-import 'package:sticker_maker/config/extensions/string_extensions.dart';
-import 'package:sticker_maker/config/globals/variables.dart';
 import 'package:sticker_maker/design/common/no_data.dart';
 import 'package:sticker_maker/design/common/txt_para_info.dart';
 import 'package:sticker_maker/design/common/waiting_page.dart';
@@ -22,8 +20,6 @@ class ColectorsDebtPage extends StatefulWidget {
 
 class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
   TextEditingController nameCtrl = TextEditingController();
-  TextEditingController initialCahsCtrl = TextEditingController(text: '0');
-  TextEditingController percentCtrl = TextEditingController(text: '10');
 
   bool flag = false;
 
@@ -78,32 +74,13 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
               icon: Icons.collections_bookmark,
               onChange: (valor) => (() {})),
           const SizedBox(height: 10),
-          TxtInfo(
-              texto: 'Deuda inicial:*',
-              keyboardType: TextInputType.number,
-              controlador: initialCahsCtrl,
-              icon: Icons.monetization_on_outlined,
-              onChange: (valor) => (() {})),
-          TxtInfo(
-              texto: 'Porcentaje:*',
-              keyboardType: TextInputType.number,
-              controlador: percentCtrl,
-              icon: Icons.monetization_on_outlined,
-              onChange: (valor) => (() {})),
           btnWithIcon(context, Colors.blue, const Icon(Icons.add_box_outlined),
               'Añadir coleccion', () async {
             String collName = nameCtrl.text.trim();
 
             final collsDebt = CollectionsDebtBloc();
-            if (nameCtrl.text.isEmpty ||
-                percentCtrl.text.isEmpty ||
-                initialCahsCtrl.text.isEmpty) {
+            if (nameCtrl.text.isEmpty) {
               showToast(context, 'Faltan datos para crear esta colección');
-              return;
-            }
-
-            if (percentCtrl.text == '0') {
-              showToast(context, 'El prociento inicial debe ser distinto de 0');
               return;
             }
 
@@ -114,18 +91,10 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
               return;
             }
 
-            final typecollsDebt = TypeCollectionsDebtBloc();
-
             const uuid = Uuid();
             String id = uuid.v4();
 
-            int res = await collsDebt.addCollDebt(
-                id, collName, initialCahsCtrl.text, percentCtrl.text);
-
-            if (initialCahsCtrl.text != '0') {
-              await typecollsDebt.addTypeCollDebt(uuid.v4(), id, 'Pierde',
-                  initialCahsCtrl.text, jornalGlobal, todayGlobal);
-            }
+            int res = await collsDebt.addCollDebt(id, collName);
 
             if (res == 0 && mounted) {
               showToast(
@@ -139,10 +108,8 @@ class _ColectorsDebtPageState extends State<ColectorsDebtPage> {
             }
 
             nameCtrl.text = '';
-            initialCahsCtrl.text = '';
-            percentCtrl.text = '';
-
             cambioListas.value = !cambioListas.value;
+            flag = !flag;
           }, MediaQuery.of(context).size.width * 0.6),
           divisor,
         ],
@@ -195,20 +162,17 @@ class _ShowListState extends State<ShowList> {
                         child: ListTile(
                           title: textoDosis(data[index].name, 25,
                               fontWeight: FontWeight.bold),
-                          subtitle:
-                              boldLabel('Deuda actual: ', data[index].debt, 20),
+                          subtitle: boldLabel('Deuda actual: ', '12', 20),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               btnPierde(context, data, index),
-                              btnGana(context, data, index),
-                              btnRestart(data, index, context),
                             ],
                           ),
                           onTap: () => Navigator.of(context).pushNamed(
                               'details_colls_debt',
-                              arguments: [data[index].id, data[index].percent]),
+                              arguments: [data[index].id, '12']),
                           onLongPress: () => showInfoDialog(
                               context,
                               'Eliminación de deuda',
@@ -251,14 +215,11 @@ class _ShowListState extends State<ShowList> {
                 const uuid = Uuid();
                 String id = uuid.v4();
 
-                int calc =
-                    data[index].debt.intParsed + plusDebtCtrl.text.intParsed;
-
                 DBProviderCollectiosDebt.db
-                    .updateCollDebt(data[index].id, calc.toString());
+                    .updateCollDebt(data[index].id, '12');
 
-                typecollsDebt.addTypeCollDebt(id, data[index].id, 'Pierde',
-                    plusDebtCtrl.text, jornalGlobal, todayGlobal);
+                // typecollsDebt.addTypeCollDebt(id, data[index].id, 'Pierde',
+                //     plusDebtCtrl.text, jornalGlobal, todayGlobal);
               }
               cambioListas.value = !cambioListas.value;
               plusDebtCtrl.text = '';
@@ -268,69 +229,5 @@ class _ShowListState extends State<ShowList> {
           Icons.add_box_outlined,
           color: Colors.green,
         ));
-  }
-
-  IconButton btnGana(
-      BuildContext context, List<CollectionDebtModel> data, int index) {
-    return IconButton(
-        onPressed: () => showInfoDialog(
-                context,
-                'Reducir la deuda',
-                TxtInfo(
-                    texto: '',
-                    keyboardType: TextInputType.number,
-                    controlador: lessDebtCtrl,
-                    icon: Icons.remove,
-                    onChange: (valor) => (() {})), () {
-              if (lessDebtCtrl.text.isNotEmpty) {
-                final typecollsDebt = TypeCollectionsDebtBloc();
-
-                const uuid = Uuid();
-                String id = uuid.v4();
-
-                int calc =
-                    data[index].debt.intParsed - lessDebtCtrl.text.intParsed;
-
-                DBProviderCollectiosDebt.db
-                    .updateCollDebt(data[index].id, calc.toString());
-
-                typecollsDebt.addTypeCollDebt(id, data[index].id, 'Gana',
-                    lessDebtCtrl.text, jornalGlobal, todayGlobal);
-              }
-
-              cambioListas.value = !cambioListas.value;
-              lessDebtCtrl.text = '';
-              Navigator.of(context, rootNavigator: true).pop();
-            }),
-        icon: const Icon(
-          Icons.remove_circle_outline,
-          color: Colors.red,
-        ));
-  }
-
-  IconButton btnRestart(
-      List<CollectionDebtModel> data, int index, BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          if (data[index].debt != '0') {
-            showInfoDialog(
-                context,
-                'Reiniciar deuda',
-                FittedBox(
-                    child: textoDosis(
-                        'Está seguro que desea reiniciar a 0 esta deuda?', 20)),
-                () {
-              final typecollsDebt = TypeCollectionsDebtBloc();
-
-              DBProviderCollectiosDebt.db.updateCollDebt(data[index].id, '0');
-
-              typecollsDebt.deleteCollDebt(data[index].id);
-
-              cambioListas.value = !cambioListas.value;
-              Navigator.of(context, rootNavigator: true).pop();
-            });
-          }
-        },
-        icon: const Icon(Icons.refresh_rounded, color: Colors.blue));
   }
 }

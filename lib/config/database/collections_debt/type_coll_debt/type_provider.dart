@@ -8,7 +8,8 @@ import 'type_debt_model.dart';
 
 class DBProviderTypeCollectiosDebt {
   late Database _database;
-  static final DBProviderTypeCollectiosDebt db = DBProviderTypeCollectiosDebt.privado();
+  static final DBProviderTypeCollectiosDebt db =
+      DBProviderTypeCollectiosDebt.privado();
 
   DBProviderTypeCollectiosDebt.privado();
 
@@ -19,29 +20,40 @@ class DBProviderTypeCollectiosDebt {
   }
 
   initDB() async {
-
     String dbPath = await databasePath();
-    
+
     return await openDatabase(dbPath, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('CREATE TABLE TypeCollectionsDebt('
           'id TEXT,'
           'owner TEXT,'
-          'typeDebt TEXT,'
-          'debt TEXT,'
+          'limpio TEXT,'
+          'premio TEXT,'
+          'pierde TEXT,'
+          'gana TEXT,'
           'jornal TEXT,'
           'date TEXT )');
     });
   }
 
-  Future<int> addTypeCollDebt( String id, String owner, String typeDebt, String debt, String jornal, String date ) async {
+  Future<int> addTypeCollDebt(
+      String id,
+      String owner,
+      String limpio,
+      String premio,
+      String pierde,
+      String gana,
+      String jornal,
+      String date) async {
     final db = await database;
 
     final debtColl = {
       'id': id,
       'owner': owner,
-      'typeDebt': typeDebt,
-      'debt': debt,
+      'limpio': limpio,
+      'premio': premio,
+      'pierde': pierde,
+      'gana': gana,
       'jornal': jornal,
       'date': date,
     };
@@ -49,12 +61,14 @@ class DBProviderTypeCollectiosDebt {
     return await db.insert('TypeCollectionsDebt', debtColl);
   }
 
-  Future<List<TypeDebtModel>> getAllCollectionsDebtByOwner( String owner ) async {
+  Future<List<TypeDebtModel>> getAllCollectionsDebtByOwner(String owner) async {
     final db = await database;
-    final res = await db.query('TypeCollectionsDebt', where: 'owner = ?', whereArgs: [owner]);
+    final res = await db
+        .query('TypeCollectionsDebt', where: 'owner = ?', whereArgs: [owner]);
 
-    List<TypeDebtModel> colls =
-        res.isNotEmpty ? res.map((c) => TypeDebtModel.fromJson(c)).toList() : [];
+    List<TypeDebtModel> colls = res.isNotEmpty
+        ? res.map((c) => TypeDebtModel.fromJson(c)).toList()
+        : [];
 
     return colls;
   }
@@ -62,7 +76,8 @@ class DBProviderTypeCollectiosDebt {
   Future<int> collectionDelete(String owner) async {
     final db = await database;
 
-    final res = await db.delete('TypeCollectionsDebt', where: 'owner = ?', whereArgs: [owner]);
+    final res = await db
+        .delete('TypeCollectionsDebt', where: 'owner = ?', whereArgs: [owner]);
 
     return res;
   }
@@ -72,9 +87,8 @@ class DBProviderTypeCollectiosDebt {
     await deleteDatabase(dbPath);
   }
 
-  Future<String> databasePath() async{
+  Future<String> databasePath() async {
     Directory debtDirectorio = await getApplicationDocumentsDirectory();
     return join(debtDirectorio.path, 'TypeCollectionsDebt.db');
   }
-
 }

@@ -14,20 +14,23 @@ class CollectionsDebtBloc {
     getAllColls();
   }
 
-  final _collectionsDebts = StreamController<List<CollectionDebtModel>>.broadcast();
+  final _collectionsDebts =
+      StreamController<List<CollectionDebtModel>>.broadcast();
 
-  Stream<List<CollectionDebtModel>> get listasStream => _collectionsDebts.stream;
+  Stream<List<CollectionDebtModel>> get listasStream =>
+      _collectionsDebts.stream;
 
   getAllColls() async {
-    _collectionsDebts.sink.add(await DBProviderCollectiosDebt.db.getAllCollectionsDebt());
+    _collectionsDebts.sink
+        .add(await DBProviderCollectiosDebt.db.getAllCollectionsDebt());
   }
 
-  Future<bool> getCollByName( String name ) async {
-    return await DBProviderCollectiosDebt.db.verifyByName( name );
+  Future<bool> getCollByName(String name) async {
+    return await DBProviderCollectiosDebt.db.verifyByName(name);
   }
 
-  Future<int> addCollDebt(String uuid, String name, String debt, String percent) async{
-    int res = await DBProviderCollectiosDebt.db.newCollDebt(uuid, name, debt, percent);
+  Future<int> addCollDebt(String uuid, String name) async {
+    int res = await DBProviderCollectiosDebt.db.newCollDebt(uuid, name);
     getAllColls();
     return res;
   }
@@ -37,7 +40,7 @@ class CollectionsDebtBloc {
     getAllColls();
   }
 
-  void deleteFull() async{
+  void deleteFull() async {
     DBProviderCollectiosDebt.db.deleteFullTable();
     getAllColls();
   }
