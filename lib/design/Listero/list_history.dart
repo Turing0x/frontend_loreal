@@ -173,14 +173,17 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
 
     for (var each in list.state) {
       if (each is FijoCorridoModel) {
-        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon0(2),
-            (value) {
-          return {
-            'fijo': value['fijo']! - (each.fijo!),
-            'corrido': value['corrido']! - (each.corrido!),
-            'corrido2': value['corrido2']!,
-          };
-        });
+        if (toBlockIfOutOfLimitFCPC
+            .containsKey(each.numplay.toString().rellenarCon0(2))) {
+          toBlockIfOutOfLimitFCPC
+              .update(each.numplay.toString().rellenarCon0(2), (value) {
+            return {
+              'fijo': value['fijo']! - (each.fijo!),
+              'corrido': value['corrido']! - (each.corrido!),
+              'corrido2': value['corrido2']!,
+            };
+          });
+        }
       }
 
       if (each is MillionModel) {
@@ -193,36 +196,46 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
       }
 
       if (each is PosicionModel) {
-        toBlockIfOutOfLimitFCPC.update(each.numplay.toString().rellenarCon00(2),
-            (value) {
-          return {
-            'fijo': value['fijo']! - each.fijo,
-            'corrido': value['corrido']! - each.corrido,
-            'corrido2': value['corrido2']! - each.corrido2,
-          };
-        });
+        if (toBlockIfOutOfLimitFCPC
+            .containsKey(each.numplay.toString().rellenarCon0(2))) {
+          toBlockIfOutOfLimitFCPC
+              .update(each.numplay.toString().rellenarCon0(2), (value) {
+            return {
+              'fijo': value['fijo']! - each.fijo,
+              'corrido': value['corrido']! - each.corrido,
+              'corrido2': value['corrido2']! - each.corrido2,
+            };
+          });
+        }
       }
 
       if (each is TerminalModel) {
-        toBlockIfOutOfLimitTerminal.update(each.terminal.toString(), (value) {
-          return {
-            'fijo': value['fijo']! - each.fijo,
-            'corrido': value['corrido']! - each.corrido,
-          };
-        });
+        if (toBlockIfOutOfLimitTerminal.containsKey(each.terminal.toString())) {
+          toBlockIfOutOfLimitTerminal.update(each.terminal.toString(), (value) {
+            return {
+              'fijo': value['fijo']! - each.fijo,
+              'corrido': value['corrido']! - each.corrido,
+            };
+          });
+        }
       }
 
       if (each is DecenaModel) {
-        toBlockIfOutOfLimitDecena.update(each.numplay.toString(), (value) {
-          return {
-            'fijo': value['fijo']! - each.fijo,
-            'corrido': value['corrido']! - each.corrido,
-          };
-        });
+        if (toBlockIfOutOfLimitDecena.containsKey(each.numplay.toString())) {
+          toBlockIfOutOfLimitDecena.update(each.numplay.toString(), (value) {
+            return {
+              'fijo': value['fijo']! - each.fijo,
+              'corrido': value['corrido']! - each.corrido,
+            };
+          });
+        }
       }
 
       if (each is CentenasModel) {
-        toBlockIfOutOfLimit.update(each.numplay, (value) => value - each.fijo);
+        if (toBlockIfOutOfLimit.containsKey(each.numplay)) {
+          toBlockIfOutOfLimit.update(
+              each.numplay, (value) => value - each.fijo);
+        }
       }
 
       if (each is ParlesModel) {
@@ -234,9 +247,13 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
         String joined1 =
             '${b.toString().rellenarCon00(2)}${a.toString().rellenarCon00(2)}';
 
-        toBlockIfOutOfLimit.update(joined, (value) => value - each.fijo);
+        if (toBlockIfOutOfLimit.containsKey(joined)) {
+          toBlockIfOutOfLimit.update(joined, (value) => value - each.fijo);
+        }
 
-        toBlockIfOutOfLimit.update(joined1, (value) => value - each.fijo);
+        if (toBlockIfOutOfLimit.containsKey(joined1)) {
+          toBlockIfOutOfLimit.update(joined1, (value) => value - each.fijo);
+        }
       }
 
       if (each is CandadoModel) {
@@ -250,11 +267,15 @@ class _ListsHistoryState extends ConsumerState<ListsHistory> {
           String joined1 =
               '${element[1].toString().rellenarCon00(2)}${element[0].toString().rellenarCon00(2)}';
 
-          toBlockIfOutOfLimit.update(
-              joined, (value) => value - dineroForEachParle);
+          if (toBlockIfOutOfLimit.containsKey(joined)) {
+            toBlockIfOutOfLimit.update(
+                joined, (value) => value - dineroForEachParle);
+          }
 
-          toBlockIfOutOfLimit.update(
-              joined1, (value) => value - dineroForEachParle);
+          if (toBlockIfOutOfLimit.containsKey(joined1)) {
+            toBlockIfOutOfLimit.update(
+                joined1, (value) => value - dineroForEachParle);
+          }
         }
       }
     }
