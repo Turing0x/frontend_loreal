@@ -67,7 +67,7 @@ class _ChangeAccessPassState extends State<ChangeAccessPass> {
                     onPressed: () {
                       final userCtrl = UserControllers();
                       userCtrl.changePass(
-                          actualPass.text, newPass.text, context);
+                          actualPass.text.trim(), newPass.text.trim(), context);
                     })),
             SizedBox(height: MediaQuery.of(context).size.height * 0.12),
             ElevatedButton.icon(
