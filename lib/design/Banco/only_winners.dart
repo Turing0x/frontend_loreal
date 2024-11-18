@@ -258,9 +258,21 @@ class _ShowListState extends State<ShowList> {
                             (data.fijo! + data.corrido!).toDouble(),
                             type: 'd');
                       } else {
-                        groupManager(groupedByNumplay, data.numplay.toString(),
-                            data.dinero!, data.corrido!.toDouble(),
-                            type: 'd');
+                        if (data.numplay.toString().length == 3) {
+                          groupManager(
+                              groupedByNumplay,
+                              data.numplay.toString(),
+                              data.dinero!,
+                              data.fijo!.toDouble(),
+                              type: 'x');
+                        } else {
+                          groupManager(
+                              groupedByNumplay,
+                              data.numplay.toString(),
+                              data.dinero!,
+                              data.corrido!.toDouble(),
+                              type: 'd');
+                        }
                       }
                     }
                   } else {
@@ -412,6 +424,8 @@ class _ShowListState extends State<ShowList> {
       return '${numplay.split('d')[1]} como decena';
     } else if (numplay.contains('t')) {
       return '${numplay.split('t')[1]} como terminal';
+    } else if (numplay.contains('x')) {
+      return '${numplay.split('x')[1]} como centena';
     }
 
     return numplay == fijoAux
@@ -428,7 +442,9 @@ class _ShowListState extends State<ShowList> {
         ? 't$key'
         : (type == 'd')
             ? 'd$key'
-            : key;
+            : (type == 'x')
+                ? 'x$key'
+                : key;
 
     map.putIfAbsent(
         name,

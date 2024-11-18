@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sticker_maker/config/server/http/local_storage.dart';
@@ -53,6 +55,7 @@ class PdfControllers {
       final List<PdfData> data = [];
 
       response.data['data'][0].forEach((value) {
+        print(value);
         final eachData = PdfData.fromJson(value);
         data.add(eachData);
       });
@@ -62,6 +65,7 @@ class PdfControllers {
 
       return data;
     } catch (e) {
+      print(e);
       return [];
     }
   }
