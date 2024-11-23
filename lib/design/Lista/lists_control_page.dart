@@ -124,9 +124,6 @@ class _ListsControlPageState extends ConsumerState<ListsControlPage> {
               widget.userName, janddate.currentDate, janddate.currentJornada);
 
           String result = '';
-          print(widget.userName);
-          print(janddate.currentDate);
-          print(janddate.currentJornada);
           for (PdfData data in pdfData) {
             toPDF.add(InvoiceItemColector(
                 codigo: data.username,

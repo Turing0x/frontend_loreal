@@ -210,10 +210,10 @@ class _ShowListState extends State<ShowList> {
                     icon: Icons.add,
                     onChange: (valor) => (() {})), () {
               if (plusDebtCtrl.text.isNotEmpty) {
-                final typecollsDebt = TypeCollectionsDebtBloc();
+                // final typecollsDebt = TypeCollectionsDebtBloc();
 
-                const uuid = Uuid();
-                String id = uuid.v4();
+                // const uuid = Uuid();
+                // String id = uuid.v4();
 
                 DBProviderCollectiosDebt.db
                     .updateCollDebt(data[index].id, '12');
