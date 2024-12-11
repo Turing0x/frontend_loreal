@@ -74,8 +74,6 @@ ValueNotifier<bool> recargar = ValueNotifier<bool>(true);
 
 ValueNotifier<bool> recargarUserList = ValueNotifier<bool>(true);
 
-ValueNotifier<bool> toEditState = ValueNotifier<bool>(true);
-
 @riverpod
 Future<List<BolaCargadaModel>> getBolaCargadaRiv(
     GetBolaCargadaRivRef ref) async {

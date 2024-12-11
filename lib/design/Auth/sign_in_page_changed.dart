@@ -4,9 +4,7 @@ import 'package:sticker_maker/config/globals/variables.dart';
 import 'package:sticker_maker/config/riverpod/declarations.dart';
 import 'package:sticker_maker/config/server/http/auth.dart';
 import 'package:sticker_maker/config/server/http/local_storage.dart';
-import 'package:sticker_maker/config/utils/biometrics.dart';
 import 'package:sticker_maker/config/utils_exports.dart';
-import 'package:local_auth/local_auth.dart';
 
 class OtherSignInPage extends ConsumerStatefulWidget {
   const OtherSignInPage({super.key});
@@ -153,28 +151,28 @@ class _OtherSignInPageState extends ConsumerState<OtherSignInPage> {
             elevation: 2,
           ),
           onPressed: () async {
-            final LocalAuthentication auth = LocalAuthentication();
+            // final LocalAuthentication auth = LocalAuthentication();
 
-            bool has = await hasBiometrics();
-            if (has) {
-              bool didAuthenticate = await auth.authenticate(
-                  options: const AuthenticationOptions(
-                      biometricOnly: true, stickyAuth: true),
-                  localizedReason: 'Touch your finger on the sensor to login');
+            // bool has = await hasBiometrics();
+            // if (has) {
+            //   bool didAuthenticate = await auth.authenticate(
+            //       options: const AuthenticationOptions(
+            //           biometricOnly: true, stickyAuth: true),
+            //       localizedReason: 'Touch your finger on the sensor to login');
 
-              if (didAuthenticate) {
-                setState(() {
-                  successAuth = true;
-                });
-              }
-            } else {
-              showToast(context, 'Your device does not support biometrics');
-            }
+            //   if (didAuthenticate) {
+            //     setState(() {
+            //       successAuth = true;
+            //     });
+            //   }
+            // } else {
+            //   showToast(context, 'Your device does not support biometrics');
+            // }
 
-            if (!successAuth) {
-              showToast(context, "We couldn't authenticate you");
-              return;
-            }
+            // if (!successAuth) {
+            //   showToast(context, "We couldn't authenticate you");
+            //   return;
+            // }
 
             btnManagerM.state = true;
             FocusScope.of(context).unfocus();
