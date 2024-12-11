@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:sticker_maker/config/globals/variables.dart';
 import 'package:sticker_maker/config/riverpod/declarations.dart';
 import 'package:sticker_maker/config/server/http/local_storage.dart';
+import 'package:sticker_maker/config/utils/biometrics.dart';
 // import 'package:sticker_maker/config/utils/biometrics.dart';
 import 'package:sticker_maker/config/utils_exports.dart';
 import 'package:sticker_maker/design/common/opt_list_tile.dart';
@@ -22,34 +24,34 @@ class _MainBanqueroPageState extends ConsumerState<MainBanqueroPage> {
 
   @override
   void initState() {
-    // final LocalAuthentication auth = LocalAuthentication();
-    // final contex = Navigator.of(context);
+    final LocalAuthentication auth = LocalAuthentication();
+    final contex = Navigator.of(context);
 
-    // if (!isAuthenticatedBiometrics) {
-    //   hasBiometrics().then((value) => {
-    //         if (value)
-    //           {
-    //             auth
-    //                 .authenticate(
-    //                     options: const AuthenticationOptions(
-    //                         biometricOnly: true, stickyAuth: true),
-    //                     localizedReason:
-    //                         'Touch your finger on the sensor to verify the identity')
-    //                 .then((didAuthenticate) {
-    //               if (!didAuthenticate) {
-    //                 isAuthenticatedBiometrics = false;
-    //                 contex.pushNamedAndRemoveUntil(
-    //                     'other_signIn_page', (Route<dynamic> route) => false);
-    //                 return;
-    //               } else {
-    //                 setState(() {
-    //                   isAuthenticatedBiometrics = true;
-    //                 });
-    //               }
-    //             })
-    //           }
-    //       });
-    // }
+    if (!isAuthenticatedBiometrics) {
+      hasBiometrics().then((value) => {
+            if (value)
+              {
+                auth
+                    .authenticate(
+                        options: const AuthenticationOptions(
+                            biometricOnly: true, stickyAuth: true),
+                        localizedReason:
+                            'Touch your finger on the sensor to verify the identity')
+                    .then((didAuthenticate) {
+                  if (!didAuthenticate) {
+                    isAuthenticatedBiometrics = false;
+                    contex.pushNamedAndRemoveUntil(
+                        'other_signIn_page', (Route<dynamic> route) => false);
+                    return;
+                  } else {
+                    setState(() {
+                      isAuthenticatedBiometrics = true;
+                    });
+                  }
+                })
+              }
+          });
+    }
 
     final chUsername = ref.read(chUser.notifier);
     final setIdToSearch = ref.read(idToSearch.notifier);
