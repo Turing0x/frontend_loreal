@@ -251,12 +251,9 @@ class _ShowListState extends State<ShowList> {
                       }
                     } else {
                       if (fijo.startsWith(data.numplay.toString())) {
-                        groupManager(
-                            groupedByNumplay,
-                            data.numplay.toString(),
-                            data.dinero!,
-                            (data.fijo! + data.corrido!).toDouble(),
-                            type: 'd');
+                        groupManager(groupedByNumplay, data.numplay.toString(),
+                            data.dinero!, data.fijo!.toDouble(),
+                            type: 'd', corrido: data.corrido!.toDouble());
                       } else {
                         if (data.numplay.toString().length == 3) {
                           groupManager(
@@ -278,8 +275,8 @@ class _ShowListState extends State<ShowList> {
                   } else {
                     if (fijo.endsWith(data.terminal.toString())) {
                       groupManager(groupedByNumplay, data.terminal.toString(),
-                          data.dinero!, (data.fijo! + data.corrido!).toDouble(),
-                          type: 't');
+                          data.dinero!, data.fijo!.toDouble(),
+                          type: 't', corrido: data.corrido!.toDouble());
                     } else {
                       groupManager(groupedByNumplay, data.terminal.toString(),
                           data.dinero!, data.corrido!.toDouble(),
@@ -294,7 +291,8 @@ class _ShowListState extends State<ShowList> {
                   return ByNumber(
                       numplay: entry.key,
                       fijo: entry.value.fijo,
-                      dinero: entry.value.dinero);
+                      dinero: entry.value.dinero,
+                      corrido: entry.value.corrido);
                 }).toList();
 
                 premio = listByNumplay.fold(
@@ -360,10 +358,25 @@ class _ShowListState extends State<ShowList> {
                                                 getName(listByNumplay[index]
                                                     .numplay),
                                                 22),
-                                            subtitle: textoDosis(
-                                                'Dinero: ${listByNumplay[index].fijo.toStringAsFixed(2).replaceAll('.00', '')}',
-                                                20,
-                                                fontWeight: FontWeight.bold),
+                                            subtitle: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                textoDosis(
+                                                    '${listByNumplay[index].corrido > 0 ? 'Fijo' : 'Dinero'}: ${listByNumplay[index].fijo.toStringAsFixed(2).replaceAll('.00', '')}',
+                                                    20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                (listByNumplay[index].corrido >
+                                                        0)
+                                                    ? textoDosis(
+                                                        'Corrido: ${listByNumplay[index].corrido.toStringAsFixed(2).replaceAll('.00', '')}',
+                                                        20,
+                                                        fontWeight:
+                                                            FontWeight.bold)
+                                                    : Container()
+                                              ],
+                                            ),
                                             trailing: textoDosis(
                                                 listByNumplay[index]
                                                     .dinero
@@ -437,7 +450,7 @@ class _ShowListState extends State<ShowList> {
 
   void groupManager(
       Map<String, ByNumber> map, String key, int dinero, double fijo,
-      {String? type = ''}) {
+      {double? corrido = 0, String? type = ''}) {
     String name = (type == 't')
         ? 't$key'
         : (type == 'd')
@@ -451,6 +464,7 @@ class _ShowListState extends State<ShowList> {
         () => ByNumber(
               numplay: name,
               fijo: 0,
+              corrido: 0,
               dinero: 0,
             ));
 
@@ -459,6 +473,7 @@ class _ShowListState extends State<ShowList> {
         (value) => value.copyWith(
               dinero: value.dinero + dinero,
               fijo: value.fijo + fijo,
+              corrido: value.corrido + corrido!,
             ));
   }
 
@@ -540,13 +555,20 @@ class ByNumber {
   final String numplay;
   final double fijo;
   final int dinero;
+  final double corrido;
 
-  ByNumber({required this.numplay, required this.fijo, required this.dinero});
+  ByNumber(
+      {required this.numplay,
+      required this.fijo,
+      required this.dinero,
+      required this.corrido});
 
-  ByNumber copyWith({String? numplay, double? fijo, int? dinero}) {
+  ByNumber copyWith(
+      {String? numplay, double? fijo, int? dinero, double? corrido}) {
     return ByNumber(
         numplay: numplay ?? this.numplay,
         fijo: fijo ?? this.fijo,
-        dinero: dinero ?? this.dinero);
+        dinero: dinero ?? this.dinero,
+        corrido: corrido ?? this.corrido);
   }
 }
